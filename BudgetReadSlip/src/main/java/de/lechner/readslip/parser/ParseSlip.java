@@ -9,6 +9,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.regex.Pattern;
 
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -26,7 +28,7 @@ public class ParseSlip {
 		List <String >splited  = scanner (text);
 		List list =parser(splited);
 		ausgabe(list);
-		getVategorieByName("Käse");
+		//getVategorieByName("Käse");
 		checkBon(list);
 		
 		
@@ -78,45 +80,59 @@ public class ParseSlip {
 		RestTemplate restTemplate = new RestTemplate();
 		Bon bon = new Bon();
 		for (int i = 0; i < list.size(); i++) {
+			bon.setId(0);
 			bon.setCompany("Netto");
 			bon.setRawname(list.get(i).getName());
 			bon.setInternalname("unknown");
 			bon.setRawnameMutant(list.get(i).getName());
 			String ppp=list.get(i).getName();
 			String ggg=  URLEncoder.encode(ppp, StandardCharsets.UTF_8);
+			
 			UriComponents uriComponents = UriComponentsBuilder.newInstance()
 				      .scheme("http").host("localhost").port(8080).path("/bon_by_rawname/"+ggg).build();
-			System.out.println(uriComponents.toUriString());
-			String bonByRenameurl=uriComponents.toUriString();
-
+			
+			String bonByRenameurl=uriComponents.toUriString().replace("+", "%20");
+			System.out.println(bonByRenameurl);
+       
 			ResponseEntity<Bon> response = restTemplate.getForEntity(bonByRenameurl, Bon.class);
+			//ResponseEntity<Bon> response = restTemplate.getForEntity("http://localhost:8080/bon_by_rawname/Leerd", Bon.class);
+				  
+			
 			if (response.hasBody()) {
 				bon = response.getBody();
 				System.out.println(bon.getInternalname());
 
 				if (bon.getInternalname().equals("unknown")) {
-					insertTransaction(list.get(i), "unknown");// unknown
+					insertTransaction(list.get(i), "unknown",false);// unknown
 				} else {
-					insertTransaction(list.get(i), bon.getInternalname()); // full
+					insertTransaction(list.get(i), bon.getInternalname(),true); // full
 				}
 
 			} else {
 				String bonUrl = "http://localhost:8080/bon";
 
-				System.out.println("bon not found!!");
+				System.out.println("Bon not found!! ");
+				System.out.println("Insert Bon "+bon.getRawnameMutant());
 				restTemplate.postForEntity(bonUrl, bon, Bon.class);
-				insertTransaction(list.get(i), "unknown"); // unknown
+				insertTransaction(list.get(i), "unknown",false); // unknown
 			}
 		}
 	}
 	
-	private void insertTransaction(SlipEntry slen,String name)
+	private void insertTransaction(SlipEntry slen,String name,boolean foundName)
 	{
 		Transaction trans = new Transaction();
 		  Date date = Calendar.getInstance().getTime(); 
 		  String uri = "http://localhost:8080/transaction";
 		  RestTemplate restTemplate = new RestTemplate();
+		if  (foundName)
+		{
+			trans.setName(name);
+		}
+		else
+		{
 		trans.setName(slen.getName());
+		}
 		trans.setBeschreibung("");
 		trans.setCycle(0);
 		trans.setKonto_id(9);//TODO hardcoded Konto
@@ -124,28 +140,29 @@ public class ParseSlip {
 		trans.setPartner("");
 		trans.setPlaned("N");
 		trans.setDatum(new SimpleDateFormat("yyyy-MM-dd").format(date));
+		System.out.println(new SimpleDateFormat("yyyy-MM-dd").format(date));
 		trans.setWert(new Double(slen.getSum().replace(',', '.')));
-		if (name.equals("unknown"))
+		if (! foundName)
 		{
 			trans.setKategorie(-1);
 		}
 		else
 		{
-			trans.setKategorie(new Integer (getVategorieByName("name")));
+			trans.setKategorie(new Integer (getKategorieByName(name)));
 		}
-		System.out.println("Insert Transaction!");
+		System.out.println("Insert Transaction! " + trans.getDatum());
 		restTemplate.postForEntity(uri,trans, Transaction.class);
 		
 		
 	}
 	
-	private static String getVategorieByName(String name)
+	private static String getKategorieByName(String name)
 	{
 	    final String uri = "http://localhost:8080/transaction_get_kategorie_byname/"+name;
 
 	    RestTemplate restTemplate = new RestTemplate();
 	    String result = restTemplate.getForObject(uri, String.class);
-	    System.out.println(result);
+	    System.out.println("Kategorie = " + result);
 	    return result;
 	}
 	

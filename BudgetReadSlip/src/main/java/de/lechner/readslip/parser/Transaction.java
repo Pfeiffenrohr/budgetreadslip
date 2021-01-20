@@ -86,7 +86,7 @@ public class Transaction {
 		this.wert = wert;
 	}
 	public String getDatum() {
-		return   new SimpleDateFormat("yyyy-mm-dd").format(datum);
+		return   new SimpleDateFormat("yyyy-MM-dd").format(datum);
 	}
 	public void setDatum(String datum) {
 		try {
