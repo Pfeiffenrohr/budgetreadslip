@@ -137,7 +137,7 @@ public class ParseSlip {
 		trans.setCycle(0);
 		trans.setKonto_id(9);//TODO hardcoded Konto
 		trans.setKor_id(0);
-		trans.setPartner("");
+		trans.setPartner("Netto");
 		trans.setPlaned("N");
 		trans.setDatum(new SimpleDateFormat("yyyy-MM-dd").format(date));
 		System.out.println(new SimpleDateFormat("yyyy-MM-dd").format(date));
@@ -156,14 +156,20 @@ public class ParseSlip {
 		
 	}
 	
-	private static String getKategorieByName(String name)
+	private static String getKategorieByName(String name)//TODO Methode gibt es 2 Mal
 	{
 	    final String uri = "http://localhost:8080/transaction_get_kategorie_byname/"+name;
 
 	    RestTemplate restTemplate = new RestTemplate();
 	    String result = restTemplate.getForObject(uri, String.class);
-	    System.out.println("Kategorie = " + result);
-	    return result;
+	    if (result==null ||result.equals(""))
+	    {
+	    	return "-1";
+	    }
+	    String res [] =result.split(",");
+	    String kat=res[1];
+	    System.out.println("Kategorie = " + kat);
+	    return kat;
 	}
 	
 	

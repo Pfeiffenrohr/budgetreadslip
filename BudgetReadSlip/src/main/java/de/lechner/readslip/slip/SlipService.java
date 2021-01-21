@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import de.lechner.readslip.parser.ParseSlip;
+import de.lechner.readslip.transaction.UpdateTransactions;
 import net.sourceforge.tess4j.Tesseract;
 import net.sourceforge.tess4j.TesseractException;
 
@@ -19,11 +20,19 @@ public class SlipService {
 	
 	@Autowired
 	private ParseSlip parseslip;
+	
+	@Autowired
+	private UpdateTransactions uodateTrans;
 		
 	public void handleSlip()
 	{
 		String txt = readSlip();
 		parseslip.analyse(txt);
+	}
+	
+	public void updateOldTransactions()
+	{
+		uodateTrans.update();
 	}
 		
 	private String readSlip() {
