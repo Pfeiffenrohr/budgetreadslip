@@ -1,13 +1,13 @@
-package de.lechner.readslip.slip;
+package de.lechner.readslip.bon;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class SlipController {
+public class BonController {
 	@Autowired
-	SlipService rs;
+	BonService rs;
 
 	@GetMapping(value = "/netto")
 	public String netto() {

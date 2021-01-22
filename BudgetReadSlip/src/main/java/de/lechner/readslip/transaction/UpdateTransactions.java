@@ -15,8 +15,9 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import de.lechner.readslip.bon.Bon;
+import de.lechner.readslip.infrastructure.Infrastructure;
 import de.lechner.readslip.parser.Transaction;
-import de.lechner.readslip.slip.Bon;
 
 @Service
 public class UpdateTransactions {
@@ -32,13 +33,13 @@ public class UpdateTransactions {
 
 		List<Transaction> list = new ArrayList<Transaction>();
 		RestTemplate restTemplate = new RestTemplate();
-		UriComponents uriComponents = UriComponentsBuilder.newInstance().scheme("http").host("localhost").port(8080)
+		UriComponents uriComponents = UriComponentsBuilder.newInstance().scheme("http").host("localhost").port(8092)
 				.path("/transaction_by_kategorie/-1").build();
 		String bonByRenameurl = uriComponents.toUriString();
 		System.out.println(bonByRenameurl);
 		ResponseEntity<Transaction[]> response = restTemplate.getForEntity(bonByRenameurl, Transaction[].class);
 		// ResponseEntity<Bon> response =
-		// restTemplate.getForEntity("http://localhost:8080/bon_by_rawname/Leerd",
+		// restTemplate.getForEntity("http://localhost:8092/bon_by_rawname/Leerd",
 		// Bon.class);
 
 		if (response.hasBody()) {
@@ -59,7 +60,7 @@ public class UpdateTransactions {
 			String name = trans.getName();
 			// schau nun, ob es den Namen schon gibt
 			String ggg=  URLEncoder.encode(name, StandardCharsets.UTF_8);
-			UriComponents uriComponents = UriComponentsBuilder.newInstance().scheme("http").host("localhost").port(8080)
+			UriComponents uriComponents = UriComponentsBuilder.newInstance().scheme("http").host("localhost").port(8092)
 					.path("/bon_by_rawname/" + ggg).build();
 
 			String bonByRenameurl = uriComponents.toUriString().replace("+", "%20");
@@ -67,7 +68,7 @@ public class UpdateTransactions {
 
 			ResponseEntity<Bon> response = restTemplate.getForEntity(bonByRenameurl, Bon.class);
 			// ResponseEntity<Bon> response =
-			// restTemplate.getForEntity("http://localhost:8080/bon_by_rawname/Leerd",
+			// restTemplate.getForEntity("http://localhost:8092/bon_by_rawname/Leerd",
 			// Bon.class);
 
 			if (response.hasBody()) {
@@ -77,10 +78,10 @@ public class UpdateTransactions {
 					System.out.println("Name = "+bon.getInternalname());
 					// Update nun die Transaktion
 					trans.setName(bon.getInternalname());
-					trans.setKategorie(new Integer(getKategorieByName(bon.getInternalname())));
+					trans.setKategorie(new Integer(Infrastructure.getKategorieByName(bon.getInternalname())));
 					//String id = trans.getId().toString();
 					System.out.println("Kategorie = "+trans.getKategorie());
-					UriComponents uri = UriComponentsBuilder.newInstance().scheme("http").host("localhost").port(8080)
+					UriComponents uri = UriComponentsBuilder.newInstance().scheme("http").host("localhost").port(8092)
 							.path("/transaction").build();
 
 					String transByRenameurl = uri.toUriString().replace("+", "%20");
@@ -98,23 +99,5 @@ public class UpdateTransactions {
 			}
 		}
 	}
-	private static String getKategorieByName(String name)
-	{
-		String ggg=  URLEncoder.encode(name, StandardCharsets.UTF_8);
-		UriComponents uriComponents = UriComponentsBuilder.newInstance().scheme("http").host("localhost").port(8080)
-				.path("/transaction_get_kategorie_byname/" + ggg).build();
-
-		String bonByRenameurl = uriComponents.toUriString().replace("+", "%20");
-        System.out.println(bonByRenameurl);   
-	    RestTemplate restTemplate = new RestTemplate();
-	    String result = restTemplate.getForObject(bonByRenameurl, String.class);
-	    if (result==null || result.equals(""))
-	    {
-	    	return "-1";
-	    }
-	    String res [] =result.split(",");
-	    String kat=res[1];
-	    System.out.println("Kategorie = " + kat);
-	    return kat;
-	}
+	
 }

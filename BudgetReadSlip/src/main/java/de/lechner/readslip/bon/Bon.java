@@ -1,4 +1,4 @@
-package de.lechner.readslip.slip;
+package de.lechner.readslip.bon;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;

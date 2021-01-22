@@ -1,4 +1,4 @@
-package de.lechner.readslip.slip;
+package de.lechner.readslip.bon;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -14,9 +14,9 @@ import net.sourceforge.tess4j.Tesseract;
 import net.sourceforge.tess4j.TesseractException;
 
 @Service
-public class SlipService {
+public class BonService {
 	@Autowired
-	private SlipRepository slipRepository;
+	private BonRepository slipRepository;
 	
 	@Autowired
 	private ParseSlip parseslip;
@@ -36,7 +36,7 @@ public class SlipService {
 	}
 		
 	private String readSlip() {
-		String datName = "T:\\tmp\\netto.txt";
+		String datName = "T:\\tmp\\netto2.txt";
 		String txt ="";
 
         File file = new File(datName);

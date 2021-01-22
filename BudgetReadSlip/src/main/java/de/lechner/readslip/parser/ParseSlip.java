@@ -18,7 +18,8 @@ import org.springframework.web.util.UriBuilder;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import de.lechner.readslip.slip.Bon;
+import de.lechner.readslip.bon.Bon;
+import de.lechner.readslip.infrastructure.Infrastructure;
 
 @Service
 public class ParseSlip {
@@ -45,7 +46,6 @@ public class ParseSlip {
 				continue;
 			}
 			list.add(splited[i]);
-			System.out.println(">"+splited[i] +"<" );
 		}
 		return list;
 		
@@ -69,6 +69,10 @@ public class ParseSlip {
 		    {
 		    	continue;
 		    }
+		    if (splited[0].trim().startsWith("-"))
+		    {
+		    	continue;
+		    }
 		    slen.setName(name);
 		    list.add(slen);
 		}
@@ -89,13 +93,13 @@ public class ParseSlip {
 			String ggg=  URLEncoder.encode(ppp, StandardCharsets.UTF_8);
 			
 			UriComponents uriComponents = UriComponentsBuilder.newInstance()
-				      .scheme("http").host("localhost").port(8080).path("/bon_by_rawname/"+ggg).build();
+				      .scheme("http").host("localhost").port(8092).path("/bon_by_rawname/"+ggg).build();
 			
 			String bonByRenameurl=uriComponents.toUriString().replace("+", "%20");
 			System.out.println(bonByRenameurl);
        
 			ResponseEntity<Bon> response = restTemplate.getForEntity(bonByRenameurl, Bon.class);
-			//ResponseEntity<Bon> response = restTemplate.getForEntity("http://localhost:8080/bon_by_rawname/Leerd", Bon.class);
+			//ResponseEntity<Bon> response = restTemplate.getForEntity("http://localhost:8092/bon_by_rawname/Leerd", Bon.class);
 				  
 			
 			if (response.hasBody()) {
@@ -109,7 +113,7 @@ public class ParseSlip {
 				}
 
 			} else {
-				String bonUrl = "http://localhost:8080/bon";
+				String bonUrl = "http://localhost:8092/bon";
 
 				System.out.println("Bon not found!! ");
 				System.out.println("Insert Bon "+bon.getRawnameMutant());
@@ -123,7 +127,7 @@ public class ParseSlip {
 	{
 		Transaction trans = new Transaction();
 		  Date date = Calendar.getInstance().getTime(); 
-		  String uri = "http://localhost:8080/transaction";
+		  String uri = "http://localhost:8092/transaction";
 		  RestTemplate restTemplate = new RestTemplate();
 		if  (foundName)
 		{
@@ -141,14 +145,14 @@ public class ParseSlip {
 		trans.setPlaned("N");
 		trans.setDatum(new SimpleDateFormat("yyyy-MM-dd").format(date));
 		System.out.println(new SimpleDateFormat("yyyy-MM-dd").format(date));
-		trans.setWert(new Double(slen.getSum().replace(',', '.')));
+		trans.setWert(new Double(slen.getSum().replace(',', '.'))*-1);
 		if (! foundName)
 		{
 			trans.setKategorie(-1);
 		}
 		else
 		{
-			trans.setKategorie(new Integer (getKategorieByName(name)));
+			trans.setKategorie(new Integer (Infrastructure.getKategorieByName(name)));
 		}
 		System.out.println("Insert Transaction! " + trans.getDatum());
 		restTemplate.postForEntity(uri,trans, Transaction.class);
@@ -156,22 +160,7 @@ public class ParseSlip {
 		
 	}
 	
-	private static String getKategorieByName(String name)//TODO Methode gibt es 2 Mal
-	{
-	    final String uri = "http://localhost:8080/transaction_get_kategorie_byname/"+name;
 
-	    RestTemplate restTemplate = new RestTemplate();
-	    String result = restTemplate.getForObject(uri, String.class);
-	    if (result==null ||result.equals(""))
-	    {
-	    	return "-1";
-	    }
-	    String res [] =result.split(",");
-	    String kat=res[1];
-	    System.out.println("Kategorie = " + kat);
-	    return kat;
-	}
-	
 	
 	private void ausgabe(List<SlipEntry> list ) {
 		System.out.println("Ausgabe");
