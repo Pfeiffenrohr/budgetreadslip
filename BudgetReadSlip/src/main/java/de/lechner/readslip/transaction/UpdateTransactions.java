@@ -5,6 +5,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -21,6 +22,10 @@ import de.lechner.readslip.parser.Transaction;
 
 @Service
 public class UpdateTransactions {
+	@Value("${budgetserver.host}")
+	private String host;
+	@Value("${budgetserver.port}")
+	private String port;
 
 	public void update() {
 
@@ -33,7 +38,7 @@ public class UpdateTransactions {
 
 		List<Transaction> list = new ArrayList<Transaction>();
 		RestTemplate restTemplate = new RestTemplate();
-		UriComponents uriComponents = UriComponentsBuilder.newInstance().scheme("http").host("localhost").port(8092)
+		UriComponents uriComponents = UriComponentsBuilder.newInstance().scheme("http").host(host).port(port)
 				.path("/transaction_by_kategorie/-1").build();
 		String bonByRenameurl = uriComponents.toUriString();
 		System.out.println(bonByRenameurl);
@@ -60,7 +65,7 @@ public class UpdateTransactions {
 			String name = trans.getName();
 			// schau nun, ob es den Namen schon gibt
 			String ggg=  URLEncoder.encode(name, StandardCharsets.UTF_8);
-			UriComponents uriComponents = UriComponentsBuilder.newInstance().scheme("http").host("localhost").port(8092)
+			UriComponents uriComponents = UriComponentsBuilder.newInstance().scheme("http").host(host).port(port)
 					.path("/bon_by_rawname/" + ggg).build();
 
 			String bonByRenameurl = uriComponents.toUriString().replace("+", "%20");
@@ -78,10 +83,10 @@ public class UpdateTransactions {
 					System.out.println("Name = "+bon.getInternalname());
 					// Update nun die Transaktion
 					trans.setName(bon.getInternalname());
-					trans.setKategorie(new Integer(Infrastructure.getKategorieByName(bon.getInternalname())));
+					trans.setKategorie(new Integer(Infrastructure.getKategorieByName(bon.getInternalname(),host,port)));
 					//String id = trans.getId().toString();
 					System.out.println("Kategorie = "+trans.getKategorie());
-					UriComponents uri = UriComponentsBuilder.newInstance().scheme("http").host("localhost").port(8092)
+					UriComponents uri = UriComponentsBuilder.newInstance().scheme("http").host(host).port(port)
 							.path("/transaction").build();
 
 					String transByRenameurl = uri.toUriString().replace("+", "%20");

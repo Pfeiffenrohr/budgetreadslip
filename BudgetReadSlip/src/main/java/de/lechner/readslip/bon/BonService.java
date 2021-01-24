@@ -36,7 +36,7 @@ public class BonService {
 	}
 		
 	private String readSlip() {
-		String datName = "T:\\tmp\\netto2.txt";
+		String datName = "Z:\\tmp\\netto3.txt";
 		String txt ="";
 
         File file = new File(datName);

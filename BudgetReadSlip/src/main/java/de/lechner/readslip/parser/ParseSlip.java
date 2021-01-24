@@ -9,6 +9,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.regex.Pattern;
 
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,8 +23,13 @@ import org.springframework.web.util.UriComponentsBuilder;
 import de.lechner.readslip.bon.Bon;
 import de.lechner.readslip.infrastructure.Infrastructure;
 
+
 @Service
 public class ParseSlip {
+	@Value("${budgetserver.host}")
+	private String host;
+	@Value("${budgetserver.port}")
+	private String port;
 	
 	public void analyse(String text) {
 		
@@ -45,6 +52,7 @@ public class ParseSlip {
 			{
 				continue;
 			}
+			
 			list.add(splited[i]);
 		}
 		return list;
@@ -73,15 +81,27 @@ public class ParseSlip {
 		    {
 		    	continue;
 		    }
+		    
+		    if (splited.length>1 && splited[1].trim().equals("x"))
+		    {
+		    	continue;
+		    } 
+		    
+		    if ( splited.length>2 && splited[2].equals("Rabatt"))
+		    {
+		    	name="Coupon";
+		    }
+		   
 		    slen.setName(name);
 		    list.add(slen);
 		}
 		//Ausgabe
 	return list;
 	}
-	
+	 
 	private void checkBon( List  <SlipEntry> list ) {
 		RestTemplate restTemplate = new RestTemplate();
+		
 		Bon bon = new Bon();
 		for (int i = 0; i < list.size(); i++) {
 			bon.setId(0);
@@ -93,7 +113,7 @@ public class ParseSlip {
 			String ggg=  URLEncoder.encode(ppp, StandardCharsets.UTF_8);
 			
 			UriComponents uriComponents = UriComponentsBuilder.newInstance()
-				      .scheme("http").host("localhost").port(8092).path("/bon_by_rawname/"+ggg).build();
+				      .scheme("http").host(host).port(port).path("/bon_by_rawname/"+ggg).build();
 			
 			String bonByRenameurl=uriComponents.toUriString().replace("+", "%20");
 			System.out.println(bonByRenameurl);
@@ -113,8 +133,10 @@ public class ParseSlip {
 				}
 
 			} else {
-				String bonUrl = "http://localhost:8092/bon";
-
+				//String bonUrl = "http://localhost:8092/bon";
+				 uriComponents = UriComponentsBuilder.newInstance()
+					      .scheme("http").host(host).port(port).path("/bon").build();
+				 String bonUrl=uriComponents.toUriString();
 				System.out.println("Bon not found!! ");
 				System.out.println("Insert Bon "+bon.getRawnameMutant());
 				restTemplate.postForEntity(bonUrl, bon, Bon.class);
@@ -127,7 +149,10 @@ public class ParseSlip {
 	{
 		Transaction trans = new Transaction();
 		  Date date = Calendar.getInstance().getTime(); 
-		  String uri = "http://localhost:8092/transaction";
+		 // String uri = "http://localhost:8092/transaction";
+		  UriComponents uriComponents = UriComponentsBuilder.newInstance()
+			      .scheme("http").host(host).port(port).path("/transaction").build();
+		 String uri=uriComponents.toUriString();
 		  RestTemplate restTemplate = new RestTemplate();
 		if  (foundName)
 		{
@@ -152,7 +177,7 @@ public class ParseSlip {
 		}
 		else
 		{
-			trans.setKategorie(new Integer (Infrastructure.getKategorieByName(name)));
+			trans.setKategorie(new Integer (Infrastructure.getKategorieByName(name,host,port)));
 		}
 		System.out.println("Insert Transaction! " + trans.getDatum());
 		restTemplate.postForEntity(uri,trans, Transaction.class);
