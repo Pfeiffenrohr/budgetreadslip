@@ -10,10 +10,12 @@ import java.util.List;
 import java.util.regex.Pattern;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriBuilder;
@@ -25,12 +27,14 @@ import de.lechner.readslip.infrastructure.Infrastructure;
 
 
 @Service
+@Component
 public class ParseSlip {
 	@Value("${budgetserver.host}")
 	private String host;
 	@Value("${budgetserver.port}")
 	private String port;
 	
+
 	public void analyse(String text) {
 		
 		List <String >splited  = scanner (text);
