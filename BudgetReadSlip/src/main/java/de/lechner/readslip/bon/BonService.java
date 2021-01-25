@@ -42,7 +42,7 @@ public class BonService {
 	}
 		
 	private String readSlip() {
-		String datName = "T:\\tmp\\netto.txt";
+		String datName = "Z:\\tmp\\netto.txt";
 		String txt ="";
 
         File file = new File(datName);
@@ -77,12 +77,12 @@ public class BonService {
                     SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss");
                     Timestamp timestamp = new Timestamp(System.currentTimeMillis());
                     //
-                    File theDir = new File("T:\\tmp\\oldNettoFiles");
+                    File theDir = new File("Z:\\tmp\\oldNettoFiles");
                     if (!theDir.exists()){
                         theDir.mkdirs();
                     }
                     System.out.println("Timestamp=" +timestamp);
-                    if(file.renameTo(new File("T:\\tmp\\oldNettoFiles\\" + file.getName()+" "+sdf.format(timestamp)))){
+                    if(file.renameTo(new File("Z:\\tmp\\oldNettoFiles\\" + file.getName()+" "+sdf.format(timestamp)))){
                   //  if (file.renameTo(new File("T:\\\\tmp\\oldNettoFiles\\gemoved.txt"))) {
                         System.out.println("File is moved successful!");
                        }else{

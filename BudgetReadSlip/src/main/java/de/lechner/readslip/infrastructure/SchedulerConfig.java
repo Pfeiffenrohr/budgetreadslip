@@ -1,4 +1,4 @@
-package de.lechner.readslip.bon;
+package de.lechner.readslip.infrastructure;
 
 import java.io.IOException;
 import java.util.Properties;
@@ -60,7 +60,7 @@ public class SchedulerConfig {
  @Bean
  public JobDetailFactoryBean simpleJobDetail() {
   JobDetailFactoryBean factoryBean = new JobDetailFactoryBean();
-  factoryBean.setJobClass(SimpleJob.class);
+  factoryBean.setJobClass(ReadJob.class);
   factoryBean.setDurability(true);
   return factoryBean;
  }

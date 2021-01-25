@@ -1,4 +1,4 @@
-package de.lechner.readslip.bon;
+package de.lechner.readslip.infrastructure;
 
 import org.quartz.spi.TriggerFiredBundle;
 import org.springframework.beans.factory.config.AutowireCapableBeanFactory;
