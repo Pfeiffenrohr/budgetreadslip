@@ -1,4 +1,4 @@
-package de.lechner.readslip.bon;
+package de.lechner.readslip.infrastructure;
 
 
 import java.util.Date;
@@ -6,11 +6,13 @@ import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import de.lechner.readslip.readfile.BonServiceReadFile;
+
 @Service
 public class BonReadServiceCron {
 	
 	@Autowired
-	BonService bonService; 
+	BonServiceReadFile bonService; 
 	
 	 public void sayHello() {
 	        System.out.println("Execute readBon " + new Date());
@@ -19,4 +21,9 @@ public class BonReadServiceCron {
 	 public void readBon() {
 		 bonService.handleSlip();
 	 }
+	 
+	 public void updateTrancaction() {
+		 bonService.updateOldTransactions();
+	 }
+	
 }	 

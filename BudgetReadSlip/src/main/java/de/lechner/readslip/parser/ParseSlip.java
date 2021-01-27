@@ -52,7 +52,7 @@ public class ParseSlip {
 		
 		for (int i=0; i< splited.length; i++)
 		{
-			if (! splited[i].contains("€"))
+			if (! splited[i].contains("€") && ! splited[i].contains("{"))//TODO workaround
 			{
 				continue;
 			}

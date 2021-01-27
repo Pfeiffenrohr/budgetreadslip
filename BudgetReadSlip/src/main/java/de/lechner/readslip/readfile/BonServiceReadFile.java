@@ -1,4 +1,4 @@
-package de.lechner.readslip.bon;
+package de.lechner.readslip.readfile;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -8,6 +8,7 @@ import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import de.lechner.readslip.parser.ParseSlip;
@@ -15,7 +16,12 @@ import de.lechner.readslip.transaction.UpdateTransactions;
 
 
 @Service
-public class BonService {
+public class BonServiceReadFile {
+	
+	 @Value("${budget.inputdir}") 
+	 String inputdir;
+	 @Value("${budget.filename}") 
+	 String companies [];
 	/*@Autowired
 	private BonRepository slipRepository;*/
 	
@@ -23,30 +29,31 @@ public class BonService {
 	private ParseSlip parseslip;
 	
 	@Autowired
-	private UpdateTransactions uodateTrans;
+	private UpdateTransactions updateTrans;
 		
 	public void handleSlip()
-	{
-		String txt = readSlip();
-		if (txt.equals("File not found"))
-		{
-			System.out.println("File not found!");
-			return;
+	{	
+		for (int i = 0; i < companies.length; i++) {			
+			String txt = readSlip(companies[i] + ".txt");
+			if (txt.equals("File not found")) {
+				System.out.println("File not found! "+ companies[i]);
+				continue;
+			}
+			parseslip.analyse(txt, companies[i]);
 		}
-		parseslip.analyse(txt);
 	}
-	
+
 	public void updateOldTransactions()
 	{
-		uodateTrans.update();
+		updateTrans.update();
 	}
 		
-	private String readSlip() {
-		String datName = "Z:\\tmp\\netto.txt";
+	private String readSlip(String filename) {
+		 
+		String datName = inputdir+filename;
 		String txt ="";
 
         File file = new File(datName);
-         
         if (! file.exists()) {
         	return "File not found";
         }
@@ -74,15 +81,15 @@ public class BonService {
             if (in != null)
                 try {
                     in.close();
-                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss");
+                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd-HH.mm.ss");
                     Timestamp timestamp = new Timestamp(System.currentTimeMillis());
                     //
-                    File theDir = new File("Z:\\tmp\\oldNettoFiles");
+                    File theDir = new File(inputdir+filename+"Files");
                     if (!theDir.exists()){
                         theDir.mkdirs();
                     }
-                    System.out.println("Timestamp=" +timestamp);
-                    if(file.renameTo(new File("Z:\\tmp\\oldNettoFiles\\" + file.getName()+" "+sdf.format(timestamp)))){
+                    // System.out.println("Move fiel to "+inputdir+filename+"Files/"+ file.getName()+"-"+sdf.format(timestamp));
+                    if(file.renameTo(new File(inputdir+filename+"Files/"+ file.getName()+"-"+sdf.format(timestamp)))){
                   //  if (file.renameTo(new File("T:\\\\tmp\\oldNettoFiles\\gemoved.txt"))) {
                         System.out.println("File is moved successful!");
                        }else{

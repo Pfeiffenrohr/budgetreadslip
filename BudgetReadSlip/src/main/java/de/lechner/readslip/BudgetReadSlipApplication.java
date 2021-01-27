@@ -3,7 +3,7 @@ package de.lechner.readslip;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import de.lechner.readslip.bon.ReadJob;
+import de.lechner.readslip.infrastructure.UpdateJob;
 
 import org.quartz.CronScheduleBuilder;
 import org.quartz.JobBuilder;
