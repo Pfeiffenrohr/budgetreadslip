@@ -1,10 +1,17 @@
 package transformmail;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.Writer;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.io.FileWriter;   // Import the FileWriter class
+
 
 
 
@@ -28,10 +35,26 @@ public class Transform {
 		      myWriter.write(content);
 		      myWriter.close();
 		      System.out.println("Successfully wrote to the file. " +filename);
+		      /*File file = new File(filename);
+				 BufferedWriter output = null;
+		         output = new BufferedWriter(new FileWriter(file));
+		         output.write(content);
+		         output.close();*/
+		       
+		       /*  Writer out = new BufferedWriter(new OutputStreamWriter(
+		        		    new FileOutputStream("outfilename"), "UTF-8"));
+		        		try {
+		        		    out.write(aString);
+		        		} finally {
+		        		    out.close();*/
+		         
+		         System.out.println("Successfully wrote to the file. " +filename);
+			
 		    } catch (IOException e) {
 		      System.out.println("An error occurred.");
 		      e.printStackTrace();
 		    }
+		
 	}
 	
 	private String parseFile(String txt)
@@ -73,7 +96,7 @@ public class Transform {
 				summe = summe.substring(0, summe.indexOf("<"));
 			}
 			//System.out.println("Summe =" + summe);
-			content=content +summe+" €\n";
+			content=content +summe+" { \n";
 			count++;
 			if (count >= splited.length) return content;
 		}
