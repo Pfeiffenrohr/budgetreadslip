@@ -35,13 +35,13 @@ public class ParseSlip {
 	private String port;
 	
 
-	public void analyse(String text) {
+	public void analyse(String text,String company) {
 		
 		List <String >splited  = scanner (text);
 		List list =parser(splited);
 		ausgabe(list);
 		//getVategorieByName("Käse");
-		checkBon(list);
+		checkBon(list,company);
 		
 		
 	}
@@ -103,13 +103,13 @@ public class ParseSlip {
 	return list;
 	}
 	 
-	private void checkBon( List  <SlipEntry> list ) {
+	private void checkBon( List  <SlipEntry> list,String company ) {
 		RestTemplate restTemplate = new RestTemplate();
 		
 		Bon bon = new Bon();
 		for (int i = 0; i < list.size(); i++) {
 			bon.setId(0);
-			bon.setCompany("Netto");
+			bon.setCompany(company);
 			bon.setRawname(list.get(i).getName());
 			bon.setInternalname("unknown");
 			bon.setRawnameMutant(list.get(i).getName());

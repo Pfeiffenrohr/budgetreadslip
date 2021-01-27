@@ -40,11 +40,11 @@ public class SchedulerConfig {
  @Bean
  public SimpleTriggerFactoryBean simpleJobTrigger(
   @Qualifier("simpleJobDetail") JobDetail jobDetail,
-  @Value("${simplejob.frequency}") long frequency) {
+  @Value("${readjob.frequency}") long frequency) {
   System.out.println("simpleJobTrigger");
   SimpleTriggerFactoryBean factoryBean = new SimpleTriggerFactoryBean();
   factoryBean.setJobDetail(jobDetail);
-  //factoryBean.setStartDelay(0 L);
+  factoryBean.setStartDelay(0);
   factoryBean.setRepeatInterval(frequency);
   factoryBean.setRepeatCount(SimpleTrigger.REPEAT_INDEFINITELY);
   return factoryBean;
@@ -60,7 +60,7 @@ public class SchedulerConfig {
  @Bean
  public JobDetailFactoryBean simpleJobDetail() {
   JobDetailFactoryBean factoryBean = new JobDetailFactoryBean();
-  factoryBean.setJobClass(ReadJob.class);
+  factoryBean.setJobClass(UpdateJob.class);
   factoryBean.setDurability(true);
   return factoryBean;
  }

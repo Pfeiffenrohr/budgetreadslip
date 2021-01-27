@@ -1,13 +1,12 @@
-package de.lechner.readslip.bon;
+package de.lechner.readslip.infrastructure;
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import de.lechner.readslip.bon.BonReadServiceCron;
  
 @Component 
-public class ReadJob implements Job { 
+public class UpdateJob implements Job { 
 	
     @Autowired
 	BonReadServiceCron hs; 
@@ -17,5 +16,6 @@ public class ReadJob implements Job {
     	
         hs.sayHello();
         hs.readBon();
+        hs.updateTrancaction();
         } 
 }

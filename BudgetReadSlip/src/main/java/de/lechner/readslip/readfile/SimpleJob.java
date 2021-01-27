@@ -1,4 +1,4 @@
-package de.lechner.readslip.bon;
+package de.lechner.readslip.readfile;
 
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
