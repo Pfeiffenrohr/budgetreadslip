@@ -21,10 +21,18 @@ public class Transform {
 		
 		Transform tr = new Transform();
 		String txt=tr.readFile(args[0]);
-		String content = tr.parseFile(txt);
+		String content;
+		if (args[2].equals("netto"))
+		{
+		content = tr.parseFileNetto(txt);
 		tr.writeFile(content,args[1]);
-		
-	
+		}
+		if (args[2].equals("edeka"))
+		{
+	    content = tr.parseFileEDEKA(txt);
+		tr.writeFile(content,args[1]);
+		}                                   
+	  
 	}
 	
 	private void writeFile(String content,String filename)
@@ -34,7 +42,6 @@ public class Transform {
 		      FileWriter myWriter = new FileWriter(filename);
 		      myWriter.write(content);
 		      myWriter.close();
-		      System.out.println("Successfully wrote to the file. " +filename);
 		      /*File file = new File(filename);
 				 BufferedWriter output = null;
 		         output = new BufferedWriter(new FileWriter(file));
@@ -56,8 +63,52 @@ public class Transform {
 		    }
 		
 	}
-	
-	private String parseFile(String txt)
+
+	private String parseFileEDEKA(String txt) {
+		String content = "";
+		String splited[] = txt.trim().split("\n");
+		System.out.println("File has " + splited.length + " lines");
+		int count = 0;
+		// Suche den Anfang
+		while (count < splited.length && !splited[count].contains("Ihren Einkauf.")) {
+			count++;
+			continue;
+		}
+		while (count < splited.length && !splited[count].contains("Summe")) {
+			while (count < splited.length && (!splited[count].contains("<td>") || splited[count].contains("=E2=82=AC"))) {
+				count++;
+				continue;
+			}
+			if (count >= splited.length || splited[count].contains("Summe"))
+				return content;
+			String name = splited[count];
+			name = name.substring(name.indexOf(">") + 1);
+			name = name.substring(0, name.indexOf("<"));
+			name = name.replaceAll("=E2=82=AC", "€");
+			content = content + name + " ";
+
+			if (count >= splited.length)
+				return content;
+			while (count < splited.length && !splited[count].contains("=E2=82=AC")) {
+				count++;
+				continue;
+			}
+			String summe = splited[count];
+			summe = summe.substring(summe.indexOf(">") + 1);
+			if (summe.contains("=")) {
+				summe = summe.substring(0, summe.indexOf("="));
+			} else {
+				summe = summe.substring(0, summe.indexOf("<"));
+			}
+			content = content + summe + " { \n";
+			count++;
+			if (count >= splited.length)
+				return content;
+		}
+		return content;
+	}
+
+	private String parseFileNetto(String txt)
 	{
 		String content=""; 
 		String splited [] = txt.trim().split("\n");
@@ -69,7 +120,7 @@ public class Transform {
 			continue;
 		}
 		System.out.println(splited[count]);
-		while (!splited[count].contains("Summe") && count < splited.length) {
+		while (count < splited.length && !splited[count].contains("Summe") ) {
 			while (count < splited.length && !splited[count].startsWith("ans-serif")) {
 				count++;
 				continue;
