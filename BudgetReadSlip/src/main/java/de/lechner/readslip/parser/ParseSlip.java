@@ -131,9 +131,9 @@ public class ParseSlip {
 				System.out.println(bon.getInternalname());
 
 				if (bon.getInternalname().equals("unknown")) {
-					insertTransaction(list.get(i), "unknown",false);// unknown
+					insertTransaction(list.get(i), "unknown",false,company);// unknown
 				} else {
-					insertTransaction(list.get(i), bon.getInternalname(),true); // full
+					insertTransaction(list.get(i), bon.getInternalname(),true,company); // full
 				}
 
 			} else {
@@ -144,12 +144,12 @@ public class ParseSlip {
 				System.out.println("Bon not found!! ");
 				System.out.println("Insert Bon "+bon.getRawnameMutant());
 				restTemplate.postForEntity(bonUrl, bon, Bon.class);
-				insertTransaction(list.get(i), "unknown",false); // unknown
+				insertTransaction(list.get(i), "unknown",false,company); // unknown
 			}
 		}
 	}
 	
-	private void insertTransaction(SlipEntry slen,String name,boolean foundName)
+	private void insertTransaction(SlipEntry slen,String name,boolean foundName,String company)
 	{
 		Transaction trans = new Transaction();
 		  Date date = Calendar.getInstance().getTime(); 
@@ -170,7 +170,7 @@ public class ParseSlip {
 		trans.setCycle(0);
 		trans.setKonto_id(9);//TODO hardcoded Konto
 		trans.setKor_id(0);
-		trans.setPartner("Netto");
+		trans.setPartner(company);
 		trans.setPlaned("N");
 		trans.setDatum(new SimpleDateFormat("yyyy-MM-dd").format(date));
 		System.out.println(new SimpleDateFormat("yyyy-MM-dd").format(date));
