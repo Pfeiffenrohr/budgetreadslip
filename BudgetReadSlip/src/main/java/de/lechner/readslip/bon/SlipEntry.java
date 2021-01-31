@@ -1,4 +1,4 @@
-package de.lechner.readslip.parser;
+package de.lechner.readslip.bon;
 
 public class SlipEntry {
 	

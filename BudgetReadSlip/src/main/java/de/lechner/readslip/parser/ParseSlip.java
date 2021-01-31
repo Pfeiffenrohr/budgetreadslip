@@ -23,6 +23,7 @@ import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import de.lechner.readslip.bon.Bon;
+import de.lechner.readslip.bon.SlipEntry;
 import de.lechner.readslip.infrastructure.Infrastructure;
 
 
