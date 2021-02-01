@@ -191,7 +191,6 @@ public void analyseRest(SlipEntryList listSE,String company) {
 		trans.setPartner(company);
 		trans.setPlaned("N");
 		trans.setDatum(new SimpleDateFormat("yyyy-MM-dd").format(date));
-		System.out.println(new SimpleDateFormat("yyyy-MM-dd").format(date));
 		trans.setWert(new Double(slen.getSum().replace(',', '.'))*-1);
 		if (! foundName)
 		{
@@ -214,7 +213,6 @@ public void analyseRest(SlipEntryList listSE,String company) {
 		for (int i=0; i< list.size();i++)
 		{
 			SlipEntry slen = list.get(i);
-			System.out.println("Name:" + slen.getName()+" Summe: " +slen.getSum() );
 		}
 	}
 	

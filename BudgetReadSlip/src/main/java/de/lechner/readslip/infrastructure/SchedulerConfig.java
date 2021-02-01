@@ -34,14 +34,14 @@ public class SchedulerConfig {
   factory.setJobFactory(jobFactory);
   factory.setQuartzProperties(quartzProperties());
   factory.setTriggers(simpleJobTrigger);
-  System.out.println("starting jobs....");
+  //System.out.println("starting jobs....");
   return factory;
  }
  @Bean
  public SimpleTriggerFactoryBean simpleJobTrigger(
   @Qualifier("simpleJobDetail") JobDetail jobDetail,
   @Value("${readjob.frequency}") long frequency) {
-  System.out.println("simpleJobTrigger");
+  //System.out.println("simpleJobTrigger");
   SimpleTriggerFactoryBean factoryBean = new SimpleTriggerFactoryBean();
   factoryBean.setJobDetail(jobDetail);
   factoryBean.setStartDelay(0);

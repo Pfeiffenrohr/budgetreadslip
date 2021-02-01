@@ -41,7 +41,7 @@ public class UpdateTransactions {
 		UriComponents uriComponents = UriComponentsBuilder.newInstance().scheme("http").host(host).port(port)
 				.path("/transaction_by_kategorie/-1").build();
 		String bonByRenameurl = uriComponents.toUriString();
-		System.out.println(bonByRenameurl);
+		
 		ResponseEntity<Transaction[]> response = restTemplate.getForEntity(bonByRenameurl, Transaction[].class);
 		// ResponseEntity<Bon> response =
 		// restTemplate.getForEntity("http://localhost:8092/bon_by_rawname/Leerd",
@@ -78,20 +78,16 @@ public class UpdateTransactions {
 
 			if (response.hasBody()) {
 				bon = response.getBody();
-				System.out.println("Found !");
 				if (!bon.getInternalname().equals("unknown")) {
-					System.out.println("Name = "+bon.getInternalname());
 					// Update nun die Transaktion
 					trans.setName(bon.getInternalname());
 					trans.setKategorie(new Integer(Infrastructure.getKategorieByName(bon.getInternalname(),host,port)));
 					//String id = trans.getId().toString();
-					System.out.println("Kategorie = "+trans.getKategorie());
 					UriComponents uri = UriComponentsBuilder.newInstance().scheme("http").host(host).port(port)
 							.path("/transaction").build();
 
 					String transByRenameurl = uri.toUriString().replace("+", "%20");
 					
-					System.out.println("Transactionurl =" + transByRenameurl);
 					HttpHeaders headers = new HttpHeaders();
 					headers.setContentType(MediaType.APPLICATION_JSON);
 
