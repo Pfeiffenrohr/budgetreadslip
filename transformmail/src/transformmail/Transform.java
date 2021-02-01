@@ -73,7 +73,7 @@ public class Transform {
 		}
 		
 		System.out.println(content);
-		 try {
+	/*	 try {
 		      FileWriter myWriter = new FileWriter(filename);
 		      myWriter.write(content);
 		      myWriter.close();
@@ -90,12 +90,12 @@ public class Transform {
 		        		} finally {
 		        		    out.close();*/
 		         
-		         System.out.println("Successfully wrote to the file. " +filename);
+		    /*     System.out.println("Successfully wrote to the file. " +filename);
 			
 		    } catch (IOException e) {
 		      System.out.println("An error occurred.");
 		      e.printStackTrace();
-		    }
+		    }*/
 		
 	}
 

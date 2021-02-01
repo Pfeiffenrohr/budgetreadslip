@@ -1,0 +1,9 @@
+cbudgetserver:  
+  image: pfeiffenrohr/cbudgetread:latest
+  ports:
+    - "8090:8090"
+  restart: always
+  environment:
+      budgetserverhost: 192.168.2.29
+      budgetserverport: 8092
+      
