@@ -132,7 +132,7 @@ public void analyseRest(SlipEntryList listSE,String company) {
 			bon.setInternalname("unknown");
 			bon.setRawnameMutant(list.get(i).getName());
 			String ppp=list.get(i).getName();
-			String ggg=  URLEncoder.encode(ppp, StandardCharsets.UTF_8);
+			String ggg=  URLEncoder.encode(ppp);
 			
 			UriComponents uriComponents = UriComponentsBuilder.newInstance()
 				      .scheme("http").host(host).port(port).path("/bon_by_rawname/"+ggg).build();

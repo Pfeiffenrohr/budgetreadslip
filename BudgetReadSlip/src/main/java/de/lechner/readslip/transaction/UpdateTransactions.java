@@ -64,7 +64,7 @@ public class UpdateTransactions {
 			Transaction trans = list.get(i);
 			String name = trans.getName();
 			// schau nun, ob es den Namen schon gibt
-			String ggg=  URLEncoder.encode(name, StandardCharsets.UTF_8);
+			String ggg=  URLEncoder.encode(name);
 			UriComponents uriComponents = UriComponentsBuilder.newInstance().scheme("http").host(host).port(port)
 					.path("/bon_by_rawname/" + ggg).build();
 
