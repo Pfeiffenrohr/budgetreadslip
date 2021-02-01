@@ -24,6 +24,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import de.lechner.readslip.bon.Bon;
 import de.lechner.readslip.bon.SlipEntry;
+import de.lechner.readslip.bon.SlipEntryList;
 import de.lechner.readslip.infrastructure.Infrastructure;
 
 
@@ -46,7 +47,19 @@ public class ParseSlip {
 		
 		
 	}
-	
+public void analyseRest(SlipEntryList listSE,String company) {
+		List <SlipEntry>  list = listSE.getList();
+		
+		checkBon(list,company);
+		
+		
+	}
+	/**
+	 * Geht den ganzen Text durch, holt die notwemdigen Zeilen raus und gibt sie als
+	 * Liste von Strings zurück
+	 * @param text Rohtext der Datei
+	 * @return Liste von Zeilen
+	 */
 	public List <String> scanner (String text) {
 		List  <String> list = new  ArrayList<String>();
 		String splited [] = text.trim().split("\n");
@@ -63,7 +76,11 @@ public class ParseSlip {
 		return list;
 		
 	}
-	
+	/**
+	 * Geht die Zeilen der Liste durch und macht eine Liste von SLipEntrys daraus
+	 * @param txt Liste mit Zeilen  
+	 * @return Liste von SlipEntrys
+	 */
 	public List  <SlipEntry>  parser (List <String> txt)
 	{
 		List  <SlipEntry> list = new  ArrayList<SlipEntry>();
@@ -97,7 +114,7 @@ public class ParseSlip {
 		    	name="Coupon";
 		    }
 		   
-		    slen.setName(name);
+		    slen.setName(name.trim());
 		    list.add(slen);
 		}
 		//Ausgabe

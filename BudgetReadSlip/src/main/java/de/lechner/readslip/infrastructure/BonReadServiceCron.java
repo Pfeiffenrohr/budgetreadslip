@@ -19,7 +19,7 @@ public class BonReadServiceCron {
 	    }
 	 
 	 public void readBon() {
-		 bonService.handleSlip();
+		 bonService.handleSlipFile();
 	 }
 	 
 	 public void updateTrancaction() {

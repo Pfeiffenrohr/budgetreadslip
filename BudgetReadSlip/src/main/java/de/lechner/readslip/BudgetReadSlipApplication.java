@@ -17,7 +17,7 @@ import org.quartz.impl.StdSchedulerFactory;
 @SpringBootApplication
 public class BudgetReadSlipApplication {
 
-	public static void main(String[] args) {		
-		SpringApplication.run(BudgetReadSlipApplication.class, args);	
+	public static void main(String[] args) {	
+				SpringApplication.run(BudgetReadSlipApplication.class, args);	
 	}
 }

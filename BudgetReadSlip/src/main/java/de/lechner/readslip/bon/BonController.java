@@ -22,7 +22,7 @@ public class BonController {
 	@GetMapping(value = "/netto")
 	public String netto() {
 
-		rs.handleSlip();
+		rs.handleSlipFile();
 		return "netto";
 	}
 
@@ -37,6 +37,7 @@ public class BonController {
 		  public String addTransaction(@RequestBody  SlipEntryList  se , @RequestHeader("company") String company) {
 				// transactionservice.addTransaction(transaction);
 		   System.out.println("accept "+ company);
+		   rs.handleSlipRest(se, company);
 		   return "accept";
 	}	  
 		  

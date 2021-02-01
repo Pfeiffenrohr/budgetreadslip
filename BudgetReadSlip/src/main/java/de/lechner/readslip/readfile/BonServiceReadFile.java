@@ -6,11 +6,14 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import de.lechner.readslip.bon.SlipEntry;
+import de.lechner.readslip.bon.SlipEntryList;
 import de.lechner.readslip.parser.ParseSlip;
 import de.lechner.readslip.transaction.UpdateTransactions;
 
@@ -31,7 +34,7 @@ public class BonServiceReadFile {
 	@Autowired
 	private UpdateTransactions updateTrans;
 		
-	public void handleSlip()
+	public void handleSlipFile()
 	{	
 		for (int i = 0; i < companies.length; i++) {			
 			String txt = readSlip(companies[i] + ".txt");
@@ -42,6 +45,13 @@ public class BonServiceReadFile {
 			parseslip.analyse(txt, companies[i]);
 		}
 	}
+	
+	public void handleSlipRest(SlipEntryList list, String company)
+	{		
+			parseslip.analyseRest(list, company);
+	}
+	
+	
 
 	public void updateOldTransactions()
 	{
