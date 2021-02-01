@@ -1,4 +1,4 @@
-cbudgetserver:  
+cbudgetread:  
   image: pfeiffenrohr/cbudgetread:latest
   ports:
     - "8090:8090"
