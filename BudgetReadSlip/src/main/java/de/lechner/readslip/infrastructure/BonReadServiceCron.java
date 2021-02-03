@@ -15,7 +15,7 @@ public class BonReadServiceCron {
 	BonServiceReadFile bonService; 
 	
 	 public void sayHello() {
-	        System.out.println("Execute readBon " + new Date());
+	        //System.out.println("Execute readBon " + new Date());
 	    }
 	 
 	 public void readBon() {

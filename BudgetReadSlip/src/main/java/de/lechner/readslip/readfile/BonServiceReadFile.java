@@ -39,9 +39,9 @@ public class BonServiceReadFile {
 		for (int i = 0; i < companies.length; i++) {			
 			String txt = readSlip(companies[i] + ".txt");
 			if (txt.equals("File not found")) {
-				System.out.println("File not found! "+ companies[i]);
+				//System.out.println("File not found! "+ companies[i]);
 				continue;
-			}
+			} 
 			parseslip.analyse(txt, companies[i]);
 		}
 	}
