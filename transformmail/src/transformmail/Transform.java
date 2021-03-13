@@ -167,7 +167,7 @@ public class Transform {
 			count++;
 			continue;
 		}
-		System.out.println(splited[count]);
+	//	System.out.println(splited[count]);
 		while (count < splited.length && !splited[count].contains("Summe") ) {
 			SlipEntry se = new SlipEntry();
 			while (count < splited.length && !splited[count].startsWith("ans-serif")) {
@@ -183,6 +183,18 @@ public class Transform {
 			name = name.replaceAll("=E2=82=AC", "€");
 			System.out.println("Name =" + name);
 			content=content +name+" ";
+			if (name.startsWith("-"))
+			{
+				count++;
+				continue;
+			}
+			
+			if (Character.isDigit(name.charAt(0)))
+			{
+				count++;
+				continue;
+			}
+			
 			se.setName(name);
 			count++;
 			if (count >= splited.length) return content;
