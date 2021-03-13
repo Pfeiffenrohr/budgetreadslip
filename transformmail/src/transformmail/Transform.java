@@ -157,6 +157,7 @@ public class Transform {
 
 	private String parseFileNetto(String txt)
 	{
+		list = new ArrayList<SlipEntry>();
 		String content=""; 
 		String splited [] = txt.trim().split("\n");
 		System.out.println("File has " + splited.length + " lines");
@@ -170,6 +171,7 @@ public class Transform {
 		while (count < splited.length && !splited[count].contains("Summe") ) {
 			SlipEntry se = new SlipEntry();
 			while (count < splited.length && !splited[count].startsWith("ans-serif")) {
+				System.out.println(splited[count]);
 				count++;
 				continue;
 			}
@@ -179,7 +181,7 @@ public class Transform {
 			name = name.substring(name.indexOf(">") + 1);
 			name = name.substring(0, name.indexOf("<"));
 			name = name.replaceAll("=E2=82=AC", "€");
-			//System.out.println("Name =" + name);
+			System.out.println("Name =" + name);
 			content=content +name+" ";
 			se.setName(name);
 			count++;
