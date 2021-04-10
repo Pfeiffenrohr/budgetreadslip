@@ -44,17 +44,17 @@ public class Transform {
 		if (args[2].equals("netto"))
 		{
 		content = tr.parseFileNetto(txt);
-		tr.writeFile(content,args[1],url);
+		tr.writeFile(content,args[1],url,"netto");
 		}
 		if (args[2].equals("edeka"))
 		{
 	    content = tr.parseFileEDEKA(txt);
-		tr.writeFile(content,args[1],url);
+		tr.writeFile(content,args[1],url,"edeka");
 		}                                   
 	  
 	}
 	
-	private void writeFile(String content,String filename, String url)
+	private void writeFile(String content,String filename, String url,String company)
 	{
 		String body = transformToJson(list);
 		System.out.println(body);
@@ -65,7 +65,7 @@ public class Transform {
 		    HttpPost request = new HttpPost(url + "/bon");
 		    StringEntity params = new StringEntity(body);
 		    request.addHeader("content-type", "application/json");
-		    request.addHeader("company", "edeka");
+		    request.addHeader("company", company);
 		    request.setEntity(params);
 		    HttpResponse response = httpClient.execute(request);
 		} catch (Exception ex) {
