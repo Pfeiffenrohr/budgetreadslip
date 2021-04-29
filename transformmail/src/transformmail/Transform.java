@@ -115,7 +115,7 @@ public class Transform {
 		System.out.println(splited[count]);
 		while (count < splited.length && !splited[count].contains("Summe")) {
 			SlipEntry se = new SlipEntry();
-			while (count < splited.length && (!splited[count].startsWith(">") && !splited[count].contains("Summe") || splited[count].contains("=E2=82=AC"))) {
+			while (count < splited.length && (!splited[count].startsWith(">") && !splited[count].contains("Summe") || (splited[count].contains("=E2=82=AC") && ! splited[count].contains("Rabatt")))) {
 				count++;
 				System.out.println("counter");	
 				continue;
@@ -133,11 +133,12 @@ public class Transform {
 
 			if (count >= splited.length)
 				return content;
-			while (count < splited.length && !splited[count].contains("=E2=82=AC")) {
+			while (count < splited.length && (!splited[count].contains("=E2=82=AC")|| splited[count].contains("Rabatt"))) {
 				count++;
 				continue;
 			}
 			String summe = splited[count];
+			System.out.println("Summe "+summe);
 			summe = summe.substring(summe.indexOf(">") + 1);
 			if (summe.contains("=")) {
 				summe = summe.substring(0, summe.indexOf("="));
