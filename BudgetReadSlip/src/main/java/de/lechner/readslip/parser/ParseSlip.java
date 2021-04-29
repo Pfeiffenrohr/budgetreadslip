@@ -38,16 +38,17 @@ public class ParseSlip {
 	
 
 	public void analyse(String text,String company) {
-		
+	
 		List <String >splited  = scanner (text);
 		List list =parser(splited);
 		ausgabe(list);
 		//getVategorieByName("Käse");
-		checkBon(list,company);
+		checkBon(list,company);	
 		
-		
-	}
-public void analyseRest(SlipEntryList listSE,String company) {
+	}	
+	
+
+	public void analyseRest(SlipEntryList listSE,String company) {
 		List <SlipEntry>  list = listSE.getList();
 		
 		checkBon(list,company);
@@ -83,6 +84,7 @@ public void analyseRest(SlipEntryList listSE,String company) {
 	 */
 	public List  <SlipEntry>  parser (List <String> txt)
 	{
+		  System.out.println("Starte Parser...");
 		List  <SlipEntry> list = new  ArrayList<SlipEntry>();
 		boolean valueFound=false;
 		for (int i=0; i< txt.size();i++)
@@ -95,6 +97,7 @@ public void analyseRest(SlipEntryList listSE,String company) {
 		    {
 		    	name=name+" "+splited[j];
 		    }
+		    System.out.println(splited[0]);
 		    if (splited[0].length()==1 && splited[1].length()==1)
 		    {
 		    	continue;
@@ -103,13 +106,13 @@ public void analyseRest(SlipEntryList listSE,String company) {
 		    {
 		    	continue;
 		    }
-		    
+		    		    
 		    if (splited.length>1 && splited[1].trim().equals("x"))
 		    {
 		    	continue;
 		    } 
 		    
-		    if ( splited.length>2 && splited[2].equals("Rabatt"))
+		    if ( splited.length>2 && splited[1].equals("Rabatt"))
 		    {
 		    	name="Coupon";
 		    }
