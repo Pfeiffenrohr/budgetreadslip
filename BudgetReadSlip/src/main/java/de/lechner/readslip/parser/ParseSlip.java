@@ -131,6 +131,10 @@ public class ParseSlip {
 		for (int i = 0; i < list.size(); i++) {
 			bon.setId(0);
 			bon.setCompany(company);
+			if (list.get(i).getName().contains("Coupon"))
+			{
+				list.get(i).setName("Rabatt");
+			}
 			bon.setRawname(list.get(i).getName());
 			bon.setInternalname("unknown");
 			bon.setRawnameMutant(list.get(i).getName());
