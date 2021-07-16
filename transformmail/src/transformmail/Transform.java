@@ -115,9 +115,10 @@ public class Transform {
 		System.out.println(splited[count]);
 		while (count < splited.length && !splited[count].contains("Summe")) {
 			SlipEntry se = new SlipEntry();
-			while (count < splited.length && (!splited[count].startsWith(">") && !splited[count].contains("Summe") || splited[count].contains("=E2=82=AC"))) {
-				count++;
-				System.out.println("counter");	
+			//while (count < splited.length && (!splited[count].startsWith(">") && !splited[count].contains("Summe") || splited[count].contains("=E2=82=AC"))) {
+			while (count < splited.length && (!splited[count].contains("<td>") && !splited[count].contains("Summe") || splited[count].contains("=E2=82=AC"))) {	
+			    count++;
+				//System.out.println("counter");	
 				continue;
 			}
 			System.out.println(splited[count]);
@@ -163,15 +164,22 @@ public class Transform {
 		System.out.println("File has " + splited.length + " lines");
 		int count = 0;
 		// Suche den Anfang
-		while ( count < splited.length && !splited[count].contains("Filiale")) {
+		while ( count < splited.length && !splited[count].contains("Filiale:")) {
 			count++;
 			continue;
 		}
-	//	System.out.println(splited[count]);
+		//System.out.println(splited[count]);
 		while (count < splited.length && !splited[count].contains("Summe") ) {
+		
+			if ( splited[count].contains("=09=09") ||splited[count].contains ("lver;"))
+					{
+						count++;
+						continue;						
+					}
+			System.out.println(splited[count]);
 			SlipEntry se = new SlipEntry();
-			while (count < splited.length && !splited[count].startsWith("ans-serif")) {
-				System.out.println(splited[count]);
+			while (count < splited.length && !splited[count].startsWith(";\"")) {
+				//System.out.println(splited[count]);
 				count++;
 				continue;
 			}
@@ -209,7 +217,7 @@ public class Transform {
 			} else {
 				summe = summe.substring(0, summe.indexOf("<"));
 			}
-			//System.out.println("Summe =" + summe);
+			System.out.println("Summe =" + summe);
 			content=content +summe+" { \n";
 			se.setSum(summe);
 			count++;
