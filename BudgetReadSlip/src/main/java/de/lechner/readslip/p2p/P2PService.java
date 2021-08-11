@@ -71,6 +71,8 @@ public class P2PService {
        Transaction trans = new Transaction();
          Date date = Calendar.getInstance().getTime(); 
         // String uri = "http://localhost:8092/transaction";
+         
+         wert = Math.round(100.0 * wert) / 100.0;
          UriComponents uriComponents = UriComponentsBuilder.newInstance()
                  .scheme("http").host(host).port(port).path("/transaction").build();
         String uri=uriComponents.toUriString();
