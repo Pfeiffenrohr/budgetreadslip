@@ -36,6 +36,11 @@ public class P2PService {
        
        //Vorerst haben wir nur Gesamtertrag. Daher ist die Liste evtl überflüssig
        //Aber vielleicht bekommen wir in Zukunft ja mehr
+       if (list.size()<1)
+       {
+           //Liste ist leer. kein richtiger Wert bekommen
+           return;
+       }
        String ertrag =  list.get(0).getSum();
        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
        Calendar calnow = Calendar.getInstance();
