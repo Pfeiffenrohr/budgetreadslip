@@ -106,9 +106,9 @@ public class Transform {
 		System.out.println(splited[count]);
 		while (count < splited.length && !splited[count].contains("Summe")) {
 			SlipEntry se = new SlipEntry();
-			while (count < splited.length && (!splited[count].startsWith(">") && !splited[count].contains("Summe") || (splited[count].contains("=E2=82=AC") && ! splited[count].contains("Rabatt")))) {
+			while (count < splited.length && (!splited[count].contains("<td>") && !splited[count].contains("Summe") || (splited[count].contains("=E2=82=AC") && ! splited[count].contains("Rabatt")))) {
 				count++;
-				System.out.println("counter");	
+				//System.out.println("counter");	
 				continue;
 			}
 			System.out.println(splited[count]);
