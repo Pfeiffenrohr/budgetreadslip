@@ -54,8 +54,13 @@ public class Transform {
 		if (args[2].equals("mintos"))
         {
         content = tr.parseFileMintos(txt);
-        tr.writeFile(content,args[1],url,"mintos");
+        tr.writeFile(content,args[1],url,"Mintos");
         }  
+		if (args[2].equals("viainvest"))
+        {
+        content = tr.parseFileViaInvest(txt);
+        tr.writeFile(content,args[1],url,"ViaInvest");
+        } 
 	  
 	}
 	
@@ -64,7 +69,7 @@ public class Transform {
 		String body = transformToJson(list);
 		System.out.println(body);
 	  
-		if (company.equals("mintos"))
+		if (company.equals("Mintos") ||company.equals("ViaInvest") )
 		{
 		    url=url + "/p2p";
 		}
@@ -256,6 +261,55 @@ public class Transform {
 	        }
 	        return content;
 	    }
+	   
+	   private String parseFileViaInvest(String txt)
+	    {
+	        list = new ArrayList<SlipEntry>();
+	        String content=""; 
+	        String splited [] = txt.trim().split("\n");
+	        System.out.println("File has " + splited.length + " lines");
+	        int count = 0;
+	        // Suche den Anfang
+	        while ( count < splited.length && !splited[count].contains("Schlussbilanz")) {
+	            count++;
+	            continue;
+	        }
+	    //  System.out.println(splited[count]);
+	        while (count < splited.length && !splited[count].contains("Darlehen") ) {
+	            SlipEntry se = new SlipEntry();
+	          /*  while (count < splited.length && !splited[count].startsWith("=AC")) {
+	                System.out.println(splited[count]);
+	                count++;
+	                continue;
+	            }*/
+	            if (count >= splited.length) return content;
+	            //System.out.println(splited[count]);
+	            String name = "Gesamtertrag";
+	            se.setName(name);
+	            count++;
+	            if (count >= splited.length) return content;
+	            while (count < splited.length && !splited[count].contains("=E2=82=AC")) {
+	                count++;
+	                if (count >= splited.length) return content;
+	                continue;
+	            }
+	            String summe = splited[count];
+	            summe = summe.substring(summe.indexOf(" ") + 1);
+	            
+	                summe = summe.substring(0, summe.indexOf("<"));
+	   
+	            System.out.println("Summe =" + summe);
+	            content=content +summe+" { \n";
+	            se.setSum(summe);
+	            count++;
+	            list.add(se);
+	            //Wir wollen nur eine zeile haben !!
+	            return content;
+	            //if (count >= splited.length) return content;
+	        }
+	        return content;
+	    }
+	   
 	private String readFile(String inputfile)
 	{
 	    File file = new File(inputfile);
