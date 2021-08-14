@@ -87,7 +87,8 @@ public class P2PService {
        
        trans.setBeschreibung("");
        trans.setCycle(0);
-       trans.setKonto_id(94);//TODO hardcoded Konto
+       
+       trans.setKonto_id(Infrastructure.getKontoByName(company,host,port));//TODO hardcoded Konto
        trans.setKor_id(0);
        trans.setPartner(company);
        trans.setPlaned("N");
