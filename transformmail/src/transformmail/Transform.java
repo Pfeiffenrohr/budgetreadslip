@@ -1,21 +1,11 @@
 package transformmail;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.StringWriter;
-import java.io.Writer;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
-import java.io.FileWriter;   // Import the FileWriter class
-
-import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
@@ -270,12 +260,12 @@ public class Transform {
 	        System.out.println("File has " + splited.length + " lines");
 	        int count = 0;
 	        // Suche den Anfang
-	        while ( count < splited.length && !splited[count].contains("Schlussbilanz")) {
+	        while ( count < splited.length && !splited[count].contains("Zinseinnahmen")) {
 	            count++;
 	            continue;
 	        }
 	    //  System.out.println(splited[count]);
-	        while (count < splited.length && !splited[count].contains("Darlehen") ) {
+	        while (count < splited.length && !splited[count].contains("Hauptbetrag") ) {
 	            SlipEntry se = new SlipEntry();
 	          /*  while (count < splited.length && !splited[count].startsWith("=AC")) {
 	                System.out.println(splited[count]);
@@ -311,7 +301,7 @@ public class Transform {
 	    }
 	   
 	private String readFile(String inputfile)
-	{
+	{ 
 	    File file = new File(inputfile);
 	    String txt ="";
         if (! file.exists()) {
