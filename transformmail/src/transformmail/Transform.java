@@ -214,12 +214,12 @@ public class Transform {
 	        System.out.println("File has " + splited.length + " lines");
 	        int count = 0;
 	        // Suche den Anfang
-	        while ( count < splited.length && !splited[count].contains("Gesamtertrag")) {
+	        while ( count < splited.length && !splited[count].contains("Zinszahlung")) {
 	            count++;
 	            continue;
 	        }
 	    //  System.out.println(splited[count]);
-	        while (count < splited.length && !splited[count].contains("Auszug") ) {
+	        while (count < splited.length && !splited[count].contains("</tbody>") ) {
 	            SlipEntry se = new SlipEntry();
 	          /*  while (count < splited.length && !splited[count].startsWith("=AC")) {
 	                System.out.println(splited[count]);
@@ -232,13 +232,13 @@ public class Transform {
 	            se.setName(name);
 	            count++;
 	            if (count >= splited.length) return content;
-	            while (count < splited.length && !splited[count].startsWith("=AC")) {
+	            while (count < splited.length && !splited[count].startsWith("\">")) {
 	                count++;
 	                if (count >= splited.length) return content;
 	                continue;
 	            }
 	            String summe = splited[count];
-	            summe = summe.substring(summe.indexOf(" ") + 1);
+	            summe = summe.substring(summe.indexOf(">") + 1);
 	            
 	                summe = summe.substring(0, summe.indexOf("<"));
 	   
@@ -247,7 +247,7 @@ public class Transform {
 	            se.setSum(summe);
 	            count++;
 	            list.add(se);
-	            if (count >= splited.length) return content;
+	            return content;
 	        }
 	        return content;
 	    }
