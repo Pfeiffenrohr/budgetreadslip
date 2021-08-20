@@ -214,12 +214,12 @@ public class Transform {
 	        System.out.println("File has " + splited.length + " lines");
 	        int count = 0;
 	        // Suche den Anfang
-	        while ( count < splited.length && !splited[count].contains("Zinszahlung")) {
+	        while ( count < splited.length && !splited[count].contains("Gesamtertrag")) {
 	            count++;
 	            continue;
 	        }
 	    //  System.out.println(splited[count]);
-	        while (count < splited.length && !splited[count].contains("</tbody>") ) {
+	        while (count < splited.length && !splited[count].contains("Auszug") ) {
 	            SlipEntry se = new SlipEntry();
 	          /*  while (count < splited.length && !splited[count].startsWith("=AC")) {
 	                System.out.println(splited[count]);
@@ -232,13 +232,13 @@ public class Transform {
 	            se.setName(name);
 	            count++;
 	            if (count >= splited.length) return content;
-	            while (count < splited.length && !splited[count].startsWith("\">")) {
+	            while (count < splited.length && !splited[count].startsWith("=AC")) {
 	                count++;
 	                if (count >= splited.length) return content;
 	                continue;
 	            }
 	            String summe = splited[count];
-	            summe = summe.substring(summe.indexOf(">") + 1);
+	            summe = summe.substring(summe.indexOf(" ") + 1);
 	            
 	                summe = summe.substring(0, summe.indexOf("<"));
 	   
@@ -260,12 +260,12 @@ public class Transform {
 	        System.out.println("File has " + splited.length + " lines");
 	        int count = 0;
 	        // Suche den Anfang
-	        while ( count < splited.length && !splited[count].contains("Zinseinnahmen")) {
+	        while ( count < splited.length && !splited[count].contains("Schlussbilanz")) {
 	            count++;
 	            continue;
 	        }
 	    //  System.out.println(splited[count]);
-	        while (count < splited.length && !splited[count].contains("Hauptbetrag") ) {
+	        while (count < splited.length && !splited[count].contains("Darlehen") ) {
 	            SlipEntry se = new SlipEntry();
 	          /*  while (count < splited.length && !splited[count].startsWith("=AC")) {
 	                System.out.println(splited[count]);

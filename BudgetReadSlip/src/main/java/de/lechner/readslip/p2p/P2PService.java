@@ -65,7 +65,7 @@ public class P2PService {
        //System.out.println(result);
        double diff = new Double (ertrag) - new Double (result);
        System.out.println("Found to insert " + diff);
-       if (diff != 0.0)
+       if (diff > 0.001 || diff < -0.001 )
        {
            insertTransaction(diff,company);
        }
