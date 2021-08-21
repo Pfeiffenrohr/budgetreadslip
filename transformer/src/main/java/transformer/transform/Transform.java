@@ -155,10 +155,11 @@ public class Transform {
             continue;
         }
     //  System.out.println(splited[count]);
+        String summe;
         while (count < splited.length && !splited[count].contains("Summe") ) {
             SlipEntry se = new SlipEntry();
-            while (count < splited.length && !splited[count].startsWith("ans-serif")) {
-                System.out.println(splited[count]);
+            while (count < splited.length && ( ! splited[count].startsWith(";\">") || splited[count].contains("Summe"))) {
+               //System.out.println(splited[count]);
                 count++;
                 continue;
             }
@@ -183,13 +184,14 @@ public class Transform {
             }
             
             se.setName(name);
+            
             count++;
             if (count >= splited.length) return content;
             while (count < splited.length && !splited[count].contains("sans-serif")) {
                 count++;
                 continue;
             }
-            String summe = splited[count];
+            summe = splited[count];
             summe = summe.substring(summe.indexOf(">") + 1);
             if (summe.contains("=")) {
                 summe = summe.substring(0, summe.indexOf("="));
@@ -198,6 +200,7 @@ public class Transform {
             }
             //System.out.println("Summe =" + summe);
             content=content +summe+" { \n";
+            System.out.println("Summe =" + summe);
             se.setSum(summe);
             count++;
             list.add(se);
