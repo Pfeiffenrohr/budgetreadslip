@@ -184,6 +184,7 @@ public class Transform {
             }
             
             se.setName(name);
+            
             count++;
             if (count >= splited.length) return content;
             while (count < splited.length && !splited[count].contains("sans-serif")) {
