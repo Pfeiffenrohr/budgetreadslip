@@ -63,7 +63,17 @@ public class P2PService {
           result="0.0";
        }
        //System.out.println(result);
-       double diff = new Double (ertrag) - new Double (result);
+       double diff=0.0;
+       //Extrawurst für viainvest
+       if ( company.equals("ViaInvest"))
+       {
+    	   diff=new Double (ertrag);
+       }
+    		   
+       else
+       {
+    	   diff = new Double (ertrag) - new Double (result);
+       }
        System.out.println("Found to insert " + diff);
        if (diff > 0.001 || diff < -0.001 )
        {

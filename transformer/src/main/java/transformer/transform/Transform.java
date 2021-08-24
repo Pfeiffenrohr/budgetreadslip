@@ -268,12 +268,12 @@ public class Transform {
             System.out.println("File has " + splited.length + " lines");
             int count = 0;
             // Suche den Anfang
-            while ( count < splited.length && !splited[count].contains("Schlussbilanz")) {
+            while ( count < splited.length && !splited[count].contains("Zinseinnahmen:")) {
                 count++;
                 continue;
             }
         //  System.out.println(splited[count]);
-            while (count < splited.length && !splited[count].contains("Darlehen") ) {
+            while (count < splited.length && !splited[count].contains("Hauptbetrag") ) {
                 SlipEntry se = new SlipEntry();
               /*  while (count < splited.length && !splited[count].startsWith("=AC")) {
                     System.out.println(splited[count]);
