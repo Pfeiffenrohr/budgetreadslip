@@ -32,7 +32,7 @@ public class P2PService {
         
     }
 
-   private void  parseP2P (List  <SlipEntry> list,String company) {
+   public void  parseP2P (List  <SlipEntry> list,String company) {
        
        //Vorerst haben wir nur Gesamtertrag. Daher ist die Liste evtl überflüssig
        //Aber vielleicht bekommen wir in Zukunft ja mehr
@@ -51,20 +51,31 @@ public class P2PService {
                .queryParam("startdate", "2011-01-01")
                .queryParam("enddate", enddate)
                .queryParam("categorie", 42)
-               .queryParam("konto", 94)
+               .queryParam("konto", Infrastructure.getKontoByName(company,host,port))
                .build();
        String uri=uriComponents.toUriString();
-       System.out.println(uri);
+       //System.out.println(uri);
        RestTemplate restTemplate = new RestTemplate();
        String result = restTemplate.getForObject(uri, String.class);
        if (result==null ||result.equals(""))
        {
-          System.out.println("No result");
+          System.out.println("No result found. Set result to 0.0");
+          result="0.0";
        }
-       System.out.println(result);
-       double diff = new Double (ertrag) - new Double (result);
-       
-       if (diff != 0.0)
+       //System.out.println(result);
+       double diff=0.0;
+       //Extrawurst für viainvest
+       if ( company.equals("ViaInvest"))
+       {
+    	   diff=new Double (ertrag);
+       }
+    		   
+       else
+       {
+    	   diff = new Double (ertrag) - new Double (result);
+       }
+       System.out.println("Found to insert " + diff);
+       if (diff > 0.001 || diff < -0.001 )
        {
            insertTransaction(diff,company);
        }
@@ -87,7 +98,8 @@ public class P2PService {
        
        trans.setBeschreibung("");
        trans.setCycle(0);
-       trans.setKonto_id(94);//TODO hardcoded Konto
+       
+       trans.setKonto_id(Infrastructure.getKontoByName(company,host,port));//TODO hardcoded Konto
        trans.setKor_id(0);
        trans.setPartner(company);
        trans.setPlaned("N");

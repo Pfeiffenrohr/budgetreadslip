@@ -111,7 +111,7 @@ public class ParseSlip {
 		    {
 		    	continue;
 		    } 
-		    
+		    System.out.println("Splitted " + splited[1]);
 		    if ( splited.length>2 && splited[1].equals("Rabatt"))
 		    {
 		    	name="Coupon";
@@ -126,11 +126,11 @@ public class ParseSlip {
 	 
 	private void checkBon( List  <SlipEntry> list,String company ) {
 		RestTemplate restTemplate = new RestTemplate();
-		
 		Bon bon = new Bon();
 		for (int i = 0; i < list.size(); i++) {
 			bon.setId(0);
 			bon.setCompany(company);
+			//Falls im Name ein Rabatt vorkommt, setze den Namen auf Rabatt
 			if (list.get(i).getName().contains("Coupon"))
 			{
 				list.get(i).setName("Rabatt");
