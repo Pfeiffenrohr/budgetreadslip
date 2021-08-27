@@ -32,7 +32,7 @@ public class P2PService {
         
     }
 
-   private void  parseP2P (List  <SlipEntry> list,String company) {
+   public void  parseP2P (List  <SlipEntry> list,String company) {
        
        //Vorerst haben wir nur Gesamtertrag. Daher ist die Liste evtl überflüssig
        //Aber vielleicht bekommen wir in Zukunft ja mehr
