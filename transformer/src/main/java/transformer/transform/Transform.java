@@ -57,7 +57,7 @@ public class Transform {
         tr.writeFile(content,args[1],url,"PeerBerry");
         } 
         if (args[2].equals("robocash"))
-        {
+        { 
         content = tr.parseFileRobocash(txt);
         tr.writeFile(content,args[1],url,"Robocash");
         } 

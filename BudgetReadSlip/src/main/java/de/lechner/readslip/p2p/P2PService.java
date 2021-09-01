@@ -53,16 +53,28 @@ public class P2PService {
                .queryParam("categorie", 42)
                .queryParam("konto", Infrastructure.getKontoByName(company,host,port))
                .build();
+       //Für Robocach holen wir den Gesamtbestand des Kontos, nicht den Ertrag
+       if (company.equals("Robocash"))
+       {
+           uriComponents = UriComponentsBuilder.newInstance()
+                   .scheme("http").host(host).port(port).path("/transaction_get_sum")
+                   .queryParam("startdate", "2011-01-01")
+                   .queryParam("enddate", enddate)
+                   .queryParam("konto", Infrastructure.getKontoByName(company,host,port))
+                   .build();
+       }
+                
        String uri=uriComponents.toUriString();
-       //System.out.println(uri);
+       //System.out.println(uri);    
        RestTemplate restTemplate = new RestTemplate();
        String result = restTemplate.getForObject(uri, String.class);
        if (result==null ||result.equals(""))
        {
-          System.out.println("No result found. Set result to 0.0");
+          System.out.println("No result found. Set result to 0");
           result="0.0";
        }
-       //System.out.println(result);
+       System.out.println("Found " +  result +" amount now"); 
+       
        double diff=0.0;
        //Extrawurst für viainvest
        if ( company.equals("ViaInvest"))
