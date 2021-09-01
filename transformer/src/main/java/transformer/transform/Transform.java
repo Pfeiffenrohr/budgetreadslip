@@ -69,7 +69,7 @@ public class Transform {
         String body = transformToJson(list);
         System.out.println(body);
       
-        if (company.equals("Mintos") ||company.equals("ViaInvest") || company.equals("PeerBerry"))
+        if (company.equals("Mintos") ||company.equals("ViaInvest") || company.equals("PeerBerry") || company.equals("Robocash"))
         {
             url=url + "/p2p";
         }
