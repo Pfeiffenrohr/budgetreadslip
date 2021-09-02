@@ -54,7 +54,7 @@ public class P2PService {
                .queryParam("konto", Infrastructure.getKontoByName(company,host,port))
                .build();
        //Für Robocach holen wir den Gesamtbestand des Kontos, nicht den Ertrag
-       if (company.equals("Robocash"))
+       if (company.equals("Robocash") || company.equals("Twino"))
        {
            uriComponents = UriComponentsBuilder.newInstance()
                    .scheme("http").host(host).port(port).path("/transaction_get_sum")
