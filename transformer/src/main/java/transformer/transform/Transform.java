@@ -61,6 +61,11 @@ public class Transform {
         content = tr.parseFileRobocash(txt);
         tr.writeFile(content,args[1],url,"Robocash");
         } 
+        if (args[2].equals("twino"))
+        { 
+        content = tr.parseFileTwino(txt);
+        tr.writeFile(content,args[1],url,"Twino");
+        } 
       
     }
     
@@ -69,7 +74,11 @@ public class Transform {
         String body = transformToJson(list);
         System.out.println(body);
       
-        if (company.equals("Mintos") ||company.equals("ViaInvest") || company.equals("PeerBerry") || company.equals("Robocash"))
+        if (company.equals("Mintos") 
+                ||company.equals("ViaInvest") 
+                || company.equals("PeerBerry") 
+                || company.equals("Robocash")
+                | company.equals("Twino"))
         {
             url=url + "/p2p";
         }
@@ -400,6 +409,62 @@ public class Transform {
                summe = splited[count];
                summe = summe.substring(summe.indexOf("AC ") + 3);
                summe = summe.substring(0, summe.indexOf("<")-1);
+               
+               
+               // summe = summe.substring(0, summe.indexOf(" "));
+      
+               System.out.println("Summe =" + summe);
+               content=content +summe+" { \n";
+               se.setSum(summe);
+               count++;
+               list.add(se);
+               //Wir wollen nur eine zeile haben !!
+               return content;
+               //if (count >= splited.length) return content;
+           }
+           return content;
+       }
+       
+       private String parseFileTwino(String txt)
+       {
+           list = new ArrayList<SlipEntry>();
+           String content=""; 
+           String splited [] = txt.trim().split("\n");
+           System.out.println("File has " + splited.length + " lines");
+           int count = 0;
+           String summe = "";
+           // Suche den Anfang
+           while ( count < splited.length && !splited[count].contains("Kontowert zum")) {
+               count++;
+               continue;
+           }
+           count ++;
+           while ( count < splited.length && !splited[count].contains("Kontowert zum")) {
+               count++;
+               continue;
+           }
+       //  System.out.println(splited[count]);
+           while (count < splited.length && !splited[count].contains("Investitionen") ) {
+               SlipEntry se = new SlipEntry();
+             /*  while (count < splited.length && !splited[count].startsWith("=AC")) {
+                   System.out.println(splited[count]);
+                   count++;
+                   continue;
+               }*/
+               if (count >= splited.length) return content;
+               //System.out.println(splited[count]);
+               String name = "Gesamtertrag";
+               se.setName(name);
+               count++;
+               if (count >= splited.length) return content;
+               while (count < splited.length && !splited[count].contains("=E2=82=AC")) {
+                   count++;
+                   if (count >= splited.length) return content;
+                   continue;
+               }
+               summe = splited[count];
+               summe = summe.substring(summe.indexOf("AC ") + 3);
+               summe = summe.substring(0, summe.indexOf("<"));
                
                
                // summe = summe.substring(0, summe.indexOf(" "));
