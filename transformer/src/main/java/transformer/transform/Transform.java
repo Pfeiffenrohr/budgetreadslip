@@ -228,14 +228,7 @@ public class Transform {
         return content;
     }
 
-  
-     
-       
-       
-      
-      
-       
-   
+    
        
     private String readFile(String inputfile)
     { 
