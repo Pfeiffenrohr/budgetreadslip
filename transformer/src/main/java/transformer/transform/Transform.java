@@ -43,27 +43,27 @@ public class Transform {
         }  
         if (args[2].equals("mintos"))
         {
-        content = tr.parseFileMintos(txt);
+        content = new ReadMailMintos().parseMail(txt);
         tr.writeFile(content,args[1],url,"Mintos");
         }  
         if (args[2].equals("viainvest"))
         {
-        content = tr.parseFileViaInvest(txt);
+        content =new ReadMailViaInvest().parseMail(txt);
         tr.writeFile(content,args[1],url,"ViaInvest");
         } 
         if (args[2].equals("peerberry"))
         {
-        content = tr.parseFilePeerBerry(txt);
+        content = new ReadMailPeerBerry().parseMail(txt);
         tr.writeFile(content,args[1],url,"PeerBerry");
         } 
         if (args[2].equals("robocash"))
         { 
-        content = tr.parseFileRobocash(txt);
+        content = new ReadMailRobocash().parseMail(txt);
         tr.writeFile(content,args[1],url,"Robocash");
         } 
         if (args[2].equals("twino"))
         { 
-        content = tr.parseFileTwino(txt);
+        content = new ReadMailTwino().parseMail(txt);
         tr.writeFile(content,args[1],url,"Twino");
         } 
       
@@ -228,258 +228,14 @@ public class Transform {
         return content;
     }
 
-       private String parseFileMintos(String txt)
-        {
-            list = new ArrayList<SlipEntry>();
-            String content=""; 
-            String splited [] = txt.trim().split("\n");
-            System.out.println("File has " + splited.length + " lines");
-            int count = 0;
-            // Suche den Anfang
-            while ( count < splited.length && !splited[count].contains("Gesamtertrag")) {
-                count++;
-                continue;
-            }
-        //  System.out.println(splited[count]);
-            while (count < splited.length && !splited[count].contains("Auszug") ) {
-                SlipEntry se = new SlipEntry();
-              /*  while (count < splited.length && !splited[count].startsWith("=AC")) {
-                    System.out.println(splited[count]);
-                    count++;
-                    continue;
-                }*/
-                if (count >= splited.length) return content;
-                //System.out.println(splited[count]);
-                String name = "Gesamtertrag";
-                se.setName(name);
-                count++;
-                if (count >= splited.length) return content;
-                while (count < splited.length && !splited[count].startsWith("=AC")) {
-                    count++;
-                    if (count >= splited.length) return content;
-                    continue;
-                }
-                String summe = splited[count];
-                summe = summe.substring(summe.indexOf(" ") + 1);
-                
-                    summe = summe.substring(0, summe.indexOf("<"));
-       
-                System.out.println("Summe =" + summe);
-                content=content +summe+" { \n";
-                se.setSum(summe);
-                count++;
-                list.add(se);
-                return content;
-            }
-            return content;
-        }
-       
-       private String parseFileViaInvest(String txt)
-        {
-            list = new ArrayList<SlipEntry>();
-            String content=""; 
-            String splited [] = txt.trim().split("\n");
-            System.out.println("File has " + splited.length + " lines");
-            int count = 0;
-            // Suche den Anfang
-            while ( count < splited.length && !splited[count].contains("Zinseinnahmen:")) {
-                count++;
-                continue;
-            }
-        //  System.out.println(splited[count]);
-            while (count < splited.length && !splited[count].contains("Hauptbetrag") ) {
-                SlipEntry se = new SlipEntry();
-              /*  while (count < splited.length && !splited[count].startsWith("=AC")) {
-                    System.out.println(splited[count]);
-                    count++;
-                    continue;
-                }*/
-                if (count >= splited.length) return content;
-                //System.out.println(splited[count]);
-                String name = "Gesamtertrag";
-                se.setName(name);
-                count++;
-                if (count >= splited.length) return content;
-                while (count < splited.length && !splited[count].contains("=E2=82=AC")) {
-                    count++;
-                    if (count >= splited.length) return content;
-                    continue;
-                }
-                String summe = splited[count];
-                summe = summe.substring(summe.indexOf(" ") + 1);
-                
-                    summe = summe.substring(0, summe.indexOf("<"));
-       
-                System.out.println("Summe =" + summe);
-                content=content +summe+" { \n";
-                se.setSum(summe);
-                count++;
-                list.add(se);
-                //Wir wollen nur eine zeile haben !!
-                return content;
-                //if (count >= splited.length) return content;
-            }
-            return content;
-        }
+  
+     
        
        
-       private String parseFilePeerBerry(String txt)
-       {
-           list = new ArrayList<SlipEntry>();
-           String content=""; 
-           String splited [] = txt.trim().split("\n");
-           System.out.println("File has " + splited.length + " lines");
-           int count = 0;
-           String summe = "";
-           // Suche den Anfang
-           while ( count < splited.length && !splited[count].contains("Invested funds")) {
-               count++;
-               continue;
-           }
-       //  System.out.println(splited[count]);
-           while (count < splited.length && !splited[count].contains("Profit") ) {
-               SlipEntry se = new SlipEntry();
-             /*  while (count < splited.length && !splited[count].startsWith("=AC")) {
-                   System.out.println(splited[count]);
-                   count++;
-                   continue;
-               }*/
-               if (count >= splited.length) return content;
-               //System.out.println(splited[count]);
-               String name = "Gesamtertrag";
-               se.setName(name);
-               count++;
-               if (count >= splited.length) return content;
-               while (count < splited.length && !splited[count].contains("Profit")) {
-                   count++;
-                   if (count >= splited.length) return content;
-                   continue;
-               }
-               summe = splited[count];
-               summe = summe.substring(summe.indexOf(":") + 2);
-             //  summe = summe.substring(0, summe.indexOf(":"));
-               
-               
-               // summe = summe.substring(0, summe.indexOf(" "));
       
-               System.out.println("Summe =" + summe);
-               content=content +summe+" { \n";
-               se.setSum(summe);
-               count++;
-               list.add(se);
-               //Wir wollen nur eine zeile haben !!
-               return content;
-               //if (count >= splited.length) return content;
-           }
-           return content;
-       }
-       
-       private String parseFileRobocash(String txt)
-       {
-           list = new ArrayList<SlipEntry>();
-           String content=""; 
-           String splited [] = txt.trim().split("\n");
-           System.out.println("File has " + splited.length + " lines");
-           int count = 0;
-           String summe = "";
-           // Suche den Anfang
-           while ( count < splited.length && !splited[count].contains("Total funds")) {
-               count++;
-               continue;
-           }
-       //  System.out.println(splited[count]);
-           while (count < splited.length && !splited[count].contains("Kind Regards") ) {
-               SlipEntry se = new SlipEntry();
-             /*  while (count < splited.length && !splited[count].startsWith("=AC")) {
-                   System.out.println(splited[count]);
-                   count++;
-                   continue;
-               }*/
-               if (count >= splited.length) return content;
-               //System.out.println(splited[count]);
-               String name = "Gesamtertrag";
-               se.setName(name);
-               count++;
-               if (count >= splited.length) return content;
-               while (count < splited.length && !splited[count].contains("=E2=82=AC")) {
-                   count++;
-                   if (count >= splited.length) return content;
-                   continue;
-               }
-               summe = splited[count];
-               summe = summe.substring(summe.indexOf("AC ") + 3);
-               summe = summe.substring(0, summe.indexOf("<")-1);
-               
-               
-               // summe = summe.substring(0, summe.indexOf(" "));
       
-               System.out.println("Summe =" + summe);
-               content=content +summe+" { \n";
-               se.setSum(summe);
-               count++;
-               list.add(se);
-               //Wir wollen nur eine zeile haben !!
-               return content;
-               //if (count >= splited.length) return content;
-           }
-           return content;
-       }
        
-       private String parseFileTwino(String txt)
-       {
-           list = new ArrayList<SlipEntry>();
-           String content=""; 
-           String splited [] = txt.trim().split("\n");
-           System.out.println("File has " + splited.length + " lines");
-           int count = 0;
-           String summe = "";
-           // Suche den Anfang
-           while ( count < splited.length && !splited[count].contains("Kontowert zum")) {
-               count++;
-               continue;
-           }
-           count ++;
-           while ( count < splited.length && !splited[count].contains("Kontowert zum")) {
-               count++;
-               continue;
-           }
-       //  System.out.println(splited[count]);
-           while (count < splited.length && !splited[count].contains("Investitionen") ) {
-               SlipEntry se = new SlipEntry();
-             /*  while (count < splited.length && !splited[count].startsWith("=AC")) {
-                   System.out.println(splited[count]);
-                   count++;
-                   continue;
-               }*/
-               if (count >= splited.length) return content;
-               //System.out.println(splited[count]);
-               String name = "Gesamtertrag";
-               se.setName(name);
-               count++;
-               if (count >= splited.length) return content;
-               while (count < splited.length && !splited[count].contains("=E2=82=AC")) {
-                   count++;
-                   if (count >= splited.length) return content;
-                   continue;
-               }
-               summe = splited[count];
-               summe = summe.substring(summe.indexOf("AC ") + 3);
-               summe = summe.substring(0, summe.indexOf("<"));
-               
-               
-               // summe = summe.substring(0, summe.indexOf(" "));
-      
-               System.out.println("Summe =" + summe);
-               content=content +summe+" { \n";
-               se.setSum(summe);
-               count++;
-               list.add(se);
-               //Wir wollen nur eine zeile haben !!
-               return content;
-               //if (count >= splited.length) return content;
-           }
-           return content;
-       }
+   
        
     private String readFile(String inputfile)
     { 
