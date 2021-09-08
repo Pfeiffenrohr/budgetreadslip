@@ -26,14 +26,12 @@ public class Transform {
     private static List list = new ArrayList<SlipEntry>();
 
     public static void main(String[] args) {
-        System.out.println("Start ...");
         String url = args[3];
         Transform tr = new Transform();
         String txt=tr.readFile(args[0]);
         String content;
         if (args[2].equals("netto"))
         {
-            System.out.println("Found netto");
             ReadMail rm =  new ReadMailNetto();   
             content = rm.parseMail(txt);
             tr.writeFile(content,args[1],url,"netto",rm.getList());
