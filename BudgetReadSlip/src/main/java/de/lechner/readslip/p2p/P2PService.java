@@ -87,6 +87,15 @@ public class P2PService {
     	   diff = new Double (ertrag) - new Double (result);
        }
        System.out.println("Found to insert " + diff);
+       //Falls der Betrag größer 49€ oder kleiner -49 € ist, dann wird er vorerst nicht eingetragen
+       // Ansonsten gibt es "unschöne Effeckte, wenn das Geld schon gebucht ist, aber noch nicht angekommen ist. 
+       if (diff > 49.0 || diff < -49 )
+       {
+           System.out.println("!!!Amount is " + diff);
+           System.out.println("!!!This is to big. Therefore it will be not inserted");
+           return;
+       }
+       
        if (diff > 0.001 || diff < -0.001 )
        {
            insertTransaction(diff,company);
@@ -111,7 +120,7 @@ public class P2PService {
        trans.setBeschreibung("");
        trans.setCycle(0);
        
-       trans.setKonto_id(Infrastructure.getKontoByName(company,host,port));//TODO hardcoded Konto
+       trans.setKonto_id(Infrastructure.getKontoByName(company,host,port));
        trans.setKor_id(0);
        trans.setPartner(company);
        trans.setPlaned("N");

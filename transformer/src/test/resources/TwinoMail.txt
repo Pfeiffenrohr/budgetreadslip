@@ -1,0 +1,1004 @@
+Return-Path: <bounces+1773850-6392-richard=richardlechner.de@emails.twino.eu>
+X-Original-To: test@mailserver.loadbalancer1.de
+Delivered-To: richard@mailserver.loadbalancer1.de
+Received: from loadbalancer2 (localhost [127.0.0.1])
+	by loadbalancer1 (Postfix) with ESMTP id 1E598EA0063
+	for <test@mailserver.loadbalancer1.de>; Thu,  2 Sep 2021 08:00:08 +0200 (CEST)
+X-Envelope-From: <bounces+1773850-6392-richard=richardlechner.de@emails.twino.eu>
+X-Envelope-To: <richard@richardlechner.de>
+X-Delivery-Time: 1630562403
+X-UID: 107711
+ARC-Seal: i=1; a=rsa-sha256; t=1630562403; cv=none;
+    d=strato.com; s=strato-dkim-0002;
+    b=Ma7aGrkC9dU+IDpSXQ+lArRcVOv8boWm9YLhU417em9nkIUCz/wf3kkGtsuXIHu7bw
+    hAzZheISr1fN7+4/Mns5vBar1Pit/RY9SZNo9wxk57I68xoSJfHaf3E20c2zQva9rwXT
+    UWX5spiJAvevtWcIYYO+n4zIpBU1sGEUZVJ4aziEX4yUAaOnr8hesKVmWFFxTyYDSVdH
+    3xvW8KYF/9T0Ms1YoR15MDXEF+F4dmHu49zqbW855+XRTSvU5I+gD2VmZhTeiXLF+unu
+    AJ7QbSehlgepqSTQ17Q+ZGAsX4agLGhxpKejDB2/+QzOVocrP045nLECxgwdcZy/KT8n
+    9atQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1630562403;
+    s=strato-dkim-0002; d=strato.com;
+    h=To:Subject:Message-ID:From:Date:Cc:Date:From:Subject:Sender;
+    bh=84yD0kpq/wrjYYIDrJ1iA/paGmq1M0U3Ephh1OmAg08=;
+    b=IWim01kc5HweTBsIAOx0OgI4X4q6kpSuikpS7VG1rtXlEc+fptXYOf35E76v7/aEZY
+    BrRyVFkf1u9NZKjjjI2/PrxEmeHJLVMJ9TmSGn/pe3c59x/uyFPHgWMrcBeFN1Y+2WAd
+    VB7W/MFcIMEbdoxhCS7YYkNaB3xvDfaKPpbroqiWA3vt483hdhk1exjsxlNobJ477Ju9
+    9G6dGagLNiT+TWVwhaP6JSXZ7+500PKJ596A+O6hk9bNMsyTvrXiOfY85XSErFyv44u5
+    8UzZ7zmdYFA2d4MRpFLkMYH+K8hSpB6Flclm53sMSw4n75iemO4P7krAvNXrLfcP21F5
+    3RHg==
+ARC-Authentication-Results: i=1; strato.com;
+    dmarc=pass (p=NONE sp=NONE) header.from="twino.eu";
+    dkim=pass header.d="twino.eu" header.s="s1" header.a="rsa-sha256";
+    dkim-adsp=pass;
+    spf=pass smtp.mailfrom="bounces+1773850-6392-richard=richardlechner.de@emails.twino.eu"
+Authentication-Results: strato.com;
+    dmarc=pass (p=NONE sp=NONE) header.from="twino.eu";
+    dkim=pass header.d="twino.eu" header.s="s1" header.a="rsa-sha256";
+    dkim-adsp=pass;
+    spf=pass smtp.mailfrom="bounces+1773850-6392-richard=richardlechner.de@emails.twino.eu"
+X-RZG-Expurgate: clean/normal
+X-RZG-Expurgate-ID: 149500::1630562402-00000848-06CE89A9/0/0
+X-RZG-CLASS-ID: mi00
+Received-SPF: pass
+    (strato.com: domain emails.twino.eu designates 167.89.69.7 as permitted sender)
+    mechanism=ip4;
+    client-ip=167.89.69.7;
+    helo="o1678969x7.outbound-mail.sendgrid.net";
+    envelope-from="bounces+1773850-6392-richard=richardlechner.de@emails.twino.eu";
+    rceiver=smtpin.rzone.de;
+    identity=mailfrom;
+Received: from imap.strato.de [81.169.145.103]
+	by loadbalancer2 with IMAP (fetchmail-6.4.2)
+	for <test@mailserver.loadbalancer1.de> (single-drop); Thu, 02 Sep 2021 08:00:08 +0200 (CEST)
+Received: from o1678969x7.outbound-mail.sendgrid.net ([167.89.69.7])
+    by smtpin.rzone.de (RZmta 47.33.0 OK)
+    with ESMTPS id v06187x8260297s
+    (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
+    (Client did not present a certificate)
+    for <richard@richardlechner.de>;
+    Thu, 2 Sep 2021 08:00:02 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=twino.eu;
+	h=from:subject:mime-version:to:content-type:content-transfer-encoding;
+	s=s1; bh=84yD0kpq/wrjYYIDrJ1iA/paGmq1M0U3Ephh1OmAg08=;
+	b=WHN30LYAySduiZRhVvOgjQvV9CmgpeOkQPjfbqeo4JJJY/2L5JwSTThsKH8pA6odg/KW
+	0zlZa+EvnXJzThGCfX9MMXfO3sDb7z5+IxC1lD3f+iTS+k6ugrySUc4PLQoBAlaMnlj2QD
+	Vaad9WBltQBzW9uRvL7dRPfaub4gX0zClbmy5c/WANWRUquIAzVukxXPWQcy2feJMIXmZ8
+	VGFSE4s/Cr+9MOguF/Qzfq1cBk4AC5wsHfKlN6nN2xkJaL3znF8fbBijqrf6QCntAKz37Z
+	ozplRFIfHpqpQx8DfyYOXuuI7YLQMBWt0jxoEjAVb3bNn/+Y4Ql6ueNFdUUupuXQ==
+Received: by filterdrecv-75ff7b5ffb-ktk29 with SMTP id filterdrecv-75ff7b5ffb-ktk29-1-61301286-1B
+        2021-09-01 23:53:42.647132061 +0000 UTC m=+5587.881012023
+Received: from p2p-prod-77787ccf5d-jhkt4 (unknown)
+	by geopod-ismtpd-6-2 (SG)
+	with ESMTP id 4gAE-yFnSrWVRQJza028jg
+	for <richard@richardlechner.de>;
+	Wed, 01 Sep 2021 23:53:42.275 +0000 (UTC)
+Date: Thu, 02 Sep 2021 06:00:00 +0000 (UTC)
+From: TWINO <info@twino.eu>
+Message-ID: <87304572.25927.1630540422161@p2p-prod-77787ccf5d-jhkt4>
+Subject: =?UTF-8?Q?T=C3=A4gliche_Konto=C3=BCbersicht?=
+MIME-Version: 1.0
+X-SG-EID: 
+ =?us-ascii?Q?sBWtP4GZwNqRzUZ1L4aJv9iFKYq5WssR5pwA03mxBvyQqHvcOsRS1bkUQy17hp?=
+ =?us-ascii?Q?dHpnxfBZYFjs8xZpcInVoTsK21LsC2MWkmh3ieP?=
+ =?us-ascii?Q?1cJf33biAk5AHONmikO1tBe9vOB2Q3AcUBalMSl?=
+ =?us-ascii?Q?6HjyJF5Ezf6NzJaY40W9=2FFSEFykB4DHKPXgtD5K?=
+ =?us-ascii?Q?3St80fYibOeM+gHJKeO9om06ghl4C5UvPwEYPru?=
+ =?us-ascii?Q?tZgXyYTR1qqwV4PHU=3D?=
+To: richard@richardlechner.de
+X-Entity-ID: /WrB0Odm4T/d0ehhxm6N0g==
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns=3D"http://www.w3.org/1999/xhtml" data-dnd=3D"true">
+<head>
+    <meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dutf-8=
+"/>
+    <meta name=3D"viewport" content=3D"width=3Ddevice-width, initial-scale=
+=3D1, minimum-scale=3D1, maximum-scale=3D1"/>
+    <!--[if !mso]><!-->
+    <meta http-equiv=3D"X-UA-Compatible" content=3D"IE=3DEdge"/>
+    <!--<![endif]-->
+
+    <!--[if (gte mso 9)|(IE)]>
+    <style type=3D"text/css">
+        table {
+            border-collapse: collapse;
+        }
+
+        table, td {
+            mso-table-lspace: 0pt;
+            mso-table-rspace: 0pt;
+        }
+
+        img {
+            -ms-interpolation-mode: bicubic;
+        }
+    </style>
+    <![endif]-->
+    <style type=3D"text/css">
+        body {
+            color: #7a8791;
+        }
+
+        body a {
+            color: #3955a4;
+            text-decoration: none;
+        }
+
+        p {
+            margin: 0;
+            padding: 0;
+        }
+
+        table[class=3D"wrapper"] {
+            width: 100% !important;
+            table-layout: fixed;
+            -webkit-font-smoothing: antialiased;
+            -webkit-text-size-adjust: 100%;
+            -moz-text-size-adjust: 100%;
+            -ms-text-size-adjust: 100%;
+        }
+
+        img[class=3D"max-width"] {
+            max-width: 100% !important;
+        }
+
+        @media screen and (max-width: 480px) {
+            .preheader .rightColumnContent,
+            .footer .rightColumnContent {
+                text-align: left !important;
+            }
+
+            .preheader .rightColumnContent div,
+            .preheader .rightColumnContent span,
+            .footer .rightColumnContent div,
+            .footer .rightColumnContent span {
+                text-align: left !important;
+            }
+
+            .preheader .rightColumnContent,
+            .preheader .leftColumnContent {
+                font-size: 80% !important;
+                padding: 5px 0;
+            }
+
+            table[class=3D"wrapper-mobile"] {
+                width: 100% !important;
+                table-layout: fixed;
+            }
+
+            img[class=3D"max-width"] {
+                height: auto !important;
+            }
+
+            a[class=3D"bulletproof-button"] {
+                display: block !important;
+                width: auto !important;
+                font-size: 80%;
+                padding-left: 0 !important;
+                padding-right: 0 !important;
+            }
+
+            #templateColumns {
+                width: 100% !important;
+            }
+
+            .templateColumnContainer {
+                display: block !important;
+                width: 100% !important;
+                padding-left: 0 !important;
+                padding-right: 0 !important;
+            }
+        }
+    </style>
+    <style>
+        body, p, div {
+            font-family: arial, sans-serif;
+            letter-spacing: 1px;
+        }
+    </style>
+    <style>
+        body, p, div {
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body yahoofix=3D"true"
+      style=3D"min-width: 100%; margin: 0; padding: 0; font-size: 16px; fon=
+t-family: arial,sans-serif; color: #7a8791; background-color: #FFFFFF; colo=
+r: #7a8791;"
+    >
+
+<div class=3D"webkit">
+    <table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" width=3D"100%" =
+class=3D"wrapper" bgcolor=3D"#FFFFFF">
+        <tr>
+            <td valign=3D"top" bgcolor=3D"#FFFFFF" width=3D"100%">
+                <!--[if (gte mso 9)|(IE)]>
+                <table width=3D"810" align=3D"center" cellpadding=3D"0" cel=
+lspacing=3D"0" border=3D"0">
+                    <tr>
+                        <td>
+                <![endif]-->
+                <table width=3D"100%" role=3D"content-container" class=3D"o=
+uter"
+                       align=3D"center" cellpadding=3D"0" cellspacing=3D"0"=
+ border=3D"0">
+                    <tr>
+                        <td width=3D"100%" align=3D"center">
+                            <table width=3D"100%" cellpadding=3D"0" cellspa=
+cing=3D"0" border=3D"0">
+                                <tr>
+                                    <td align=3D"center">
+                                        <!--[if (gte mso 9)|(IE)]>
+                                        <table width=3D"810" align=3D"cente=
+r" cellpadding=3D"0" cellspacing=3D"0" border=3D"0">
+                                          <tr>
+                                            <td>
+                                        <![endif]-->
+                                              <table width=3D"100%" cellpad=
+ding=3D"0" cellspacing=3D"0" border=3D"0"
+                                               style=3D"width: 100%; max-wi=
+dth:600px; margin: 0 auto;" align=3D"center">
+                                            <tr>
+                                                <td role=3D"modules-contain=
+er"
+                                                    style=3D"padding: 110px=
+ 15px 0px 15px; color: #7a8791; text-align: left;"
+                                                    bgcolor=3D"#FFFFFF" wid=
+th=3D"100%" align=3D"left">
+                                                    <table class=3D"module"=
+ role=3D"module" data-type=3D"wysiwyg"
+                                                           border=3D"0" cel=
+lpadding=3D"0" cellspacing=3D"0" width=3D"100%"
+                                                           style=3D"table-l=
+ayout: fixed;"
+                                                           >
+                                                        <tr>
+                                                            <td role=3D"mod=
+ule-content"
+                                                                style=3D"pa=
+dding: 0px 0px 110px 0px;"
+                                                                bgcolor=3D"=
+#ffffff"
+                                                                align=3D"ce=
+nter">
+                                                                <div><span =
+class=3D"sg-image"
+                                                                           =
+style=3D"float: none; display: block; text-align: center;"><img
+                                                                        hei=
+ght=3D"97"
+                                                                        alt=
+=3D"Twino"
+                                                                        src=
+=3D"https://www.twino.eu/assets/images/logo_new.png"
+                                                                        sty=
+le=3D"width: 174px; height: 97px; margin:0 auto;"
+                                                                        wid=
+th=3D"174"></span></div>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                    <table class=3D"module"=
+ role=3D"module" data-type=3D"text" border=3D"0"
+                                                           cellpadding=3D"0=
+" cellspacing=3D"0" width=3D"100%"
+                                                           style=3D"table-l=
+ayout: fixed;">
+                                                        <tr>
+                                                            <td role=3D"mod=
+ule-content" valign=3D"top" height=3D"100%"
+                                                                style=3D"pa=
+dding: 0px 0px 55px 0px;"
+                                                                bgcolor=3D"=
+#ffffff">
+                                                                <div style=
+=3D"letter-spacing: 0px;"><span
+                                                                        sty=
+le=3D"color:#1d3763;"><span
+                                                                        sty=
+le=3D"font-size:36px;"><span
+                                                                        sty=
+le=3D"font-family:arial,helvetica,sans-serif;">Liebe/r Richard Lechner,</sp=
+an></span></span>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                    <table class=3D"module"=
+ role=3D"module" data-type=3D"text" border=3D"0"
+                                                           cellpadding=3D"0=
+" cellspacing=3D"0" width=3D"100%"
+                                                           style=3D"table-l=
+ayout: fixed;"
+                                                           >
+                                                        <tr>
+                                                            <td role=3D"mod=
+ule-content" valign=3D"top" height=3D"100%"
+                                                                style=3D"pa=
+dding: 0px 0px 50px 0px;"
+                                                                bgcolor=3D"=
+#ffffff">
+                                                                <div transl=
+ate>dies ist Ihre t=C3=A4gliche Zusammenfassung. Sollten Sie Interesse an d=
+etaillierteren Informationen =C3=BCber Ihr TWINO-Investorenkonto haben, bes=
+uchen Sie unsere <a href=3D"https://u1773850.ct.sendgrid.net/ls/click?upn=
+=3DfameT1WjkwS9uxpN2A5AU-2F6Vz-2BA-2FzexobUVPB5755zs-3DA6US_tZ6gW1CmgmiDSdv=
+J3JBgYluIm7byDvaLCG71w3DSiT8doo2oZZyN9vJWQXJyWDma-2F96l6RqQlvY1-2B-2Fxufoct=
+0gRfoUBe67OTBGfw28XQ9hMkIShSd469GIr73VRfFu7b6U7rqXJ0U9ze7t0fkq27vcdU3Kze301=
+dUortca6D-2BaLUvL27Sk-2FWiaWs4O8MyysJDxFL0JOOSNnuoxj57ePq0Kgx0nxDVMuvHlytg4=
+gBP3I-3D">Website</a>.
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+
+                                                    <table class=3D"module"=
+ role=3D"module" data-type=3D"table" border=3D"0"
+                                                           cellpadding=3D"0=
+" cellspacing=3D"0" width=3D"100%"
+                                                           style=3D"table-l=
+ayout: fixed;"
+                                                    >
+                                                        <tr>
+                                                            <td role=3D"mod=
+ule-content" valign=3D"top" height=3D"100%"
+                                                                style=3D"pa=
+dding: 0px 0px 50px 0px;">
+                                                                <table bord=
+er=3D"0"
+                                                                       cell=
+padding=3D"0" cellspacing=3D"0" width=3D"100%"
+                                                                       styl=
+e=3D"table-layout: fixed;">
+                                                                    <tr>
+                                                                        <td=
+ style=3D"border-top: 2px solid #e8ebef; padding: 30px 0;">
+                                                                           =
+ <b translate>Kontowert zum 01.09.2021</b>
+                                                                        </t=
+d>
+                                                                        <td=
+ style=3D"text-align: right;padding-top: 30px; border-top: 2px solid #e8ebe=
+f;">
+                                                                           =
+ <b>=E2=82=AC 500.00</b>
+                                                                        </t=
+d>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td=
+ translate>Investitionen</td>
+                                                                        <td=
+ style=3D"text-align: right;">
+                                                                           =
+ <b>=E2=82=AC 500.00</b>
+                                                                        </t=
+d>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td=
+ style=3D"padding-bottom: 30px;" translate>Verf=C3=BCgbare Geldmittel</td>
+                                                                        <td=
+ style=3D"text-align: right;padding-bottom: 30px;">
+                                                                           =
+ <b>=E2=82=AC 0.00</b>
+                                                                        </t=
+d>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td=
+ style=3D"border-top: 2px solid #e8ebef; padding-top: 30px;" translate>Einz=
+ahlungen</td>
+                                                                        <td=
+ style=3D"text-align: right;padding-top: 30px; border-top: 2px solid #e8ebe=
+f;"><b>=E2=82=AC  0.00</b></td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td=
+ style=3D"padding-bottom: 30px;" translate>Auszahlungen</td>
+                                                                        <td=
+ style=3D"text-align: right;padding-bottom: 30px;">
+                                                                           =
+ <b>=E2=82=AC 0.00</b>
+                                                                        </t=
+d>
+                                                                    </tr>
+
+
+                                                                    <tr>
+                                                                        <td=
+ style=3D"border-top: 2px solid #e8ebef; padding-top: 30px;" translate>
+                                                                           =
+ Empfangene Zahlungen
+                                                                        </t=
+d>
+                                                                        <td=
+ style=3D"text-align: right;padding-top: 30px; border-top: 2px solid #e8ebe=
+f;">
+                                                                           =
+ <b>=E2=82=AC 10.01</b>
+                                                                        </t=
+d>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td=
+ translate>R=C3=BCckzahlung des Grundbetrags</td>
+                                                                        <td=
+ style=3D"text-align: right;">=E2=82=AC 10.00</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td=
+ style=3D"padding-bottom: 30px;" translate>
+                                                                           =
+ Zur=C3=BCckgezahlte Zinsen
+                                                                        </t=
+d>
+                                                                        <td=
+ style=3D"text-align: right;padding-bottom: 30px;">
+                                                                          =
+=E2=82=AC 0.01
+                                                                        </t=
+d>
+                                                                    </tr>
+
+
+                                                                    <tr>
+                                                                        <td=
+ style=3D"border-top: 2px solid #e8ebef; padding-top: 30px;" translate>
+                                                                           =
+ Gekaufte Darlehen
+                                                                        </t=
+d>
+                                                                        <td=
+ style=3D"text-align: right;padding-top: 30px; border-top: 2px solid #e8ebe=
+f;">
+                                                                           =
+ <b>=E2=82=AC -10.00</b>
+                                                                        </t=
+d>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td=
+ style=3D"padding-bottom: 30px;" translate>
+                                                                           =
+ Verkaufte Darlehen
+                                                                        </t=
+d>
+                                                                        <td=
+ style=3D"text-align: right;padding-bottom: 30px;">
+                                                                           =
+ <b>=E2=82=AC 0.00</b>
+                                                                        </t=
+d>
+                                                                    </tr>
+
+                                                                    <tr>
+                                                                        <td=
+ style=3D"border-top: 2px solid #e8ebef; padding-top: 30px;" translate>
+                                                                           =
+ Sekund=C3=A4rmarktgewinn
+                                                                        </t=
+d>
+                                                                        <td=
+ style=3D"text-align: right;padding-top: 30px; border-top: 2px solid #e8ebe=
+f;">
+                                                                           =
+ <b>=E2=82=AC 0.00</b>
+                                                                        </t=
+d>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td=
+ style=3D"padding-bottom: 30px;" translate>
+                                                                           =
+ Sekund=C3=A4rmarktverlust
+                                                                        </t=
+d>
+                                                                        <td=
+ style=3D"text-align: right;padding-bottom: 30px;">
+                                                                           =
+ <b>=E2=82=AC 0.00</b>
+                                                                        </t=
+d>
+                                                                    </tr>
+
+
+                                                                    <tr>
+                                                                        <td=
+ style=3D"border-top: 2px solid #e8ebef; padding: 30px 0;" translate>
+                                                                           =
+ <b>Kontowert zum 02.09.2021</b>
+                                                                        </t=
+d>
+                                                                        <td=
+ style=3D"text-align: right;padding-top: 30px; border-top: 2px solid #e8ebe=
+f;">
+                                                                           =
+ <b>=E2=82=AC 500.01</b>
+                                                                        </t=
+d>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td=
+ translate>Investitionen</td>
+                                                                        <td=
+ style=3D"text-align: right;">
+                                                                           =
+ <b>=E2=82=AC 500.00</b>
+                                                                        </t=
+d>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td=
+ style=3D"border-bottom: 2px solid #e8ebef;padding-bottom: 30px;" translate=
+>Verf=C3=BCgbare Geldmittel</td>
+                                                                        <td=
+ style=3D"text-align: right;border-bottom: 2px solid #e8ebef;padding-bottom=
+: 30px;">
+                                                                           =
+ <b>=E2=82=AC 0.01</b>
+                                                                        </t=
+d>
+                                                                    </tr>
+                                                                </table>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                          <td>
+                                                            <div style=3D"p=
+adding-bottom: 10px;font-weight: bold" translate>Vom 01.09.2021 bis 02.09.2=
+021 aufgelistete Darlehen</div>
+                                                            <table class=3D=
+"module" role=3D"module" data-type=3D"table" border=3D"0"
+                                                                   cellpadd=
+ing=3D"0" cellspacing=3D"0" width=3D"100%"
+                                                                   style=3D=
+"table-layout: fixed;">
+                                                              <thead style=
+=3D"font-weight: bold">
+                                                                <tr><td col=
+span=3D"4" style=3D"font-size: 16px; padding-bottom: 10px;" translate>Kurzf=
+ristige Darlehen | BuyBack-Garantie</td></tr>
+                                                                <tr>
+                                                                  <td></td>
+                                                                </tr>
+                                                                <tr>
+                                                                  <td trans=
+late>Land</td>
+                                                                  <td trans=
+late>Laufzeit</td>
+                                                                  <td trans=
+late>Zinssatz (%)</td>
+                                                                  <td trans=
+late>Volumen</td>
+                                                                </tr>
+                                                              </thead>
+                                                              <tbody>
+                                                                  <tr>
+                                                                    <td>PL<=
+/td>
+                                                                    <td>1-2=
+</td>
+                                                                    <td>10<=
+/td>
+                                                                    <td>=E2=
+=82=AC175,382</td>
+                                                                  </tr>
+                                                                  <tr>
+                                                                    <td>RU<=
+/td>
+                                                                    <td>1-2=
+</td>
+                                                                    <td>10<=
+/td>
+                                                                    <td>=E2=
+=82=AC101,823</td>
+                                                                  </tr>
+                                                                  <tr>
+                                                                    <td>RU<=
+/td>
+                                                                    <td>1-2=
+</td>
+                                                                    <td>14 =
+*(WE)</td>
+                                                                    <td>=E2=
+=82=AC46,398</td>
+                                                                  </tr>
+                                                                  <tr>
+                                                                    <td>VN<=
+/td>
+                                                                    <td>1-2=
+</td>
+                                                                    <td>10<=
+/td>
+                                                                    <td>=E2=
+=82=AC7,588</td>
+                                                                  </tr>
+                                                                <tr>
+                                                                  <td style=
+=3D"padding: 30px 0;"></td>
+                                                                </tr>
+                                                              </tbody>
+                                                            </table>
+                                                          </td>
+                                                        </tr>
+                                                        <tr>
+                                                          <td>
+                                                            <table class=3D=
+"module" role=3D"module" data-type=3D"table" border=3D"0"
+                                                                   cellpadd=
+ing=3D"0" cellspacing=3D"0" width=3D"100%"
+                                                                   style=3D=
+"table-layout: fixed;">
+                                                              <thead style=
+=3D"font-weight: bold">
+                                                                <tr><td col=
+span=3D"4" style=3D"font-size: 16px; padding-bottom: 10px;" translate>Raten=
+darlehen | Zahlungsgarantie (PG)</td></tr>
+                                                                <tr>
+                                                                  <td></td>
+                                                                </tr>
+                                                                <tr>
+                                                                  <td trans=
+late>Land</td>
+                                                                  <td trans=
+late>Laufzeit</td>
+                                                                  <td trans=
+late>Zinssatz (%)</td>
+                                                                  <td trans=
+late>Volumen</td>
+                                                                </tr>
+                                                              </thead>
+                                                              <tbody>
+                                                                  <tr>
+                                                                    <td>LV<=
+/td>
+                                                                    <td>3-1=
+2</td>
+                                                                    <td>8</=
+td>
+                                                                    <td>=E2=
+=82=AC57,679</td>
+                                                                  </tr>
+                                                                <tr>
+                                                                  <td style=
+=3D"padding: 30px 0;"></td>
+                                                                </tr>
+                                                              </tbody>
+                                                            </table>
+                                                          </td>
+                                                        </tr>
+                                                    </table>
+
+                                                    <table class=3D"module"=
+ role=3D"module" data-type=3D"text" border=3D"0"
+                                                           cellpadding=3D"0=
+" cellspacing=3D"0" width=3D"100%"
+                                                           style=3D"table-l=
+ayout: fixed;"
+                                                           data-attributes=
+=3D'%7B%22dropped%22%3Atrue%2C%22child%22%3Afalse%2C%22padding%22%3A%220%2C=
+0%2C92%2C0%22%2C%22containerbackground%22%3A%22%23ffffff%22%7D'>
+                                                        <tr>
+                                                            <td role=3D"mod=
+ule-content" valign=3D"top" height=3D"100%"
+                                                                style=3D"pa=
+dding: 0px 0px 60px 0px;"
+                                                                bgcolor=3D"=
+#ffffff">
+                                                                <div>
+                                                                    <div tr=
+anslate>Sollten Sie Fragen haben, stehen wir Ihnen gerne zur Verf=C3=BCgung=
+.
+                                                                    </div>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                    <table class=3D"module"=
+ role=3D"module" data-type=3D"button"
+                                                           border=3D"0" cel=
+lpadding=3D"0" cellspacing=3D"0" width=3D"100%"
+                                                           style=3D"table-l=
+ayout: fixed;"
+                                                           data-attributes=
+=3D'%7B%22dropped%22%3Atrue%2C%22borderradius%22%3A5%2C%22buttonpadding%22%=
+3A%2225%2C45%2C25%2C45%22%2C%22text%22%3A%22Go%2520To%2520TWINO.EU%22%2C%22=
+alignment%22%3A%22center%22%2C%22fontsize%22%3A23%2C%22url%22%3A%22%22%2C%2=
+2height%22%3A%22%22%2C%22width%22%3A%22%22%2C%22containerbackground%22%3A%2=
+2%23ffffff%22%2C%22padding%22%3A%220%2C0%2C92%2C0%22%2C%22buttoncolor%22%3A=
+%22%2320aee0%22%2C%22textcolor%22%3A%22%23ffffff%22%2C%22bordercolor%22%3A%=
+22%2320aee0%22%7D'>
+                                                        <tr>
+                                                            <td style=3D"pa=
+dding: 0px 0px 60px 0px;" align=3D"center"
+                                                                bgcolor=3D"=
+#ffffff">
+                                                                <table bord=
+er=3D"0" cellpadding=3D"0" cellspacing=3D"0"
+                                                                       clas=
+s=3D"wrapper-mobile">
+                                                                    <tr>
+                                                                        <td=
+ align=3D"center"
+                                                                           =
+ style=3D"-webkit-border-radius: 5px; -moz-border-radius: 5px; border-radiu=
+s: 5px; font-size: 23px;"
+                                                                           =
+ bgcolor=3D"#20aee0">
+                                                                           =
+ <a translate href=3D"https://u1773850.ct.sendgrid.net/ls/click?upn=3DfameT=
+1WjkwS9uxpN2A5AUxjmM9SXNq6h4gcT4RII3sY-3DDYkW_tZ6gW1CmgmiDSdvJ3JBgYluIm7byD=
+vaLCG71w3DSiT8doo2oZZyN9vJWQXJyWDma-2F96l6RqQlvY1-2B-2Fxufoct0tso9aAgscwRld=
+9X0F-2B-2FBVoCopHVPEaArh-2BA9mJBiezrNdkbNKDWeQKm59sZJ4djimtlG-2Bf-2FaVPIpfx=
+JeAf8MabXIW0mV7rApbIdeBGnhwzu1iiD9xO5ySy-2BcavcsxDF-2BVhcNE2LwA9aVb82DpIf0X=
+A-3D" class=3D"bulletproof-button"
+                                                                           =
+    target=3D"_blank"
+                                                                           =
+    style=3D" font-size: 23px; font-family: Helvetica, Arial, sans-serif; c=
+olor: #ffffff; padding: 25px 45px 25px 45px; text-decoration: none; color: =
+#ffffff; text-decoration: none; -webkit-border-radius: 5px; -moz-border-rad=
+ius: 5px; border-radius: 5px; border: 1px solid #20aee0; display: inline-bl=
+ock; font-weight: bold;">TWINO besuchen</a>
+                                                                        </t=
+d>
+                                                                    </tr>
+                                                                </table>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                    <table class=3D"module"=
+ role=3D"module" data-type=3D"text" border=3D"0"
+                                                           cellpadding=3D"0=
+" cellspacing=3D"0" width=3D"100%"
+                                                           style=3D"table-l=
+ayout: fixed;"
+                                                           data-attributes=
+=3D'%7B%22dropped%22%3Atrue%2C%22child%22%3Afalse%2C%22padding%22%3A%220%2C=
+0%2C140%2C0%22%2C%22containerbackground%22%3A%22%23ffffff%22%7D'>
+                                                        <tr>
+                                                            <td role=3D"mod=
+ule-content" valign=3D"top" height=3D"100%"
+                                                                style=3D"pa=
+dding: 0px 0px 90px 0px;"
+                                                                bgcolor=3D"=
+#ffffff">
+                                                                <div><span =
+translate>Mit freundlichen Gr=C3=BC=C3=9Fen</span><br> <strong translate>Ih=
+r TWINO-Team</strong>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td role=3D"mod=
+ule-content" valign=3D"top" height=3D"100%"
+                                                                style=3D"pa=
+dding: 0px 0px 90px 0px;"
+                                                                bgcolor=3D"=
+#ffffff">
+                                                                <div>*(WE) =
+- Der W=C3=A4hrungseinfluss ist eine Funktionalit=C3=A4t, mit der Sie in Da=
+rlehen investieren k=C3=B6nnen, die an die Landesw=C3=A4hrung des ausstelle=
+nden Landes gebunden sind. Ihre Investition wird den W=C3=A4hrungsschwankun=
+gen ausgesetzt sein.</div>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                        <!--[if (gte mso 9)|(IE)]>
+                                            </td>
+                                          </tr>
+                                        </table>
+                                        <![endif]-->
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td bgcolor=3D"#f2f4f5" align=3D"center=
+">
+                                        <!--[if (gte mso 9)|(IE)]>
+                                        <table width=3D"600" align=3D"cente=
+r" cellpadding=3D"0" cellspacing=3D"0"
+                                               border=3D"0">
+                                            <tr>
+                                                <td>
+                                        <![endif]-->
+                                        <table width=3D"100%" cellpadding=
+=3D"0" cellspacing=3D"0" border=3D"0"
+                                               style=3D"width: 100%; max-wi=
+dth:600px;margin: 0 auto;" align=3D"center">
+                                            <tr>
+                                                <td
+                                                        style=3D"padding: 5=
+0px 25px 96px 25px; color: #7a8791; text-align: left; "
+                                                        bgcolor=3D"#f2f4f5"=
+ width=3D"100%" align=3D"left">
+
+                                                    <table border=3D"0" cel=
+lpadding=3D"0" cellspacing=3D"0" align=3D"center"
+                                                           width=3D"100%" r=
+ole=3D"module" data-type=3D"columns"
+                                                           data-attributes=
+=3D'%7B%22dropped%22%3Atrue%2C%22columns%22%3A2%2C%22padding%22%3A%220%2C0%=
+2C0%2C0%22%2C%22cellpadding%22%3A0%2C%22containerbackground%22%3A%22%22%7D'
+                                                    >
+                                                        <tr>
+                                                            <td style=3D"pa=
+dding: 0px 0px 0px 0px;" bgcolor=3D"">
+                                                                <table clas=
+s=3D"columns--container-table" border=3D"0"
+                                                                       cell=
+padding=3D"0" cellspacing=3D"0"
+                                                                       alig=
+n=3D"top" width=3D"100%">
+                                                                    <tr rol=
+e=3D"module-content">
+                                                                        <td=
+ style=3D"padding: 0px 0px 0px 0px"
+                                                                           =
+ role=3D"column-0" align=3D"left"
+                                                                           =
+ valign=3D"top" width=3D"50%" height=3D"100%"
+                                                                           =
+ class=3D"templateColumnContainer column-drop-area ">
+                                                                           =
+ <a href=3D"https://u1773850.ct.sendgrid.net/ls/click?upn=3DfameT1WjkwS9uxp=
+N2A5AUzowR5rz5meQxGIHJY2TNIejUvQqfCBIC7nUTyWoOoV1BG0o_tZ6gW1CmgmiDSdvJ3JBgY=
+luIm7byDvaLCG71w3DSiT8doo2oZZyN9vJWQXJyWDma-2F96l6RqQlvY1-2B-2Fxufoct0vCNn8=
+xVKUXk4DOx-2Fw1tcsgkRxvdxuKalXT3J9oHbIpIl0ur75-2BYWpgmVHzPtP0ZQSdlTjaKBee0Q=
+TtIQzqEoXD812CTpCCB-2FmG6EjgdEtsWxaWGn3quRHkkRHxRCCka-2BeqVo6cgHDdNoE-2BJXi=
+2UtDQ-3D"
+                                                                           =
+    style=3D"padding: 0px 25px 0px 0px"><img
+                                                                           =
+         src=3D"https://www.twino.eu/assets/images/fb_email.png"
+                                                                           =
+         alt=3D"Facebook"/></a><a href=3D"https://u1773850.ct.sendgrid.net/=
+ls/click?upn=3DfameT1WjkwS9uxpN2A5AU35G9NroRM3cKlvKdW1C0cYB0iizHaGz6Ri7aIOP=
+jiYuA8lw_tZ6gW1CmgmiDSdvJ3JBgYluIm7byDvaLCG71w3DSiT8doo2oZZyN9vJWQXJyWDma-2=
+F96l6RqQlvY1-2B-2Fxufoct0oSXIqNci4ymr-2BbobzSa63WT2qi0vaqRRXRLiF61aio6Fo4yQ=
+9tnVpr-2BgEbbhZ9ZtTPJjq4Hc8OB2R6-2B0zqS0hjfES1Din-2BXdmnZqc5wHjBvbDhwlrPgi5=
+h0Ighoq4wZHZveSQtWpRym4RXeuZxoj10-3D"><img
+                                                                           =
+     src=3D"https://www.twino.eu/assets/images/twitter_email.jpg"
+                                                                           =
+     alt=3D"Twitter"/></a>
+                                                                        </t=
+d>
+                                                                        <td=
+ style=3D"padding: 0px 0px 0px 0px"
+                                                                           =
+ role=3D"column-1" align=3D"center"
+                                                                           =
+ valign=3D"top" width=3D"50%" height=3D"100%"
+                                                                           =
+ class=3D"templateColumnContainer column-drop-area ">
+                                                                           =
+ <table class=3D"module" role=3D"module"
+                                                                           =
+        data-type=3D"wysiwyg" border=3D"0"
+                                                                           =
+        cellpadding=3D"0" cellspacing=3D"0"
+                                                                           =
+        width=3D"100%"
+                                                                           =
+        style=3D"table-layout: fixed;"
+                                                                           =
+        data-attributes=3D'%7B%22dropped%22%3Atrue%2C%22padding%22%3A%220%2=
+C0%2C0%2C0%22%2C%22containerbackground%22%3A%22%23ffffff%22%7D'>
+                                                                           =
+     <tr>
+                                                                           =
+         <td role=3D"module-content"
+                                                                           =
+             style=3D"padding: 0px 0px 0px 0px; font-size: 18px;">
+                                                                           =
+             <div style=3D"font-size: 14px;">
+                                                                           =
+                 info@twinoinvest.eu<br/>
+                                                                           =
+                 twino.eu
+                                                                           =
+             </div>
+                                                                           =
+             <div>&nbsp;</div>
+                                                                           =
+             <div style=3D"font-size: 14px;">
+                                                                           =
+                 UK: +44 2037 698 776<br/> LV: +371 67 799 997<br/> EE: +37=
+2 6980 163<br/> DE: 0800 181 3467
+                                                                           =
+             </div>
+                                                                           =
+             <div>&nbsp;</div>
+                                                                           =
+             <div>&nbsp;</div>
+                                                                           =
+         </td>
+                                                                           =
+     </tr>
+                                                                           =
+ </table>
+                                                                        </t=
+d>
+                                                                    </tr>
+                                                                </table>
+                                                                <table styl=
+e=3D"width: 100%">
+                                                                  <tr  styl=
+e=3D"padding: 0px 0px 0px 0px;">
+                                                                    <td sty=
+le=3D"width: 50%">
+                                                                    </td>
+                                                                    <td sty=
+le=3D"width: 50%">
+                                                                      <div =
+style=3D"font-size: 14px;">
+                                                                          <=
+a href=3D"https://u1773850.ct.sendgrid.net/ls/click?upn=3DfameT1WjkwS9uxpN2=
+A5AUwsFf3Xa1RvTVDf09O8q-2FakjYmJfrfXGZGi4mGSyEEhBSYG73b-2F-2FlStL51AgBpJE1A=
+-3D-3DeCS3_tZ6gW1CmgmiDSdvJ3JBgYluIm7byDvaLCG71w3DSiT8doo2oZZyN9vJWQXJyWDma=
+-2F96l6RqQlvY1-2B-2Fxufoct0v-2BPnUpHV-2BOEg4QlOgAUHumm94CSjD3V4y4SmRhJu8Rzw=
+-2FonpIdyuS-2FtvYLc6nQy2miMXWaZsMJYBz-2F-2FgsJaMI4i90EZFsZidRDexiL9yVSp2iNn=
+GW6MZPqxfjwuTwFWP2bjxxj9hoH26ULkzASrwlo-3D" target=3D"_blank" translate>H=
+=C3=A4ufig gestellte Fragen</a>
+                                                                      </div=
+>
+                                                                    </td>
+                                                                  </tr>
+                                                                </table>
+                                                                <br>
+                                                                <div>
+                                                                  <span tra=
+nslate>Sie erhalten diese Nachricht, da Sie ein Investor bei TWINO sind. We=
+nn Sie diese Nachrichten nicht erhalten m=C3=B6chten, </span><a href=3D"htt=
+ps://u1773850.ct.sendgrid.net/ls/click?upn=3DfameT1WjkwS9uxpN2A5AUxjmM9SXNq=
+6h4gcT4RII3sY-3DyK38_tZ6gW1CmgmiDSdvJ3JBgYluIm7byDvaLCG71w3DSiT8doo2oZZyN9v=
+JWQXJyWDma-2F96l6RqQlvY1-2B-2Fxufoct0gtzqi6JZptUKtcJNZoEIHDxoAcncV8-2BEzuPJ=
+qObjtHXIpZ8DmUNv-2BBI-2BW5E9k1cQljgOeOd6623hKq2hiST-2Ba09074aQWxA-2FF84VpWr=
+xGFtcSCPMPvZ2mUiGzaGXmUDtChEaCNj9vpBGJzItSAD04Y-3D" translate>=C3=A4ndern S=
+ie die Einstellungen in Ihrem Investorenkonto</a>.
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                        <!--[if (gte mso 9)|(IE)]>
+                                    </td>
+                                    </tr>
+                                    </table>
+                                    <![endif]-->
+                                    </td>
+                                </tr>
+                            </table>
+                            <!--[if (gte mso 9)|(IE)]>
+                        </td>
+                    </tr>
+                </table>
+            <![endif]-->
+                    </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+</div>
+<img src=3D"https://u1773850.ct.sendgrid.net/wf/open?upn=3Dp9c2Pq5BRWXelYcl=
+nUuZY3CUwkboP5I8aaOgVl0dl4AHgaihA-2BQRb6H0N9xYOaXhJ3pdO-2BA0PidQ7cNQtH-2FCO=
+ZB5xFHvUUFb7Jofisc9vlo1wbg7KSSALIfnqaV6RDe05BXJuuWDh5-2FyX3dYgQfi1yeg2uNumJ=
+RTrC-2FWotu00XMSBbFisSv7TA-2B7WOw8haX6qUhj95RglduJe75SVJvPjKHhMCMvoGTfAuv7x=
+mAt-2Fp8-3D" alt=3D"" width=3D"1" height=3D"1" border=3D"0" style=3D"height=
+:1px !important;width:1px !important;border-width:0 !important;margin-top:0=
+ !important;margin-bottom:0 !important;margin-right:0 !important;margin-lef=
+t:0 !important;padding-top:0 !important;padding-bottom:0 !important;padding=
+-right:0 !important;padding-left:0 !important;"/></body>
+
+</html>
