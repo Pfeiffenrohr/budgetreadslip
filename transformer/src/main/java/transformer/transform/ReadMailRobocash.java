@@ -4,10 +4,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ReadMailRobocash implements ReadMail {
+   
+ private List <SlipEntry> list ;
+    
+    @Override
+    public List <SlipEntry> getList () {
+        return this.list;
+    }
 
+    
     @Override
     public String parseMail(String txt) {
-            List  list = new ArrayList<SlipEntry>();
+            list = new ArrayList<SlipEntry>();
             String content=""; 
             String splited [] = txt.trim().split("\n");
             System.out.println("File has " + splited.length + " lines");

@@ -1,7 +1,11 @@
 package transformer.transform;
 
+import java.util.List;
+
+import transformer.transform.SlipEntry;
+
 public interface ReadMail {
-    
-    public String parseMail(String txt);
+    public List <SlipEntry> getList ();
+    public String parseMail(String txt); 
 
 }

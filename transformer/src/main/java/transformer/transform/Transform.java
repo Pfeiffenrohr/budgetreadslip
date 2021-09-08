@@ -23,53 +23,61 @@ import org.apache.http.impl.client.HttpClientBuilder;
 
 public class Transform {
     
-    public List <SlipEntry> list;
+    private static List list = new ArrayList<SlipEntry>();
 
     public static void main(String[] args) {
-        
+        System.out.println("Start ...");
         String url = args[3];
         Transform tr = new Transform();
         String txt=tr.readFile(args[0]);
         String content;
         if (args[2].equals("netto"))
         {
-        content = tr.parseFileNetto(txt);
-        tr.writeFile(content,args[1],url,"netto");
+            System.out.println("Found netto");
+            ReadMail rm =  new ReadMailNetto();   
+            content = rm.parseMail(txt);
+            tr.writeFile(content,args[1],url,"netto",rm.getList());
         }
         if (args[2].equals("edeka"))
         {
-        content = tr.parseFileEDEKA(txt);
-        tr.writeFile(content,args[1],url,"edeka");
+            ReadMail rm =  new ReadMailEdeka();   
+            content = rm.parseMail(txt);
+            tr.writeFile(content,args[1],url,"edeka",rm.getList());
         }  
         if (args[2].equals("mintos"))
         {
-        content = new ReadMailMintos().parseMail(txt);
-        tr.writeFile(content,args[1],url,"Mintos");
+        ReadMail rm =  new ReadMailMintos();   
+        content = rm.parseMail(txt);
+        tr.writeFile(content,args[1],url,"Mintos",rm.getList());
         }  
         if (args[2].equals("viainvest"))
         {
-        content =new ReadMailViaInvest().parseMail(txt);
-        tr.writeFile(content,args[1],url,"ViaInvest");
+            ReadMail rm =  new ReadMailViaInvest();  
+        content = rm.parseMail(txt);
+        tr.writeFile(content,args[1],url,"ViaInvest",rm.getList());
         } 
         if (args[2].equals("peerberry"))
         {
-        content = new ReadMailPeerBerry().parseMail(txt);
-        tr.writeFile(content,args[1],url,"PeerBerry");
+            ReadMail rm =  new ReadMailPeerBerry();    
+        content = rm.parseMail(txt);
+        tr.writeFile(content,args[1],url,"PeerBerry",rm.getList());
         } 
         if (args[2].equals("robocash"))
         { 
-        content = new ReadMailRobocash().parseMail(txt);
-        tr.writeFile(content,args[1],url,"Robocash");
+            ReadMail rm =  new ReadMailRobocash();    
+        content = rm.parseMail(txt);
+        tr.writeFile(content,args[1],url,"Robocash",rm.getList());
         } 
         if (args[2].equals("twino"))
         { 
-        content = new ReadMailTwino().parseMail(txt);
-        tr.writeFile(content,args[1],url,"Twino");
+            ReadMail rm =  new ReadMailTwino();
+        content =rm.parseMail(txt);
+        tr.writeFile(content,args[1],url,"Twino",rm.getList());
         } 
       
     }
     
-    private void writeFile(String content,String filename, String url,String company)
+    private void writeFile(String content,String filename, String url,String company, List <SlipEntry> list)
     {
         String body = transformToJson(list);
         System.out.println(body);
@@ -105,130 +113,7 @@ public class Transform {
         
     }
 
-        private String parseFileEDEKA(String txt) {
-        list = new ArrayList<SlipEntry>();
-        String content = "";
-
-        String splited[] = txt.trim().split("\n");
-        System.out.println("File has " + splited.length + " lines");
-        int count = 0;
-        // Suche den Anfang
-        while (count < splited.length && !splited[count].contains("Ihren Einkauf.")) {
-            count++;
-            continue;
-        }
-        System.out.println(splited[count]);
-        while (count < splited.length && !splited[count].contains("Summe")) {
-            SlipEntry se = new SlipEntry();
-            while (count < splited.length && (!splited[count].contains("<td>") && !splited[count].contains("Summe") || (splited[count].contains("=E2=82=AC") && ! splited[count].contains("Rabatt")))) {
-                count++;
-                //System.out.println("counter");    
-                continue;
-            }
-            System.out.println(splited[count]);
-            if (count >= splited.length || splited[count].contains("Summe"))
-                return content;
-            String name = splited[count];
-            
-            name = name.substring(name.indexOf(">") + 1);
-            name = name.substring(0, name.indexOf("<"));
-            name = name.replaceAll("=E2=82=AC", "€");
-            content = content + name + " ";
-            se.setName(name);
-
-            if (count >= splited.length)
-                return content;
-            while (count < splited.length && (!splited[count].contains("=E2=82=AC")|| splited[count].contains("Rabatt"))) {
-                count++;
-                continue;
-            }
-            String summe = splited[count];
-            System.out.println("Summe "+summe);
-            summe = summe.substring(summe.indexOf(">") + 1);
-            if (summe.contains("=")) {
-                summe = summe.substring(0, summe.indexOf("="));
-            } else {
-                summe = summe.substring(0, summe.indexOf("<"));
-            }
-            se.setSum(summe);
-            content = content + summe + " { \n";
-            count++;
-            list.add(se);
-            if (count >= splited.length)
-                return content;
-        
-        }
-        return content;
-    }
-
-    private String parseFileNetto(String txt)
-    {
-        list = new ArrayList<SlipEntry>();
-        String content=""; 
-        String splited [] = txt.trim().split("\n");
-        System.out.println("File has " + splited.length + " lines");
-        int count = 0;
-        // Suche den Anfang
-        while ( count < splited.length && !splited[count].contains("Filiale")) {
-            count++;
-            continue;
-        }
-    //  System.out.println(splited[count]);
-        String summe;
-        while (count < splited.length && !splited[count].contains("Summe") ) {
-            SlipEntry se = new SlipEntry();
-            while (count < splited.length && ( ! splited[count].startsWith(";\">") || splited[count].contains("Summe"))) {
-               //System.out.println(splited[count]);
-                count++;
-                continue;
-            }
-            if (count >= splited.length) return content;
-            //System.out.println(splited[count]);
-            String name = splited[count];
-            name = name.substring(name.indexOf(">") + 1);
-            name = name.substring(0, name.indexOf("<"));
-            name = name.replaceAll("=E2=82=AC", "€");
-            System.out.println("Name =" + name);
-            content=content +name+" ";
-            if (name.startsWith("-"))
-            {
-                count++;
-                continue;
-            }
-            
-            if (Character.isDigit(name.charAt(0)))
-            {
-                count++;
-                continue;
-            }
-            
-            se.setName(name);
-            
-            count++;
-            if (count >= splited.length) return content;
-            while (count < splited.length && !splited[count].contains("sans-serif")) {
-                count++;
-                continue;
-            }
-            summe = splited[count];
-            summe = summe.substring(summe.indexOf(">") + 1);
-            if (summe.contains("=")) {
-                summe = summe.substring(0, summe.indexOf("="));
-            } else {
-                summe = summe.substring(0, summe.indexOf("<"));
-            }
-            //System.out.println("Summe =" + summe);
-            content=content +summe+" { \n";
-            System.out.println("Summe =" + summe);
-            se.setSum(summe);
-            count++;
-            list.add(se);
-            if (count >= splited.length) return content;
-        }
-        return content;
-    }
-
-    
+  
        
     private String readFile(String inputfile)
     { 
