@@ -26,12 +26,17 @@ public class ReadMailNetto implements ReadMail {
         }
     //  System.out.println(splited[count]);
         String summe;
-        while (count < splited.length && !splited[count].contains("Summe") ) {
+        while (count < splited.length && !splited[count].startsWith(";\"><b>") ) {
             SlipEntry se = new SlipEntry();
-            while (count < splited.length && ( ! splited[count].startsWith(";\">") || splited[count].contains("Summe"))) {
+            while (count < splited.length && ( ! splited[count].startsWith(";\">") )  ) {
                //System.out.println(splited[count]);
+               
                 count++;
                 continue;
+            }
+            if (splited[count].contains(";\"><b>Summe:</b></td>"))
+            {
+                return content;
             }
             if (count >= splited.length) return content;
             //System.out.println(splited[count]);
@@ -47,12 +52,15 @@ public class ReadMailNetto implements ReadMail {
                 continue;
             }
             
-            if (Character.isDigit(name.charAt(0)))
+            if (Character.isDigit(name.charAt(0)) && ! name.contains("Rabatt"))
             {
                 count++;
                 continue;
             }
-            
+            if (name.contains("Rabatt"))
+            {
+                name="Rabatt";
+            }
             se.setName(name);
             
             count++;
