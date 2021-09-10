@@ -1,0 +1,2633 @@
+Return-Path: <bounces+1678031-a13a-richard=richardlechner.de@em7224.mintos.com>
+X-Original-To: test@mailserver.loadbalancer1.de
+Delivered-To: richard@mailserver.loadbalancer1.de
+Received: from loadbalancer2 (localhost [127.0.0.1])
+	by loadbalancer1 (Postfix) with ESMTP id 55F2EEA0063
+	for <test@mailserver.loadbalancer1.de>; Fri,  3 Sep 2021 09:35:06 +0200 (CEST)
+X-Envelope-From: <bounces+1678031-a13a-richard=richardlechner.de@em7224.mintos.com>
+X-Envelope-To: <richard@richardlechner.de>
+X-Delivery-Time: 1630654247
+X-UID: 107745
+ARC-Seal: i=1; a=rsa-sha256; t=1630654247; cv=none;
+    d=strato.com; s=strato-dkim-0002;
+    b=s8AsN4nrbPChLcgLIBMvvqQKZ3iekmulqMHVwn4Ohw4BMvnEQgFVY2uQ72HRFYZPZT
+    SuO3/G2opc6jLHIZV9tx5Vx4mQ0ua9MkFMFVrG27cTMInT5xVbMNJXo/WKfnE5l0gQMC
+    VSZQRS9lvaUzQGh4LYp5jodfzwZcxQYwRflES+KI1XJu5CadM3cQJLWvmszJNIhxusaL
+    A6buMIZqA90Usgb8EOngpxm1wS9BeSjXW98/0iwnzT1UdSlbbKKppzgXCd83ihy2g5Ea
+    DS8ACtgyYA/TejfrsQwmkI2sc8/6UJzSAxK4fP/JOWc1umJru+VACqrPmkM/CrilegKP
+    aD3g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1630654247;
+    s=strato-dkim-0002; d=strato.com;
+    h=To:Reply-To:Subject:Message-ID:From:Date:Cc:Date:From:Subject:
+    Sender;
+    bh=z8BurE/mmZGFiml3ppMDfkHldm/X2Jn3dLTOV7jX7vk=;
+    b=ngpAIH/3TbVqS/bVRMOZjDXqDXhAQ0Bxp8UGADuHf7OtNC8Ipy7d99wPw87EXrgHDd
+    H96bBAVYhFZ1lxeiKguBvQFyxBuWgZ8Pdd+nLq67HBP0/P5QoIgD+ibO0E+ETkyK5TUa
+    kAu3eYCO9nHdjsf+o/YfSkq+MOYygA0GLWnbIT6qZ/cZlgkf6GHUVP+XsJ35QFwk2bVN
+    FlcZbbALrpEm4F9jjZ0j/amtjhL97PQVJo2ox4efjo6PSnhpGypUK2J3x44iBuMlA4Vr
+    I8RuwVft4PnM3ZO3hJTTtjVhwzV/j0yOhCF5kkV8cWRqq1nud/3MAkyRmApyxFXZtqlF
+    +KwQ==
+ARC-Authentication-Results: i=1; strato.com;
+    dmarc=pass (p=QUARANTINE sp=NONE) header.from="mintos.com";
+    dkim=pass header.d="mintos.com" header.s="s1" header.a="rsa-sha256";
+    dkim-adsp=pass;
+    spf=pass smtp.mailfrom="bounces+1678031-a13a-richard=richardlechner.de@em7224.mintos.com"
+Authentication-Results: strato.com;
+    dmarc=pass (p=QUARANTINE sp=NONE) header.from="mintos.com";
+    dkim=pass header.d="mintos.com" header.s="s1" header.a="rsa-sha256";
+    dkim-adsp=pass;
+    spf=pass smtp.mailfrom="bounces+1678031-a13a-richard=richardlechner.de@em7224.mintos.com"
+X-RZG-Expurgate: suspect/normal
+X-RZG-Expurgate-ID: 149500::1630654246-00000750-D173336A/1/7279569337
+X-RZG-CLASS-ID: mi00
+Received-SPF: pass
+    (strato.com: domain em7224.mintos.com designates 167.89.52.108 as permitted sender)
+    mechanism=ip4;
+    client-ip=167.89.52.108;
+    helo="o1.em1.mintos.com";
+    envelope-from="bounces+1678031-a13a-richard=richardlechner.de@em7224.mintos.com";
+    rceiver=smtpin.rzone.de;
+    identity=mailfrom;
+Received: from imap.strato.de [81.169.145.103]
+	by loadbalancer2 with IMAP (fetchmail-6.4.2)
+	for <test@mailserver.loadbalancer1.de> (single-drop); Fri, 03 Sep 2021 09:35:06 +0200 (CEST)
+Received: from o1.em1.mintos.com ([167.89.52.108])
+    by smtpin.rzone.de (RZmta 47.33.0 OK)
+    with ESMTPS id x065ebx837UkN4J
+    (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
+    (Client did not present a certificate)
+    for <richard@richardlechner.de>;
+    Fri, 3 Sep 2021 09:30:46 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mintos.com;
+	h=content-transfer-encoding:content-type:from:mime-version:subject:
+	reply-to:to;
+	s=s1; bh=z8BurE/mmZGFiml3ppMDfkHldm/X2Jn3dLTOV7jX7vk=;
+	b=lFTYMS0+vcRU/1GWQ/AjvdpuCQff1jdA+zzKqJZVCYPeoavrH2R+gaOQOWFWcnEXMl84
+	mX/bmecYoSGKFKWDHnG3yrX/pQvLoYC4OZKleAG1fz3t/6RYz/+LQccJDtexgR9wx+R9Ml
+	JyePCaaOuw44yLs25JKf/incdPOR2FpYioe9+k/40vsAzOdvFQukr0/Xdu+8VBZ3sZgSf/
+	C2J48aXHNMgI4r+bV7mWEQHs4KnxGo8LxKM6NYIP9/Z1z1UGaJY6iLZ3H3QHhbphGBkeJ3
+	wji23MNvfKk2rH1C2d24EQ9KHrQO9quyXqdhy5jV67UjKEQpdv0Vm+AmaxBR3mHA==
+Received: by filterdrecv-7b6b466556-lb2bg with SMTP id filterdrecv-7b6b466556-lb2bg-1-6131CF24-4C
+        2021-09-03 07:30:44.931052152 +0000 UTC m=+119426.896891132
+Received: from MTY3ODAzMQ (unknown)
+	by geopod-ismtpd-5-0 (SG) with HTTP
+	id HmY5TIZ5T9qeHy5JcvXChw
+	Fri, 03 Sep 2021 07:30:44.699 +0000 (UTC)
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/html; charset=utf-8
+Date: Fri, 03 Sep 2021 07:30:45 +0000 (UTC)
+From: Mintos <support@mintos.com>
+Mime-Version: 1.0
+Message-ID: <HmY5TIZ5T9qeHy5JcvXChw@geopod-ismtpd-5-0>
+Subject: Ihre =?UTF-8?B?dMOkZ2xpY2hl?= Mintos-Zusammenfassung
+Reply-To: support@mintos.com
+X-SG-EID: 
+ =?us-ascii?Q?mdj0B37PewQiglnLNgghI=2F97zeeBSaZC=2F1OEscaOmQxTofCeOBM15YNZtbasB1?=
+ =?us-ascii?Q?syd0dzyv4pMJslhLpTCOQ4PTOJliEXK8sJ=2FHcYB?=
+ =?us-ascii?Q?D3ejvnTS=2FrXXjvsIZRaAUL2wOiNOreWoeACdsmE?=
+ =?us-ascii?Q?TgjGuKp1=2Fz8lxMdsxaSFAXCAoGpinPGvUNONgTs?=
+ =?us-ascii?Q?pAtRDmAiDKTlYSMpzE7Oiq8A9dBQoB5OWfqDQBl?=
+ =?us-ascii?Q?Bar0B5O7WqmVUwRgZloTvLUOSIlh7Ysp47FIPI?=
+X-SG-ID: 
+ =?us-ascii?Q?N2C25iY2uzGMFz6rgvQsb5RCK=2FZjQ2SQ7N0QyBQsB8WXVNMqarhW9Gkul1VLPh?=
+ =?us-ascii?Q?mpTXg4vT0jcC07jfYVuMqX267ZaeluFEXc7+hb9?=
+ =?us-ascii?Q?2JSmS6uzt33jpLZb463+HVqc55IL0Rpsz862KP5?=
+ =?us-ascii?Q?aU8V=2FzKXtKmSmaxPowU01wZ6g9mgxg5tybZB9x=2F?=
+ =?us-ascii?Q?vx8FS3hs1ng0n+91=2FwegsqJDP4HxFPS=2FxS0k67O?=
+ =?us-ascii?Q?SagOP3S40TwjP7+xY=3D?=
+To: richard@richardlechner.de
+X-Entity-ID: jHu8bmqxhsF4nv8mYcgDzQ==
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"><html><head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dutf-8">
+			<meta name=3D"viewport" content=3D"width=3Ddevice-width, initial scale=
+=3D1.0">
+			<meta name=3D"x-apple-disable-message-reformatting">
+			<style type=3D"text/css">
+body{width:100%;height:100%}a{text-decoration:none}.mld-force-underline a{t=
+ext-decoration:underline}*{word-break:normal;}table{border-collapse:collaps=
+e}.mld-desktop-hide{display:none;mso-hide:all}ul,ul li{list-style-type:disc=
+ !important;}ul li{mso-special-format:bullet;mso-line-height-alt:1em;}ol,ol=
+ li{list-style-type:decimal !important;}ol li{mso-text-indent-alt:20px;mso-=
+line-height-alt:1em;}@media screen and (max-device-width:600px),screen and =
+(max-width:600px){.mld-mobile-hide{display:none}.mld-desktop-hide{display:t=
+able;mso-hide:none}}
+<!--/* Outlook link fix */.number{color:#b1b4c0!important;text-decoration:n=
+one!important}#outlook a{padding:0}body{margin:0!important;padding:0!import=
+ant;width:100%!important;-webkit-text-size-adjust:100%!important;-ms-text-s=
+ize-adjust:100%!important;-webkit-font-smoothing:antialiased!important}img{=
+display:block!important;outline:0!important}.ExternalClass{width:100%!impor=
+tant}.ExternalClass,.ExternalClass div,.ExternalClass font,.ExternalClass p=
+,.ExternalClass span,.ExternalClass td{line-height:100%}img{text-decoration=
+:none;-ms-interpolation-mode:bicubic}a img{border:none}.ExternalClass img[c=
+lass^=3DEmoji]{width:10px!important;height:10px!important;display:inline!im=
+portant}@media screen and (max-device-width:595px),screen and (max-width:59=
+5px){.mobile100{width:100%!important;height:auto!important}.mobilesplit{wid=
+th:100%!important;float:left!important;-moz-box-sizing:border-box;-webkit-b=
+ox-sizing:border-box;box-sizing:border-box;border-top:none!important;border=
+-bottom:none!important}.padfix{padding:10px!important}.nosee{display:none!i=
+mportant}.wfix50{width:50px!important}.wfix100{width:100px!important}.wfix1=
+50{width:150px!important}.wfix200{width:200px!important}.wfix250{width:250p=
+x!important}.wfix300{width:300px!important}}@media screen and (max-device-w=
+idth:500px),screen and (max-width:500px){.mobile1001{width:100%!important;h=
+eight:auto!important}}@media screen and (max-device-width:400px),screen and=
+ (max-width:400px){.mobile1002{width:100%!important;height:auto!important}}=
+.mld-def-paragraph{font-family:Arial,Helvetica,sans-serif;font-size:18px;fo=
+nt-weight:normal;font-style:normal;text-decoration:none;text-align:left;col=
+or:#333333;line-height:1.5;margin:0px;padding:0;}.mld-def-heading1{font-fam=
+ily:Arial,Helvetica,sans-serif;font-size:20px;font-weight:normal;font-style=
+:normal;text-decoration:none;text-align:left;color:#000000;line-height:1.5;=
+margin:0px;padding:0;}.mld-def-heading2{font-family:Arial,Helvetica,sans-se=
+rif;font-size:12px;font-weight:normal;font-style:normal;text-decoration:non=
+e;text-align:left;color:#000000;line-height:1.5;margin:0px;padding:0;}.mld-=
+def-custom{font-family:Arial,Helvetica,sans-serif;font-size:12px;font-weigh=
+t:normal;font-style:normal;text-decoration:none;text-align:left;color:#0000=
+00;line-height:1.5;margin:0px;padding:0;}.mld-def-link{font-family:Arial,He=
+lvetica,sans-serif;font-size:18px;font-weight:normal;font-style:normal;text=
+-decoration:none;text-align:left;color:#3f85f4;line-height:1.5;margin:0px;p=
+adding:0;}.mld-def-link-heading1{font-family:Arial,Helvetica,sans-serif;fon=
+t-size:14px;font-weight:normal;font-style:normal;text-decoration:none;text-=
+align:left;color:#0000ff;line-height:1.5;margin:0px;padding:0;}.mld-def-lin=
+k-heading2{font-family:Arial,Helvetica,sans-serif;font-size:14px;font-weigh=
+t:normal;font-style:normal;text-decoration:none;text-align:left;color:#0000=
+FF;line-height:1.5;margin:0px;padding:0;}.mld-def-link-custom{font-family:A=
+rial,Helvetica,sans-serif;font-size:14px;font-weight:normal;font-style:norm=
+al;text-decoration:none;text-align:left;color:#0000FF;line-height:1.5;margi=
+n:0px;padding:0;}.mld-def-block-block{padding:15px 20px 15px 20px;}.mld-def=
+-block-block-outer{padding:0px;}.mld-def-block-title{padding:15px 20px 5px =
+20px;align:center;}.mld-def-block-title-outer{padding:0px;}.mld-def-block-t=
+ext{padding:5px 20px 15px 20px;}.mld-def-block-text-outer{padding:0px;}.mld=
+-def-block-image{padding:15px 20px 15px 20px;}.mld-def-block-image-outer{pa=
+dding:0px;}.mld-def-block-image-img{width:auto;align:center;}.mld-def-block=
+-button{padding:5px 0 5px 0;width:160px;border-radius:5px;border-collapse:i=
+nitial;background-color:#6699CC;overflow:hidden;}.mld-def-block-button-oute=
+r{padding:5px 20px 15px 20px;}.mld-def-block-button-icon{}.mld-def-block-bu=
+tton-text{color:#FFFFFF;font-family:Arial;font-size:15px;line-height:1.5;te=
+xt-decoration:none;text-align:center;}.mld-def-block-divider{padding:15px 2=
+0px 15px 20px;border-top:1px solid #E5E5E5;}.mld-def-block-divider-outer{pa=
+dding:0px;}.mld-def-block-container{}.mld-def-block-container-outer{padding=
+:0px;}.mld-def-block-share{padding:15px 20px 15px 20px;align:left;}.mld-def=
+-block-share-outer{padding:0px;}.mld-def-block-follow{padding:15px 20px 15p=
+x 20px;align:left;}.mld-def-block-follow-outer{padding:0px;}.mld-def-block-=
+rss{padding:15px 20px 15px 20px;}.mld-def-block-rss-outer{padding:0px;}.mld=
+-def-block-dynamic{padding:15px 20px 15px 20px;}.mld-def-block-dynamic-oute=
+r{padding:0px;}.mld-def-block-video{padding:15px 20px 15px 20px;}.mld-def-b=
+lock-video-outer{padding:0px;}-->
+</style>
+<div style=3D"display: none; max-height: 0px; overflow: hidden;"><br /></di=
+v>
+<!-- Insert =E2=80=8C=C2=A0 hack after hidden preview text -->
+<div style=3D"display: none; max-height: 0px; overflow: hidden;">&nbsp;</di=
+v>
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" style=3D"width: 100=
+%; background-color: #ffffff;">
+<tbody>
+<tr>
+<td valign=3D"top">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" style=3D"width: 100=
+%;">
+<tbody>
+<tr class=3D"mld-header" style=3D"background-color: #f9fafb; background-pos=
+ition: center top; background-repeat: no-repeat;">
+<td align=3D"center" valign=3D"top">
+<table cellpadding=3D"0" cellspacing=3D"0" class=3D"mobile100" style=3D"wid=
+th: 600px;">
+<tbody>
+<tr>
+<td class=3D"mld-part" style=3D"width: 100%; background-color: #f9fafb;" al=
+ign=3D"center" valign=3D"top">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"mld-contai=
+ner mld-element mldElementCaller" style=3D"width: 100% !important;">
+<tbody>
+<tr>
+<td style=3D"padding: 0px 0px 30px;" valign=3D"top">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" style=3D"width: 100=
+%; background-color: transparent;">
+<tbody>
+<tr>
+<td class=3D"mld-element-content mobilesplit" style=3D"padding: 0px; width:=
+ 600px;" valign=3D"top">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"mld-block-=
+image mld-block mld-element mldElementCaller" style=3D"position: relative; =
+width: 100% !important;">
+<tbody>
+<tr>
+<td style=3D"padding: 0px;" valign=3D"top">
+<table cellpadding=3D"0" cellspacing=3D"0" style=3D"width: 100%; background=
+-color: transparent;">
+<tbody>
+<tr>
+<td class=3D"mld-element-content" style=3D"padding: 30px;" align=3D"left" v=
+align=3D"top"><!--[if mso]><table style=3D"width:540px;">
+<tbody>
+<tr>
+<td style=3D"width:540px;" align=3D"left" valign=3D"top">
+<![endif]--><a href=3D"https://u1678031.ct.sendgrid.net/ls/click?upn=3DynMB=
+nGYFbG0i96G7FsI2SSIpdvkzA-2Fo4hsjeueEeQGFeftooTRaAUHvlLVtbVoJ9psLKn3If2Onnk=
+xor5G-2BkW-2B-2BUWTyl2YmuVt2G1-2BYIzgMka3md4SoNY-2FjoasteMAQa9aIA5zLuHMgEvm=
+CwHAee2A-3D-3DCDbi_tZ6gW1CmgmiDSdvJ3JBgYluIm7byDvaLCG71w3DSiT-2FNkBmzkAKPCe=
+TOPwi5QdvQQlh9HfKjHxAupNbL5IslkXOf-2FOqqTm4k-2BWkaJR18wJzfowt7p6MWWTk3k3pzB=
+DkKpT1VYPCuIpVC03jOc8N2uq0NBMC6iumBi2A-2BXd-2Bm2QldHvxMy1dRpiNr4ieQ8fUXXLgA=
+Vp77wS7uRmagfA1ryUYAV7kS3oY3fFa5QTov4cEMskvrB0eMLuO1T2sUGSdeQgUsRuT6K-2FRBq=
+CJtEKFZgG7kfTn4OZBKCsfmiAp5-2BD0KMXgKxWzVUwlRd0p-2FOQmmPougKQoktAlnHJONpHEE=
+gzEFCHi9l6mWN6jr0radbSToGkkL-2B65jed0FBNNiLNCgQyoF7D8TAiRoFt-2BL8YvTk8XLCLo=
+7ELCeMt-2FStoK4Xc6ncy3wd411Tj0hRuXq-2F6E5" target=3D"_blank" style=3D"displ=
+ay: block; padding: 0px;"><img src=3D"https://admin.mailigen.com//upload/us=
+er/47241/images/mintoslogogrey.png" border=3D"0" width=3D"92" height=3D"24"=
+ style=3D"display: block; width: 92px;" /></a><!--[if mso]></td>
+</tr>
+</tbody>
+</table>
+<![endif]--></td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"mld-contai=
+ner mld-element mldElementCaller" style=3D"width: 100% !important;">
+<tbody>
+<tr>
+<td style=3D"padding: 0px;" valign=3D"top">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" style=3D"width: 100=
+%; background-color: #f9fafb;">
+<tbody>
+<tr>
+<td class=3D"mld-element-content mobilesplit" style=3D"padding: 0px; width:=
+ 600px;" valign=3D"top">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"mld-block-=
+text mld-block mld-element mldElementCaller" style=3D"width: 100% !importan=
+t;">
+<tbody>
+<tr>
+<td style=3D"padding: 0px;" valign=3D"top">
+<table cellpadding=3D"0" cellspacing=3D"0" style=3D"width: 100%;">
+<tbody>
+<tr>
+<td class=3D"mld-element-content" style=3D"padding: 15px 30px 30px;" valign=
+=3D"top"><!--[if mso]><table style=3D"width:540px;">
+<tbody>
+<tr>
+<td style=3D"width:540px;" align=3D"left" valign=3D"top">
+<![endif]-->
+<p class=3D"mld-paragraph" style=3D"font-family: Arial, Helvetica, sans-ser=
+if; font-size: 40px; color: #333333; line-height: 45px; margin: 0px; paddin=
+g: 0px; text-align: center;"><span style=3D"color: #333333; font-size: 40px=
+;"><strong><span style=3D"font-size: 40px;">T=C3=A4gliche Zusammenfassung</=
+span><br /></strong></span></p>
+<!--[if mso]></td>
+</tr>
+</tbody>
+</table>
+<![endif]--></td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"mld-block-=
+text mld-block mld-element mldElementCaller" style=3D"width: 100% !importan=
+t;">
+<tbody>
+<tr>
+<td style=3D"padding: 0px;" valign=3D"top">
+<table cellpadding=3D"0" cellspacing=3D"0" style=3D"width: 100%;">
+<tbody>
+<tr>
+<td class=3D"mld-element-content" style=3D"padding: 5px 30px 0px;" valign=
+=3D"top"><!--[if mso]><table style=3D"width:540px;">
+<tbody>
+<tr>
+<td style=3D"width:540px;" align=3D"center" valign=3D"top">
+<![endif]-->
+<p class=3D"mld-paragraph" style=3D"font-family: Arial, Helvetica, sans-ser=
+if; font-size: 18px; color: #333333; line-height: 28px; margin: 0px; paddin=
+g: 0px; text-align: center;">Dies ist Ihre t=C3=A4gliche Zusammenfassung de=
+s Mintos-Kontos. <strong>Besuchen Sie Ihre pers=C3=B6nliche Anleger-=C3=9Cb=
+ersicht, um die j=C3=A4hrlichen Nettorenditen und andere Statistiken anzuze=
+igen.</strong></p>
+<!--[if mso]></td>
+</tr>
+</tbody>
+</table>
+<![endif]--></td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"mld-elemen=
+t mld-block mld-block-button mldElementCaller" style=3D"width: 100%;">
+<tbody>
+<tr>
+<td style=3D"padding: 30px;" align=3D"center" valign=3D"top">
+<table align=3D"center" border=3D"0" cellpadding=3D"0" cellspacing=3D"0" cl=
+ass=3D"mobile100" style=3D"border-collapse: separate; background-color: #3f=
+85f4; border-radius: 5px; overflow: hidden; width: 540px;">
+<tbody>
+<tr>
+<td class=3D"mld-element-content" style=3D"padding: 15px 0px;" align=3D"cen=
+ter" valign=3D"middle"><!--[if mso]><table style=3D"width:540px;">
+<tbody>
+<tr>
+<td style=3D"width:540px;" align=3D"center" valign=3D"middle">
+<![endif]--><a href=3D"https://u1678031.ct.sendgrid.net/ls/click?upn=3DynMB=
+nGYFbG0i96G7FsI2SSIpdvkzA-2Fo4hsjeueEeQGEgK2YrvM0r692MNK0hmdrjQ4veJ86CTjg0P=
+ifS6RXTTxIebl-2F9KoH60XIQPlOUMQfBUWRQhuvxmV0MYEGz-2B1W2G8eBkcubfp18ypl4JBkE=
+4q08NA8zjfZfze7vK5aPZKQ-3DRJhK_tZ6gW1CmgmiDSdvJ3JBgYluIm7byDvaLCG71w3DSiT-2=
+FNkBmzkAKPCeTOPwi5QdvQQlh9HfKjHxAupNbL5IslkXOf-2FOqqTm4k-2BWkaJR18wJzfowt7p=
+6MWWTk3k3pzBDkKpT1VYPCuIpVC03jOc8N2uq0NBMC6iumBi2A-2BXd-2Bm2QldHvxMy1dRpiNr=
+4ieQ8fUXXLgAVp77wS7uRmagfA1ryUYAV7kS3oY3fFa5QTov4cGptIJAPKYM2Ah7T7Njo3eCnzd=
+Rxw-2Bkq5d5wJVUE8M1zMKSbx7UUZ3ygX3A0mMuOIkhlRB2eFGpiFwOukXvgPZe5KMy1J4Y5-2F=
+8FqH17XM0yYfGqIRFZAHoIpQfTQvXClpsJV14OpibjbJkkisBXltKOthBMKGFdqwMdp5bTebK8v=
+sXF-2BRzRm-2BfFWm0hVuT6ZrPN1rKMcVkJ9rZ4MUL1YMy-2F" target=3D"_blank" style=
+=3D"display: block; color: #ffffff; font-family: Arial; font-size: 15px; li=
+ne-height: 22px; text-decoration: none; text-align: center; padding: 0px; w=
+hite-space: pre-line;"><strong><span style=3D"font-size: 18px;">Mein Panel =
+einsehen</span></strong></a><!--[if mso]></td>
+</tr>
+</tbody>
+</table>
+<![endif]--></td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+<tr class=3D"mld-body mld-body-1" style=3D"background-color: #ffffff;">
+<td align=3D"center" valign=3D"top" style=3D"padding:60px 0px 0px 0px;">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"mobile100"=
+ style=3D"width: 600px; ">
+<tbody>
+<tr>
+<td class=3D"mld-part" style=3D"background-color: #ffffff;" valign=3D"top">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"mld-contai=
+ner mld-element mldElementCaller" style=3D"width: 100%;">
+<tbody>
+<tr>
+<td style=3D"padding: 0px 30px 0px 0px;" valign=3D"top">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" style=3D"width: 100=
+%;">
+<tbody>
+<tr>
+<td class=3D"mld-element-content mobilesplit" style=3D"padding: 0px; width:=
+ 600px;" valign=3D"top">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"mld-contai=
+ner mld-element mldElementCaller mld-swimline-select mld-prevent-mobilespli=
+t" style=3D"width: 100%;">
+<tbody>
+<tr>
+<td style=3D"padding: 0px 30px 10px 30px ;" valign=3D"top">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" style=3D"width: 100=
+%; border: 1px solid #EFF2F5; background-color: #ffffff; border-radius: 4px=
+; overflow: hidden; border-collapse: separate;">
+<tbody>
+<tr>
+<td class=3D"mld-element-content" style=3D"padding: 0px; width: 110px;" val=
+ign=3D"middle">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"mld-block-=
+text mld-block mld-element mldElementCaller" style=3D"width: 100%;">
+<tbody>
+<tr>
+<td style=3D"padding: 20px;" valign=3D"top">
+<table cellpadding=3D"0" cellspacing=3D"0" style=3D"width: 100%; background=
+-color: #b0b5bc; border-radius: 8px; overflow: hidden; border-collapse: sep=
+arate;">
+<tbody>
+<tr>
+<td class=3D"mld-element-content" style=3D"padding: 8px;" valign=3D"top"><!=
+--[if mso]><table style=3D"width:54px;">
+<tbody>
+<tr>
+<td style=3D"width:54px;" align=3D"center" valign=3D"top">
+<![endif]-->
+<p class=3D"mld-paragraph" style=3D"font-family: Arial, Helvetica, sans-ser=
+if; font-size: 18px; color: #333333; line-height: 28px; margin: 0px; paddin=
+g: 0px; text-align: center;"><span style=3D"color: #ffffff;">EUR</span></p>
+<!--[if mso]></td>
+</tr>
+</tbody>
+</table>
+<![endif]--></td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td class=3D"mld-element-content" style=3D"padding: 0px; width: 230px;" val=
+ign=3D"middle">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"mld-block-=
+text mld-block mld-element mldElementCaller" style=3D"width: 100%;">
+<tbody>
+<tr>
+<td style=3D"padding: 0px;" valign=3D"top">
+<table cellpadding=3D"0" cellspacing=3D"0" style=3D"width: 100%;">
+<tbody>
+<tr>
+<td class=3D"mld-element-content" style=3D"padding: 0px;" valign=3D"top"><!=
+--[if mso]><table style=3D"width:230px;">
+<tbody>
+<tr>
+<td style=3D"width:230px;" align=3D"center" valign=3D"top">
+<![endif]-->
+<p class=3D"mld-paragraph" style=3D"font-family: Arial, Helvetica, sans-ser=
+if; font-size: 18px; text-align: left; color: #333333; line-height: 28px; m=
+argin: 0px; padding: 0px;">Gesamtertrag</p>
+<!--[if mso]></td>
+</tr>
+</tbody>
+</table>
+<![endif]--></td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td class=3D"mld-element-content" style=3D"padding: 0px; width: 198px;" val=
+ign=3D"middle">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"mld-block-=
+text mld-block mld-element mldElementCaller" style=3D"width: 100%;">
+<tbody>
+<tr>
+<td style=3D"padding: 0px;" valign=3D"top">
+<table cellpadding=3D"0" cellspacing=3D"0" style=3D"width: 100%;">
+<tbody>
+<tr>
+<td class=3D"mld-element-content" style=3D"padding: 0px 20px 0px 0px;" vali=
+gn=3D"top"><!--[if mso]><table style=3D"width:178px;">
+<tbody>
+<tr>
+<td style=3D"width:178px;" align=3D"center" valign=3D"top">
+<![endif]-->
+<p class=3D"mld-paragraph" style=3D"font-family: Arial, Helvetica, sans-ser=
+if; font-size: 18px; color: #333333; line-height: 36px; margin: 0px; paddin=
+g: 0px; text-align: right;"><strong><span style=3D"font-size: 24px;">=E2=82=
+=AC 1.25</span></strong></p>
+<!--[if mso]></td>
+</tr>
+</tbody>
+</table>
+<![endif]--></td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"mld-contai=
+ner mld-element mldElementCaller" style=3D"width: 100%;">
+<tbody>
+<tr>
+<td style=3D"padding: 0px;" valign=3D"top">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" style=3D"width: 100=
+%; background-color: #ffffff;">
+<tbody>
+<tr>
+<td class=3D"mld-element-content mobilesplit" style=3D"padding: 30px 0px; w=
+idth: 600px;" valign=3D"top">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"mld-block-=
+text mld-block mld-element mldElementCaller" style=3D"width: 100%;">
+<tbody>
+<tr>
+<td style=3D"padding: 0px;" valign=3D"top">
+<table cellpadding=3D"0" cellspacing=3D"0" style=3D"width: 100%;">
+<tbody>
+<tr>
+<td class=3D"mld-element-content" style=3D"padding: 30px 30px 10px;" valign=
+=3D"top"><!--[if mso]><table style=3D"width:540px;">
+<tbody>
+<tr>
+<td style=3D"width:540px;" align=3D"center" valign=3D"top">
+<![endif]-->
+<p class=3D"mld-paragraph" style=3D"font-family: Arial, Helvetica, sans-ser=
+if; font-size: 18px; color: #333333; line-height: 36px; margin: 0px; paddin=
+g: 0px; text-align: center;"><span style=3D"font-size: 24px;"><strong>Zusam=
+menfassender Auszug EUR</strong></span></p>
+<!--[if mso]></td>
+</tr>
+</tbody>
+</table>
+<![endif]--></td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"mld-contai=
+ner mld-element mldElementCaller mld-prevent-mobilesplit" style=3D"width: 1=
+00%;">
+<tbody>
+<tr>
+<td style=3D"padding: 0px;" valign=3D"top">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" style=3D"width: 100=
+%; background-color: #ffffff;">
+<tbody>
+<tr>
+<td class=3D"mld-element-content" style=3D"padding: 0px 0px 0px 30px; width=
+: 385px;" valign=3D"bottom">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"mld-block-=
+text mld-block mld-element mldElementCaller" style=3D"width: 100%;">
+<tbody>
+<tr>
+<td style=3D"padding: 0px;" valign=3D"top">
+<table cellpadding=3D"0" cellspacing=3D"0" style=3D"width: 100%; border-bot=
+tom: 1px solid #E1E1E1;">
+<tbody>
+<tr>
+<td class=3D"mld-element-content" style=3D"padding: 30px 0px 10px;" valign=
+=3D"top"><!--[if mso]><table style=3D"width:385px;">
+<tbody>
+<tr>
+<td style=3D"width:385px;" align=3D"center" valign=3D"top">
+<![endif]-->
+<p class=3D"mld-paragraph" style=3D"font-family: Arial, Helvetica, sans-ser=
+if; font-size: 18px; text-align: left; color: #333333; line-height: 28px; m=
+argin: 0px; padding: 0px;"><span style=3D"font-size: 18px;"><strong>Anfangs=
+saldo 02.09.2021</strong></span></p>
+<!--[if mso]></td>
+</tr>
+</tbody>
+</table>
+<![endif]--></td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td class=3D"mld-element-content" style=3D"padding: 0px 30px 0px 0px; width=
+: 155px;" valign=3D"bottom">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"mld-block-=
+text mld-block mld-element mldElementCaller" style=3D"width: 100%;">
+<tbody>
+<tr>
+<td style=3D"padding: 0px;" valign=3D"top">
+<table cellpadding=3D"0" cellspacing=3D"0" style=3D"width: 100%; border-bot=
+tom: 1px solid #E1E1E1;">
+<tbody>
+<tr>
+<td class=3D"mld-element-content" style=3D"padding: 30px 0px 10px;" valign=
+=3D"top"><!--[if mso]><table style=3D"width:155px;">
+<tbody>
+<tr>
+<td style=3D"width:155px;" align=3D"center" valign=3D"top">
+<![endif]-->
+<p class=3D"mld-paragraph" style=3D"font-family: Arial, Helvetica, sans-ser=
+if; font-size: 18px; color: #333333; line-height: 28px; margin: 0px; paddin=
+g: 0px; text-align: right;"><span style=3D"font-size: 18px;"><strong>0.01</=
+strong></span></p>
+<!--[if mso]></td>
+</tr>
+</tbody>
+</table>
+<![endif]--></td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"mld-contai=
+ner mld-element mldElementCaller mld-prevent-mobilesplit" style=3D"width: 1=
+00%;">
+<tbody>
+<tr>
+<td style=3D"padding: 0px;" valign=3D"top">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" style=3D"width: 100=
+%; background-color: #ffffff;">
+<tbody>
+<tr>
+<td class=3D"mld-element-content" style=3D"padding: 0px 0px 0px 30px; width=
+: 385px;" valign=3D"bottom">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"mld-block-=
+text mld-block mld-element mldElementCaller" style=3D"width: 100%;">
+<tbody>
+<tr>
+<td style=3D"padding: 0px;" valign=3D"top">
+<table cellpadding=3D"0" cellspacing=3D"0" style=3D"width: 100%; border-bot=
+tom: 1px solid #E1E1E1;">
+<tbody>
+<tr>
+<td class=3D"mld-element-content" style=3D"padding: 10px 0px;" valign=3D"to=
+p"><!--[if mso]><table style=3D"width:385px;">
+<tbody>
+<tr>
+<td style=3D"width:385px;" align=3D"center" valign=3D"top">
+<![endif]-->
+<p class=3D"mld-paragraph" style=3D"font-family: Arial, Helvetica, sans-ser=
+if; font-size: 18px; text-align: left; color: #333333; line-height: 28px; m=
+argin: 0px; padding: 0px;"><span style=3D"font-size: 18px;"><strong>Endsald=
+o 02.09.2021</strong></span></p>
+<!--[if mso]></td>
+</tr>
+</tbody>
+</table>
+<![endif]--></td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td class=3D"mld-element-content" style=3D"padding: 0px 30px 0px 0px; width=
+: 155px;" valign=3D"bottom">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"mld-block-=
+text mld-block mld-element mldElementCaller" style=3D"width: 100%;">
+<tbody>
+<tr>
+<td style=3D"padding: 0px;" valign=3D"top">
+<table cellpadding=3D"0" cellspacing=3D"0" style=3D"width: 100%; border-bot=
+tom: 1px solid #E1E1E1;">
+<tbody>
+<tr>
+<td class=3D"mld-element-content" style=3D"padding: 10px 0px;" valign=3D"to=
+p"><!--[if mso]><table style=3D"width:155px;">
+<tbody>
+<tr>
+<td style=3D"width:155px;" align=3D"center" valign=3D"top">
+<![endif]-->
+<p class=3D"mld-paragraph" style=3D"font-family: Arial, Helvetica, sans-ser=
+if; font-size: 18px; color: #333333; line-height: 28px; margin: 0px; paddin=
+g: 0px; text-align: right;"><span style=3D"font-size: 18px;"><strong>0.33</=
+strong></span></p>
+<!--[if mso]></td>
+</tr>
+</tbody>
+</table>
+<![endif]--></td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"mld-contai=
+ner mld-element mldElementCaller mld-prevent-mobilesplit" style=3D"width: 1=
+00%;">
+<tbody>
+<tr>
+<td style=3D"padding: 0px;" valign=3D"top">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" style=3D"width: 100=
+%; background-color: #ffffff;">
+<tbody>
+<tr>
+<td class=3D"mld-element-content" style=3D"padding: 0px 0px 0px 30px; width=
+: 385px;" valign=3D"bottom">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"mld-block-=
+text mld-block mld-element mldElementCaller" style=3D"width: 100%;">
+<tbody>
+<tr>
+<td style=3D"padding: 0px;" valign=3D"top">
+<table cellpadding=3D"0" cellspacing=3D"0" style=3D"width: 100%; border-bot=
+tom: 1px solid #E1E1E1;">
+<tbody>
+<tr>
+<td class=3D"mld-element-content" style=3D"padding: 10px 0px;" valign=3D"to=
+p"><!--[if mso]><table style=3D"width:385px;">
+<tbody>
+<tr>
+<td style=3D"width:385px;" align=3D"center" valign=3D"top">
+<![endif]-->
+<p class=3D"mld-paragraph" style=3D"font-family: Arial, Helvetica, sans-ser=
+if; font-size: 18px; text-align: left; color: #333333; line-height: 28px; m=
+argin: 0px; padding: 0px;"><span style=3D"font-size: 18px; color: #72777f;"=
+>Erhaltene Zinsen aus Kreditr=C3=BCckkauf</span></p>
+<!--[if mso]></td>
+</tr>
+</tbody>
+</table>
+<![endif]--></td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td class=3D"mld-element-content" style=3D"padding: 0px 30px 0px 0px; width=
+: 155px;" valign=3D"bottom">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"mld-block-=
+text mld-block mld-element mldElementCaller" style=3D"width: 100%;">
+<tbody>
+<tr>
+<td style=3D"padding: 0px;" valign=3D"top">
+<table cellpadding=3D"0" cellspacing=3D"0" style=3D"width: 100%; border-bot=
+tom: 1px solid #E1E1E1;">
+<tbody>
+<tr>
+<td class=3D"mld-element-content" style=3D"padding: 10px 0px;" valign=3D"to=
+p"><!--[if mso]><table style=3D"width:155px;">
+<tbody>
+<tr>
+<td style=3D"width:155px;" align=3D"center" valign=3D"top">
+<![endif]-->
+<p class=3D"mld-paragraph" style=3D"font-family: Arial, Helvetica, sans-ser=
+if; font-size: 18px; color: #333333; line-height: 28px; margin: 0px; paddin=
+g: 0px; text-align: right;"><span style=3D"font-size: 18px; color: #72777f;=
+">0.02</span></p>
+<!--[if mso]></td>
+</tr>
+</tbody>
+</table>
+<![endif]--></td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"mld-contai=
+ner mld-element mldElementCaller mld-prevent-mobilesplit" style=3D"width: 1=
+00%;">
+<tbody>
+<tr>
+<td style=3D"padding: 0px;" valign=3D"top">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" style=3D"width: 100=
+%; background-color: #ffffff;">
+<tbody>
+<tr>
+<td class=3D"mld-element-content" style=3D"padding: 0px 0px 0px 30px; width=
+: 385px;" valign=3D"bottom">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"mld-block-=
+text mld-block mld-element mldElementCaller" style=3D"width: 100%;">
+<tbody>
+<tr>
+<td style=3D"padding: 0px;" valign=3D"top">
+<table cellpadding=3D"0" cellspacing=3D"0" style=3D"width: 100%; border-bot=
+tom: 1px solid #E1E1E1;">
+<tbody>
+<tr>
+<td class=3D"mld-element-content" style=3D"padding: 10px 0px;" valign=3D"to=
+p"><!--[if mso]><table style=3D"width:385px;">
+<tbody>
+<tr>
+<td style=3D"width:385px;" align=3D"center" valign=3D"top">
+<![endif]-->
+<p class=3D"mld-paragraph" style=3D"font-family: Arial, Helvetica, sans-ser=
+if; font-size: 18px; text-align: left; color: #333333; line-height: 28px; m=
+argin: 0px; padding: 0px;"><span style=3D"font-size: 18px; color: #72777f;"=
+>Erhaltene Tilgung aus Kreditr=C3=BCckkauf</span></p>
+<!--[if mso]></td>
+</tr>
+</tbody>
+</table>
+<![endif]--></td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td class=3D"mld-element-content" style=3D"padding: 0px 30px 0px 0px; width=
+: 155px;" valign=3D"bottom">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"mld-block-=
+text mld-block mld-element mldElementCaller" style=3D"width: 100%;">
+<tbody>
+<tr>
+<td style=3D"padding: 0px;" valign=3D"top">
+<table cellpadding=3D"0" cellspacing=3D"0" style=3D"width: 100%; border-bot=
+tom: 1px solid #E1E1E1;">
+<tbody>
+<tr>
+<td class=3D"mld-element-content" style=3D"padding: 10px 0px;" valign=3D"to=
+p"><!--[if mso]><table style=3D"width:155px;">
+<tbody>
+<tr>
+<td style=3D"width:155px;" align=3D"center" valign=3D"top">
+<![endif]-->
+<p class=3D"mld-paragraph" style=3D"font-family: Arial, Helvetica, sans-ser=
+if; font-size: 18px; color: #333333; line-height: 28px; margin: 0px; paddin=
+g: 0px; text-align: right;"><span style=3D"font-size: 18px; color: #72777f;=
+">10.00</span></p>
+<!--[if mso]></td>
+</tr>
+</tbody>
+</table>
+<![endif]--></td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"mld-contai=
+ner mld-element mldElementCaller mld-prevent-mobilesplit" style=3D"width: 1=
+00%;">
+<tbody>
+<tr>
+<td style=3D"padding: 0px;" valign=3D"top">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" style=3D"width: 100=
+%; background-color: #ffffff;">
+<tbody>
+<tr>
+<td class=3D"mld-element-content" style=3D"padding: 0px 0px 0px 30px; width=
+: 385px;" valign=3D"bottom">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"mld-block-=
+text mld-block mld-element mldElementCaller" style=3D"width: 100%;">
+<tbody>
+<tr>
+<td style=3D"padding: 0px;" valign=3D"top">
+<table cellpadding=3D"0" cellspacing=3D"0" style=3D"width: 100%; border-bot=
+tom: 1px solid #E1E1E1;">
+<tbody>
+<tr>
+<td class=3D"mld-element-content" style=3D"padding: 10px 0px;" valign=3D"to=
+p"><!--[if mso]><table style=3D"width:385px;">
+<tbody>
+<tr>
+<td style=3D"width:385px;" align=3D"center" valign=3D"top">
+<![endif]-->
+<p class=3D"mld-paragraph" style=3D"font-family: Arial, Helvetica, sans-ser=
+if; font-size: 18px; text-align: left; color: #333333; line-height: 28px; m=
+argin: 0px; padding: 0px;"><span style=3D"font-size: 18px; color: #72777f;"=
+>Investitionen in Darlehen</span></p>
+<!--[if mso]></td>
+</tr>
+</tbody>
+</table>
+<![endif]--></td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td class=3D"mld-element-content" style=3D"padding: 0px 30px 0px 0px; width=
+: 155px;" valign=3D"bottom">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"mld-block-=
+text mld-block mld-element mldElementCaller" style=3D"width: 100%;">
+<tbody>
+<tr>
+<td style=3D"padding: 0px;" valign=3D"top">
+<table cellpadding=3D"0" cellspacing=3D"0" style=3D"width: 100%; border-bot=
+tom: 1px solid #E1E1E1;">
+<tbody>
+<tr>
+<td class=3D"mld-element-content" style=3D"padding: 10px 0px;" valign=3D"to=
+p"><!--[if mso]><table style=3D"width:155px;">
+<tbody>
+<tr>
+<td style=3D"width:155px;" align=3D"center" valign=3D"top">
+<![endif]-->
+<p class=3D"mld-paragraph" style=3D"font-family: Arial, Helvetica, sans-ser=
+if; font-size: 18px; color: #333333; line-height: 28px; margin: 0px; paddin=
+g: 0px; text-align: right;"><span style=3D"font-size: 18px; color: #72777f;=
+">-10.00</span></p>
+<!--[if mso]></td>
+</tr>
+</tbody>
+</table>
+<![endif]--></td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"mld-contai=
+ner mld-element mldElementCaller mld-prevent-mobilesplit" style=3D"width: 1=
+00%;">
+<tbody>
+<tr>
+<td style=3D"padding: 0px;" valign=3D"top">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" style=3D"width: 100=
+%; background-color: #ffffff;">
+<tbody>
+<tr>
+<td class=3D"mld-element-content" style=3D"padding: 0px 0px 0px 30px; width=
+: 385px;" valign=3D"bottom">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"mld-block-=
+text mld-block mld-element mldElementCaller" style=3D"width: 100%;">
+<tbody>
+<tr>
+<td style=3D"padding: 0px;" valign=3D"top">
+<table cellpadding=3D"0" cellspacing=3D"0" style=3D"width: 100%; border-bot=
+tom: 1px solid #E1E1E1;">
+<tbody>
+<tr>
+<td class=3D"mld-element-content" style=3D"padding: 10px 0px;" valign=3D"to=
+p"><!--[if mso]><table style=3D"width:385px;">
+<tbody>
+<tr>
+<td style=3D"width:385px;" align=3D"center" valign=3D"top">
+<![endif]-->
+<p class=3D"mld-paragraph" style=3D"font-family: Arial, Helvetica, sans-ser=
+if; font-size: 18px; text-align: left; color: #333333; line-height: 28px; m=
+argin: 0px; padding: 0px;"><span style=3D"font-size: 18px; color: #72777f;"=
+>Zinszahlungen</span></p>
+<!--[if mso]></td>
+</tr>
+</tbody>
+</table>
+<![endif]--></td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td class=3D"mld-element-content" style=3D"padding: 0px 30px 0px 0px; width=
+: 155px;" valign=3D"bottom">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"mld-block-=
+text mld-block mld-element mldElementCaller" style=3D"width: 100%;">
+<tbody>
+<tr>
+<td style=3D"padding: 0px;" valign=3D"top">
+<table cellpadding=3D"0" cellspacing=3D"0" style=3D"width: 100%; border-bot=
+tom: 1px solid #E1E1E1;">
+<tbody>
+<tr>
+<td class=3D"mld-element-content" style=3D"padding: 10px 0px;" valign=3D"to=
+p"><!--[if mso]><table style=3D"width:155px;">
+<tbody>
+<tr>
+<td style=3D"width:155px;" align=3D"center" valign=3D"top">
+<![endif]-->
+<p class=3D"mld-paragraph" style=3D"font-family: Arial, Helvetica, sans-ser=
+if; font-size: 18px; color: #333333; line-height: 28px; margin: 0px; paddin=
+g: 0px; text-align: right;"><span style=3D"font-size: 18px; color: #72777f;=
+">0.02</span></p>
+<!--[if mso]></td>
+</tr>
+</tbody>
+</table>
+<![endif]--></td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"mld-contai=
+ner mld-element mldElementCaller mld-prevent-mobilesplit" style=3D"width: 1=
+00%;">
+<tbody>
+<tr>
+<td style=3D"padding: 0px;" valign=3D"top">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" style=3D"width: 100=
+%; background-color: #ffffff;">
+<tbody>
+<tr>
+<td class=3D"mld-element-content" style=3D"padding: 0px 0px 0px 30px; width=
+: 385px;" valign=3D"bottom">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"mld-block-=
+text mld-block mld-element mldElementCaller" style=3D"width: 100%;">
+<tbody>
+<tr>
+<td style=3D"padding: 0px;" valign=3D"top">
+<table cellpadding=3D"0" cellspacing=3D"0" style=3D"width: 100%; border-bot=
+tom: 1px solid #E1E1E1;">
+<tbody>
+<tr>
+<td class=3D"mld-element-content" style=3D"padding: 10px 0px;" valign=3D"to=
+p"><!--[if mso]><table style=3D"width:385px;">
+<tbody>
+<tr>
+<td style=3D"width:385px;" align=3D"center" valign=3D"top">
+<![endif]-->
+<p class=3D"mld-paragraph" style=3D"font-family: Arial, Helvetica, sans-ser=
+if; font-size: 18px; text-align: left; color: #333333; line-height: 28px; m=
+argin: 0px; padding: 0px;"><span style=3D"font-size: 18px; color: #72777f;"=
+>Tilgungszahlungen</span></p>
+<!--[if mso]></td>
+</tr>
+</tbody>
+</table>
+<![endif]--></td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td class=3D"mld-element-content" style=3D"padding: 0px 30px 0px 0px; width=
+: 155px;" valign=3D"bottom">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"mld-block-=
+text mld-block mld-element mldElementCaller" style=3D"width: 100%;">
+<tbody>
+<tr>
+<td style=3D"padding: 0px;" valign=3D"top">
+<table cellpadding=3D"0" cellspacing=3D"0" style=3D"width: 100%; border-bot=
+tom: 1px solid #E1E1E1;">
+<tbody>
+<tr>
+<td class=3D"mld-element-content" style=3D"padding: 10px 0px;" valign=3D"to=
+p"><!--[if mso]><table style=3D"width:155px;">
+<tbody>
+<tr>
+<td style=3D"width:155px;" align=3D"center" valign=3D"top">
+<![endif]-->
+<p class=3D"mld-paragraph" style=3D"font-family: Arial, Helvetica, sans-ser=
+if; font-size: 18px; color: #333333; line-height: 28px; margin: 0px; paddin=
+g: 0px; text-align: right;"><span style=3D"font-size: 18px; color: #72777f;=
+">0.28</span></p>
+<!--[if mso]></td>
+</tr>
+</tbody>
+</table>
+<![endif]--></td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"mld-contai=
+ner mld-element mldElementCaller mld-prevent-mobilesplit" style=3D"width: 1=
+00%;">
+<tbody>
+<tr>
+<td style=3D"padding: 0px;" valign=3D"top">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" style=3D"width: 100=
+%; background-color: #ffffff;">
+<tbody>
+<tr>
+<td class=3D"mld-element-content" style=3D"padding: 0px 0px 0px 30px; width=
+: 385px;" valign=3D"bottom">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"mld-block-=
+text mld-block mld-element mldElementCaller" style=3D"width: 100%;">
+<tbody>
+<tr>
+<td style=3D"padding: 0px;" valign=3D"top">
+<table cellpadding=3D"0" cellspacing=3D"0" style=3D"width: 100%; border-bot=
+tom: 1px solid #E1E1E1;">
+<tbody>
+<tr>
+<td class=3D"mld-element-content" style=3D"padding: 10px 0px;" valign=3D"to=
+p"><!--[if mso]><table style=3D"width:385px;">
+<tbody>
+<tr>
+<td style=3D"width:385px;" align=3D"center" valign=3D"top">
+<![endif]-->
+<p class=3D"mld-paragraph" style=3D"font-family: Arial, Helvetica, sans-ser=
+if; font-size: 18px; text-align: left; color: #333333; line-height: 28px; m=
+argin: 0px; padding: 0px;"><span style=3D"font-size: 18px; color: #72777f;"=
+>Verzugsgeb=C3=BChren</span></p>
+<!--[if mso]></td>
+</tr>
+</tbody>
+</table>
+<![endif]--></td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td class=3D"mld-element-content" style=3D"padding: 0px 30px 0px 0px; width=
+: 155px;" valign=3D"bottom">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"mld-block-=
+text mld-block mld-element mldElementCaller" style=3D"width: 100%;">
+<tbody>
+<tr>
+<td style=3D"padding: 0px;" valign=3D"top">
+<table cellpadding=3D"0" cellspacing=3D"0" style=3D"width: 100%; border-bot=
+tom: 1px solid #E1E1E1;">
+<tbody>
+<tr>
+<td class=3D"mld-element-content" style=3D"padding: 10px 0px;" valign=3D"to=
+p"><!--[if mso]><table style=3D"width:155px;">
+<tbody>
+<tr>
+<td style=3D"width:155px;" align=3D"center" valign=3D"top">
+<![endif]-->
+<p class=3D"mld-paragraph" style=3D"font-family: Arial, Helvetica, sans-ser=
+if; font-size: 18px; color: #333333; line-height: 28px; margin: 0px; paddin=
+g: 0px; text-align: right;"><span style=3D"font-size: 18px; color: #72777f;=
+">0.00</span></p>
+<!--[if mso]></td>
+</tr>
+</tbody>
+</table>
+<![endif]--></td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"mld-contai=
+ner mld-element mldElementCaller" style=3D"width: 100%;">
+<tbody>
+<tr>
+<td style=3D"padding: 30px 0px;" valign=3D"top">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" style=3D"width: 100=
+%;">
+<tbody>
+<tr>
+<td class=3D"mld-element-content mobilesplit" style=3D"padding: 0px; width:=
+ 600px;" valign=3D"top"><!--[if mso]><table cellpadding=3D"0" cellspacing=
+=3D"0" style=3D"width:600px;">
+<tbody>
+<tr>
+<td style=3D"width:600px;" align=3D"center" valign=3D"middle">
+<![endif]-->
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"mld-elemen=
+t mld-block mld-block-button mldElementCaller" style=3D"width: 100%;">
+<tbody>
+<tr>
+<td style=3D"padding: 0px 30px 30px;" align=3D"center" valign=3D"top">
+<table align=3D"center" border=3D"0" cellpadding=3D"0" cellspacing=3D"0" cl=
+ass=3D"mobile100" style=3D"border-collapse: separate; background-color: #3f=
+85f4; border-radius: 5px; overflow: hidden; width: 540px;">
+<tbody>
+<tr>
+<td class=3D"mld-element-content" style=3D"padding: 15px 0px;" align=3D"cen=
+ter" valign=3D"middle"><!--[if mso]><table style=3D"width:540px;">
+<tbody>
+<tr>
+<td style=3D"width:540px;" align=3D"center" valign=3D"middle">
+<![endif]--><a href=3D"https://u1678031.ct.sendgrid.net/ls/click?upn=3DynMB=
+nGYFbG0i96G7FsI2SSIpdvkzA-2Fo4hsjeueEeQGEgK2YrvM0r692MNK0hmdrjQ4veJ86CTjg0P=
+ifS6RXTTxIebl-2F9KoH60XIQPlOUMQfBUWRQhuvxmV0MYEGz-2B1W2G8eBkcubfp18ypl4JBkE=
+4q08NA8zjfZfze7vK5aPZKQ-3DIQVv_tZ6gW1CmgmiDSdvJ3JBgYluIm7byDvaLCG71w3DSiT-2=
+FNkBmzkAKPCeTOPwi5QdvQQlh9HfKjHxAupNbL5IslkXOf-2FOqqTm4k-2BWkaJR18wJzfowt7p=
+6MWWTk3k3pzBDkKpT1VYPCuIpVC03jOc8N2uq0NBMC6iumBi2A-2BXd-2Bm2QldHvxMy1dRpiNr=
+4ieQ8fUXXLgAVp77wS7uRmagfA1ryUYAV7kS3oY3fFa5QTov4cFY4gXYrUXtmbFSgmLmtPOTDY6=
+EhYnhdQe1gVbTUNoBLC7AsqUad8WwjD2JXED2wqH1nkl5XeFipryhcBtjeSqp1jZN-2FhNQNRuL=
+Xx6idsdhLVpDTP-2FCNNF-2FfpD8z3m-2B8yC-2FrwGTL0zV5WXb9GInND6UXzAV4X9Vb9yIrDX=
+nfTPhWOoKE5c0IfN9JBkF-2Fp3frvAVnu-2BdlEhf6bKX9ATREFZa" target=3D"_blank" st=
+yle=3D"display: block; color: #ffffff; font-family: Arial; font-size: 15px;=
+ line-height: 22px; text-decoration: none; text-align: center; padding: 0px=
+; white-space: pre-line;"><strong><span style=3D"font-size: 18px;">Mein Pan=
+el einsehen</span></strong></a><!--[if mso]></td>
+</tr>
+</tbody>
+</table>
+<![endif]--></td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+<!--[if mso]></td>
+</tr>
+</tbody>
+</table>
+<![endif]--></td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"mld-contai=
+ner mld-element mldElementCaller" style=3D"width: 100%;">
+<tbody>
+<tr>
+<td style=3D"padding: 0px;" valign=3D"top">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" style=3D"width: 100=
+%;">
+<tbody>
+<tr>
+<td class=3D"mld-element-content mobilesplit" style=3D"padding: 0px; width:=
+ 600px;" valign=3D"top">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"mld-contai=
+ner mld-element mldElementCaller mld-prevent-mobilesplit" style=3D"width: 1=
+00%;">
+<tbody>
+<tr>
+<td style=3D"padding: 30px;" valign=3D"top">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" style=3D"width: 100=
+%; border: 1px solid #EFF2F5; background-color: #ffffff; border-radius: 8px=
+; overflow: hidden; border-collapse: separate;">
+<tbody>
+<tr>
+<td class=3D"mld-element-content" style=3D"padding: 0px; width: 326px;" val=
+ign=3D"middle">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"mld-block-=
+text mld-block mld-element mldElementCaller" style=3D"width: 100%;">
+<tbody>
+<tr>
+<td style=3D"padding: 0px;" valign=3D"top">
+<table cellpadding=3D"0" cellspacing=3D"0" style=3D"width: 100%;">
+<tbody>
+<tr>
+<td class=3D"mld-element-content" style=3D"padding: 20px;" valign=3D"top"><=
+!--[if mso]><table style=3D"width:286px;">
+<tbody>
+<tr>
+<td style=3D"width:286px;" align=3D"center" valign=3D"top">
+<![endif]-->
+<p class=3D"mld-paragraph" style=3D"font-family: Arial, Helvetica, sans-ser=
+if; font-size: 18px; text-align: left; color: #333333; line-height: 28px; m=
+argin: 0px; padding: 0px;">Aktive geworbene Freunde</p>
+<!--[if mso]></td>
+</tr>
+</tbody>
+</table>
+<![endif]--></td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td class=3D"mld-element-content" style=3D"padding: 0px; width: 212px;" val=
+ign=3D"middle">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"mld-block-=
+text mld-block mld-element mldElementCaller" style=3D"width: 100%;">
+<tbody>
+<tr>
+<td style=3D"padding: 0px;" valign=3D"top">
+<table cellpadding=3D"0" cellspacing=3D"0" style=3D"width: 100%;">
+<tbody>
+<tr>
+<td class=3D"mld-element-content" style=3D"padding: 20px;" valign=3D"top"><=
+!--[if mso]><table style=3D"width:172px;">
+<tbody>
+<tr>
+<td style=3D"width:172px;" align=3D"center" valign=3D"top">
+<![endif]-->
+<p class=3D"mld-paragraph" style=3D"font-family: Arial, Helvetica, sans-ser=
+if; font-size: 18px; color: #333333; line-height: 36px; margin: 0px; paddin=
+g: 0px; text-align: right;"><strong><span style=3D"font-size: 24px;">0</spa=
+n></strong></p>
+<!--[if mso]></td>
+</tr>
+</tbody>
+</table>
+<![endif]--></td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"mld-contai=
+ner mld-element mldElementCaller" style=3D"width: 100%;">
+<tbody>
+<tr>
+<td style=3D"padding: 0px 0px 30px;" valign=3D"top">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" style=3D"width: 100=
+%;">
+<tbody>
+<tr>
+<td class=3D"mld-element-content mobilesplit" style=3D"padding: 0px; width:=
+ 600px;" valign=3D"top"><!--[if mso]><table cellpadding=3D"0" cellspacing=
+=3D"0" style=3D"width:600px;">
+<tbody>
+<tr>
+<td style=3D"width:600px;" align=3D"center" valign=3D"middle">
+<![endif]-->
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"mld-elemen=
+t mld-block mld-block-button mldElementCaller" style=3D"width: 100%;">
+<tbody>
+<tr>
+<td style=3D"padding: 0px 30px 30px;" align=3D"center" valign=3D"top">
+<table align=3D"center" border=3D"0" cellpadding=3D"0" cellspacing=3D"0" cl=
+ass=3D"mobile100" style=3D"border-collapse: separate; background-color: #3f=
+85f4; border-radius: 5px; overflow: hidden; width: 540px;">
+<tbody>
+<tr>
+<td class=3D"mld-element-content" style=3D"padding: 15px 0px;" align=3D"cen=
+ter" valign=3D"middle"><!--[if mso]><table style=3D"width:540px;">
+<tbody>
+<tr>
+<td style=3D"width:540px;" align=3D"center" valign=3D"middle">
+<![endif]--><a href=3D"https://u1678031.ct.sendgrid.net/ls/click?upn=3DynMB=
+nGYFbG0i96G7FsI2SSIpdvkzA-2Fo4hsjeueEeQGEWOeWwc0ouwzqL2iR7Ikrsk8cZv-2Floabw=
+AWocKTEo5DMB6IW6cyewQhdrz3qbx-2Bp3YV-2F8g2fDstgXcIUrduyvfYyVNui0bvrWecAdicN=
+eirH1G4Tep9OYdeBYGbYGnT-2F-2FO3-2BxQedUwtLF-2BjnOmp3HcuHbI_tZ6gW1CmgmiDSdvJ=
+3JBgYluIm7byDvaLCG71w3DSiT-2FNkBmzkAKPCeTOPwi5QdvQQlh9HfKjHxAupNbL5IslkXOf-=
+2FOqqTm4k-2BWkaJR18wJzfowt7p6MWWTk3k3pzBDkKpT1VYPCuIpVC03jOc8N2uq0NBMC6iumB=
+i2A-2BXd-2Bm2QldHvxMy1dRpiNr4ieQ8fUXXLgAVp77wS7uRmagfA1ryUYAV7kS3oY3fFa5QTo=
+v4cGLzE5zz8yOLS8wZyor5-2FUALzZrx542Ce2oxsYjzHgXjBpEdHl4eLWjFvVgXFVOpGAnfgYR=
+nvJDUo-2Bn39365vSiJo4w9RsCZWADxdEZhe9aHBTiVrqzW0aA4DVbL5frhQ5q4cMc9iiiWx0mL=
+COk5-2B-2BWASfm79ePA0DGnFeeqW80gZ5-2FKkp-2BC4Q04Ido-2FaB2Ei8pCuRFJUcG4QWidE=
+VdxYx2" target=3D"_blank" style=3D"display: block; color: #ffffff; font-fam=
+ily: Arial; font-size: 15px; line-height: 22px; text-decoration: none; text=
+-align: center; padding: 0px; white-space: pre-line;"><strong><span style=
+=3D"font-size: 18px;">Mehr Freunde werben</span></strong></a><!--[if mso]><=
+/td>
+</tr>
+</tbody>
+</table>
+<![endif]--></td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+<!--[if mso]></td>
+</tr>
+</tbody>
+</table>
+<![endif]--></td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" style=3D"width: 100=
+%;">
+<tbody>
+<tr class=3D"mld-footer" style=3D"background-color: #f4f4f4;">
+<td align=3D"center" valign=3D"top">
+<table cellpadding=3D"0" cellspacing=3D"0" class=3D"mobile100" style=3D"wid=
+th: 600px;">
+<tbody>
+<tr>
+<td class=3D"mld-part" style=3D"width: 100%; background-color: #f4f4f4;" al=
+ign=3D"center" valign=3D"top">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"mld-contai=
+ner mld-element mldElementCaller mld-prevent-mobilesplit" style=3D"width: 1=
+00% !important;"></table>
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"mld-contai=
+ner mld-element mldElementCaller" style=3D"width: 100%;">
+<tbody>
+<tr>
+<td style=3D"padding: 30px 0px;" valign=3D"top">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" style=3D"width: 100=
+%;">
+<tbody>
+<tr>
+<td class=3D"mld-element-content mobilesplit" style=3D"padding: 0px; width:=
+ 300px;" valign=3D"top">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"mld-contai=
+ner mld-element mldElementCaller" style=3D"width: 100%;">
+<tbody>
+<tr>
+<td style=3D"padding: 0px;" valign=3D"top">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" style=3D"width: 100=
+%; border-collapse: collapse;">
+<tbody>
+<tr>
+<td class=3D"mld-element-content" style=3D"padding: 0px 0px 0px 30px; width=
+: 20px;" valign=3D"top">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"mld-block-=
+image mld-block mld-element mldElementCaller" style=3D"padding: 0px; positi=
+on: relative; width: 100%;">
+<tbody>
+<tr>
+<td style=3D"padding: 0px;" valign=3D"top">
+<table cellpadding=3D"0" cellspacing=3D"0" style=3D"width: 100%;">
+<tbody>
+<tr>
+<td class=3D"mld-element-content" style=3D"padding: 5px 0px 0px;" align=3D"=
+" valign=3D"top"><!--[if mso]><table style=3D"width:20px;">
+<tbody>
+<tr>
+<td style=3D"width:20px;" align=3D"" valign=3D"top">
+<![endif]--><img src=3D"https://admin.mailigen.com//upload/user/47241/image=
+s/appstore2x.png" border=3D"0" alt=3D"" width=3D"20" height=3D"25" style=3D=
+"width: 20px; display: block;" /><!--[if mso]></td>
+</tr>
+</tbody>
+</table>
+<![endif]--></td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td class=3D"mld-element-content" style=3D"padding: 0px; width: 250px;" val=
+ign=3D"top">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"mld-block-=
+text mld-block mld-element mldElementCaller" style=3D"width: 100% !importan=
+t;">
+<tbody>
+<tr>
+<td style=3D"padding: 0px;" valign=3D"top">
+<table cellpadding=3D"0" cellspacing=3D"0" style=3D"width: 100%;">
+<tbody>
+<tr>
+<td class=3D"mld-element-content" style=3D"padding-left: 10px; padding-top:=
+ 10px; padding-bottom: 0px;" valign=3D"top"><!--[if mso]><table style=3D"wi=
+dth:240px;">
+<tbody>
+<tr>
+<td style=3D"width:240px;" align=3D"left" valign=3D"top">
+<![endif]-->
+<p class=3D"mld-paragraph" style=3D"font-family: Arial, Helvetica, sans-ser=
+if; font-size: 16px; text-align: left; color: #333333; line-height: 1.5; ma=
+rgin: 0px; padding: 0px;"><span style=3D"font-size: 16px; color: #333333;">=
+<a href=3D"https://u1678031.ct.sendgrid.net/ls/click?upn=3DynMBnGYFbG0i96G7=
+FsI2SXgcc5RhtHJbsrGRTCfhD0JQRwna4Oh-2BERauAhvSm97iW3J-2FVQhoWKP0tTso6eOBA-2=
+Fo05gTH5DwEKrg7rA3DNbNKHg9hb1gLmUc7Vec6QEihdIYwvTJ443SCLNujdjGPS-2BiQ0dfKo2=
+U1kGRLRxSAsdeR6QtCsjVtmtVhFi-2FRF9PxTYKW_tZ6gW1CmgmiDSdvJ3JBgYluIm7byDvaLCG=
+71w3DSiT-2FNkBmzkAKPCeTOPwi5QdvQQlh9HfKjHxAupNbL5IslkXOf-2FOqqTm4k-2BWkaJR1=
+8wJzfowt7p6MWWTk3k3pzBDkKpT1VYPCuIpVC03jOc8N2uq0NBMC6iumBi2A-2BXd-2Bm2QldHv=
+xMy1dRpiNr4ieQ8fUXXLgAVp77wS7uRmagfA1ryUYAV7kS3oY3fFa5QTov4cGYm8-2FO5dTSt5I=
+wkIQW8KtYR-2FUc07MFAcdNGheV-2F0xUpx4sgWncw5CHhlREHhDgK0VRlibgCzE13Q3iUyLh0c=
+Yiv5qaL4ttq089wtI0TE0Td51FvDP68M61lxb-2B94bdg4lcDPnyVhrloQ1idVtpXJkWgNSIext=
+MLZcZpCg1DZa3k1uj9U2dLKmphL4M3ZBInIy0mFjdep2lDniJnzcHtNC3" style=3D"font-fa=
+mily: Arial, Helvetica, sans-serif; text-align: left; color: #333333; line-=
+height: 24px; margin: 0px; padding: 0px; font-size: 16px;" class=3D"mld-lin=
+k">Laden im App Store</a></span></p>
+<!--[if mso]></td>
+</tr>
+</tbody>
+</table>
+<![endif]--></td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td class=3D"mld-element-content mobilesplit" style=3D"padding: 0px; width:=
+ 300px;" valign=3D"top">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"mld-contai=
+ner mld-element mldElementCaller" style=3D"width: 100%;">
+<tbody>
+<tr>
+<td style=3D"padding: 0px;" valign=3D"top">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" style=3D"width: 100=
+%; border-collapse: separate;">
+<tbody>
+<tr>
+<td class=3D"mld-element-content" style=3D"padding: 0px 0px 0px 30px; width=
+: 20px;" valign=3D"top">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"mld-block-=
+image mld-block mld-element mldElementCaller" style=3D"padding: 0px; positi=
+on: relative; width: 100%;">
+<tbody>
+<tr>
+<td style=3D"padding: 0px;" valign=3D"top">
+<table cellpadding=3D"0" cellspacing=3D"0" style=3D"width: 100%;">
+<tbody>
+<tr>
+<td class=3D"mld-element-content" style=3D"padding: 10px 0px 0px;" align=3D=
+"" valign=3D"top"><!--[if mso]><table style=3D"width:20px;">
+<tbody>
+<tr>
+<td style=3D"width:20px;" align=3D"" valign=3D"top">
+<![endif]--><img src=3D"https://admin.mailigen.com//upload/user/47241/image=
+s/google2x.png" border=3D"0" alt=3D"" width=3D"20" height=3D"21.125" style=
+=3D"width: 20px; display: block;" /><!--[if mso]></td>
+</tr>
+</tbody>
+</table>
+<![endif]--></td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td class=3D"mld-element-content" style=3D"padding: 0px; width: 250px;" val=
+ign=3D"top">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"mld-block-=
+text mld-block mld-element mldElementCaller" style=3D"width: 100% !importan=
+t;">
+<tbody>
+<tr>
+<td style=3D"padding: 0px;" valign=3D"top">
+<table cellpadding=3D"0" cellspacing=3D"0" style=3D"width: 100%;">
+<tbody>
+<tr>
+<td class=3D"mld-element-content" style=3D"padding-left: 10px; padding-top:=
+ 10px; padding-bottom: 0px;" valign=3D"top"><!--[if mso]><table style=3D"wi=
+dth:240px;">
+<tbody>
+<tr>
+<td style=3D"width:240px;" align=3D"left" valign=3D"top">
+<![endif]-->
+<p class=3D"mld-paragraph" style=3D"font-family: Arial, Helvetica, sans-ser=
+if; font-size: 16px; text-align: left; color: #333333; line-height: 1.5; ma=
+rgin: 0px; padding: 0px;"><span style=3D"font-size: 16px; color: #333333;">=
+<a href=3D"https://u1678031.ct.sendgrid.net/ls/click?upn=3DynMBnGYFbG0i96G7=
+FsI2SewTIFRi3-2F5hbC2P4XQ3QqFluIOA8Fr4N9HExGYJLhBt0huf-2BnJCF3-2FrdnJK2B7kb=
+DMa0rayUxtzk4PAZ-2BxY294M048p4neXboQbDY8E3HzMjkl0pk2XO4mxLzIMpSFzxHyckmFbvW=
+RpUU32vh65-2BnmJvLiW1bN01-2BkaoRuHFg9RNYzKJBxiijTuPVNNbSbAONWwpo8iPghm3PUWh=
+0i8H9Q-3Dy1zj_tZ6gW1CmgmiDSdvJ3JBgYluIm7byDvaLCG71w3DSiT-2FNkBmzkAKPCeTOPwi=
+5QdvQQlh9HfKjHxAupNbL5IslkXOf-2FOqqTm4k-2BWkaJR18wJzfowt7p6MWWTk3k3pzBDkKpT=
+1VYPCuIpVC03jOc8N2uq0NBMC6iumBi2A-2BXd-2Bm2QldHvxMy1dRpiNr4ieQ8fUXXLgAVp77w=
+S7uRmagfA1ryUYAV7kS3oY3fFa5QTov4cGXSkEi-2B6efS-2B087ABliNcprmFrw6v-2FSlW7ik=
+R6TxlFG5gueKj3Jrey7sHJE089ehbnAzHFW4ABMGtfynlY3bsWFoxf-2Bn1oswoCnIZ8wphZ7hO=
+DCuJYC1g3cmLGFXmrgltadILsSpV15T4WpuhifcxNki4lfopTIouaa9oXSeZEaFDvMPNFDrEpX8=
+xEafmYdbSmBTd0ELZGSF-2F-2Fx6qj1xPU" style=3D"font-family: Arial, Helvetica,=
+ sans-serif; text-align: left; color: #333333; line-height: 24px; margin: 0=
+px; padding: 0px; font-size: 16px;" class=3D"mld-link">Jetzt bei Google Pla=
+y</a></span></p>
+<!--[if mso]></td>
+</tr>
+</tbody>
+</table>
+<![endif]--></td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"mld-contai=
+ner mld-element mldElementCaller" style=3D"width: 100% !important;">
+<tbody>
+<tr>
+<td style=3D"padding: 0px;" valign=3D"top">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" style=3D"width: 100=
+%;">
+<tbody>
+<tr>
+<td class=3D"mld-element-content mobilesplit" style=3D"padding: 0px; width:=
+ 300px;" valign=3D"top">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"mld-block-=
+text mld-block mld-element mldElementCaller" style=3D"width: 100% !importan=
+t;">
+<tbody>
+<tr>
+<td style=3D"padding: 0px;" valign=3D"top">
+<table cellpadding=3D"0" cellspacing=3D"0" style=3D"width: 100%;">
+<tbody>
+<tr>
+<td class=3D"mld-element-content" style=3D"padding: 10px 0px 0px 30px;" val=
+ign=3D"top"><!--[if mso]><table style=3D"width:270px;">
+<tbody>
+<tr>
+<td style=3D"width:270px;" align=3D"left" valign=3D"top">
+<![endif]-->
+<p class=3D"mld-paragraph" style=3D"font-family: Arial, Helvetica, sans-ser=
+if; font-size: 16px; text-align: left; color: #333333; line-height: 1.5; ma=
+rgin: 0px; padding: 0px;"><span style=3D"color: #333333;"><strong>Sie brauc=
+hen Hilfe?</strong></span></p>
+<!--[if mso]></td>
+</tr>
+</tbody>
+</table>
+<![endif]--></td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"mld-contai=
+ner mld-element mldElementCaller" style=3D"width: 100% !important;">
+<tbody>
+<tr>
+<td style=3D"padding: 0px;" valign=3D"top">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" style=3D"width: 100=
+%;">
+<tbody>
+<tr>
+<td class=3D"mld-element-content" style=3D"padding: 0px 0px 0px 30px; width=
+: 20px; height: 20px;" valign=3D"top">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"mld-block-=
+image mld-block mld-element mldElementCaller" style=3D"position: relative; =
+width: 100% !important;">
+<tbody>
+<tr>
+<td style=3D"padding: 0px;" valign=3D"top">
+<table cellpadding=3D"0" cellspacing=3D"0" style=3D"width: 100%;">
+<tbody>
+<tr>
+<td class=3D"mld-element-content" style=3D"padding-top: 10px; height: 20px;=
+ padding-left: 0px; padding-right: 0px;" align=3D"" valign=3D"top"><!--[if =
+mso]><table style=3D"width:20px;">
+<tbody>
+<tr>
+<td style=3D"width:20px;" align=3D"" valign=3D"top">
+<![endif]--><img src=3D"https://admin.mailigen.com//upload/user/47241/image=
+s/tax_report_template/phonemob_2x.png" border=3D"0" width=3D"16" height=3D"=
+25.125" style=3D"display: block; width: 16px;" /><!--[if mso]></td>
+</tr>
+</tbody>
+</table>
+<![endif]--></td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td class=3D"mld-element-content" style=3D"padding: 0px; width: 250px;" val=
+ign=3D"top">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"mld-block-=
+text mld-block mld-element mldElementCaller" style=3D"width: 100% !importan=
+t;">
+<tbody>
+<tr>
+<td style=3D"padding: 0px;" valign=3D"top">
+<table cellpadding=3D"0" cellspacing=3D"0" style=3D"width: 100%;">
+<tbody>
+<tr>
+<td class=3D"mld-element-content" style=3D"padding-left: 10px; padding-top:=
+ 9px;" valign=3D"top"><!--[if mso]><table style=3D"width:240px;">
+<tbody>
+<tr>
+<td style=3D"width:240px;" align=3D"left" valign=3D"top">
+<![endif]-->
+<p class=3D"mld-paragraph" style=3D"font-family: Arial, Helvetica, sans-ser=
+if; font-size: 16px; text-align: left; color: #333333; line-height: 1.5; ma=
+rgin: 0px; padding: 0px;"><a href=3D"tel:+4930255585268" style=3D"font-fami=
+ly: Arial, Helvetica, sans-serif; font-size: 18px; text-align: left; color:=
+ #3f85f4; line-height: 24px; margin: 0px; padding: 0px;" class=3D"mld-link"=
+><span style=3D"font-size: 16px; color: #333333;">+49 30 255 585268</span><=
+/a></p>
+<!--[if mso]></td>
+</tr>
+</tbody>
+</table>
+<![endif]--></td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"mld-contai=
+ner mld-element mldElementCaller" style=3D"width: 100% !important;">
+<tbody>
+<tr>
+<td style=3D"padding: 0px;" valign=3D"top">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" style=3D"width: 100=
+%; border-collapse: collapse;">
+<tbody>
+<tr>
+<td class=3D"mld-element-content" style=3D"padding: 0px 0px 0px 30px; width=
+: 20px; height: 20px;" valign=3D"top">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"mld-block-=
+image mld-block mld-element mldElementCaller" style=3D"position: relative; =
+width: 100% !important;">
+<tbody>
+<tr>
+<td style=3D"padding: 0px;" valign=3D"top">
+<table cellpadding=3D"0" cellspacing=3D"0" style=3D"width: 100%;">
+<tbody>
+<tr>
+<td class=3D"mld-element-content" style=3D"padding-top: 14px; height: 20px;=
+" valign=3D"top"><!--[if mso]><table style=3D"width:20px;">
+<tbody>
+<tr>
+<td style=3D"width:20px;" align=3D"left" valign=3D"top">
+<![endif]--><img src=3D"https://admin.mailigen.com//upload/user/47241/image=
+s/tax_report_template/mailenv_2x.png" border=3D"0" width=3D"20" height=3D"1=
+6" style=3D"display: block; width: 20px;" /><!--[if mso]></td>
+</tr>
+</tbody>
+</table>
+<![endif]--></td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td class=3D"mld-element-content" style=3D"padding: 0px; width: 250px;" val=
+ign=3D"top">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"mld-block-=
+text mld-block mld-element mldElementCaller" style=3D"width: 100% !importan=
+t;">
+<tbody>
+<tr>
+<td style=3D"padding: 0px;" valign=3D"top">
+<table cellpadding=3D"0" cellspacing=3D"0" style=3D"width: 100%;">
+<tbody>
+<tr>
+<td class=3D"mld-element-content" style=3D"padding-left: 10px; padding-top:=
+ 9px; padding-right: 0px;" valign=3D"top"><!--[if mso]><table style=3D"widt=
+h:240px;">
+<tbody>
+<tr>
+<td style=3D"width:240px;" align=3D"left" valign=3D"top">
+<![endif]-->
+<p class=3D"mld-paragraph" style=3D"font-family: Arial, Helvetica, sans-ser=
+if; font-size: 16px; text-align: left; color: #333333; line-height: 1.5; ma=
+rgin: 0px; padding: 0px;"><span style=3D"color: #333333; font-size: 16px;">=
+<a href=3D"mailto:support@mintos.com" style=3D"font-family: Arial, Helvetic=
+a, sans-serif; text-align: left; color: #333333; line-height: 1.5; margin: =
+0px; padding: 0px; font-size: 16px; text-decoration: none;" class=3D"mld-li=
+nk">support@mintos.com</a></span></p>
+<!--[if mso]></td>
+</tr>
+</tbody>
+</table>
+<![endif]--></td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"mld-contai=
+ner mld-element mldElementCaller" style=3D"width: 100% !important;">
+<tbody>
+<tr>
+<td style=3D"padding: 0px;" valign=3D"top">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" style=3D"width: 100=
+%; border-collapse: collapse;">
+<tbody>
+<tr>
+<td class=3D"mld-element-content" style=3D"padding: 0px 0px 0px 30px; width=
+: 20px; height: 20px;" valign=3D"top">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"mld-block-=
+image mld-block mld-element mldElementCaller" style=3D"position: relative; =
+width: 100% !important;">
+<tbody>
+<tr>
+<td style=3D"padding: 0px;" valign=3D"top">
+<table cellpadding=3D"0" cellspacing=3D"0" style=3D"width: 100%;">
+<tbody>
+<tr>
+<td class=3D"mld-element-content" style=3D"padding-top: 12px; height: 20px;=
+ padding-right: 0px; padding-left: 0px;" valign=3D"top"><!--[if mso]><table=
+ style=3D"width:20px;">
+<tbody>
+<tr>
+<td style=3D"width:20px;" align=3D"left" valign=3D"top">
+<![endif]--><img src=3D"https://admin.mailigen.com//upload/user/47241/image=
+s/tax_report_template/help_2x.png" border=3D"0" width=3D"20" height=3D"20" =
+style=3D"display: block; width: 20px;" /><!--[if mso]></td>
+</tr>
+</tbody>
+</table>
+<![endif]--></td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td class=3D"mld-element-content" style=3D"padding: 0px; width: 250px;" val=
+ign=3D"top">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"mld-block-=
+text mld-block mld-element mldElementCaller" style=3D"width: 100% !importan=
+t;">
+<tbody>
+<tr>
+<td style=3D"padding: 0px;" valign=3D"top">
+<table cellpadding=3D"0" cellspacing=3D"0" style=3D"width: 100%;">
+<tbody>
+<tr>
+<td class=3D"mld-element-content" style=3D"padding: 10px 0px 0px 10px;" val=
+ign=3D"top"><!--[if mso]><table style=3D"width:240px;">
+<tbody>
+<tr>
+<td style=3D"width:240px;" align=3D"left" valign=3D"top">
+<![endif]-->
+<p class=3D"mld-paragraph" style=3D"font-family: Arial, Helvetica, sans-ser=
+if; font-size: 16px; text-align: left; color: #333333; line-height: 1.5; ma=
+rgin: 0px; padding: 0px;"><a href=3D"https://u1678031.ct.sendgrid.net/ls/cl=
+ick?upn=3DynMBnGYFbG0i96G7FsI2SYRTCRje2BYQnnWfeuEgFnPTufDlbTOukHw5c0M3gJ1xC=
+LGMqH5k5UEa-2F3M9eQggoPtK-2Fk9VYxt39bDzCOTmOPEU0QALXJC-2FhTWpSMTW3ZHq-2F3k2=
+ey1W4sBBkebtwtj8PQ-3D-3D6gqc_tZ6gW1CmgmiDSdvJ3JBgYluIm7byDvaLCG71w3DSiT-2FN=
+kBmzkAKPCeTOPwi5QdvQQlh9HfKjHxAupNbL5IslkXOf-2FOqqTm4k-2BWkaJR18wJzfowt7p6M=
+WWTk3k3pzBDkKpT1VYPCuIpVC03jOc8N2uq0NBMC6iumBi2A-2BXd-2Bm2QldHvxMy1dRpiNr4i=
+eQ8fUXXLgAVp77wS7uRmagfA1ryUYAV7kS3oY3fFa5QTov4cG8-2BK2j2G1oafgWmwJIMdWJR8W=
+c-2BwPiaiYeHBCVPXrco-2F6-2BUKhdUInDxa5FdjUsqnYSrXQRyhkbU8pZY2feBej1ehxfKv-2=
+BwsCHQCJB3UcRuS0Jm0m7ETBi-2BZKyIx5vNtH82Ix0rARok-2FhtnyvZxAFiwx5uWV4zgvML0-=
+2FJBiqpSJ2r-2FhtAQ-2BWNxjaQDZXJplqcBTDEHkr7XRqsVcdp7-2FGb1e" style=3D"font-=
+family: Arial, Helvetica, sans-serif; font-size: 18px; text-align: left; co=
+lor: #3f85f4; line-height: 24px; margin: 0px; padding: 0px;" class=3D"mld-l=
+ink"><span style=3D"color: #333333; font-size: 16px;">FAQ</span></a></p>
+<!--[if mso]></td>
+</tr>
+</tbody>
+</table>
+<![endif]--></td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"mld-contai=
+ner mld-element mldElementCaller" style=3D"width: 100% !important;">
+<tbody>
+<tr>
+<td style=3D"padding: 0px;" valign=3D"top">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" style=3D"width: 100=
+%;">
+<tbody>
+<tr>
+<td class=3D"mld-element-content" style=3D"padding: 0px 0px 0px 30px; width=
+: 20px; height: 20px;" valign=3D"top">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"mld-block-=
+image mld-block mld-element mldElementCaller" style=3D"position: relative; =
+width: 100% !important;">
+<tbody>
+<tr>
+<td style=3D"padding: 0px;" valign=3D"top">
+<table cellpadding=3D"0" cellspacing=3D"0" style=3D"width: 100%;">
+<tbody>
+<tr>
+<td class=3D"mld-element-content" style=3D"padding-top: 12px; height: 20px;=
+ padding-right: 0px; padding-left: 0px;" align=3D"" valign=3D"top"><!--[if =
+mso]><table style=3D"width:20px;">
+<tbody>
+<tr>
+<td style=3D"width:20px;" align=3D"" valign=3D"top">
+<![endif]--><img src=3D"https://admin.mailigen.com//upload/user/47241/image=
+s/community_new_2x.png" border=3D"0" alt=3D"" width=3D"20" height=3D"19.5" =
+style=3D"width: 20px; display: block;" /><!--[if mso]></td>
+</tr>
+</tbody>
+</table>
+<![endif]--></td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td class=3D"mld-element-content" style=3D"padding: 0px; width: 250px;" val=
+ign=3D"top">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"mld-block-=
+text mld-block mld-element mldElementCaller" style=3D"width: 100% !importan=
+t;">
+<tbody>
+<tr>
+<td style=3D"padding: 0px;" valign=3D"top">
+<table cellpadding=3D"0" cellspacing=3D"0" style=3D"width: 100%;">
+<tbody>
+<tr>
+<td class=3D"mld-element-content" style=3D"padding: 10px 0px 30px 10px;" va=
+lign=3D"top"><!--[if mso]><table style=3D"width:240px;">
+<tbody>
+<tr>
+<td style=3D"width:240px;" align=3D"left" valign=3D"top">
+<![endif]-->
+<p class=3D"mld-paragraph" style=3D"font-family: Arial, Helvetica, sans-ser=
+if; font-size: 16px; text-align: left; color: #333333; line-height: 1.5; ma=
+rgin: 0px; padding: 0px;"><span style=3D"font-size: 16px; color: #333333;">=
+<a href=3D"https://u1678031.ct.sendgrid.net/ls/click?upn=3DynMBnGYFbG0i96G7=
+FsI2SYRTCRje2BYQnnWfeuEgFnPAmulLKrM2HP1KIv4zFh2TPfxtelxSZdXbao3Urr77AOtWtCC=
+YDKXZelsXRYAHm4PnqNFlzJfDpyhEkFbLSc-2BOMAS8djw3qcOOjSGLe6GTJnSfotm0tduEd0Ht=
+1c-2Bsdo9nAlfV40tw-2Bf8k0K3pw4khk9jF_tZ6gW1CmgmiDSdvJ3JBgYluIm7byDvaLCG71w3=
+DSiT-2FNkBmzkAKPCeTOPwi5QdvQQlh9HfKjHxAupNbL5IslkXOf-2FOqqTm4k-2BWkaJR18wJz=
+fowt7p6MWWTk3k3pzBDkKpT1VYPCuIpVC03jOc8N2uq0NBMC6iumBi2A-2BXd-2Bm2QldHvxMy1=
+dRpiNr4ieQ8fUXXLgAVp77wS7uRmagfA1ryUYAV7kS3oY3fFa5QTov4cFM3xBq8Z0z93Y1f-2Bu=
+-2BLc3sSX0r6YgKu50-2BuM6rtxPu0o67fXC3enrsDcm8pti5W6Dt3y4b677IuaAh0PAVH-2BDt=
+2q7D5CdBYTuXLQgEYwb7b1B24F03nOIN-2F-2BnYfNhaeIdH5h59aUJUPQUtfL7yVvJTwINd2tu=
+8R6n0R4Jq0ZUilsC5PDiTRkBxA4KvFmNTJREyBoOAAUOFS0hSLEI04ZBy" style=3D"font-fa=
+mily: Arial, Helvetica, sans-serif; text-align: left; color: #333333; line-=
+height: 24px; margin: 0px; padding: 0px; font-size: 16px;" class=3D"mld-lin=
+k">Mintos Community</a></span></p>
+<!--[if mso]></td>
+</tr>
+</tbody>
+</table>
+<![endif]--></td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td class=3D"mld-element-content mobilesplit" style=3D"padding: 0px; width:=
+ 300px;" valign=3D"top">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"mld-block-=
+text mld-block mld-element mldElementCaller" style=3D"width: 100% !importan=
+t;">
+<tbody>
+<tr>
+<td style=3D"padding: 0px;" valign=3D"top">
+<table cellpadding=3D"0" cellspacing=3D"0" style=3D"width: 100%;">
+<tbody>
+<tr>
+<td class=3D"mld-element-content" style=3D"padding: 10px 0px 0px 30px;" val=
+ign=3D"top"><!--[if mso]><table style=3D"width:270px;">
+<tbody>
+<tr>
+<td style=3D"width:270px;" align=3D"left" valign=3D"top">
+<![endif]-->
+<p class=3D"mld-paragraph" style=3D"font-family: Arial, Helvetica, sans-ser=
+if; font-size: 16px; text-align: left; color: #333333; line-height: 1.5; ma=
+rgin: 0px; padding: 0px;"><span style=3D"color: #333333;"><strong>Folgen Si=
+e uns</strong></span></p>
+<!--[if mso]></td>
+</tr>
+</tbody>
+</table>
+<![endif]--></td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"mld-contai=
+ner mld-element mldElementCaller" style=3D"width: 100% !important;">
+<tbody>
+<tr>
+<td style=3D"padding: 0px;" valign=3D"top">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" style=3D"width: 100=
+%; border-collapse: collapse;">
+<tbody>
+<tr>
+<td class=3D"mld-element-content" style=3D"padding: 0px 0px 0px 30px; width=
+: 20px; height: 20px;" valign=3D"top">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"mld-block-=
+image mld-block mld-element mldElementCaller" style=3D"position: relative; =
+width: 100% !important;">
+<tbody>
+<tr>
+<td style=3D"padding: 0px;" valign=3D"top">
+<table cellpadding=3D"0" cellspacing=3D"0" style=3D"width: 100%;">
+<tbody>
+<tr>
+<td class=3D"mld-element-content" style=3D"padding-top: 12px; height: 20px;=
+" valign=3D"top"><!--[if mso]><table style=3D"width:20px;">
+<tbody>
+<tr>
+<td style=3D"width:20px;" align=3D"left" valign=3D"top">
+<![endif]--><img src=3D"https://admin.mailigen.com//upload/user/47241/image=
+s/tax_report_template/facebook_2x.png" border=3D"0" width=3D"20" height=3D"=
+20" style=3D"display: block; width: 20px;" /><!--[if mso]></td>
+</tr>
+</tbody>
+</table>
+<![endif]--></td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td class=3D"mld-element-content" style=3D"padding: 0px; width: 250px;" val=
+ign=3D"top">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"mld-block-=
+text mld-block mld-element mldElementCaller" style=3D"width: 100% !importan=
+t;">
+<tbody>
+<tr>
+<td style=3D"padding: 0px;" valign=3D"top">
+<table cellpadding=3D"0" cellspacing=3D"0" style=3D"width: 100%;">
+<tbody>
+<tr>
+<td class=3D"mld-element-content" style=3D"padding-left: 10px; padding-top:=
+ 10px; padding-bottom: 0px;" valign=3D"top"><!--[if mso]><table style=3D"wi=
+dth:240px;">
+<tbody>
+<tr>
+<td style=3D"width:240px;" align=3D"left" valign=3D"top">
+<![endif]-->
+<p class=3D"mld-paragraph" style=3D"font-family: Arial, Helvetica, sans-ser=
+if; font-size: 16px; text-align: left; color: #333333; line-height: 1.5; ma=
+rgin: 0px; padding: 0px;"><span style=3D"color: #333333; font-size: 16px;">=
+<a href=3D"https://u1678031.ct.sendgrid.net/ls/click?upn=3DynMBnGYFbG0i96G7=
+FsI2SeQuuHYxj3GRT3is8A64yhMNF6k-2Fzqpj7LdN57IqP9mdXrKA-2Fey9x51uGnI3m68LCA-=
+3D-3D-Sz9_tZ6gW1CmgmiDSdvJ3JBgYluIm7byDvaLCG71w3DSiT-2FNkBmzkAKPCeTOPwi5Qdv=
+QQlh9HfKjHxAupNbL5IslkXOf-2FOqqTm4k-2BWkaJR18wJzfowt7p6MWWTk3k3pzBDkKpT1VYP=
+CuIpVC03jOc8N2uq0NBMC6iumBi2A-2BXd-2Bm2QldHvxMy1dRpiNr4ieQ8fUXXLgAVp77wS7uR=
+magfA1ryUYAV7kS3oY3fFa5QTov4cGm7dmc6zN-2BbPyF2jltILhRSv6dPdI8El1Yhd4ywR50l9=
+WhlzoCiO8kJ5Q3AR7ohgfoNJE7lbY0Z0CZ5MZuCSE9qgeePTXwJfxyOuXde-2Ble7y16ih98jE6=
+AghN-2Bo8PCj8cfLcfxh46CH5Mi8ujEF79XugkZlfBIHyYMmUApcfzx6nq3YAFWap0tO5WJCMUL=
+HzANyrSZKAIrwZNuMZvScdP-2B" style=3D"font-family: Arial, Helvetica, sans-se=
+rif; text-align: left; color: #333333; line-height: 1.5; margin: 0px; paddi=
+ng: 0px; font-size: 16px; text-decoration: none;" class=3D"mld-link">Facebo=
+ok</a></span></p>
+<!--[if mso]></td>
+</tr>
+</tbody>
+</table>
+<![endif]--></td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"mld-contai=
+ner mld-element mldElementCaller" style=3D"width: 100% !important;">
+<tbody>
+<tr>
+<td style=3D"padding: 0px;" valign=3D"top">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" style=3D"width: 100=
+%; border-collapse: separate;">
+<tbody>
+<tr>
+<td class=3D"mld-element-content" style=3D"padding: 0px 0px 0px 30px; width=
+: 20px; height: 20px;" valign=3D"top">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"mld-block-=
+image mld-block mld-element mldElementCaller" style=3D"position: relative; =
+width: 100% !important;">
+<tbody>
+<tr>
+<td style=3D"padding: 0px;" valign=3D"top">
+<table cellpadding=3D"0" cellspacing=3D"0" style=3D"width: 100%;">
+<tbody>
+<tr>
+<td class=3D"mld-element-content" style=3D"padding-top: 12px; height: 20px;=
+" valign=3D"top"><!--[if mso]><table style=3D"width:20px;">
+<tbody>
+<tr>
+<td style=3D"width:20px;" align=3D"left" valign=3D"top">
+<![endif]--><img src=3D"https://admin.mailigen.com//upload/user/47241/image=
+s/tax_report_template/twitter_2x.png" border=3D"0" width=3D"20" height=3D"1=
+6" style=3D"display: block; width: 20px;" /><!--[if mso]></td>
+</tr>
+</tbody>
+</table>
+<![endif]--></td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td class=3D"mld-element-content" style=3D"padding: 0px; width: 250px;" val=
+ign=3D"top">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"mld-block-=
+text mld-block mld-element mldElementCaller" style=3D"width: 100% !importan=
+t;">
+<tbody>
+<tr>
+<td style=3D"padding: 0px;" valign=3D"top">
+<table cellpadding=3D"0" cellspacing=3D"0" style=3D"width: 100%;">
+<tbody>
+<tr>
+<td class=3D"mld-element-content" style=3D"padding-left: 10px; padding-bott=
+om: 0px; padding-top: 10px;" valign=3D"top"><!--[if mso]><table style=3D"wi=
+dth:240px;">
+<tbody>
+<tr>
+<td style=3D"width:240px;" align=3D"left" valign=3D"top">
+<![endif]-->
+<p class=3D"mld-paragraph" style=3D"font-family: Arial, Helvetica, sans-ser=
+if; font-size: 16px; text-align: left; color: #333333; line-height: 1.5; ma=
+rgin: 0px; padding: 0px;"><span style=3D"font-size: 16px; color: #333333;">=
+<a href=3D"https://u1678031.ct.sendgrid.net/ls/click?upn=3DynMBnGYFbG0i96G7=
+FsI2SanOeTPUZaoY6Sly2QsA2WoJhOM58MbQctR6yvjmISDXc0D7_tZ6gW1CmgmiDSdvJ3JBgYl=
+uIm7byDvaLCG71w3DSiT-2FNkBmzkAKPCeTOPwi5QdvQQlh9HfKjHxAupNbL5IslkXOf-2FOqqT=
+m4k-2BWkaJR18wJzfowt7p6MWWTk3k3pzBDkKpT1VYPCuIpVC03jOc8N2uq0NBMC6iumBi2A-2B=
+Xd-2Bm2QldHvxMy1dRpiNr4ieQ8fUXXLgAVp77wS7uRmagfA1ryUYAV7kS3oY3fFa5QTov4cFvD=
+7UkNyaXo0SWvY7ygPCCICBud9AVjueFktgvzHjK1LunOpp-2FYX9DUCXc8-2FN-2BxtwrcAykE8=
+aOP9AORgobBk9to1vIvTdX8pSJ6sflUtb3vecHEenO4ZJ3NTPkdn78W8GRXXhiZRF2D1FhmTIB0=
+9D46lLDfEQgrA7-2Ft7AuZuX3g8vcdWKoSkr5E2Q3224I-2FACwlu0bXLfY4rONf-2BPuyC7O" =
+style=3D"font-family: Arial, Helvetica, sans-serif; text-align: left; color=
+: #333333; line-height: 1.5; margin: 0px; padding: 0px; font-size: 16px; te=
+xt-decoration: none;" class=3D"mld-link">Twitter</a></span></p>
+<!--[if mso]></td>
+</tr>
+</tbody>
+</table>
+<![endif]--></td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"mld-contai=
+ner mld-element mldElementCaller" style=3D"width: 100% !important;">
+<tbody>
+<tr>
+<td style=3D"padding: 0px;" valign=3D"top">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" style=3D"width: 100=
+%; border-collapse: collapse;">
+<tbody>
+<tr>
+<td class=3D"mld-element-content" style=3D"padding: 0px 0px 0px 30px; width=
+: 20px; height: 20px;" valign=3D"top">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"mld-block-=
+image mld-block mld-element mldElementCaller" style=3D"position: relative; =
+width: 100% !important;">
+<tbody>
+<tr>
+<td style=3D"padding: 0px;" valign=3D"top">
+<table cellpadding=3D"0" cellspacing=3D"0" style=3D"width: 100%;">
+<tbody>
+<tr>
+<td class=3D"mld-element-content" style=3D"padding-top: 12px; height: 20px;=
+" valign=3D"top"><!--[if mso]><table style=3D"width:20px;">
+<tbody>
+<tr>
+<td style=3D"width:20px;" align=3D"left" valign=3D"top">
+<![endif]--><img src=3D"https://admin.mailigen.com//upload/user/47241/image=
+s/tax_report_template/linkedin_2x.png" border=3D"0" width=3D"20" height=3D"=
+20" style=3D"display: block; width: 20px;" /><!--[if mso]></td>
+</tr>
+</tbody>
+</table>
+<![endif]--></td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td class=3D"mld-element-content" style=3D"padding: 0px; width: 250px;" val=
+ign=3D"top">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"mld-block-=
+text mld-block mld-element mldElementCaller" style=3D"width: 100% !importan=
+t;">
+<tbody>
+<tr>
+<td style=3D"padding: 0px;" valign=3D"top">
+<table cellpadding=3D"0" cellspacing=3D"0" style=3D"width: 100%;">
+<tbody>
+<tr>
+<td class=3D"mld-element-content" style=3D"padding-left: 10px; padding-top:=
+ 10px;" valign=3D"top"><!--[if mso]><table style=3D"width:240px;">
+<tbody>
+<tr>
+<td style=3D"width:240px;" align=3D"left" valign=3D"top">
+<![endif]-->
+<p class=3D"mld-paragraph" style=3D"font-family: Arial, Helvetica, sans-ser=
+if; font-size: 16px; text-align: left; color: #333333; line-height: 1.5; ma=
+rgin: 0px; padding: 0px;"><span style=3D"font-size: 16px; color: #333333;">=
+<a href=3D"https://u1678031.ct.sendgrid.net/ls/click?upn=3DynMBnGYFbG0i96G7=
+FsI2SR6KTcQXHJcWVjlxOUhSwXI6RM5iQ9uM0IDbREH-2BTvu1Gdk2_tZ6gW1CmgmiDSdvJ3JBg=
+YluIm7byDvaLCG71w3DSiT-2FNkBmzkAKPCeTOPwi5QdvQQlh9HfKjHxAupNbL5IslkXOf-2FOq=
+qTm4k-2BWkaJR18wJzfowt7p6MWWTk3k3pzBDkKpT1VYPCuIpVC03jOc8N2uq0NBMC6iumBi2A-=
+2BXd-2Bm2QldHvxMy1dRpiNr4ieQ8fUXXLgAVp77wS7uRmagfA1ryUYAV7kS3oY3fFa5QTov4cH=
+QMSi-2F-2B50L0pXK9odpDwkegLGsRSsfKUrej75JRYR2Ih-2FGGTSrPjfsjiq-2FI8gwvnEWaC=
+H2QIs2Iq9tZB7TrzpRmoGoHfPOBwhDL9pQ1fhT-2FPbtAy-2BPqy5cu8fiR9OhKMHLjjYJ8dwjc=
+dV4yWkbI60oEFvEOx-2F8KDYa4FbrumwK3FXpaqLYphbEQ7Fk4ob5McKlPb8ymCVrvR4RX1cGUp=
+Pu" style=3D"font-family: Arial, Helvetica, sans-serif; text-align: left; c=
+olor: #333333; line-height: 1.5; margin: 0px; padding: 0px; font-size: 16px=
+; text-decoration: none;" class=3D"mld-link">LinkedIn</a></span></p>
+<!--[if mso]></td>
+</tr>
+</tbody>
+</table>
+<![endif]--></td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"mld-contai=
+ner mld-element mldElementCaller" style=3D"width: 100% !important;">
+<tbody>
+<tr>
+<td style=3D"padding: 0px;" valign=3D"top">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" style=3D"width: 100=
+%; border-collapse: collapse;">
+<tbody>
+<tr>
+<td class=3D"mld-element-content" style=3D"padding: 0px 0px 0px 30px; width=
+: 20px; height: 20px;" valign=3D"top">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"mld-block-=
+image mld-block mld-element mldElementCaller" style=3D"position: relative; =
+width: 100% !important;">
+<tbody>
+<tr>
+<td style=3D"padding: 0px;" valign=3D"top">
+<table cellpadding=3D"0" cellspacing=3D"0" style=3D"width: 100%;">
+<tbody>
+<tr>
+<td class=3D"mld-element-content" style=3D"padding-top: 14px; height: 20px;=
+" valign=3D"top"><!--[if mso]><table style=3D"width:20px;">
+<tbody>
+<tr>
+<td style=3D"width:20px;" align=3D"left" valign=3D"top">
+<![endif]--><img src=3D"https://admin.mailigen.com//upload/user/47241/image=
+s/yt_new_2x.png" border=3D"0" alt=3D"" width=3D"20" height=3D"14" style=3D"=
+width: 20px; display: block;" /><!--[if mso]></td>
+</tr>
+</tbody>
+</table>
+<![endif]--></td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td class=3D"mld-element-content" style=3D"padding: 0px; width: 250px;" val=
+ign=3D"top">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"mld-block-=
+text mld-block mld-element mldElementCaller" style=3D"width: 100% !importan=
+t;">
+<tbody>
+<tr>
+<td style=3D"padding: 0px;" valign=3D"top">
+<table cellpadding=3D"0" cellspacing=3D"0" style=3D"width: 100%;">
+<tbody>
+<tr>
+<td class=3D"mld-element-content" style=3D"padding-left: 10px; padding-bott=
+om: 30px; padding-top: 10px;" valign=3D"top"><!--[if mso]><table style=3D"w=
+idth:240px;">
+<tbody>
+<tr>
+<td style=3D"width:240px;" align=3D"left" valign=3D"top">
+<![endif]-->
+<p class=3D"mld-paragraph" style=3D"font-family: Arial, Helvetica, sans-ser=
+if; font-size: 16px; text-align: left; color: #333333; line-height: 1.5; ma=
+rgin: 0px; padding: 0px;"><span style=3D"font-size: 16px; color: #333333;">=
+<a href=3D"https://u1678031.ct.sendgrid.net/ls/click?upn=3DynMBnGYFbG0i96G7=
+FsI2SdHDedzFkoCxJCy8xNFt7zFQbnhRmB84aH-2BRCRSMhDHkXctcDUrful0rSAwpKixjn1wKl=
+FH36Fj7hMt0BKBaHaQ-3DK6aR_tZ6gW1CmgmiDSdvJ3JBgYluIm7byDvaLCG71w3DSiT-2FNkBm=
+zkAKPCeTOPwi5QdvQQlh9HfKjHxAupNbL5IslkXOf-2FOqqTm4k-2BWkaJR18wJzfowt7p6MWWT=
+k3k3pzBDkKpT1VYPCuIpVC03jOc8N2uq0NBMC6iumBi2A-2BXd-2Bm2QldHvxMy1dRpiNr4ieQ8=
+fUXXLgAVp77wS7uRmagfA1ryUYAV7kS3oY3fFa5QTov4cEFuzAbIXewXeqXmICU9P2zRMU4iGnE=
+C8z2B8800gTPjdjnnHQPid7OEHTzwnt0khesuPn-2FKhUMG5zSQPrcApROkKdJenJeygD9Mv-2F=
+5jJ3dxT5Kh3dP5BtbBEiEIRlE8n0G5J4p42r2iz0Trs4aijKsWDQ0kXigrY7XU3R4A85XDbU-2F=
+l8XBsHik1NBI-2FsoFqm8njG3W0YfopHzVvF-2FCjUlb" style=3D"font-family: Arial, =
+Helvetica, sans-serif; text-align: left; color: #333333; line-height: 1.5; =
+margin: 0px; padding: 0px; font-size: 16px; text-decoration: none;" class=
+=3D"mld-link">YouTube</a></span></p>
+<!--[if mso]></td>
+</tr>
+</tbody>
+</table>
+<![endif]--></td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"mld-block-=
+text mld-block mld-element mldElementCaller" style=3D"cursor: auto; width: =
+100% !important;">
+<tbody>
+<tr>
+<td style=3D"padding: 0px;" valign=3D"top">
+<table cellpadding=3D"0" cellspacing=3D"0" style=3D"width: 100%;">
+<tbody>
+<tr>
+<td class=3D"mld-element-content" style=3D"padding: 30px;" valign=3D"top"><=
+!--[if mso]><table style=3D"width:540px;">
+<tbody>
+<tr>
+<td style=3D"width:540px;" align=3D"left" valign=3D"top">
+<![endif]-->
+<p class=3D"mld-paragraph" style=3D"font-family: Arial, Helvetica, sans-ser=
+if; font-size: 18px; text-align: left; color: #333333; line-height: 18px; m=
+argin: 0px; padding: 0px;"><span style=3D"font-size: 12px; color: #888888;"=
+>Sie erhalten diese E-Mail, weil diese E-Mail-Adresse bei <span style=3D"co=
+lor: #333333;">Mintos</span> hinterlegt ist. &nbsp; </span></p>
+<p class=3D"mld-paragraph" style=3D"font-family: Arial, Helvetica, sans-ser=
+if; font-size: 18px; text-align: left; color: #333333; line-height: 18px; m=
+argin: 0px; padding: 0px;"><span style=3D"font-size: 12px; color: #888888;"=
+><br /></span></p>
+<p class=3D"mld-paragraph" style=3D"font-family: Arial, Helvetica, sans-ser=
+if; font-size: 18px; text-align: left; color: #333333; line-height: 18px; m=
+argin: 0px; padding: 0px;"><a href=3D"https://u1678031.ct.sendgrid.net/ls/c=
+lick?upn=3DynMBnGYFbG0i96G7FsI2SSIpdvkzA-2Fo4hsjeueEeQGGFCxnglLjPqVsejBQX7I=
+Re-2FqdQuXC1f6D8G9WwMKmIlIAdEzPJDDaC13NZCOHv5kyFrkUeSOKBN8HA-2B3XoKHTyTbG-2=
+BY8dXBZH-2FAYTx3-2F7O8hgeGVKUAWa1Rw4AJo3rFj-2Fi7rU4vRRnHHuANEk70Hz3YUe9waZn=
+JyMnQq9f2JAB2A-3D-3Dk2jE_tZ6gW1CmgmiDSdvJ3JBgYluIm7byDvaLCG71w3DSiT-2FNkBmz=
+kAKPCeTOPwi5QdvQQlh9HfKjHxAupNbL5IslkXOf-2FOqqTm4k-2BWkaJR18wJzfowt7p6MWWTk=
+3k3pzBDkKpT1VYPCuIpVC03jOc8N2uq0NBMC6iumBi2A-2BXd-2Bm2QldHvxMy1dRpiNr4ieQ8f=
+UXXLgAVp77wS7uRmagfA1ryUYAV7kS3oY3fFa5QTov4cH0yTL0m9nNloe3xQ8jnVj9rc3xkhZYS=
+JnHr6j0zDI49ArzhRKX-2F8kkFN0UfKyZe-2B1rMBM0oI1yWKAbWpphVMbnqpmWEeWePkmsJ10U=
+4FCcOMQs4C0y7QZai0cGECTaMQrcEiR7gMG5VPKQtzxBvRiKAXPeKMnp-2Fu4mGKOj8bB4cjKR9=
+c5VLB4TDdt1WmvSMEC3lJZkcW6WR5VLfhviErGE" style=3D"font-family: Arial, Helve=
+tica, sans-serif; font-size: 18px; text-align: left; color: #3f85f4; line-h=
+eight: 27px; margin: 0px; padding: 0px;" class=3D"mld-link"><span style=3D"=
+color: #333333;"><span style=3D"font-size: 12px;">Aktualisieren Sie Ihre Be=
+nachrichtigungseinstellungen </span><span style=3D"font-size: 12px;"></span=
+></span></a><br /></p>
+<p class=3D"mld-paragraph" style=3D"font-family: Arial, Helvetica, sans-ser=
+if; font-size: 18px; text-align: left; color: #333333; line-height: 18px; m=
+argin: 0px; padding: 0px;"><span style=3D"font-size: 12px; color: #888888;"=
+>AS Mintos Marketplace (Registernummer 4010390364; Gesch=C3=A4ftsadresse: S=
+kanstes 50, Riga, LV-1013, Latvia) ist eine von der Finanz- und Kapitalmark=
+tkommission zugelassene und beaufsichtigte Investmentfirma (www.fktk.lv; Ad=
+resse: Kungu iela 1, Riga, LV =E2=80=93 1050, Lettland; Telefon: +371 67774=
+800; E-Mail: fktk@fktk.lv) mit der Lizenznummer 06.06.08.719/534. </span></=
+p>
+<!--[if mso]></td>
+</tr>
+</tbody>
+</table>
+<![endif]--></td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+<span class=3D"mld-mobile-hide js-templateWidthFix" style=3D"white-space: n=
+owrap; font: 15px courier; line-height: 0;">&nbsp; &nbsp; &nbsp; &nbsp; &nb=
+sp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &=
+nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;=
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><img src=3D"https:=
+//u1678031.ct.sendgrid.net/wf/open?upn=3Dp9c2Pq5BRWXelYclnUuZY3CUwkboP5I8aa=
+OgVl0dl4BFL5gtKV73-2Fz2uAQa3qmF7jDOuwFxudv91bI-2FFzXmkDlGYbo64rH17WgMlhu2Ea=
+FWaW7cJ0fDyzmr4TC-2BSkMhq-2Bx67DzU03f-2BlSLkRRiG8Innu9g0kn1XYDolTYpvwvWn0hc=
+AT-2Fco26DAidGofEXbEtFJdTMLVv0FR2tjMIImFgfXqOETvWv7cJ2LaGVXoV0kTilS-2BgWfax=
+HUpcGsq3jpoQLXA5eKaF-2F3-2F6ZwTKuhXFSa-2BZi9Zsg-2BVN84ep-2FD41yZkOprEuxshsZ=
+-2BlXtysa0X9kFDYAtNpbQ4a9jVBVVtWjrsUAeU32R3jmKKoa0X1zAljFUiQ8c3Q2PiISjA1Bqe=
+RwBRXIZKP73rEq3dbjyg4-2B5-2BF-2FTBC-2Ff-2FixmtY7qdUKgToAEKg5oJmASN3f4SlRvcO=
+" alt=3D"" width=3D"1" height=3D"1" border=3D"0" style=3D"height:1px !impor=
+tant;width:1px !important;border-width:0 !important;margin-top:0 !important=
+;margin-bottom:0 !important;margin-right:0 !important;margin-left:0 !import=
+ant;padding-top:0 !important;padding-bottom:0 !important;padding-right:0 !i=
+mportant;padding-left:0 !important;"/>

@@ -1,0 +1,478 @@
+Return-Path: <info@viainvest.com>
+X-Original-To: test@mailserver.loadbalancer1.de
+Delivered-To: richard@mailserver.loadbalancer1.de
+Received: from loadbalancer2 (localhost [127.0.0.1])
+	by loadbalancer1 (Postfix) with ESMTP id 6E75AEA0063
+	for <test@mailserver.loadbalancer1.de>; Thu,  2 Sep 2021 15:50:03 +0200 (CEST)
+X-Envelope-From: <info@viainvest.com>
+X-Envelope-To: <richard@richardlechner.de>
+X-Delivery-Time: 1630590413
+X-UID: 107730
+ARC-Seal: i=1; a=rsa-sha256; t=1630590413; cv=none;
+    d=strato.com; s=strato-dkim-0002;
+    b=EiH6l9/tN0cpddGh5Fww8RKcM1nCi+K13bpeStKcV+6kqbyxYzUBMs1DkU+doLv8r4
+    ZMVtPt2hGMlUjsivWbGCK5k/seRXwDG+PoxMVL8GSGzL1IHDnjvUqt5L5/JTgl+GA1WJ
+    hLsWMXz9CXvaSBQTPCfUKhU6MD5gFDubrHr1QDRiCygxGLsA4YiD7bBkW37OhrcrVlnH
+    2QVxk9FYgt0t7iLN582d0Ei/AFCOYUwo0IpwgnM04ELFttj73OYyd3jrr7e3VWx6eQgH
+    kR6BLkllx8GJz3orBy8Wn1+/jdIXnnXErUmpgkg3mIIM2g/aS2Oh9bEnuc68OjN9S/uW
+    V++Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1630590413;
+    s=strato-dkim-0002; d=strato.com;
+    h=Message-ID:Date:From:Subject:To:Cc:Date:From:Subject:Sender;
+    bh=OuUQqg0eGvwwPbhNGzJf5hea6wdkc405kC9Dc6tMbPU=;
+    b=hU6HoV0+PHeAnkT/L1ROCsg+kvJHPHXG3/PIdFvzn+zOTiMciMWXs97yCxsBa9uxnX
+    z2Vj6nZFHokqDJ3BUvOOPIN65jAmrM9mmRWXxcqbxRAqCJYzreH+VBFgW9i2XyX56hod
+    nysXUK+YyeAUj+GzTcscdxkmaYgQQiFNzs8oZrKECp+Oyc3ihHRbnY8HcrUYxDMdu8LM
+    3Uv8Iq1MR+08PW7Ej1aa7yXrcItB+wGko43uoduKEamFr3pteLTWmXWkNX3JmeXGBYgo
+    T5qrHYQTttgq0TyeIcOp0v4rvDNREbGZkhuVChWn6HmOYnQfW7lCJIGX/Ao5c4enqYBK
+    cBCw==
+ARC-Authentication-Results: i=1; strato.com;
+    dmarc=pass (p=REJECT sp=NONE) header.from="viainvest.com";
+    dkim=none;
+    dkim-adsp=none;
+    spf=pass smtp.mailfrom="info@viainvest.com"
+Authentication-Results: strato.com;
+    dmarc=pass (p=REJECT sp=NONE) header.from="viainvest.com";
+    dkim=none;
+    dkim-adsp=none;
+    spf=pass smtp.mailfrom="info@viainvest.com"
+X-RZG-Expurgate: clean/normal
+X-RZG-Expurgate-ID: 149500::1630590412-00000751-F1271380/0/0
+X-RZG-CLASS-ID: mi00
+Received-SPF: pass
+    (strato.com: domain viainvest.com designates 80.232.152.153 as permitted sender)
+    mechanism=ip4;
+    client-ip=80.232.152.153;
+    helo="mail.viasms.lv";
+    envelope-from="info@viainvest.com";
+    rceiver=smtpin.rzone.de;
+    identity=mailfrom;
+Received: from imap.strato.de [81.169.145.103]
+	by loadbalancer2 with IMAP (fetchmail-6.4.2)
+	for <test@mailserver.loadbalancer1.de> (single-drop); Thu, 02 Sep 2021 15:50:03 +0200 (CEST)
+Received: from mail.viasms.lv ([80.232.152.153])
+    by smtpin.rzone.de (RZmta 47.33.0 OK)
+    with ESMTPS id C04760x82DkqFNV
+    (using TLSv1 with cipher AES256-SHA (256 bits))
+    (Client CN "mail.viasms.lv", Issuer "mail.viasms.lv" (verification FAILED - self signed certificate))
+        (Client hostname not verified)
+    for <richard@richardlechner.de>;
+    Thu, 2 Sep 2021 15:46:52 +0200 (CEST)
+Received: from [185.81.50.250] (helo=viainvest.com)
+	by mail.viasms.lv with esmtp (Exim 4.69)
+	(envelope-from <info@viainvest.com>)
+	id 1mLmuy-0003Mv-E4; Thu, 02 Sep 2021 16:38:13 +0300
+Received: by viainvest.com (Postfix, from userid 1000)
+	id CFFCC268C5173; Thu,  2 Sep 2021 15:45:35 +0200 (CEST)
+To: richard@richardlechner.de
+Subject: Zusammenfassung des VIAINVEST Investor-Kontos
+X-PHP-Originating-Script: 1008:MailTransport.php
+From: VIAINVEST <info@viainvest.com>
+X-Mailer: VIAINVEST
+Date: Thu, 02 Sep 2021 15:45:35 +0200
+Message-ID: <6130d57fca1445f7a5e1762eac190018@viainvest.com>
+MIME-Version: 1.0
+Content-Type: multipart/mixed; boundary="6f68e1c7c4de1a358ded4edcde5c0d69"
+Content-Transfer-Encoding: 7bit
+X-Spam-Score: -1.1 (-)
+
+--6f68e1c7c4de1a358ded4edcde5c0d69
+Content-Type: multipart/alternative; boundary="alt-6f68e1c7c4de1a358ded4edcde5c0d69"
+
+--alt-6f68e1c7c4de1a358ded4edcde5c0d69
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+<!DOCTYPE html>
+ <html>
+ <head>
+ <meta charset=3D"utf-8">
+ <meta charset=3D"utf-8">
+ <meta name=3D"viewport" content=3D"width=3Ddevice-width, initial-scale=3D=
+1, maximum-scale=3D1">
+ <style>
+ html {margin:0;}
+ body {margin:0;background:#f5f5f5;}
+ img {display:block;max-width:100%;}
+ a {color:#013b53;}
+ a:hover {color:#4d5e78;text-decoration:none;}
+ h1 {font-size:22px;color:#013b53;}
+ h2 {font-size:18px;color:#013b53;}
+ h3 {font-size:16px;color:#013b53;}
+ p {margin:1em 0;}
+ </style>
+ <title>VIAINVEST</title>
+ </head>
+ <body>
+=20
+=20
+ <table border=3D"0" cellspacing=3D"0" width=3D"100%">
+ <tr>
+ <td></td>
+ <td width=3D"644">
+ <div style=3D"font-family:Helvetica,Arial,sans-serif;font-size:14px;colo=
+r:#666;">
+     <div style=3D"background:#fff;border:2px solid #fff;">
+         <img src=3D"https://viainvest.com/img/via-new/email/viainvest-he=
+ader.png" alt=3D"VIAINVEST. Safe and reliable investments" title=3D"" />
+         <div style=3D"line-height:22px;padding:30px 30px;">
+             <h1>Hallo Richard,</h1>
+             <p>
+                 hier ist die Zusammenfassung Ihrer VIAINVEST Investorpro=
+fil-Aktivit=C3=A4ten. Detailliertere Informationen zu den Transaktionen f=
+inden Sie in Ihrem  <a href=3D"https://viainvest.com/users/dashboard">Inv=
+estorenprofil</a>.
+             </p>
+             <style>
+                 .balance-table {border:1px solid #c9cde6;width:100%;bord=
+er-collapse:collapse;margin-bottom:5px;}
+                 .balance-table td {border:1px solid #c9cde6;padding:5px =
+10px;text-align:left;}
+             </style>
+             <table class=3D"balance-table" border=3D"0" cellspacing=3D"0=
+" width=3D"100%">
+                 <tr>
+                     <td><b>Anfangsbilanz per  2021-09-01:</b></td><td st=
+yle=3D"text-align:right;"><b>=E2=82=AC 2.30</b></td>
+                 </tr>
+                 <tr>
+                     <td>Anzahlungen:</td><td style=3D"text-align:right;"=
+>=E2=82=AC 0.00</td>
+                 </tr>
+                 <tr>
+                     <td>Auszahlung:</td><td style=3D"text-align:right;">=
+=E2=82=AC 0.00</td>
+                 </tr>
+                 <tr>
+                     <td>Investierter Betrag:</td><td style=3D"text-align=
+:right;">=E2=82=AC 0.00</td>
+                 </tr>
+                 <tr>
+                     <td>Zinseinnahmen:</td><td style=3D"text-align:right=
+;">=E2=82=AC 0.20</td>
+                 </tr>
+                 <tr>
+                     <td>Zur=C3=BCckgezahlter Hauptbetrag:</td><td style=3D=
+"text-align:right;">=E2=82=AC 10.50</td>
+                 </tr>
+                 <tr>
+                     <td>Quellensteuer:</td><td style=3D"text-align:right=
+;">=E2=82=AC 0.00</td>
+                 </tr>
+                 <tr>
+                     <td><b>Schlussbilanz per  2021-09-01:</b></td><td st=
+yle=3D"text-align:right;"><b>=E2=82=AC 13.00</b></td>
+                 </tr>
+             </table>
+=20
+=20
+             <p style=3D"text-align:center;margin-top:30px;"><b>Derzeit a=
+uf  VIAINVEST gelistete Darlehen</b></p>
+             <style>
+                 .loan-table {font-size:12px;}
+                 .loan-table th {text-align:left;padding:5px;color:#013b5=
+3;}
+                 .loan-table td {text-align:left;padding:5px;border-top:1=
+px solid #c9cde6;}
+             </style>
+            =20
+             <table class=3D"loan-table" border=3D"0" cellspacing=3D"0" w=
+idth=3D"100%" style=3D"background:#f3f4f9;">
+                 <tr>
+                     <th>Darlehenstyp</th><th>Land</th><th>Ausstellungsda=
+tum</th><th>Zinssatz</th><th>Darlehenslaufzeit</th><th>Darlehensbetrag</t=
+h><th>BETRAG</th>
+                 </tr>
+=20
+                 <tr>
+                                            <td>Gesch=C3=A4ftskredit</td>
+                                            <td>PH</td><td>2021-06-10</td=
+>
+                                            <td>11.00%</td>
+                                            <td>24 Monate</td>
+                                            <td>&euro;436950</td><td>&eur=
+o;57624.84</td>
+                                         </tr>
+             </table>
+=20
+             <table border=3D"0" cellspacing=3D"0" width=3D"100%">
+                 <tr>
+                     <td></td>
+                     <td width=3D"200">
+                         <a style=3D"background:#ff5f62;color:#fff;text-a=
+lign:center;font-weight:bold;display:block;padding:7px 10px;text-decorati=
+on:none;border-radius:30px;margin-top:10px;" href=3D"https://viainvest.co=
+m/auto_investments/primary">Siehe alle gelisteten Darlehen</a>
+                     </td>
+                     <td></td>
+                 </tr>
+             </table>
+=20
+             <p>Sie k=C3=B6nnen die H=C3=A4ufigkeit der personalisierten =
+Zusammenfassung Ihres Investorenkontos in Ihrem  <a href=3D"https://viain=
+vest.com/users/dashboard">Investorenprofil =C3=A4ndern.</a></p>
+             <p><b>Mit freundlichen Gr=C3=BC=C3=9Fen, <br>Das VIAINVEST -=
+Team</b></p>
+=20
+         </div>
+=20
+         <div style=3D"border-top:3px solid #013b53;text-align:center;mar=
+gin:10px 30px 40px 30px;">
+             <table class=3D"footer-table"
+                    style=3D"width:100%;text-align:center;table-layout:fi=
+xed;background:#f3f4f9;color:#013b53;font-weight:bold;margin-bottom:10px;=
+">
+                 <tr>
+                     <td style=3D"padding:30px 40px;">Telefon: <a href=3D=
+"" style=3D"color:#013b53;">+371 67885777</a>
+                         E-mail: <a href=3D"mailto:info@viainvest.com" st=
+yle=3D"color:#013b53;">info@viainvest.com</a>
+                     </td>
+                 </tr>
+             </table>
+             <h2 style=3D"margin-top:0;margin-bottom:10px;color:#013b53;"=
+>Folge uns!</h2>
+             <table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" widt=
+h=3D""
+                    style=3D"width:100%;padding-bottom:30px;">
+                 <tr>
+                     <td></td>
+                     <td style=3D"width:50px;"><a href=3D"https://twitter=
+.com/VIAINVEST_"><img
+                             src=3D"https://viainvest.com/img/via-new/ema=
+il/twitter.png" alt=3D""/></a></td>
+                     <td style=3D"width:50px;"><a href=3D"https://www.fac=
+ebook.com/VIAINVEST-1803950279868754/?fref=3Dts"><img
+                             src=3D"https://viainvest.com/img/via-new/ema=
+il/facebook.png" alt=3D""/></a></td>
+                     <td style=3D"width:50px;"><a href=3D"https://www.you=
+tube.com/channel/UCEJ2-03t_wGB19PwDcWkX2w"><img
+                             src=3D"https://viainvest.com/img/via-new/ema=
+il/youtube.png" alt=3D""/></a></td>
+                     <td style=3D"width:50px;"><a href=3D"https://www.lin=
+kedin.com/company/viainvest"><img
+                             src=3D"https://viainvest.com/img/via-new/ema=
+il/linkedin.png" alt=3D""/></a></td>
+                     <td style=3D"width:50px;"><a href=3D"https://www.ins=
+tagram.com/viainvestp2p/"><img
+                             src=3D"https://viainvest.com/img/via-new/ema=
+il/instagram.png" alt=3D""/></a></td>
+                     <td></td>
+                 </tr>
+             </table>
+         </div>
+     </div>
+ </div>
+=20
+=20
+=20
+ </td>
+ <td></td>
+ </tr>
+ </table>
+=20
+ </body>
+ </html>
+
+
+--alt-6f68e1c7c4de1a358ded4edcde5c0d69
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+<!DOCTYPE html>
+ <html>
+ <head>
+ <meta charset=3D"utf-8">
+ <meta charset=3D"utf-8">
+ <meta name=3D"viewport" content=3D"width=3Ddevice-width, initial-scale=3D=
+1, maximum-scale=3D1">
+ <style>
+ html {margin:0;}
+ body {margin:0;background:#f5f5f5;}
+ img {display:block;max-width:100%;}
+ a {color:#013b53;}
+ a:hover {color:#4d5e78;text-decoration:none;}
+ h1 {font-size:22px;color:#013b53;}
+ h2 {font-size:18px;color:#013b53;}
+ h3 {font-size:16px;color:#013b53;}
+ p {margin:1em 0;}
+ </style>
+ <title>VIAINVEST</title>
+ </head>
+ <body>
+=20
+=20
+ <table border=3D"0" cellspacing=3D"0" width=3D"100%">
+ <tr>
+ <td></td>
+ <td width=3D"644">
+ <div style=3D"font-family:Helvetica,Arial,sans-serif;font-size:14px;colo=
+r:#666;">
+     <div style=3D"background:#fff;border:2px solid #fff;">
+         <img src=3D"https://viainvest.com/img/via-new/email/viainvest-he=
+ader.png" alt=3D"VIAINVEST. Safe and reliable investments" title=3D"" />
+         <div style=3D"line-height:22px;padding:30px 30px;">
+             <h1>Hallo Richard,</h1>
+             <p>
+                 hier ist die Zusammenfassung Ihrer VIAINVEST Investorpro=
+fil-Aktivit=C3=A4ten. Detailliertere Informationen zu den Transaktionen f=
+inden Sie in Ihrem  <a href=3D"https://viainvest.com/users/dashboard">Inv=
+estorenprofil</a>.
+             </p>
+             <style>
+                 .balance-table {border:1px solid #c9cde6;width:100%;bord=
+er-collapse:collapse;margin-bottom:5px;}
+                 .balance-table td {border:1px solid #c9cde6;padding:5px =
+10px;text-align:left;}
+             </style>
+             <table class=3D"balance-table" border=3D"0" cellspacing=3D"0=
+" width=3D"100%">
+                 <tr>
+                     <td><b>Anfangsbilanz per  2021-09-01:</b></td><td st=
+yle=3D"text-align:right;"><b>=E2=82=AC 2.30</b></td>
+                 </tr>
+                 <tr>
+                     <td>Anzahlungen:</td><td style=3D"text-align:right;"=
+>=E2=82=AC 0.00</td>
+                 </tr>
+                 <tr>
+                     <td>Auszahlung:</td><td style=3D"text-align:right;">=
+=E2=82=AC 0.00</td>
+                 </tr>
+                 <tr>
+                     <td>Investierter Betrag:</td><td style=3D"text-align=
+:right;">=E2=82=AC 0.00</td>
+                 </tr>
+                 <tr>
+                     <td>Zinseinnahmen:</td><td style=3D"text-align:right=
+;">=E2=82=AC 0.20</td>
+                 </tr>
+                 <tr>
+                     <td>Zur=C3=BCckgezahlter Hauptbetrag:</td><td style=3D=
+"text-align:right;">=E2=82=AC 10.50</td>
+                 </tr>
+                 <tr>
+                     <td>Quellensteuer:</td><td style=3D"text-align:right=
+;">=E2=82=AC 0.00</td>
+                 </tr>
+                 <tr>
+                     <td><b>Schlussbilanz per  2021-09-01:</b></td><td st=
+yle=3D"text-align:right;"><b>=E2=82=AC 13.00</b></td>
+                 </tr>
+             </table>
+=20
+=20
+             <p style=3D"text-align:center;margin-top:30px;"><b>Derzeit a=
+uf  VIAINVEST gelistete Darlehen</b></p>
+             <style>
+                 .loan-table {font-size:12px;}
+                 .loan-table th {text-align:left;padding:5px;color:#013b5=
+3;}
+                 .loan-table td {text-align:left;padding:5px;border-top:1=
+px solid #c9cde6;}
+             </style>
+            =20
+             <table class=3D"loan-table" border=3D"0" cellspacing=3D"0" w=
+idth=3D"100%" style=3D"background:#f3f4f9;">
+                 <tr>
+                     <th>Darlehenstyp</th><th>Land</th><th>Ausstellungsda=
+tum</th><th>Zinssatz</th><th>Darlehenslaufzeit</th><th>Darlehensbetrag</t=
+h><th>BETRAG</th>
+                 </tr>
+=20
+                 <tr>
+                                            <td>Gesch=C3=A4ftskredit</td>
+                                            <td>PH</td><td>2021-06-10</td=
+>
+                                            <td>11.00%</td>
+                                            <td>24 Monate</td>
+                                            <td>&euro;436950</td><td>&eur=
+o;57624.84</td>
+                                         </tr>
+             </table>
+=20
+             <table border=3D"0" cellspacing=3D"0" width=3D"100%">
+                 <tr>
+                     <td></td>
+                     <td width=3D"200">
+                         <a style=3D"background:#ff5f62;color:#fff;text-a=
+lign:center;font-weight:bold;display:block;padding:7px 10px;text-decorati=
+on:none;border-radius:30px;margin-top:10px;" href=3D"https://viainvest.co=
+m/auto_investments/primary">Siehe alle gelisteten Darlehen</a>
+                     </td>
+                     <td></td>
+                 </tr>
+             </table>
+=20
+             <p>Sie k=C3=B6nnen die H=C3=A4ufigkeit der personalisierten =
+Zusammenfassung Ihres Investorenkontos in Ihrem  <a href=3D"https://viain=
+vest.com/users/dashboard">Investorenprofil =C3=A4ndern.</a></p>
+             <p><b>Mit freundlichen Gr=C3=BC=C3=9Fen, <br>Das VIAINVEST -=
+Team</b></p>
+=20
+         </div>
+=20
+         <div style=3D"border-top:3px solid #013b53;text-align:center;mar=
+gin:10px 30px 40px 30px;">
+             <table class=3D"footer-table"
+                    style=3D"width:100%;text-align:center;table-layout:fi=
+xed;background:#f3f4f9;color:#013b53;font-weight:bold;margin-bottom:10px;=
+">
+                 <tr>
+                     <td style=3D"padding:30px 40px;">Telefon: <a href=3D=
+"" style=3D"color:#013b53;">+371 67885777</a>
+                         E-mail: <a href=3D"mailto:info@viainvest.com" st=
+yle=3D"color:#013b53;">info@viainvest.com</a>
+                     </td>
+                 </tr>
+             </table>
+             <h2 style=3D"margin-top:0;margin-bottom:10px;color:#013b53;"=
+>Folge uns!</h2>
+             <table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" widt=
+h=3D""
+                    style=3D"width:100%;padding-bottom:30px;">
+                 <tr>
+                     <td></td>
+                     <td style=3D"width:50px;"><a href=3D"https://twitter=
+.com/VIAINVEST_"><img
+                             src=3D"https://viainvest.com/img/via-new/ema=
+il/twitter.png" alt=3D""/></a></td>
+                     <td style=3D"width:50px;"><a href=3D"https://www.fac=
+ebook.com/VIAINVEST-1803950279868754/?fref=3Dts"><img
+                             src=3D"https://viainvest.com/img/via-new/ema=
+il/facebook.png" alt=3D""/></a></td>
+                     <td style=3D"width:50px;"><a href=3D"https://www.you=
+tube.com/channel/UCEJ2-03t_wGB19PwDcWkX2w"><img
+                             src=3D"https://viainvest.com/img/via-new/ema=
+il/youtube.png" alt=3D""/></a></td>
+                     <td style=3D"width:50px;"><a href=3D"https://www.lin=
+kedin.com/company/viainvest"><img
+                             src=3D"https://viainvest.com/img/via-new/ema=
+il/linkedin.png" alt=3D""/></a></td>
+                     <td style=3D"width:50px;"><a href=3D"https://www.ins=
+tagram.com/viainvestp2p/"><img
+                             src=3D"https://viainvest.com/img/via-new/ema=
+il/instagram.png" alt=3D""/></a></td>
+                     <td></td>
+                 </tr>
+             </table>
+         </div>
+     </div>
+ </div>
+=20
+=20
+=20
+ </td>
+ <td></td>
+ </tr>
+ </table>
+=20
+ </body>
+ </html>
+
+
+--alt-6f68e1c7c4de1a358ded4edcde5c0d69--
+
+
+--6f68e1c7c4de1a358ded4edcde5c0d69--
+
