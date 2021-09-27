@@ -60,14 +60,15 @@ public class ReadMailRewe implements ReadMail {
             se.setName(name);
             
             String chunk [] = splited[count].trim().split(" ");
-            for (int i=0; i< chunk.length;i++ )
+            summe= chunk[chunk.length-2];
+        /*    for (int i=0; i< chunk.length;i++ )
             {
             	if (chunk[i].equals("B"))
             	{
             		summe= chunk[i-1];
             		break;
             	}
-            }
+            }*/
             
             //System.out.println("Summe =" + summe);
             content=content +summe+" { \n";
