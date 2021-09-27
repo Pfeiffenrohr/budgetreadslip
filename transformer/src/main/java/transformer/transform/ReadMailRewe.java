@@ -36,6 +36,11 @@ public class ReadMailRewe implements ReadMail {
             //System.out.println(splited[count]);
             String name = splited[count].substring(0,splited[count].indexOf("  "));
             System.out.println("Name = >" + name+"<");
+            if (name.equals("") || name.startsWith(" "))
+            {
+            	count++;
+            	continue;
+            }
             content=content +name+" ";
             if (name.startsWith("-"))
             {
