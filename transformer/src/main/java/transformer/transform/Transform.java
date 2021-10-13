@@ -72,6 +72,12 @@ public class Transform {
         content =rm.parseMail(txt);
         tr.writeFile(content,args[1],url,"Twino",rm.getList());
         } 
+        if (args[2].equals("income"))
+        { 
+            ReadMail rm =  new ReadMailIncome();
+        content =rm.parseMail(txt);
+        tr.writeFile(content,args[1],url,"Income",rm.getList());
+        } 
       
     }
     
@@ -84,7 +90,9 @@ public class Transform {
                 ||company.equals("ViaInvest") 
                 || company.equals("PeerBerry") 
                 || company.equals("Robocash")
-                | company.equals("Twino"))
+                || company.equals("Twino")
+                || company.equals("Income"))
+            
         {
             url=url + "/p2p";
         }
