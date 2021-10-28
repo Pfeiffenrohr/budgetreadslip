@@ -81,6 +81,19 @@ public class TransformTest {
        assertEquals("1.25 {",result.trim());  
     }
     @Test
+    public void MintosTest2() throws Exception {
+        
+        System.out.println("Start Mintos");
+        //Transform transform = new Transform();
+        
+        String data = readFile("src/test/resources/MintosMail2.txt");
+        String result = new ReadMailMintos().parseMail(data);
+      // String hhh = transform.parseFileTwino(data);
+        
+       System.out.println(">"+result+"<");
+       assertEquals("17.28 {",result.trim());  
+    }
+    @Test
     public void RobocashTest() throws Exception {
         
         System.out.println("Start Robocash");
