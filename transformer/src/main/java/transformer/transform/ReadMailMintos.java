@@ -43,7 +43,7 @@ public class ReadMailMintos implements ReadMail {
                 se.setName(name);
                 count++;
                 if (count >= splited.length) return content;
-                while (count < splited.length && !splited[count].contains("=E2=82=AC")) {
+                while (count < splited.length && !splited[count].contains("=E2=82=AC") && ! splited[count].startsWith("=AC")) {
                     count++;
                     if (count >= splited.length) return content;
                     continue;
