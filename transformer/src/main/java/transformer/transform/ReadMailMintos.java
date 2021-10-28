@@ -43,13 +43,13 @@ public class ReadMailMintos implements ReadMail {
                 se.setName(name);
                 count++;
                 if (count >= splited.length) return content;
-                while (count < splited.length && !splited[count].startsWith("=AC")) {
+                while (count < splited.length && !splited[count].contains("=E2=82=AC")) {
                     count++;
                     if (count >= splited.length) return content;
                     continue;
                 }
                 String summe = splited[count];
-                summe = summe.substring(summe.indexOf(" ") + 1);
+                summe = summe.substring(summe.indexOf("=AC") + 4);
                 
                     summe = summe.substring(0, summe.indexOf("<"));
        
