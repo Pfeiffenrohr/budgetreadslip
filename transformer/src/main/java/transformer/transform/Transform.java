@@ -30,6 +30,7 @@ public class Transform {
         Transform tr = new Transform();
         String txt=tr.readFile(args[0]);
         String content;
+        System.out.println (" Mode = "+args[2]);
         if (args[2].equals("netto"))
         {
             ReadMail rm =  new ReadMailNetto();   
@@ -84,6 +85,12 @@ public class Transform {
         content =rm.parseMail(txt);
         tr.writeFile(content,args[1],url,"Income",rm.getList());
         } 
+        if (args[2].equals("depotbank"))
+        { 
+            ReadMail rm =  new ReadDepotBank();
+        content =rm.parseMail(txt);
+        tr.writeFile(content,args[1],url,"Depotbank",rm.getList());
+        } 
       
     }
     
@@ -104,7 +111,14 @@ public class Transform {
         }
         else
         {
+            if (company.equals("Depotbank"))
+            {
+                url=url + "/fonds";
+            }
+            else
+            {    
             url=url + "/bon";
+            }
         }
          
         HttpClient httpClient = HttpClientBuilder.create().build();

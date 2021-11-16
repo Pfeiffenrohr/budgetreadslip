@@ -28,6 +28,21 @@ public class Infrastructure {
 	    return kat;
 	}
 	
+	public static String getInternalKontoname(String name,String host, String port)
+    { 
+      //  final String uri = "http://localhost:8092/transaction_get_kategorie_byname/"+name;
+        UriComponents uriComponents = UriComponentsBuilder.newInstance()
+                  .scheme("http").host(host).port(port).path("/kontomatchByName/"+name).build();
+         String uri=uriComponents.toUriString();
+        RestTemplate restTemplate = new RestTemplate();
+        String result = restTemplate.getForObject(uri, String.class);
+        if (result==null ||result.equals(""))
+        {
+            return "-1";
+        }
+        return result;
+    }
+	
 	public static Integer getKontoByName(String name,String host, String port)
 	{ 
 	  //  final String uri = "http://localhost:8092/transaction_get_kategorie_byname/"+name;
