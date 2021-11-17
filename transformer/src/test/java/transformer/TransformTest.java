@@ -80,6 +80,7 @@ public class TransformTest {
        System.out.println(">"+result+"<");
        assertEquals("1.25 {",result.trim());  
     }
+    /*
     @Test
     public void MintosTest2() throws Exception {
         
@@ -93,6 +94,7 @@ public class TransformTest {
        System.out.println(">"+result+"<");
        assertEquals("17.28 {",result.trim());  
     }
+    */
     @Test
     public void RobocashTest() throws Exception {
         
