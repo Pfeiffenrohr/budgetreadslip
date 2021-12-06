@@ -22,13 +22,19 @@ public class ReadMailIncome implements ReadMail {
             int count = 0;
             String summe = "";
             // Suche den Anfang
+            while ( count < splited.length && !splited[count].contains("Bonus earned last week")) {
+                count++;
+                continue;
+            }
+            
             while ( count < splited.length && !splited[count].contains("=E2=82=AC")) {
                 count++;
                 continue;
             }
-            count--;
+            
+           // count--;
           
-          System.out.println(splited[count]);
+         // System.out.println(splited[count]);
           
                 SlipEntry se = new SlipEntry();
                 String name = "Gesamtertrag";

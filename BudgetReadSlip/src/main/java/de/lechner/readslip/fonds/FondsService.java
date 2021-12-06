@@ -51,6 +51,11 @@ public class FondsService {
        //Hole erstmal den richtigen Kontonamen
       String realKontoName = Infrastructure.getInternalKontoname(depotkonto,host,port);
        System.out.println("Konotname = " + realKontoName);
+       if (realKontoName.equals("-1"))
+       {
+    	   System.err.println("!! "+realKontoName+"Not found ");
+    	   continue;
+       }
        UriComponents uriComponents = UriComponentsBuilder.newInstance()
                    .scheme("http").host(host).port(port).path("/transaction_get_sum")
                    .queryParam("startdate", "2011-01-01")

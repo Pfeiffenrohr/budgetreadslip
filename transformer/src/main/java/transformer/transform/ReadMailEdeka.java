@@ -41,7 +41,8 @@ private List <SlipEntry> list ;
             
             name = name.substring(name.indexOf(">") + 1);
             name = name.substring(0, name.indexOf("<"));
-            name = name.replaceAll("=E2=82=AC", "€");
+            name = name.replaceAll("=E2=82=AC", "€").replace("%20" , " ").replace("%2C", ",").replace("%25", "%").replace("%26", "&").replace("%21", "!")
+                    .replace("=C3=B6", "ö").replace("=C3=BC", "ü").replace("=C3=A4", "ä");
             content = content + name + " ";
             se.setName(name);
 
