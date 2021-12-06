@@ -77,7 +77,7 @@ public class P2PService {
        
        double diff=0.0;
        //Extrawurst für viainvest
-       if ( company.equals("ViaInvest"))
+       if ( company.equals("ViaInvest")||company.equals("Income"))
        {
     	   diff=new Double (ertrag);
        }
