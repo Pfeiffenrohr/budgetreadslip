@@ -21,19 +21,24 @@ public class ReadMailRewe implements ReadMail {
         int count = 0;
         // Suche den Anfang
         while ( count < splited.length && !splited[count].contains("EUR")) {
+        	System.out.println(splited[count]);
             count++;
             continue;
         }
         count ++;
     //  System.out.println(splited[count]);
         String summe ="";
-        while (count < splited.length && !splited[count].contains("--------------") ) {
+        while (count < splited.length && !splited[count].contains("SUMME") ) {
             SlipEntry se = new SlipEntry();
-            
+            if (splited[count].length()==0)
+            {
+            	count++;
+            	continue;
+            }
            // summe = summe.substring(summe.indexOf("AC ") + 3);
-            
+     
             if (count >= splited.length) return content;
-            //System.out.println(splited[count]);
+           // System.out.println(splited[count]);
             String name = splited[count].substring(0,splited[count].indexOf("  "));
             System.out.println("Name = >" + name+"<");
             if (name.equals("") || name.startsWith(" "))
