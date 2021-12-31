@@ -32,9 +32,9 @@ public class ReadMailWuensche implements ReadMail {
             
            
             summe = splited[count];
-            summe = summe.substring(summe.indexOf("Hohenwart_f=C3=BCr_2=") + 21);
+            summe = summe.substring(summe.indexOf("Hohenwart_f=C3=BCr_") + 19);
                 summe = summe.substring(0, summe.indexOf("_"));
-            summe = summe.replace("C",".");
+            summe = summe.replace("=2C",".");
             //System.out.println("Summe =" + summe);
             content=content +summe+" { \n";
             System.out.println("Summe =" + summe);
