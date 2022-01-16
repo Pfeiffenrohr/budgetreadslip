@@ -47,7 +47,7 @@ public class ReadMailRobocash implements ReadMail {
                 }
                 summe = splited[count];
                 summe = summe.substring(summe.indexOf("AC ") + 3);
-                summe = summe.substring(0, summe.indexOf("<")-1);
+                summe = summe.substring(0, summe.indexOf("=")-1);
                 
                 
                 // summe = summe.substring(0, summe.indexOf(" "));
