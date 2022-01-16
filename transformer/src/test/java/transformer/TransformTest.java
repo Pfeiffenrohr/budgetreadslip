@@ -106,7 +106,7 @@ public class TransformTest {
       // String hhh = transform.parseFileTwino(data);
         
        System.out.println(">"+result+"<");
-       assertEquals("1400.31 {",result.trim());  
+       assertEquals("1961.89 {",result.trim());  
     }
     
     @Test
