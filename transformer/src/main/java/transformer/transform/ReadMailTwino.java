@@ -56,7 +56,7 @@ public class ReadMailTwino implements ReadMail {
                 
                 
                 // summe = summe.substring(0, summe.indexOf(" "));
-       
+                summe= summe.replace(",", "");
                 System.out.println("Summe =" + summe);
                 content=content +summe+" { \n";
                 se.setSum(summe);
