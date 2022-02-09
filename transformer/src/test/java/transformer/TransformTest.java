@@ -110,6 +110,20 @@ public class TransformTest {
     }
     
     @Test
+    public void RobocashTest2() throws Exception {
+        
+        System.out.println("Start Robocash2");
+        //Transform transform = new Transform();
+        
+        String data = readFile("src/test/resources/RobocashMail2.txt");
+        String result = new  ReadMailRobocash().parseMail(data);
+      // String hhh = transform.parseFileTwino(data);
+        
+       System.out.println(">"+result+"<");
+       assertEquals("2079.72 {",result.trim());  
+    }
+    
+    @Test
     public void PeerBerryTest() throws Exception {
         
         System.out.println("Start PeerBerry");
