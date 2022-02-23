@@ -97,6 +97,12 @@ public class Transform {
         content =rm.parseMail(txt);
         tr.writeFile(content,args[1],url,"Depotbank",rm.getList());
         } 
+        if (args[2].equals("swaper"))
+        { 
+            ReadMail rm =  new ReadMailSwaper();
+        content =rm.parseMail(txt);
+        tr.writeFile(content,args[1],url,"Swaper",rm.getList());
+        }
       
     }
     
@@ -104,13 +110,15 @@ public class Transform {
     {
         String body = transformToJson(list);
         System.out.println(body);
+        
       
         if (company.equals("Mintos") 
                 ||company.equals("ViaInvest") 
                 || company.equals("PeerBerry") 
                 || company.equals("Robocash")
                 || company.equals("Twino")
-                || company.equals("Income"))
+                || company.equals("Income")
+                || company.equals("Swaper"))
             
         {
             url=url + "/p2p";
