@@ -103,6 +103,12 @@ public class Transform {
         content =rm.parseMail(txt);
         tr.writeFile(content,args[1],url,"Swaper",rm.getList());
         }
+        if (args[2].equals("debitum"))
+        { 
+            ReadMail rm =  new ReadMailDebitum();
+        content =rm.parseMail(txt);
+        tr.writeFile(content,args[1],url,"Debitum",rm.getList());
+        }
       
     }
     
@@ -118,6 +124,7 @@ public class Transform {
                 || company.equals("Robocash")
                 || company.equals("Twino")
                 || company.equals("Income")
+                || company.equals("Debitum")
                 || company.equals("Swaper"))
             
         {
