@@ -97,6 +97,12 @@ public class Transform {
         content =rm.parseMail(txt);
         tr.writeFile(content,args[1],url,"Depotbank",rm.getList());
         } 
+        if (args[2].equals("consors"))
+        { 
+            ReadMail rm =  new ReadConsorsBank();
+        content =rm.parseMail(txt);
+        tr.writeFile(content,args[1],url,"Consors",rm.getList());
+        } 
         if (args[2].equals("swaper"))
         { 
             ReadMail rm =  new ReadMailSwaper();
@@ -132,7 +138,7 @@ public class Transform {
         }
         else
         {
-            if (company.equals("Depotbank"))
+            if (company.equals("Depotbank") || company.equals("Consors"))
             {
                 url=url + "/fonds";
             }
