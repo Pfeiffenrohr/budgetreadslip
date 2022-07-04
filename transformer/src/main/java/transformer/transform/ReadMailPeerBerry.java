@@ -48,6 +48,7 @@ public class ReadMailPeerBerry implements ReadMail {
                     continue;
                 }
                 summe = splited[count];
+                summe = summe.replaceAll("=E2=82=AC", "");
                 summe = summe.substring(summe.indexOf(":") + 2);
               //  summe = summe.substring(0, summe.indexOf(":"));
                 
