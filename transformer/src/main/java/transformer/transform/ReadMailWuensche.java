@@ -29,11 +29,11 @@ public class ReadMailWuensche implements ReadMail {
         String summe;
             String name = "Semmeln Brezen" ;
             se.setName(name);
-            
-           
+
+        count++;
             summe = splited[count];
-            summe = summe.substring(summe.indexOf("Hohenwart_f=C3=BCr_") + 19);
-                summe = summe.substring(0, summe.indexOf("_"));
+            summe = summe.substring(summe.indexOf("_")+1);
+                summe = summe.substring(0, summe.indexOf("=C2=A0"));
             summe = summe.replace("=2C",".");
             //System.out.println("Summe =" + summe);
             content=content +summe+" { \n";
