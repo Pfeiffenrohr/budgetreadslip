@@ -2,30 +2,30 @@ Return-Path: <support@robo.cash>
 X-Original-To: test@mailserver.loadbalancer1.de
 Delivered-To: richard@mailserver.loadbalancer1.de
 Received: from loadbalancer2 (localhost [127.0.0.1])
-	by loadbalancer1 (Postfix) with ESMTP id E9725EA006A
-	for <test@mailserver.loadbalancer1.de>; Sun, 16 Jan 2022 07:20:03 +0100 (CET)
+	by loadbalancer1 (Postfix) with ESMTP id 3D69EEA0065
+	for <test@mailserver.loadbalancer1.de>; Wed,  9 Feb 2022 07:20:03 +0100 (CET)
 X-Envelope-From: <support@robo.cash>
 X-Envelope-To: <richard@richardlechner.de>
-X-Delivery-Time: 1642313755
-X-UID: 111822
-ARC-Seal: i=1; a=rsa-sha256; t=1642313755; cv=none;
+X-Delivery-Time: 1644387457
+X-UID: 112630
+ARC-Seal: i=1; a=rsa-sha256; t=1644387457; cv=none;
     d=strato.com; s=strato-dkim-0002;
-    b=O3MiedEBo632z7d+QRbwckFbmt1jN2XRB4DmHjVYEocy9eKuMsviwGspLi71m5FSUE
-    P91Wn2GDNV13sKsaO7urj5X0UafRvNzvxoG/5O0wjkDgLcX7oFfIS4VW3TFRWvMtD68d
-    jVqhSWXWAgBpINLgFq3cbtf3PhDfosuWql1PK4EZqMlaUt8EkckZfc9nMKdWXJkhEPiK
-    xc5NgjsbPTaP93oQLozE+5txCh6ZFHE8Iwmf5LTez815rkZTHBpqcXkwzDqg5lgv+SM5
-    SMmswChTIg1GdW6V5GzQpxlO5GGqwxnMz/w84lqHaht44LMAuVpw8+y2cOvZrHmPOaYU
-    L3Iw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1642313755;
+    b=kO91OfJ6RULDyE0e+W5LhLKU3hSSeDGkWLo/k/L3vVtUay8ME5Zda6eR1dRCpHW7OR
+    YHspQRmFEb/sX2A4JQ5HrP1q4kbV4rNxiTfhCnuUksslA0+TH9V6Vc4nEaJE1BcwZA2C
+    5tUb1lt3P0m3BZUnKuzUhsifRZQnFEhXE4B1LTndN9x7yB32aLSWNy9Ta/DAqvxYAWRT
+    7I4ECriWpB4/A57vBlzI9/m/2fy9/wYBoASejPOSFN9tyWw+zVQjl9l+Utp0nUgfc6BT
+    qptwhFgqt17zu5KdUzr/nsfjDH6gx5pvOlqYyXHP91JlO5P6wW5SZGLvz48dK6NIs9I4
+    EAHg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1644387457;
     s=strato-dkim-0002; d=strato.com;
     h=To:From:Subject:Date:Message-ID:Cc:Date:From:Subject:Sender;
-    bh=D1H5x8b6LzDuX9ve/IdlsukJx0cuGRuxFUuYQMYMk1c=;
-    b=l67DQQCbSRC7WFHWuaM5S7YGpnf6z3PhSNdu9CiltH3AZ1Ic9GSU6EIUSFjHcAZ0Ka
-    jIbXz2J85QtwVGn2fjrh/USwmDZ7u5Wgxvg8bUkc4G4Eniq0CKWXnpzY3Wg/rY7NoD/u
-    iRQ85ubMspWVdD7MXkIAYSLIOQZr7nSlhstMwPSIWr3qyyiGSauDTyjOn6Rtcvl0fOWR
-    97DoCwSyJ0nAd4UmTr2lr1v/u35U2UAl6kp9R0xTgrmEUOdI69y9JG4eX1QyZOVemkNX
-    A2NR0IjPL9FrJ77zKQGbgDUfRG8sY85pYhURx317XDYapp1Bs4QV014u+YfhmqAAMFD5
-    PY9g==
+    bh=CgOwmrBGVsMWNZSReUjcTydYvh1hvbwzpcU4GjjitC8=;
+    b=JN6PpS+MMX+KZTkmqfSQ0+AhqdySANFIYaG5Q6rWuaAfum+9x1nZ17gXSLnVolNV3i
+    ZLc4cphIfuXnAubK/mhSfk219x3/SJtyKZgLQhG34XiMVjy6+u6WSFD3KrAHwHG54dpN
+    D7lax+obiCFkXW+hNJA5r/3dFUJmvLkWEfngtK54t10O1aaAouXub5210IafGj64Kf72
+    LYV2DFHrFq6CpfhAXeV5EB/pEBulSR5VxXJBdcsEWum8dLVC0aNRJ3HaNQMuiCdJRxuN
+    AI6dn/9oypKuP4DtbanBMDVReLWze146UijodxEFscv9gjcv6ZwCFMO4J4qOguWLHw02
+    WJqA==
 ARC-Authentication-Results: i=1; strato.com;
     dmarc=pass (p=NONE sp=NONE) header.from="robo.cash";
     dkim=pass header.d="robo.cash" header.s="mail" header.a="rsa-sha256";
@@ -36,8 +36,8 @@ Authentication-Results: strato.com;
     dkim=pass header.d="robo.cash" header.s="mail" header.a="rsa-sha256";
     dkim-adsp=pass;
     spf=pass smtp.mailfrom="support@robo.cash"
-X-RZG-Expurgate: suspect/normal
-X-RZG-Expurgate-ID: 149500::1642313755-0000203E-67D1F1D4/19/7394071304
+X-RZG-Expurgate: clean/normal
+X-RZG-Expurgate-ID: 149500::1644387457-00007E06-0396C86F/0/0
 X-RZG-CLASS-ID: mi00
 Received-SPF: pass
     (strato.com: domain robo.cash designates 176.196.198.62 as permitted sender)
@@ -49,38 +49,38 @@ Received-SPF: pass
     identity=mailfrom;
 Received: from imap.strato.de [81.169.145.103]
 	by loadbalancer2 with IMAP (fetchmail-6.4.2)
-	for <test@mailserver.loadbalancer1.de> (single-drop); Sun, 16 Jan 2022 07:20:03 +0100 (CET)
+	for <test@mailserver.loadbalancer1.de> (single-drop); Wed, 09 Feb 2022 07:20:03 +0100 (CET)
 Received: from mail.zaymer.ru ([176.196.198.62])
-    by smtpin.rzone.de (RZmta 47.37.6 OK)
-    with ESMTPS id naf59ay0G6FtoF2
+    by smtpin.rzone.de (RZmta 47.39.0 OK)
+    with ESMTPS id U71408y196HbmFC
     (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (curve X9_62_prime256v1 with 256 ECDH bits, eq. 3072 bits RSA))
     (Client did not present a certificate)
     for <richard@richardlechner.de>;
-    Sun, 16 Jan 2022 07:15:55 +0100 (CET)
+    Wed, 9 Feb 2022 07:17:37 +0100 (CET)
 Received: from [127.0.0.1] (robo.cash [35.156.21.22])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
 	(Authenticated sender: support@robo.cash)
-	by mail.zaymer.ru (Postfix) with ESMTPSA id D64EB1911C92
-	for <richard@richardlechner.de>; Sun, 16 Jan 2022 13:15:53 +0700 (+07)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mail.zaymer.ru D64EB1911C92
+	by mail.zaymer.ru (Postfix) with ESMTPSA id 6735C1918DE9
+	for <richard@richardlechner.de>; Wed,  9 Feb 2022 13:17:36 +0700 (+07)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mail.zaymer.ru 6735C1918DE9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=robo.cash; s=mail;
-	t=1642313754; bh=D1H5x8b6LzDuX9ve/IdlsukJx0cuGRuxFUuYQMYMk1c=;
+	t=1644387456; bh=CgOwmrBGVsMWNZSReUjcTydYvh1hvbwzpcU4GjjitC8=;
 	h=Date:Subject:From:To:From;
-	b=CQ2YX1IPlC9gnnsq6kJ0mnOZal59/zuR8uRYD8en5eghUlDtHU5C6qFiK0dAd97XK
-	 ZmkQKofsCteQ/jFF92M88xuTnE724I/eu4LcV5pt6CNfmFA40zhvzv79ZMyV7hCsoI
-	 xupxumKABDZSlL5teiqnq3R571+Hf76GxWQvdnxk=
-Message-ID: <d9977f379826d01e75847ff717c6081e@swift.generated>
-Date: Sun, 16 Jan 2022 08:15:52 +0200
-Subject: Robocash daily statement on 2022-01-15
+	b=phJMSjxE3etSlDmidCXpKxjsRBKvY6Qf2q4p9w4lSqFeIU5xm9BQU0i4ZDA35qWmJ
+	 Db4RRNAAouHd1SIZOGO58K3h5O6PPQlr4sAg7h88dIheAgBJMZ6/0REStHtjpvvYUB
+	 +FF/CEdjVZ6ueDdGJEBUxSt+2mcWJ9wt9OMvxgsw=
+Message-ID: <efce6d830b7392448fa81df99791cb53@swift.generated>
+Date: Wed, 09 Feb 2022 08:17:35 +0200
+Subject: Robocash daily statement on 2022-02-08
 From: Robocash <support@robo.cash>
 To: richard@richardlechner.de
 MIME-Version: 1.0
 Content-Type: multipart/related;
- boundary="_=_swift_1642313752_7c6d4b16551a4fb1ef7e3dac46135979_=_"
+ boundary="_=_swift_1644387455_f84378ab85121413e0e25d4074e6f1dd_=_"
 
 
---_=_swift_1642313752_7c6d4b16551a4fb1ef7e3dac46135979_=_
+--_=_swift_1644387455_f84378ab85121413e0e25d4074e6f1dd_=_
 Content-Type: text/html; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
@@ -93,8 +93,8 @@ dth:900px !important;background:#eff1f1;" > <tbody> <tr> <td> <div style=3D=
 Arial;border:1px solid #dfe2e3;background-color:white;"> <div style=3D"back=
 ground-color: #eff1f1;"> <header> <div> <div style=3D"margin-left:30px;marg=
 in-top:28px;margin-bottom:30px;float:left;"> <a href=3D"https://robo.cash" =
-target=3D"_blank"> <img alt=3D"" src=3D"cid:9a82d2500fa28f53a9509f39590a06f=
-1@swift.generated" width=3D"220"> </a> </div> <div style=3D"float:right;"> =
+target=3D"_blank"> <img alt=3D"" src=3D"cid:df83602c5072d3b19ecb6e87b91435f=
+3@swift.generated" width=3D"220"> </a> </div> <div style=3D"float:right;"> =
 <a href=3D"https://robo.cash/login" style=3D"background:#71bb3e;margin-righ=
 t:30px;padding:18px 0;margin-top:28px;;width:160px;text-align:center;margin=
 -bottom:30px;text-decoration:none;border-radius:5px;display:block;font-size=
@@ -106,41 +106,42 @@ n:0;"> <div style=3D"padding:32px 64px;color:#6d7a7f;text-align:justify;"> =
 "font-size: 36px;text-align: center;color: #2f3639;margin-bottom: 36px;">He=
 llo Richard,</p> <p style=3D"text-align: left;line-height: 1.6;font-weight:=
 bold;"> This is your daily report on the Robocash account. </p> <h3>Summary=
- statement on 2022-01-15</h3> <div style=3D"text-align: left; text-indent: =
+ statement on 2022-02-08</h3> <div style=3D"text-align: left; text-indent: =
 30px; line-height: 1.6"> <div style=3D"float: left"> Opening account value =
 </div> <div style=3D"float: right">  <div style=3D"float: left;width: 120px=
-;text-align:  right "> =E2=82=AC 1961.85 </div>  </div> <div style=3D"clear=
+;text-align:  right "> =E2=82=AC 1979.62 </div>  </div> <div style=3D"clear=
 : both"></div> <div style=3D"float: left"> Added funds </div> <div style=3D=
 "float: right">  <div style=3D"float: left;width: 120px;text-align:  right =
-"> =E2=82=AC 0.00 </div>  </div> <div style=3D"clear: both"></div> <div sty=
-le=3D"float: left"> Withdrawn funds </div> <div style=3D"float: right">  <d=
-iv style=3D"float: left;width: 120px;text-align:  right "> =E2=82=AC 0.00 <=
-/div>  </div> <div style=3D"clear: both"></div> <div style=3D"float: left">=
- Purchased loans </div> <div style=3D"float: right">  <div style=3D"float: =
-left;width: 120px;text-align:  right "> =E2=82=AC 0.00 </div>  </div> <div =
-style=3D"clear: both"></div> <div style=3D"float: left"> Returned loans </d=
-iv> <div style=3D"float: right">  <div style=3D"float: left;width: 120px;te=
-xt-align:  right "> =E2=82=AC 0.00 </div>  </div> <div style=3D"clear: both=
-"></div> <div style=3D"float: left"> Earned interest </div> <div style=3D"f=
-loat: right">  <div style=3D"float: left;width: 120px;text-align:  right ">=
- =E2=82=AC 0.02 </div>  </div> <div style=3D"clear: both"></div> <div style=
-=3D"float: left"> Closing account value </div> <div style=3D"float: right">=
-  <div style=3D"float: left;width: 120px;text-align:  right "> =E2=82=AC 19=
-61.88 </div>  </div> <div style=3D"clear: both"></div> <div style=3D"float:=
- left"> Uninvested funds on portfolio balance </div> <div style=3D"float: r=
-ight">  <div style=3D"float: left;width: 120px;text-align:  right "> =
-=E2=82=AC 0.04 </div>  </div> <div style=3D"clear: both"></div> <div style=
-=3D"float: left"> Uninvested funds on investor's balance </div> <div style=
+"> =E2=82=AC 100.00 </div>  </div> <div style=3D"clear: both"></div> <div s=
+tyle=3D"float: left"> Withdrawn funds </div> <div style=3D"float: right">  =
+<div style=3D"float: left;width: 120px;text-align:  right "> =E2=82=AC 0.00=
+ </div>  </div> <div style=3D"clear: both"></div> <div style=3D"float: left=
+"> Purchased loans </div> <div style=3D"float: right">  <div style=3D"float=
+: left;width: 120px;text-align:  right "> =E2=82=AC 100.00 </div>  </div> <=
+div style=3D"clear: both"></div> <div style=3D"float: left"> Returned loans=
+ </div> <div style=3D"float: right">  <div style=3D"float: left;width: 120p=
+x;text-align:  right "> =E2=82=AC 0.00 </div>  </div> <div style=3D"clear: =
+both"></div> <div style=3D"float: left"> Earned interest </div> <div style=
 =3D"float: right">  <div style=3D"float: left;width: 120px;text-align:  rig=
 ht "> =E2=82=AC 0.00 </div>  </div> <div style=3D"clear: both"></div> <div =
-style=3D"float: left"> Total funds </div> <div style=3D"float: right">  <di=
-v style=3D"float: left;width: 120px;text-align:  right "> =E2=82=AC 1961.89=
- </div>  </div> <div style=3D"clear: both"></div> </div> <p align=3D"center=
-"> <a style=3D"background: #71bb3e;text-align: center;padding: 20px 32px;bo=
-rder-radius: 5px; display: inline-block;margin: auto;text-decoration: none;=
-text-transform: uppercase;font-weight: bold;color: #fff; line-height:20px" =
-href=3D"https://robo.cash/cabinet"> Go to My Account </a> </p> <p style=3D"=
-text-align: center;line-height: 1.6;font-weight:bold;"> Kind Regards,<br />
+style=3D"float: left"> Closing account value </div> <div style=3D"float: ri=
+ght">  <div style=3D"float: left;width: 120px;text-align:  right "> =
+=E2=82=AC 2079.62 </div>  </div> <div style=3D"clear: both"></div> <div sty=
+le=3D"float: left"> Uninvested funds on portfolio balance </div> <div style=
+=3D"float: right">  <div style=3D"float: left;width: 120px;text-align:  rig=
+ht "> =E2=82=AC 0.10 </div>  </div> <div style=3D"clear: both"></div> <div =
+style=3D"float: left"> Uninvested funds on investor's balance </div> <div s=
+tyle=3D"float: right">  <div style=3D"float: left;width: 120px;text-align: =
+ right "> =E2=82=AC 0.00 </div>  </div> <div style=3D"clear: both"></div> <=
+div style=3D"float: left"> Total funds </div> <div style=3D"float: right"> =
+ <div style=3D"float: left;width: 120px;text-align:  right "> =E2=82=AC 207=
+9.72 </div>  </div> <div style=3D"clear: both"></div> </div> <p align=3D"ce=
+nter"> <a style=3D"background: #71bb3e;text-align: center;padding: 20px 32p=
+x;border-radius: 5px; display: inline-block;margin: auto;text-decoration: n=
+one;text-transform: uppercase;font-weight: bold;color: #fff; line-height:20=
+px" href=3D"https://robo.cash/cabinet"> Go to My Account </a> </p> <p style=
+=3D"text-align: center;line-height: 1.6;font-weight:bold;"> Kind Regards,<b=
+r />
 Robocash Team </p> </div> </div> <div style=3D"clear: both"></div>   <div s=
 tyle=3D"clear:both;"></div> <div style=3D"text-align: center"> <style> .soc=
 ial_links--link { text-decoration: none; } .social_links--image { width: 30=
@@ -148,19 +149,19 @@ px; height: 30px; } .social_links--wrapper { margin-top: 10px; } </style> <=
 div class=3D"social_links--wrapper"> <p>Follow us:</p> <a href=3D"https://t=
 witter.com/Robocash1" aria-label=3D"Twitter" target=3D"_blank" rel=3D"nofol=
 low" class=3D"social_links--link"><img class=3D"social_links--image" alt=3D=
-"" width=3D"30" height=3D"30" src=3D"cid:3a9bb03ef194dd98e924642510a50a52@s=
+"" width=3D"30" height=3D"30" src=3D"cid:bf4de6b8cad480d766a61702c6e0a687@s=
 wift.generated"></a> <a href=3D"https://www.facebook.com/robocash.invest/" =
 aria-label=3D"Facebook" target=3D"_blank" rel=3D"nofollow" class=3D"social_=
 links--link"><img class=3D"social_links--image" alt=3D"" width=3D"30" heigh=
-t=3D"30" src=3D"cid:9a67f8aed609274d404f149cde19234f@swift.generated"></a> =
+t=3D"30" src=3D"cid:e8409f3a25cee88342914591f334fcb5@swift.generated"></a> =
 <a href=3D"https://www.linkedin.com/company-beta/11084403" aria-label=3D"Li=
 nkedin" target=3D"_blank" rel=3D"nofollow" class=3D"social_links--link"><im=
 g class=3D"social_links--image" alt=3D"" width=3D"30" height=3D"30" src=3D"=
-cid:95809965a8d2a9fdc37a6ff3c9c3428f@swift.generated"></a> <a href=3D"https=
+cid:ae9e0f7a1e902060f078f2e397cea26f@swift.generated"></a> <a href=3D"https=
 ://t.me/robocash_europe" aria-label=3D"Telegram" target=3D"_blank" rel=3D"n=
 ofollow" class=3D"social_links--link"><img class=3D"social_links--image" al=
-t=3D"" width=3D"30" height=3D"30" src=3D"cid:eb13b4f1c6875f76e80d600d4a8be8=
-1b@swift.generated"></a> </div> </div>  </div> </div> </div> <hr style=3D"b=
+t=3D"" width=3D"30" height=3D"30" src=3D"cid:3d8143347a2f568be916ea610791ec=
+7c@swift.generated"></a> </div> </div>  </div> </div> </div> <hr style=3D"b=
 ackground:#dfe2e3;height:1px;width:100%;border:none;margin:0;">  <div style=
 =3D"height:5px;"> <div style=3D"float:left;height:5px;background-color:#ff8=
 900;width:5%;"></div> <div style=3D"float:left;height:5px;background-color:=
@@ -176,10 +177,10 @@ tings in your investor=E2=80=99s account</a>. <br/>  <br/> =C2=A9 2022 "Rob=
 ocash". All rights reserved. </div> </div>  </div> </td> </tr> </tbody> </t=
 able> </td> </tr> </tbody> </table> </html>
 
---_=_swift_1642313752_7c6d4b16551a4fb1ef7e3dac46135979_=_
+--_=_swift_1644387455_f84378ab85121413e0e25d4074e6f1dd_=_
 Content-Type: image/png; name=logo_color.png
 Content-Transfer-Encoding: base64
-Content-ID: <9a82d2500fa28f53a9509f39590a06f1@swift.generated>
+Content-ID: <df83602c5072d3b19ecb6e87b91435f3@swift.generated>
 Content-Disposition: inline; filename=logo_color.png
 
 iVBORw0KGgoAAAANSUhEUgAAAMYAAAAkCAMAAADlybXmAAAABGdBTUEAALGPC/xhBQAAAAFzUkdC
@@ -249,10 +250,10 @@ jxRjK4wXMNhIll0yTxgEInd9ite6JL4TQ6CgGHfv3lxZ5LIhBtR2b8LqtpJVHazqREk7VLxThEF3
 lhF/ccH1JkK99YDhDaEDpVUmLbi+Eq1j5icFCorxpz8KEIsf+qDH60/FKhIkArVmnfPGgja9mWSq
 jK2O4eympJtBiIiuv1BUc/OCWiXZhUDgKt1cf37SS1GY+SZ5cgZlLrT6xQAAAABJRU5ErkJggg==
 
---_=_swift_1642313752_7c6d4b16551a4fb1ef7e3dac46135979_=_
+--_=_swift_1644387455_f84378ab85121413e0e25d4074e6f1dd_=_
 Content-Type: image/png; name=twitter-icon-flat.png
 Content-Transfer-Encoding: base64
-Content-ID: <3a9bb03ef194dd98e924642510a50a52@swift.generated>
+Content-ID: <bf4de6b8cad480d766a61702c6e0a687@swift.generated>
 Content-Disposition: inline; filename=twitter-icon-flat.png
 
 iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAMAAAAM7l6QAAAABGdBTUEAALGPC/xhBQAAAAFzUkdC
@@ -281,10 +282,10 @@ Lz93uqO9JrsoDx7xha4+oAgXnw9OLDl5+fnQ0ICAYktIcuGqxJKWMgqYoWlNiKMYM7EVMArCUiqv
 YmkXqmRhMasAUkJ3CSztRUhO6nQzR80mAV7+DXWFoExUWNuQkh6Gkcu82Tx8/VjYU5NZ05LgggBB
 RjlHdYl0LAAAAABJRU5ErkJggg==
 
---_=_swift_1642313752_7c6d4b16551a4fb1ef7e3dac46135979_=_
+--_=_swift_1644387455_f84378ab85121413e0e25d4074e6f1dd_=_
 Content-Type: image/png; name=facebook-icon-flat.png
 Content-Transfer-Encoding: base64
-Content-ID: <9a67f8aed609274d404f149cde19234f@swift.generated>
+Content-ID: <e8409f3a25cee88342914591f334fcb5@swift.generated>
 Content-Disposition: inline; filename=facebook-icon-flat.png
 
 iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAMAAAAM7l6QAAAABGdBTUEAALGPC/xhBQAAAAFzUkdC
@@ -311,10 +312,10 @@ GRgMs3BJl0UAY8xMvQYuvSIzcxFcutjDBxThamV5MOklK5fPnAKTLtCBJBeeLpjIrNkzJsLYWbzQ
 tMYhCEtsk5ua6mCyTMKwlMohl5WNmpCLu1lEkBK6q1cZkoLishA31GzCGBpW2w9WUVzUF5uYjpHL
 ktkiUwI52aNjWJLC4YIAExExwQd3BSAAAAAASUVORK5CYII=
 
---_=_swift_1642313752_7c6d4b16551a4fb1ef7e3dac46135979_=_
+--_=_swift_1644387455_f84378ab85121413e0e25d4074e6f1dd_=_
 Content-Type: image/png; name=linkedin-icon-flat.png
 Content-Transfer-Encoding: base64
-Content-ID: <95809965a8d2a9fdc37a6ff3c9c3428f@swift.generated>
+Content-ID: <ae9e0f7a1e902060f078f2e397cea26f@swift.generated>
 Content-Disposition: inline; filename=linkedin-icon-flat.png
 
 iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAMAAAAM7l6QAAAABGdBTUEAALGPC/xhBQAAAAFzUkdC
@@ -344,10 +345,10 @@ OHnyrg1NQObEurolIIeZeoAiXKoFJF3bWJtdlZubCzKqtrEHSFUbQpILRyu2xFQmJAiRZuOajUVW
 UhyWUgXkyrtQJSuqJUSQEnpkXCVSWq4os1cURckmaemxlcVgI/IXdgT4eWLksqzEzPgMFvaI0DCv
 ILggACPOSwIhos4yAAAAAElFTkSuQmCC
 
---_=_swift_1642313752_7c6d4b16551a4fb1ef7e3dac46135979_=_
+--_=_swift_1644387455_f84378ab85121413e0e25d4074e6f1dd_=_
 Content-Type: image/png; name=telegram-icon-flat.png
 Content-Transfer-Encoding: base64
-Content-ID: <eb13b4f1c6875f76e80d600d4a8be81b@swift.generated>
+Content-ID: <3d8143347a2f568be916ea610791ec7c@swift.generated>
 Content-Disposition: inline; filename=telegram-icon-flat.png
 
 iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAMAAAAM7l6QAAADAFBMVEVHcEw5mcQaSn8FKTY2h90s
@@ -380,5 +381,5 @@ U6+KT87OTtzw9vOGtLQEoFRCWVlidnZ8PB8kwhVKq+KBKl69ToSA7Ozk5PiqeBYmiLSqWmlpShVQ
 SXwyCADpqpTSUnkVWGLjUs4qBYIUGACyMxV5EEmVWysWCDJLs0AgE8jMYlFCTujsnFJ1sXBQJ8XH
 hJZNAsIDly6pA4IlS6PlQrBkMhnuiFBOzkieKA4BuBgA8IpLSuY2/nkAAAAASUVORK5CYII=
 
---_=_swift_1642313752_7c6d4b16551a4fb1ef7e3dac46135979_=_--
+--_=_swift_1644387455_f84378ab85121413e0e25d4074e6f1dd_=_--
 

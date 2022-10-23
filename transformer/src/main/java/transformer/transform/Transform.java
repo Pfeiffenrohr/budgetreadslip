@@ -43,6 +43,12 @@ public class Transform {
             content = rm.parseMail(txt);
             tr.writeFile(content,args[1],url,"edeka",rm.getList());
         } 
+        if (args[2].equals("wuensche"))
+        {
+            ReadMail rm =  new ReadMailWuensche();   
+            content = rm.parseMail(txt);
+            tr.writeFile(content,args[1],url,"wuensche",rm.getList());
+        } 
         if (args[2].equals("rewe"))
         {
             ReadMail rm =  new ReadMailRewe();   
@@ -91,6 +97,24 @@ public class Transform {
         content =rm.parseMail(txt);
         tr.writeFile(content,args[1],url,"Depotbank",rm.getList());
         } 
+        if (args[2].equals("consors"))
+        { 
+            ReadMail rm =  new ReadConsorsBank();
+        content =rm.parseMail(txt);
+        tr.writeFile(content,args[1],url,"Consors",rm.getList());
+        } 
+        if (args[2].equals("swaper"))
+        { 
+            ReadMail rm =  new ReadMailSwaper();
+        content =rm.parseMail(txt);
+        tr.writeFile(content,args[1],url,"Swaper",rm.getList());
+        }
+        if (args[2].equals("debitum"))
+        { 
+            ReadMail rm =  new ReadMailDebitum();
+        content =rm.parseMail(txt);
+        tr.writeFile(content,args[1],url,"Debitum",rm.getList());
+        }
       
     }
     
@@ -98,20 +122,23 @@ public class Transform {
     {
         String body = transformToJson(list);
         System.out.println(body);
+        
       
         if (company.equals("Mintos") 
                 ||company.equals("ViaInvest") 
                 || company.equals("PeerBerry") 
                 || company.equals("Robocash")
                 || company.equals("Twino")
-                || company.equals("Income"))
+                || company.equals("Income")
+                || company.equals("Debitum")
+                || company.equals("Swaper"))
             
         {
             url=url + "/p2p";
         }
         else
         {
-            if (company.equals("Depotbank"))
+            if (company.equals("Depotbank") || company.equals("Consors"))
             {
                 url=url + "/fonds";
             }
