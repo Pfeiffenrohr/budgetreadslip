@@ -22,7 +22,7 @@ public class ReadMailRobocash implements ReadMail {
             int count = 0;
             String summe = "";
             // Suche den Anfang
-            while ( count < splited.length && !splited[count].contains("Total funds")) {
+            while ( count < splited.length && !splited[count].contains("TOTAL FUNDS")) {
                 count++;
                 continue;
             }
@@ -47,8 +47,8 @@ public class ReadMailRobocash implements ReadMail {
                 }
                
                 summe = splited[count].concat(splited[count+1]).replaceAll("=", "");
-                summe = summe.substring(summe.indexOf("AC ") + 3);
-                summe = summe.substring(0, summe.indexOf(" "));
+                summe = summe.substring(summe.indexOf("AC ") + 2);
+                summe = summe.substring(0, summe.indexOf("*"));
                 
                 
                 // summe = summe.substring(0, summe.indexOf(" "));
