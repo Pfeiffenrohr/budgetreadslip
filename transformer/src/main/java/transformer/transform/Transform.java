@@ -42,7 +42,13 @@ public class Transform {
             ReadMail rm =  new ReadMailEdeka();   
             content = rm.parseMail(txt);
             tr.writeFile(content,args[1],url,"edeka",rm.getList());
-        } 
+        }
+        if (args[2].equals("edekanew"))
+        {
+            ReadMail rm =  new ReadMailEdekaNew();
+            content = rm.parseMail(txt);
+            tr.writeFile(content,args[1],url,"edeka",rm.getList());
+        }
         if (args[2].equals("wuensche"))
         {
             ReadMail rm =  new ReadMailWuensche();   
