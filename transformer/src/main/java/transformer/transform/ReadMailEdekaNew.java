@@ -49,7 +49,7 @@ private List <SlipEntry> list ;
                     String summe = tokens[j];
                     se.setSum(summe);
                     System.out.println("Summe: " + summe);
-                    content = content + summe + " { \n";
+                    content = content + summe + " {\n";
                     break;
                 }
             }
