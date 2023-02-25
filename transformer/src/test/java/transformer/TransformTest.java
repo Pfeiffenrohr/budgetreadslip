@@ -12,15 +12,7 @@ import java.util.Scanner;
 
 import org.junit.Test;
 
-import transformer.transform.ReadMailMintos;
-import transformer.transform.ReadMailPeerBerry;
-import transformer.transform.ReadMailRobocash;
-import transformer.transform.ReadMailTwino;
-import transformer.transform.ReadMailViaInvest;
-import transformer.transform.Transform;
-
-
-
+import transformer.transform.*;
 
 
 public class TransformTest {
@@ -48,6 +40,7 @@ public class TransformTest {
               data = data+myReader.nextLine() +"\n";
              // System.out.println(data);
             }
+            data=data.substring(0, data.length() - 1);
             myReader.close();
           } catch (FileNotFoundException e) {
             System.out.println("An error occurred.");
@@ -77,7 +70,7 @@ public class TransformTest {
         String result = new ReadMailMintos().parseMail(data);
       // String hhh = transform.parseFileTwino(data);
         
-       System.out.println(">"+result+"<");
+      // System.out.println(">"+result+"<");
        assertEquals("1.25 {",result.trim());  
     }
     /*
@@ -105,7 +98,7 @@ public class TransformTest {
         String result = new  ReadMailRobocash().parseMail(data);
       // String hhh = transform.parseFileTwino(data);
         
-       System.out.println(">"+result+"<");
+     //  System.out.println(">"+result+"<");
        assertEquals("2865.09 {",result.trim());
     }
     
@@ -121,7 +114,7 @@ public class TransformTest {
         String result = new  ReadMailPeerBerry().parseMail(data);
       // String hhh = transform.parseFileTwino(data);
         
-       System.out.println(">"+result+"<");
+     //  System.out.println(">"+result+"<");
        assertEquals("0.12 {",result.trim());  
     }
     
@@ -135,10 +128,23 @@ public class TransformTest {
         String result = new  ReadMailViaInvest().parseMail(data);
       // String hhh = transform.parseFileTwino(data);
         
-       System.out.println(">"+result+"<");
+      // System.out.println(">"+result+"<");
        assertEquals("0.20 {",result.trim());  
     }
-   
+
+    @Test
+    public void edekaNewTest() throws Exception {
+
+        System.out.println("Start EdekaNew");
+        //Transform transform = new Transform();
+
+        String data = readFile("src/test/resources/EdekaNew.txt");
+        String result = new ReadMailEdekaNew().parseMail(data);
+        // String hhh = transform.parseFileTwino(data);
+        String resultfile = readFile("src/test/resources/EdekaNewResult.txt");
+        System.out.println(">"+result+"<");
+        assertEquals(resultfile,result.trim());
+    }
 
 }
 
