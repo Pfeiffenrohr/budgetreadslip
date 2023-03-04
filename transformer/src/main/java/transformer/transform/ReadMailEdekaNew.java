@@ -30,18 +30,30 @@ private List <SlipEntry> list ;
             String line = splited[count];
             //Tokenize the line
             line=line.replace("*"," ");
+            line=line.replace("PREPACK","");
+            line=line.replace("/"," ");
+            line=line.replace("ä","ae");
+            line=line.replace("ü","ue");
+            line=line.replace("ö","oe");
             String tokens[] = line.trim().split(" ");
 
             SlipEntry se = new SlipEntry();
             String name = "";
-            if (isNumber(tokens[0]))
+            //Überspringe alle falschen Zeilen
+            if (isNumber(tokens[0]) || tokens[0].startsWith("/kg") || tokens[0].startsWith("EURkg"))
             {
                 count++;
                 continue;
             }
             for (int j = 0; j < tokens.length; j++) {
                 if (!isNumber(tokens[j])) {
-                    name = name + tokens[j];
+                    if (name.equals(""))
+                    {
+                        name=tokens[j];
+                    }
+                    else {
+                        name = name + " " + tokens[j];
+                    }
                 } else {
                     System.out.println("Name: " + name);
                     se.setName(name);
@@ -53,7 +65,9 @@ private List <SlipEntry> list ;
                     break;
                 }
             }
-            list.add(se);
+            if (se.getName() != null && se.getSum() != null) {
+                list.add(se);
+            }
             count++;
         }
         System.out.println("Content "+content);
