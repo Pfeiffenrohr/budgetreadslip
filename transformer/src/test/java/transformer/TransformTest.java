@@ -145,6 +145,19 @@ public class TransformTest {
         System.out.println(">"+result+"<");
         assertEquals(resultfile,result.trim());
     }
+    @Test
+    public void edekaNewTest1() throws Exception {
+
+        System.out.println("Start EdekaNew");
+        //Transform transform = new Transform();
+
+        String data = readFile("src/test/resources/EdekaNew1.txt");
+        String result = new ReadMailEdekaNew().parseMail(data);
+        // String hhh = transform.parseFileTwino(data);
+        String resultfile = readFile("src/test/resources/EdekaNewResult1.txt");
+        System.out.println(">"+result+"<");
+        assertEquals(resultfile,result.trim());
+    }
 
 }
 
