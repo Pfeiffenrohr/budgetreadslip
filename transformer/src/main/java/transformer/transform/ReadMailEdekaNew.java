@@ -35,25 +35,24 @@ private List <SlipEntry> list ;
             line=line.replace("ä","ae");
             line=line.replace("ü","ue");
             line=line.replace("ö","oe");
+            if (hasPattern(line)) {
+                count++;
+                continue;
+            }
             String tokens[] = line.trim().split(" ");
 
             SlipEntry se = new SlipEntry();
             String name = "";
             //Überspringe alle falschen Zeilen
-            if (isNumber(tokens[0]) || tokens[0].startsWith("/kg") || tokens[0].startsWith("EURkg"))
+            if ( tokens[0].startsWith("/kg") || tokens[0].startsWith("EURkg"))
             {
                 count++;
                 continue;
             }
-            for (int j = 0; j < tokens.length; j++) {
+            name=tokens[0];
+            for (int j = 1; j < tokens.length; j++) {
                 if (!isNumber(tokens[j])) {
-                    if (name.equals(""))
-                    {
-                        name=tokens[j];
-                    }
-                    else {
                         name = name + " " + tokens[j];
-                    }
                 } else {
                     System.out.println("Name: " + name);
                     se.setName(name);
@@ -88,5 +87,16 @@ private List <SlipEntry> list ;
             return false;
         }
         return true;
+    }
+
+    private boolean hasPattern(String str)  {
+        String tokens[] = str.trim().split(" ");
+        if (tokens.length < 3) {
+            return false;
+        }
+        if (isNumber(tokens[0]) && tokens[1].equals("x") && isNumber(tokens[2])) {
+            return true;
+        }
+        return false;
     }
 }
