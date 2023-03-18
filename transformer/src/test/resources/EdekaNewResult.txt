@@ -1,13 +1,13 @@
-LeergutEntl.allg. -0,70 {
-LEERGUTEINWEGALLG. -1,25 {
-G&GH-Milch1,5% 12,60 {
+Leergut Entl.allg. -0,70 {
+LEERGUT EINWEG ALLG. -1,25 {
+G&G H-Milch 1,5% 12,60 {
 Kram.Kart.salat 1,99 {
-G&GPaella750g 3,49 {
-G&GGyros-Reispf. 3,49 {
-FrostaRahmgeschn. 2,79 {
-EURkgx0,534 1,69 {
-WWFBananen 0,90 {
-ZottSahnejoghurt 0,89 {
-Schw.Zero1,5l 1,29 {
+G&G Paella 750g 3,49 {
+G&G Gyros-Reispf. 3,49 {
+Frosta Rahmgeschn. 2,79 {
+Beleg Wurst Schinken BED 4,96 {
+WWF Bananen 0,90 {
+Zott Sahnejoghurt 0,89 {
+Schw.Zero 1,5l 1,29 {
 Pfand 0,25 {
-G&GStudentenfutt. 1,79 {
+G&G Studentenfutt. 1,79 {
