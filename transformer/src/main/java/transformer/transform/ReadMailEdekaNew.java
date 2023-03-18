@@ -44,7 +44,7 @@ private List <SlipEntry> list ;
             SlipEntry se = new SlipEntry();
             String name = "";
             //Überspringe alle falschen Zeilen
-            if ( tokens[0].startsWith("/kg") || tokens[0].startsWith("EURkg"))
+            if ( tokens[0].startsWith("/kg") || tokens[0].startsWith("EURkg") || tokens[0].startsWith("SUMME"))
             {
                 count++;
                 continue;
