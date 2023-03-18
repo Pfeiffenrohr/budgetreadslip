@@ -96,7 +96,7 @@ public class P2PService {
            return;
        }
        
-       if (diff > 0.001 || diff < -0.001 )
+       if (diff >= 0.01 || diff <= -0.01 )
        {
            insertTransaction(diff,company);
        }
