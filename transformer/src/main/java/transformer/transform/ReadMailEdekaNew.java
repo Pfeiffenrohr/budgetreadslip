@@ -39,19 +39,20 @@ private List <SlipEntry> list ;
                 count++;
                 continue;
             }
+            line= line.replaceAll("\\s+", " ");
             String tokens[] = line.trim().split(" ");
 
             SlipEntry se = new SlipEntry();
             String name = "";
             //Überspringe alle falschen Zeilen
-            if ( tokens[0].startsWith("/kg") || tokens[0].startsWith("EURkg"))
+            if ( tokens[0].startsWith("/kg") || tokens[0].startsWith("EURkg") || tokens[0].startsWith("SUMME"))
             {
                 count++;
                 continue;
             }
             name=tokens[0];
             for (int j = 1; j < tokens.length; j++) {
-                if (!isNumber(tokens[j])) {
+                if (!isNumber(tokens[j]) ||  (j < tokens.length-2) ) {
                         name = name + " " + tokens[j];
                 } else {
                     System.out.println("Name: " + name);

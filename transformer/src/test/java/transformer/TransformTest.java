@@ -22,10 +22,10 @@ public class TransformTest {
     
         System.out.println("Start Test");
         
-    /*    result.add("eins €");
-        result.add(" zwei €");
-        result.add(" drei €");
-        List <String> str =  ps.scanner("eins €\n zwei €\n irgendwas \n drei €");
+    /*    result.add("eins â‚¬");
+        result.add(" zwei â‚¬");
+        result.add(" drei â‚¬");
+        List <String> str =  ps.scanner("eins â‚¬\n zwei â‚¬\n irgendwas \n drei â‚¬");
         
         assertEquals(result,str);*/
 
@@ -146,11 +146,20 @@ public class TransformTest {
         assertEquals(resultfile,result.trim());
     }
     @Test
-    public void edekaNewTest1() throws Exception {
+    public void edekaNewNetoTest() throws Exception {
+        System.out.println("Start EdekaNewNetto");
+        //Transform transform = new Transform();   
+        String data = readFile("src/test/resources/EdekaNewNetto.txt");
+        String result = new ReadMailEdekaNew().parseMail(data);
+        // String hhh = transform.parseFileTwino(data);
+        String resultfile = readFile("src/test/resources/EdekaNewNettoResult.txt");
+        System.out.println(">"+result+"<");
+        assertEquals(resultfile,result.trim());
+    }
+     public void edekaNewTest1() throws Exception {
 
         System.out.println("Start EdekaNew");
         //Transform transform = new Transform();
-
         String data = readFile("src/test/resources/EdekaNew1.txt");
         String result = new ReadMailEdekaNew().parseMail(data);
         // String hhh = transform.parseFileTwino(data);
@@ -158,6 +167,7 @@ public class TransformTest {
         System.out.println(">"+result+"<");
         assertEquals(resultfile,result.trim());
     }
+
 
 }
 
