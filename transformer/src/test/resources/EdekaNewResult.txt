@@ -5,7 +5,7 @@ Kram.Kart.salat 1,99 {
 G&G Paella 750g 3,49 {
 G&G Gyros-Reispf. 3,49 {
 Frosta Rahmgeschn. 2,79 {
-Beleg Wurst Schinken BED   4,96 {
+Beleg Wurst Schinken BED 4,96 {
 WWF Bananen 0,90 {
 Zott Sahnejoghurt 0,89 {
 Schw.Zero 1,5l 1,29 {
