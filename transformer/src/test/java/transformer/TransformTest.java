@@ -167,6 +167,15 @@ public class TransformTest {
         System.out.println(">"+result+"<");
         assertEquals(resultfile,result.trim());
     }
+    public void wuensche() throws Exception {
+
+        System.out.println("Start EdekaNew");
+        //Transform transform = new Transform();
+        String data = readFile("src/test/resources/Wuensche.txt");
+        String result = new ReadMailEdekaNew().parseMail(data);
+        System.out.println(">"+result+"<");
+        assertEquals("5.56 {",result.trim());
+    }
 
 
 }
