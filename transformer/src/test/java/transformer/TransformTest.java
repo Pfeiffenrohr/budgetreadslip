@@ -146,7 +146,7 @@ public class TransformTest {
         assertEquals(resultfile,result.trim());
     }
     @Test
-    public void edekaNewTest1() throws Exception {
+    public void edekaNewTest2() throws Exception {
 
         System.out.println("Start EdekaNew");
         //Transform transform = new Transform();
