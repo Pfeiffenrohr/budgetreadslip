@@ -1,63 +1,54 @@
-E Center Schrobenhausen
-Augsburger Str. 45
-86529 Schrobenhausen
-Tel. 08252 / 887940
+Andreas Riehl E. K.
+Industrie Straße 1
+86558 Hohenwart
+Tel. 08443 / 917871
 www.edeka.de
 EUR
-2 x 1,05Mön.Kellerb.0,5l 2,10 B
-2 x 0,15Pfand 0,30*B
-2 x 1,05Mön.Naturtr.0,5l 2,10 B
-2 x 0,15Pfand 0,30*B
-Schw.Lemon Z.1,5l 1,29 B
-Pfand 0,25*B
-So.Bass.Rostbratw. 3,49 A
-Zott Sahnejoghurt 0,49 AW
-Frosta Ind.Chick. 4,69 A
-Iglo Tagliatelle 3,49 A
-Beleg Käse BED/PREPACK 0,84
-G&G Zitronenkuchen 1,99 A
-Beleg Wurst/Schinken BED / PREPACK4,69
-E.Eiersalat 1,59 A
-EURkg x0,316 1,29
-GG Bananen 0,41 A
+EURkg x0,796 2,29
+Chiquita Bananen 1,82 A
 /kg
-Zott Sahnejoghurt 0,49 AW
-----------Posten: 21
-SUMME EUR 28,51
-EdekaApp 28,51EUR
+Beleg Wurst/Schinken BED / PREPACK1,88
+Beleg Frischfleisch + Geflügel BED4,00
+Leergut Entl.allg. -0,99*B
+LEERGUT EINWEG ALLG. -0,75*B
+EDK Zwiebeln 2,49 A
+G&G Joghurt 1,5% 0,39 A
+----------Posten: 5
+SUMME EUR 8,84
+EdekaApp 8,84EUR
 MwSt NETTO MwSt UMSATZ
-A 7% 20,72 1,45 22,17
-B 19% 5,33 1,01 6,34
+A 7% 9,89 0,69 10,58
+B 19% -1,46 -0,28 -1,74
 Kunde - 488211
 Deutschlandcard - 1875135***
 Mit diesem Einkauf haben Sie auf
 Ihrem DeutschlandCard Konto
-auf den Umsatz von 27,66 EUR
-13 Punkte erworben.
-13 Punkte für Ihren heutigen
+auf den Umsatz von 10,58 EUR
+5 Punkte erworben.
+5 Punkte für Ihren heutigen
 Einkauf
 * Position nicht rabattberechtigt
-0013371060323103001918
+0011767040423102008781
 Es bediente Sie:
-Herr Daniel Lange
+  Birgmeir
 Datum Uhrzeit  Filiale Pos Bed Bon
-06.03.23 17:38 0233371 103 144 1918
-Steuernummer: DE 811118282
-TSE Transaktionsnummer: 101578
+04.04.23 17:23 0031767 102 316 8781
+Steuernummer: 154/262/80253
+TSE Transaktionsnummer: 51097
 TSE Seriennummer: MHYwEAYHKoZIzj0CAQYFK4
-EEACIDYgAEtaD+7YVF5bJObK2DPwPTbTn9/E/Tpm
-1dMMwfnih+Y3WXyBF2QU4HSMnvTDXhOIOiIhubs5
-Bcquwzqy+B6M35m3QW7mZEF2PUrLXBpJDRc/8kp/
-ZUJOZaRuGaOgOctCtX
-Seriennr. Kasse: SB233371POS03
-Prüfwert: p2ZQp18DLVZOORrhEqV3F6QOC3XscQ
-5FPJsBqPMZw0tuHHDdZf1FbQAh3E4GyiKRRxTOq5
-JEAcncMO+vOyQWRylxFyFIxIRFtxb+e0Yj5lWcN+
-Io7avH6+ym3JitQgBB
-Signaturzähler: 286457
-2023-03-06T16:38:13.000Z2023-03-06T16:39
-:22.000Z
+EEACIDYgAEKxGD1ClAYUdHs/ldlWLX/M7qJTZ/Sm
+SMTQWsHRJfBgSTgOwYWkHaxJOBZNayM+gJUjg7JJ
+4mvNWsFSlNWtwq6EZ9eGIlPjxQ6e5dLagoam7ADR
+PmlPauQANjIZ6GrawY
+Seriennr. Kasse: SB031767POS02
+Prüfwert: I4/SlyaVcvmfX3zRNSkuvvOT9WC3Kf
+X4k62Md6N434aeIBxdcCbaNhmbG5yVGdKFe/BgPU
+LTTNYcHlaNq8hfnONDHvw1lTk0YNRRgUvYvpsPaZ
+dpel5QHDYXxs0iFvMo
+Signaturzähler: 102992
+2023-04-04T15:23:02.000Z2023-04-04T15:23
+:25.000Z
 VIELEN DANK FÜR IHREN EINKAUF
 Öffnungszeiten:
-Mo. - Sa. 08:00 - 20:00 Uhr
+Mo. - Sa. 07:00 - 20:00 Uhr
 DE-ÖKO-060
