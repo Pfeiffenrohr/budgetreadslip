@@ -1,0 +1,16 @@
+2 x 1,05Moen.Kellerb.0,5l 2,10 {
+2 x 0,15Pfand 0,30 {
+2 x 1,05Moen.Naturtr.0,5l 2,10 {
+2 x 0,15Pfand 0,30 {
+Schw.Lemon Z.1,5l 1,29 {
+Pfand 0,25 {
+So.Bass.Rostbratw. 3,49 {
+Zott Sahnejoghurt 0,49 {
+Frosta Ind.Chick. 4,69 {
+Iglo Tagliatelle 3,49 {
+Beleg Kaese BED  0,84 {
+G&G Zitronenkuchen 1,99 {
+Beleg Wurst Schinken BED   4,69 {
+E.Eiersalat 1,59 {
+GG Bananen 0,41 {
+Zott Sahnejoghurt 0,49 {
