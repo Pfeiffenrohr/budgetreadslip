@@ -26,7 +26,7 @@ private List <SlipEntry> list ;
             count++;
         }
         count++;
-        while (!splited[count].startsWith("---")) {
+        while (!splited[count].startsWith("---") && !splited[count].startsWith("SUMME") ) {
             String line = splited[count];
             //Tokenize the line
             line=line.replace("*"," ");
@@ -46,7 +46,7 @@ private List <SlipEntry> list ;
             SlipEntry se = new SlipEntry();
             String name = "";
             //Überspringe alle falschen Zeilen
-            if ( tokens[0].startsWith("/kg") || tokens[0].startsWith("EURkg") || tokens[0].startsWith("SUMME"))
+            if ( tokens[0].startsWith("/kg") || tokens[0].startsWith("EURkg") || tokens[0].startsWith("SUMME") || tokens[0].startsWith("2x"))
             {
                 count++;
                 continue;
