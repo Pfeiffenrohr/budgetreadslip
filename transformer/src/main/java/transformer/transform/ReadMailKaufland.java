@@ -53,7 +53,7 @@ private List <SlipEntry> list ;
             }
             name=tokens[0];
             for (int j = 1; j < tokens.length; j++) {
-                if (!isNumber(tokens[j]) ||  (j < tokens.length-2) ) {
+                if (!isNumber(tokens[j]) ||  (j < tokens.length-1) ) {
                         name = name + " " + tokens[j];
                 } else {
                     System.out.println("Name: " + name);
