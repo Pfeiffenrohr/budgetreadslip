@@ -49,6 +49,12 @@ public class Transform {
             content = rm.parseMail(txt);
             tr.writeFile(content,args[1],url,"edeka",rm.getList());
         }
+        if (args[2].equals("kaufland"))
+        {
+            ReadMail rm =  new ReadMailKaufland();
+            content = rm.parseMail(txt);
+            tr.writeFile(content,args[1],url,"kaufland",rm.getList());
+        }
         if (args[2].equals("wuensche"))
         {
             ReadMail rm =  new ReadMailWuensche();   

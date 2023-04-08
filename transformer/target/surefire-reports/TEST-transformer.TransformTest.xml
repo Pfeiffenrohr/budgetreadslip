@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="transformer.TransformTest" time="0.241" tests="7" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="transformer.TransformTest" time="0.224" tests="9" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="18"/>
     <property name="sun.cpu.isalist" value="amd64"/>
@@ -15,7 +15,7 @@
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="user.country" value="DE"/>
     <property name="sun.boot.library.path" value="C:\MyProgramms\jdk-18.0.2\bin"/>
-    <property name="sun.java.command" value="C:\Users\richard\AppData\Local\Temp\surefire12331071153291454483\surefirebooter26041775248197410.jar C:\Users\richard\AppData\Local\Temp\surefire12331071153291454483 2023-02-25T15-37-26_851-jvmRun1 surefire13000395156850659891tmp surefire_012973109484635509784tmp"/>
+    <property name="sun.java.command" value="C:\Users\richard\AppData\Local\Temp\surefire2848546741368006796\surefirebooter1305964877705051326.jar C:\Users\richard\AppData\Local\Temp\surefire2848546741368006796 2023-04-06T21-19-34_281-jvmRun1 surefire4968890823496634056tmp surefire_011789737588462672052tmp"/>
     <property name="jdk.debug" value="release"/>
     <property name="surefire.test.class.path" value="C:\Users\richard\IdeaProjects\budgetreadslip\transformer\target\test-classes;C:\Users\richard\IdeaProjects\budgetreadslip\transformer\target\classes;C:\Users\richard\.m2\repository\org\apache\httpcomponents\httpclient\4.5.13\httpclient-4.5.13.jar;C:\Users\richard\.m2\repository\org\apache\httpcomponents\httpcore\4.4.13\httpcore-4.4.13.jar;C:\Users\richard\.m2\repository\commons-logging\commons-logging\1.2\commons-logging-1.2.jar;C:\Users\richard\.m2\repository\commons-codec\commons-codec\1.11\commons-codec-1.11.jar;C:\Users\richard\.m2\repository\junit\junit\4.11\junit-4.11.jar;C:\Users\richard\.m2\repository\org\hamcrest\hamcrest-core\1.3\hamcrest-core-1.3.jar;"/>
     <property name="sun.cpu.endian" value="little"/>
@@ -30,7 +30,7 @@
     <property name="line.separator" value="&#10;"/>
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
-    <property name="surefire.real.class.path" value="C:\Users\richard\AppData\Local\Temp\surefire12331071153291454483\surefirebooter26041775248197410.jar"/>
+    <property name="surefire.real.class.path" value="C:\Users\richard\AppData\Local\Temp\surefire2848546741368006796\surefirebooter1305964877705051326.jar"/>
     <property name="user.script" value=""/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
     <property name="java.runtime.version" value="18.0.2+9-61"/>
@@ -58,10 +58,12 @@
     <property name="java.class.version" value="62.0"/>
   </properties>
   <testcase name="transformTest" classname="transformer.TransformTest" time="0.004"/>
-  <testcase name="ViaInvestTest" classname="transformer.TransformTest" time="0.019"/>
-  <testcase name="PeerBerryTest" classname="transformer.TransformTest" time="0.076"/>
-  <testcase name="MintosTest" classname="transformer.TransformTest" time="0.071"/>
+  <testcase name="ViaInvestTest" classname="transformer.TransformTest" time="0.021"/>
+  <testcase name="PeerBerryTest" classname="transformer.TransformTest" time="0.065"/>
+  <testcase name="MintosTest" classname="transformer.TransformTest" time="0.062"/>
   <testcase name="edekaNewTest" classname="transformer.TransformTest" time="0.005"/>
-  <testcase name="RobocashTest" classname="transformer.TransformTest" time="0.018"/>
-  <testcase name="TwinoTest" classname="transformer.TransformTest" time="0.019"/>
+  <testcase name="edekaNewNetoTest" classname="transformer.TransformTest" time="0.008"/>
+  <testcase name="RobocashTest" classname="transformer.TransformTest" time="0.017"/>
+  <testcase name="TwinoTest" classname="transformer.TransformTest" time="0.013"/>
+  <testcase name="edekaNewTest2" classname="transformer.TransformTest" time="0.002"/>
 </testsuite>

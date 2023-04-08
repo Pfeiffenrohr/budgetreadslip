@@ -182,6 +182,19 @@ public class TransformTest {
         System.out.println(">"+result+"<");
         assertEquals(resultfile,result.trim());
     }
+    @Test
+    public void kauflandTest() throws Exception {
+
+        System.out.println("Start Kaufland");
+        //Transform transform = new Transform();
+
+        String data = readFile("src/test/resources/Kaufland.txt");
+        String result = new ReadMailKaufland().parseMail(data);
+        // String hhh = transform.parseFileTwino(data);
+        String resultfile = readFile("src/test/resources/KauflandResult.txt");
+        System.out.println(">"+result+"<");
+        assertEquals(resultfile,result.trim());
+    }
      public void edekaNewTest1() throws Exception {
 
         System.out.println("Start EdekaNew");
