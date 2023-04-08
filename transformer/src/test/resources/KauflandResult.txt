@@ -1,8 +1,8 @@
 K.Naturjoghurt 1,09 {
 K.Toipa 3lagig oeko 2,95 {
 KFav.Apfels.natur. 1,19 {
-Schwip Schwap Zero X 2 {
-Pfandartikel X 2 {
+Schwip Schwap Zero X 2 1,78 {
+Pfandartikel X 2 0,50 {
 KLC.MB m. ZB 120L 1,75 {
 Zwiebelmettwurst 2,29 {
 KLC Thunf. Wasser 1,49 {
