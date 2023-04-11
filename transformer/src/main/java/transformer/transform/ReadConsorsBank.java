@@ -41,6 +41,8 @@ public class ReadConsorsBank implements ReadMail {
                 se.setSum(summe);
                 list.add(se);
             }
+            System.out.println("Content = " +content);
+            System.out.println("END Content = ");
             return content;
         }
 }

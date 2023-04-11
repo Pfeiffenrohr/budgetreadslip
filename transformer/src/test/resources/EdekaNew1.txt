@@ -8,7 +8,7 @@ EURkg x0,796 2,29
 Chiquita Bananen 1,82 A
 /kg
 Beleg Wurst/Schinken BED / PREPACK1,88
-Beleg Frischfleisch + Geflügel BED4,00
+Beleg Frischfleisch + Gefluegel BED4,00
 Leergut Entl.allg. -0,99*B
 LEERGUT EINWEG ALLG. -0,75*B
 EDK Zwiebeln 2,49 A
