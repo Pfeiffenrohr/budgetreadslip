@@ -21,7 +21,7 @@ import de.lechner.readslip.transaction.UpdateTransactions;
 @Service
 public class BonServiceReadFile {
 	
-	 @Value("${budget.inputdir}") 
+	 @Value("${budget.inputdir}")
 	 String inputdir;
 	 @Value("${budget.filename}") 
 	 String companies [];
