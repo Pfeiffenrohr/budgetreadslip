@@ -146,6 +146,32 @@ public class TransformTest {
         assertEquals(resultfile,result.trim());
     }
     @Test
+    public void edekaNewTest2() throws Exception {
+
+        System.out.println("Start EdekaNew");
+        //Transform transform = new Transform();
+
+        String data = readFile("src/test/resources/EdekaNew1.txt");
+        String result = new ReadMailEdekaNew().parseMail(data);
+        // String hhh = transform.parseFileTwino(data);
+        String resultfile = readFile("src/test/resources/EdekaNew1Result.txt");
+        System.out.println(">"+result+"<");
+        assertEquals(resultfile,result.trim());
+    }
+    @Test
+    public void edekaNewTest3() throws Exception {
+
+        System.out.println("Start EdekaNew");
+        //Transform transform = new Transform();
+
+        String data = readFile("src/test/resources/EdekaNew2.txt");
+        String result = new ReadMailEdekaNew().parseMail(data);
+        // String hhh = transform.parseFileTwino(data);
+        String resultfile = readFile("src/test/resources/EdekaNew2Result.txt");
+        System.out.println(">"+result+"<");
+        assertEquals(resultfile,result.trim());
+    }
+    @Test
     public void edekaNewNetoTest() throws Exception {
         System.out.println("Start EdekaNewNetto");
         //Transform transform = new Transform();   
@@ -153,6 +179,32 @@ public class TransformTest {
         String result = new ReadMailEdekaNew().parseMail(data);
         // String hhh = transform.parseFileTwino(data);
         String resultfile = readFile("src/test/resources/EdekaNewNettoResult.txt");
+        System.out.println(">"+result+"<");
+        assertEquals(resultfile,result.trim());
+    }
+    @Test
+    public void kauflandTest() throws Exception {
+
+        System.out.println("Start Kaufland");
+        //Transform transform = new Transform();
+
+        String data = readFile("src/test/resources/Kaufland.txt");
+        String result = new ReadMailKaufland().parseMail(data);
+        // String hhh = transform.parseFileTwino(data);
+        String resultfile = readFile("src/test/resources/KauflandResult.txt");
+        System.out.println(">"+result+"<");
+        assertEquals(resultfile,result.trim());
+    }
+    @Test
+    public void wuenscheTest() throws Exception {
+
+        System.out.println("Start Wuensche");
+        //Transform transform = new Transform();
+
+        String data = readFile("src/test/resources/Wuensche.txt");
+        String result = new ReadMailWuensche().parseMail(data);
+        // String hhh = transform.parseFileTwino(data);
+        String resultfile = readFile("src/test/resources/WuenscheResult.txt");
         System.out.println(">"+result+"<");
         assertEquals(resultfile,result.trim());
     }

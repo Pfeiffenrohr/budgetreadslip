@@ -3,7 +3,7 @@ package transformer.transform;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ReadMailEdekaNew implements ReadMail{
+public class ReadMailKaufland implements ReadMail{
     
 private List <SlipEntry> list ;
     
@@ -22,11 +22,11 @@ private List <SlipEntry> list ;
         System.out.println("File has " + splited.length + " lines");
         int count = 0;
         //Überspringe die Zeilen, bis zum Anfang
-        while (!splited[count].startsWith("EUR")) {
+        while (!splited[count].startsWith("Preis")) {
             count++;
         }
         count++;
-        while (!splited[count].startsWith("---") && !splited[count].startsWith("SUMME") ) {
+        while (!splited[count].startsWith("---") && !splited[count].startsWith("Gesamt") ) {
             String line = splited[count];
             //Tokenize the line
             line=line.replace("*"," ");
@@ -53,7 +53,7 @@ private List <SlipEntry> list ;
             }
             name=tokens[0];
             for (int j = 1; j < tokens.length; j++) {
-                if (!isNumber(tokens[j]) ||  (j < tokens.length-2) ) {
+                if (!isNumber(tokens[j]) ||  (j < tokens.length-1) ) {
                         name = name + " " + tokens[j];
                 } else {
                     System.out.println("Name: " + name);
