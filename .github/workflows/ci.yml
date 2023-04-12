@@ -30,5 +30,5 @@ jobs:
         distribution: 'temurin'
         cache: maven
     - name: Build with Maven
-      working-directory: ./budgetreadslip
+      working-directory: ./BudgetReadSlip
       run: mvn -B package --file pom.xml
