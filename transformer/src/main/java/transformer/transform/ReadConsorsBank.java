@@ -36,7 +36,7 @@ public class ReadConsorsBank implements ReadMail {
                 String name = colums[0].replace("&", "u");
                 se.setName(name);
                 String [] sum= colums[13].split(" ");
-                //summe= sum[0].replace(".", "").replace(",", ".");
+                summe= sum[0].replace(".", "").replace(",", ".");
                 summe= sum[0];
                 se.setSum(summe);
                 list.add(se);
