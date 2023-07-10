@@ -5,6 +5,6 @@ cbudgetread:
   restart: always
   environment:
       inputdir: /var/lib/exchange/
-      budgetserverhost: lechnersrv1
+      budgetserverhost: 192.168.188.40
       budgetserverport: 8092
       
