@@ -1,4 +1,4 @@
-GL H-Milch1,5%1L VLOG 12,60 {
+GL H-Milch1,5 1L VLOG 12,60 {
 Moenchsh.LagerMW1x0,5LFL 1,58 {
 Pfand 0,30 {
 BO-Walnussbroetchen 1ST 0,88 {
