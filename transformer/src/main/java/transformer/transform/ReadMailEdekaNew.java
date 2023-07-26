@@ -36,6 +36,7 @@ private List <SlipEntry> list ;
             line=line.replace("ä","ae");
             line=line.replace("ü","ue");
             line=line.replace("ö","oe");
+            line=line.replace("%"," ");
             if (hasPattern(line)) {
                 count++;
                 continue;
