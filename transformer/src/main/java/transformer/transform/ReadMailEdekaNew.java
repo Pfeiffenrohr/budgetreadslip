@@ -41,6 +41,7 @@ private List <SlipEntry> list ;
             line=line.replace("Ü","Ue");
             line=line.replace("Ö","Oe");
             line=line.replace("%"," ");
+            line=line.replace("ß","ss");
 
             if (hasPattern(line)) {
                 count++;
