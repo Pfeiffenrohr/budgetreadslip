@@ -1,6 +1,6 @@
 Leergut Entl.allg. -0,70 {
 LEERGUT EINWEG ALLG. -1,25 {
-G&G H-Milch 1,5% 12,60 {
+G&G H-Milch 1,5 12,60 {
 Kram.Kart.salat 1,99 {
 G&G Paella 750g 3,49 {
 G&G Gyros-Reispf. 3,49 {

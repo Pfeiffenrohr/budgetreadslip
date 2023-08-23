@@ -21,7 +21,7 @@ private List <SlipEntry> list ;
         String splited[] = txt.trim().split("\n");
         System.out.println("File has " + splited.length + " lines");
         int count = 0;
-        //Überspringe die Zeilen, bis zum Anfang
+        //Ãœberspringe die Zeilen, bis zum Anfang
         while (!splited[count].startsWith("EUR")) {
             count++;
         }
@@ -33,9 +33,15 @@ private List <SlipEntry> list ;
             line=line.replace("PREPACK","");
             line=line.replace("BED","");
             line=line.replace("/"," ");
-            line=line.replace("ä","ae");
-            line=line.replace("ü","ue");
-            line=line.replace("ö","oe");
+            line=line.replace("Ã¤","ae");
+            line=line.replace("Ã¼","ue");
+            line=line.replace("Ã¶","oe");
+            line=line.replace("ÃŸ","ss");
+            line=line.replace("Ã„","Ae");
+            line=line.replace("Ãœ","Ue");
+            line=line.replace("Ã–","Oe");
+            line=line.replace("%"," ");
+
             if (hasPattern(line)) {
                 count++;
                 continue;
@@ -45,7 +51,7 @@ private List <SlipEntry> list ;
 
             SlipEntry se = new SlipEntry();
             String name = "";
-            //Überspringe alle falschen Zeilen
+            //Ãœberspringe alle falschen Zeilen
             if ( tokens[0].startsWith("/kg") || tokens[0].startsWith("EURkg") || tokens[0].startsWith("SUMME") || tokens[0].startsWith("2x"))
             {
                 count++;
@@ -76,7 +82,7 @@ private List <SlipEntry> list ;
     }
 
     /**
-     * Prüft, ob es sich bei dem String um eine Zahl handelt
+     * PrÃ¼ft, ob es sich bei dem String um eine Zahl handelt
      */
 
 
