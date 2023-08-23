@@ -4,4 +4,4 @@ Beleg Frischfleisch + Gefluegel 4,00 {
 Leergut Entl.allg. -0,99 {
 LEERGUT EINWEG ALLG. -0,75 {
 EDK Zwiebeln 2,49 {
-G&G Joghurt 1,5% 0,39 {
+G&G Joghurt 1,5 0,39 {
