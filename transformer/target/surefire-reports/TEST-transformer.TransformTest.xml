@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="transformer.TransformTest" time="0.26" tests="12" errors="0" skipped="0" failures="1">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="transformer.TransformTest" time="0.293" tests="13" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="18"/>
     <property name="sun.cpu.isalist" value="amd64"/>
@@ -15,7 +15,7 @@
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="user.country" value="DE"/>
     <property name="sun.boot.library.path" value="C:\MyProgramms\jdk-18.0.2\bin"/>
-    <property name="sun.java.command" value="C:\Users\richard\AppData\Local\Temp\surefire11888482702784552910\surefirebooter4700015346809623232.jar C:\Users\richard\AppData\Local\Temp\surefire11888482702784552910 2023-07-26T19-55-43_427-jvmRun1 surefire7368273098967423588tmp surefire_01737215538564959278tmp"/>
+    <property name="sun.java.command" value="C:\Users\richard\AppData\Local\Temp\surefire16696264735051523835\surefirebooter13045634515703047327.jar C:\Users\richard\AppData\Local\Temp\surefire16696264735051523835 2023-08-23T19-23-14_052-jvmRun1 surefire7325853041623503974tmp surefire_015416765927048825296tmp"/>
     <property name="jdk.debug" value="release"/>
     <property name="surefire.test.class.path" value="C:\Users\richard\IdeaProjects\budgetreadslip\transformer\target\test-classes;C:\Users\richard\IdeaProjects\budgetreadslip\transformer\target\classes;C:\Users\richard\.m2\repository\org\apache\httpcomponents\httpclient\4.5.13\httpclient-4.5.13.jar;C:\Users\richard\.m2\repository\org\apache\httpcomponents\httpcore\4.4.13\httpcore-4.4.13.jar;C:\Users\richard\.m2\repository\commons-logging\commons-logging\1.2\commons-logging-1.2.jar;C:\Users\richard\.m2\repository\commons-codec\commons-codec\1.11\commons-codec-1.11.jar;C:\Users\richard\.m2\repository\junit\junit\4.11\junit-4.11.jar;C:\Users\richard\.m2\repository\org\hamcrest\hamcrest-core\1.3\hamcrest-core-1.3.jar;"/>
     <property name="sun.cpu.endian" value="little"/>
@@ -30,7 +30,7 @@
     <property name="line.separator" value="&#10;"/>
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
-    <property name="surefire.real.class.path" value="C:\Users\richard\AppData\Local\Temp\surefire11888482702784552910\surefirebooter4700015346809623232.jar"/>
+    <property name="surefire.real.class.path" value="C:\Users\richard\AppData\Local\Temp\surefire16696264735051523835\surefirebooter13045634515703047327.jar"/>
     <property name="user.script" value=""/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
     <property name="java.runtime.version" value="18.0.2+9-61"/>
@@ -57,82 +57,17 @@
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="java.class.version" value="62.0"/>
   </properties>
-  <testcase name="wuenscheTest" classname="transformer.TransformTest" time="0.031"/>
+  <testcase name="wuenscheTest" classname="transformer.TransformTest" time="0.037"/>
   <testcase name="transformTest" classname="transformer.TransformTest" time="0"/>
-  <testcase name="ViaInvestTest" classname="transformer.TransformTest" time="0.009"/>
-  <testcase name="PeerBerryTest" classname="transformer.TransformTest" time="0.068"/>
-  <testcase name="MintosTest" classname="transformer.TransformTest" time="0.052"/>
-  <testcase name="edekaNewTest" classname="transformer.TransformTest" time="0.008">
-    <failure message="expected:&lt;...25 {&#10;G&amp;G H-Milch 1,5[%] 12,60 {&#10;Kram.Kart.s...&gt; but was:&lt;...25 {&#10;G&amp;G H-Milch 1,5[] 12,60 {&#10;Kram.Kart.s...&gt;" type="org.junit.ComparisonFailure"><![CDATA[org.junit.ComparisonFailure: 
-expected:<...25 {
-G&G H-Milch 1,5[%] 12,60 {
-Kram.Kart.s...> but was:<...25 {
-G&G H-Milch 1,5[] 12,60 {
-Kram.Kart.s...>
-	at transformer.TransformTest.edekaNewTest(TransformTest.java:146)
-]]></failure>
-    <system-out><![CDATA[Start EdekaNew
-File has 61 lines
-Name: Leergut Entl.allg.
-Summe: -0,70
-Name: LEERGUT EINWEG ALLG.
-Summe: -1,25
-Name: G&G H-Milch 1,5
-Summe: 12,60
-Name: Kram.Kart.salat
-Summe: 1,99
-Name: G&G Paella 750g
-Summe: 3,49
-Name: G&G Gyros-Reispf.
-Summe: 3,49
-Name: Frosta Rahmgeschn.
-Summe: 2,79
-Name: Beleg Wurst Schinken
-Summe: 4,96
-Name: WWF Bananen
-Summe: 0,90
-Name: Zott Sahnejoghurt
-Summe: 0,89
-Name: Schw.Zero 1,5l
-Summe: 1,29
-Name: Pfand
-Summe: 0,25
-Name: G&G Studentenfutt.
-Summe: 1,79
-Content Leergut Entl.allg. -0,70 {
-LEERGUT EINWEG ALLG. -1,25 {
-G&G H-Milch 1,5 12,60 {
-Kram.Kart.salat 1,99 {
-G&G Paella 750g 3,49 {
-G&G Gyros-Reispf. 3,49 {
-Frosta Rahmgeschn. 2,79 {
-Beleg Wurst Schinken 4,96 {
-WWF Bananen 0,90 {
-Zott Sahnejoghurt 0,89 {
-Schw.Zero 1,5l 1,29 {
-Pfand 0,25 {
-G&G Studentenfutt. 1,79 {
-
->Leergut Entl.allg. -0,70 {
-LEERGUT EINWEG ALLG. -1,25 {
-G&G H-Milch 1,5 12,60 {
-Kram.Kart.salat 1,99 {
-G&G Paella 750g 3,49 {
-G&G Gyros-Reispf. 3,49 {
-Frosta Rahmgeschn. 2,79 {
-Beleg Wurst Schinken 4,96 {
-WWF Bananen 0,90 {
-Zott Sahnejoghurt 0,89 {
-Schw.Zero 1,5l 1,29 {
-Pfand 0,25 {
-G&G Studentenfutt. 1,79 {
-<
-]]></system-out>
-  </testcase>
-  <testcase name="edekaNewNetoTest" classname="transformer.TransformTest" time="0.007"/>
-  <testcase name="RobocashTest" classname="transformer.TransformTest" time="0.019"/>
-  <testcase name="kauflandTest" classname="transformer.TransformTest" time="0.005"/>
-  <testcase name="TwinoTest" classname="transformer.TransformTest" time="0.019"/>
-  <testcase name="edekaNewTest2" classname="transformer.TransformTest" time="0.004"/>
+  <testcase name="ViaInvestTest" classname="transformer.TransformTest" time="0.007"/>
+  <testcase name="PeerBerryTest" classname="transformer.TransformTest" time="0.071"/>
+  <testcase name="MintosTest" classname="transformer.TransformTest" time="0.057"/>
+  <testcase name="edekaNewTest" classname="transformer.TransformTest" time="0.005"/>
+  <testcase name="edekaNewNetoTest" classname="transformer.TransformTest" time="0.017"/>
+  <testcase name="RobocashTest" classname="transformer.TransformTest" time="0.018"/>
+  <testcase name="kauflandTest" classname="transformer.TransformTest" time="0.004"/>
+  <testcase name="TwinoTest" classname="transformer.TransformTest" time="0.018"/>
+  <testcase name="edekaNewTest2" classname="transformer.TransformTest" time="0.01"/>
   <testcase name="edekaNewTest3" classname="transformer.TransformTest" time="0.01"/>
+  <testcase name="edekaNewTest4" classname="transformer.TransformTest" time="0.013"/>
 </testsuite>
