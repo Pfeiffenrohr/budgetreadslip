@@ -1,6 +1,13 @@
 -------------------------------------------------------------------------------
 Test set: transformer.TransformTest
 -------------------------------------------------------------------------------
-
-Tests run: 12, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.3 s - in transformer.TransformTest
+Tests run: 12, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 0.26 s <<< FAILURE! - in transformer.TransformTest
+edekaNewTest(transformer.TransformTest)  Time elapsed: 0.008 s  <<< FAILURE!
+org.junit.ComparisonFailure: 
+expected:<...25 {
+G&G H-Milch 1,5[%] 12,60 {
+Kram.Kart.s...> but was:<...25 {
+G&G H-Milch 1,5[] 12,60 {
+Kram.Kart.s...>
+	at transformer.TransformTest.edekaNewTest(TransformTest.java:146)
 
