@@ -41,7 +41,7 @@ public class ReadConsorsBankTest {
         System.out.println("Start ConsorsTest");
         Transform transform = new Transform();
 
-        String data = readFile("src/test/resources/consors.csv");
+        String data = readFile("src/test/resources/Consors.csv");
         ReadConsorsBank cons = new ReadConsorsBank();
         String result = cons.parseMail(data);
         List <SlipEntry> list = cons.getList();
