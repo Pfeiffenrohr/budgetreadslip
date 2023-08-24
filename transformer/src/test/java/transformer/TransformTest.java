@@ -35,7 +35,7 @@ public class TransformTest {
         String data="";
         try {
             File myObj = new File(filename);
-            Scanner myReader = new Scanner(myObj);
+            Scanner myReader = new Scanner(myObj,"iso-8859-1");
             while (myReader.hasNextLine()) {
               data = data+myReader.nextLine() +"\n";
              // System.out.println(data);
@@ -168,6 +168,19 @@ public class TransformTest {
         String result = new ReadMailEdekaNew().parseMail(data);
         // String hhh = transform.parseFileTwino(data);
         String resultfile = readFile("src/test/resources/EdekaNew2Result.txt");
+        System.out.println(">"+result+"<");
+        assertEquals(resultfile,result.trim());
+    }
+    @Test
+    public void edekaNewTest4() throws Exception {
+
+        System.out.println("Start EdekaNew");
+        //Transform transform = new Transform();
+
+        String data = readFile("src/test/resources/EdekaNew3.txt");
+        String result = new ReadMailEdekaNew().parseMail(data);
+        // String hhh = transform.parseFileTwino(data);
+        String resultfile = readFile("src/test/resources/EdekaNew3Result.txt");
         System.out.println(">"+result+"<");
         assertEquals(resultfile,result.trim());
     }

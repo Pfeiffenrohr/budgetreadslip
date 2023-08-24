@@ -1,11 +1,10 @@
 package transformer.transform;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
+
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
@@ -178,9 +177,26 @@ public class Transform {
         
     }
 
-  
-       
-    private String readFile(String inputfile)
+    private String readFile(String filename)
+    {
+        String data="";
+        try {
+            File myObj = new File(filename);
+            Scanner myReader = new Scanner(myObj,"iso-8859-1");
+            while (myReader.hasNextLine()) {
+                data = data+myReader.nextLine() +"\n";
+                // System.out.println(data);
+            }
+            data=data.substring(0, data.length() - 1);
+            myReader.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
+        return data;
+    }
+    @Deprecated
+    private String readFileold(String inputfile)
     { 
         File file = new File(inputfile);
         String txt ="";
