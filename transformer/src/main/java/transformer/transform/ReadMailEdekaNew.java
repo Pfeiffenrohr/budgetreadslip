@@ -29,6 +29,9 @@ private List <SlipEntry> list ;
         while (!splited[count].startsWith("---") && !splited[count].startsWith("SUMME") ) {
             String line = splited[count];
             //Tokenize the line
+            if (line.startsWith("G&G So")) {
+                System.out.println("ddd");
+            }
             line=line.replace("*"," ");
             line=line.replace("PREPACK","");
             line=line.replace("BED","");
@@ -41,7 +44,7 @@ private List <SlipEntry> list ;
             line=line.replace("Ü","Ue");
             line=line.replace("Ö","Oe");
             line=line.replace("%"," ");
-            line=line.replace("ß","ss");
+            line=line.replace("\\u009F","ss");
 
             if (hasPattern(line)) {
                 count++;

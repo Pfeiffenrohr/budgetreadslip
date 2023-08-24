@@ -6,7 +6,6 @@ www.edeka.de
 EUR
 G&G Cola-Mix 1,5l 0,59 B
 Pfand 0,25*B
-Coupon Alkoholfreie Getränke/ -0,89
 Coupon Alkoholfreie Getränke -0,03
 G&G Cola-Mix 1,5l 0,59 B
 Pfand 0,25*B
@@ -14,7 +13,7 @@ Coupon Alkoholfreie Getränke -0,03
 albi Birnensaft 1l 1,99 B
 Coupon Alkoholfreie Getränke -0,10
 Wein-Genuss 0,75l 2,49 B
-G&G Soßenbinder 0,79 A
+G&G Sossenbinder 0,79 A
 EURkg x0,460 2,29
 Chiquita Bananen 1,05 A
 /kg

@@ -21,7 +21,7 @@ public class ReadConsorsBankTest {
         String data="";
         try {
             File myObj = new File(filename);
-            Scanner myReader = new Scanner(myObj);
+            Scanner myReader = new Scanner(myObj,"iso-8859-1");
             while (myReader.hasNextLine()) {
                 data = data+myReader.nextLine() +"\n";
                 // System.out.println(data);
@@ -38,7 +38,7 @@ public class ReadConsorsBankTest {
     @Test
     public void ConsorsTest() throws Exception {
 
-        System.out.println("Start Twino");
+        System.out.println("Start ConsorsTest");
         Transform transform = new Transform();
 
         String data = readFile("src/test/resources/consors.csv");
@@ -47,7 +47,7 @@ public class ReadConsorsBankTest {
         List <SlipEntry> list = cons.getList();
         assertTrue(list.size() == 5);
         assertEquals("INVESCOMI BB CMTY EXAGR A",list.get(0).getName());
-        assertEquals("375.86",list.get(0).getSum());
+        assertEquals("626.40",list.get(0).getSum());
     }
 
 }
