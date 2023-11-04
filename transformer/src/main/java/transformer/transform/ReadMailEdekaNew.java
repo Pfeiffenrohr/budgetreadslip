@@ -32,6 +32,8 @@ private List <SlipEntry> list ;
             line=line.replace("*"," ");
             line=line.replace("PREPACK","");
             line=line.replace("BED","");
+            line=line.replace("?","");
+            line=line.replace("€","");
             line=line.replace("/"," ");
             line=line.replace("ä","ae");
             line=line.replace("ü","ue");
