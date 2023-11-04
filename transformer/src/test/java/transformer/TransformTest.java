@@ -35,7 +35,7 @@ public class TransformTest {
         String data="";
         try {
             File myObj = new File(filename);
-            Scanner myReader = new Scanner(myObj);
+            Scanner myReader = new Scanner(myObj,"iso-8859-1");
             while (myReader.hasNextLine()) {
               data = data+myReader.nextLine() +"\n";
              // System.out.println(data);
