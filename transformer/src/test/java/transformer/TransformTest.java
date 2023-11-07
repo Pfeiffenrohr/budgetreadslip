@@ -177,10 +177,10 @@ public class TransformTest {
         System.out.println("Start EdekaNew");
         //Transform transform = new Transform();
 
-        String data = readFile("src/test/resources/EdekaNew3.txt");
+        String data = readFile("src/test/resources/EdekaNew4.txt");
         String result = new ReadMailEdekaNew().parseMail(data);
         // String hhh = transform.parseFileTwino(data);
-        String resultfile = readFile("src/test/resources/EdekaNew3Result.txt");
+        String resultfile = readFile("src/test/resources/EdekaNew4Result.txt");
         System.out.println(">"+result+"<");
         assertEquals(resultfile,result.trim());
     }
