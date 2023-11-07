@@ -26,7 +26,7 @@ public class ReadMailRewe implements ReadMail {
             continue;
         }
         count ++;
-    //  System.out.println(splited[count]);
+      System.out.println(splited[count]);
         String summe ="";
         while (count < splited.length && !splited[count].contains("SUMME") ) {
             SlipEntry se = new SlipEntry();
@@ -39,7 +39,8 @@ public class ReadMailRewe implements ReadMail {
      
             if (count >= splited.length) return content;
            // System.out.println(splited[count]);
-            String name = splited[count].substring(0,splited[count].indexOf("  "));
+
+            String name = splited[count].substring(0,firstNumber(splited[count])-1);
             System.out.println("Name = >" + name+"<");
             if (name.equals("") || name.startsWith(" "))
             {
@@ -52,8 +53,17 @@ public class ReadMailRewe implements ReadMail {
                 count++;
                 continue;
             }
-            
+            if (Character.isDigit(name.charAt(0)))
+            {
+                count++;
+                continue;
+            }
             if (Character.isDigit(name.charAt(0)) && ! name.contains("Rabatt"))
+            {
+                count++;
+                continue;
+            }
+            if (name.startsWith("Handeingabe"))
             {
                 count++;
                 continue;
@@ -91,6 +101,15 @@ public class ReadMailRewe implements ReadMail {
             if (count >= splited.length) return content;
         }
         return content;
+    }
+
+    private int firstNumber (String str) {
+        for (int i =1; i< str.length(); i++) {
+            if (Character.isDigit(str.charAt(i))) {
+                return i;
+            }
+        }
+        return str.length();
     }
 
 }
