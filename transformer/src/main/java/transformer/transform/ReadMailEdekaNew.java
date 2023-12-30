@@ -33,24 +33,16 @@ private List <SlipEntry> list ;
                 System.out.println("ddd");
             }
             line=line.replace("*"," ");
+            line=line.replace("/"," ");
             line=line.replace("PREPACK","");
             line=line.replace("BED","");
-            line=line.replace("/"," ");
-            line=line.replace("€","");
-            line=line.replace("ä","ae");
-            line=line.replace("ü","ue");
-            line=line.replace("ö","oe");
-            line=line.replace("ß","ss");
-            line=line.replace("Ä","Ae");
-            line=line.replace("Ü","Ue");
-            line=line.replace("Ö","Oe");
-            line=line.replace("%"," ");
-            line=line.replace("\\u009F","ss");
+            line = eliminateSonderzeichen(line);
 
             if (hasPattern(line)) {
                 count++;
                 continue;
             }
+            line = optimizeLine(line);
             line= line.replaceAll("\\s+", " ");
             String tokens[] = line.trim().split(" ");
 
@@ -111,5 +103,39 @@ private List <SlipEntry> list ;
             return true;
         }
         return false;
+    }
+    private String optimizeLine(String line) {
+        for (int i = 0; i < line.length(); i++) {
+            Character ch = line.charAt(i);
+            if (isRealLetterAndNotx(ch)) {
+                return line.substring(i);
+            }
+        }
+        return line;
+    }
+    private static boolean isRealLetterAndNotx(char c) {
+       if (c=='x' ) {return false; }
+        return (c >= 'a' && c <= 'z') ||
+                (c >= 'A' && c <= 'Z');
+    }
+
+    private String eliminateSonderzeichen (String line ) {
+        String result = "";
+        for (int i = 0; i < line.length(); i++) {
+            Character ch = line.charAt(i);
+            if (isLetterOrDigit(ch)) {
+               result = result+ch;
+            }
+
+        }
+        return result;
+    }
+    private static boolean isLetterOrDigit(char c) {
+       if ( c==' ') {return true;}
+        if ( c=='-') {return true;}
+        if ( c==',') {return true;}
+        return (c >= 'a' && c <= 'z') ||
+                (c >= 'A' && c <= 'Z') ||
+                (c >= '0' && c <= '9');
     }
 }
