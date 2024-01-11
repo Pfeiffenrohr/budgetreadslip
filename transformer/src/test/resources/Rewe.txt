@@ -1,0 +1,82 @@
+REWE Stephan Nowak oHG
+           Am Schmidbach 3
+           86579 Waidhofen
+         UID Nr.: DE315749132
+                                   EUR
+DICKE RIPPE                      2,46 B
+      Handeingabe E-Bon   0,248 kg
+FRISCHW.AUFSCHN.                 1,83 B
+      Handeingabe E-Bon   0,123 kg
+VOLLKORNBROET.                   0,98 B
+             2 Stk x    0,49
+BREZN                            0,39 B
+BAUERNSCHNITTEN                  0,99 B
+BUMI ANAN-KOK                    1,29 B
+PFAND 0,25 EURO                  0,25 B *
+SAHNEJOG.BAL.SAI                 0,89 B
+SAH.JO.ERDB-VANI                 0,89 B
+LAGERBIER HELL                   1,15 A
+PFAND 0,08 EUR                   0,08 A *
+SCHWIPSCHW ZERO                  1,49 A
+PFAND 0,25 EURO                  0,25 A *
+ --------------------------------------
+ SUMME                   EUR     12,94
+ ======================================
+ Geg. Mastercard         EUR     12,94
+
+          * *  Kundenbeleg  * *
+Datum:                        11.01.2024
+Uhrzeit:                    13:35:58 Uhr
+Beleg-Nr.                           6895
+Trace-Nr.                         008410
+                Bezahlung
+               Contactless
+             DEBIT MASTERCARD
+Nr.                ############9839 0001
+VU-Nr.                        4556029450
+Terminal-ID                     56053319
+Pos-Info                       00 075 00
+AS-Zeit 11.01.                 13:35 Uhr
+        AS-Proc-Code = 00 075 00
+            Capt.-Ref.= 0000
+                APPROVED
+Betrag EUR                         12,94
+             Zahlung erfolgt
+
+ Steuer  %          Netto        Steuer        Brutto
+ A=  19,0%           2,50          0,47          2,97
+ B=   7,0%           9,32          0,65          9,97
+ Gesamtbetrag       11,82          1,12         12,94
+
+TSE-Signatur:        cl0lgQmRvswMSNuLzRPyRHI1tIkD0j11X
+                     x+tNnXmpUCF1AE+8g5CnsrNmC7oViS9WU
+                     +MkaUAenFgOop3ouMYT1xAfVJguOeFeqX
+                     jYdX+59FcSnyKXfJJ9gZqLG+DHcyq
+        TSE-Signaturzähler:  225519
+        TSE-Transaktion:     105078
+    TSE-Start:           2024-01-11T13:36:13.000
+    TSE-Stop:            2024-01-11T13:36:39.000
+    Seriennnummer Kasse: REWE:74:56:3c:83:9b:7b:00
+  11.01.2024     13:36     Bon-Nr.:7250
+  Markt:5989     Kasse:3   Bed.:432103
+ ****************************************
+
+     Deine REWE PAYBACK Vorteile heute
+     PAYBACK Karten-Nr.: #########0633
+
+    Punkte vor dem Einkauf: 127 Punkte
+     Punktestand entspricht: 1,27 EUR
+
+
+
+
+  Mit diesem Einkauf gesammelt: 6 Punkte
+
+     Keine Rabatte oder Punkte auf mit *
+           gekennzeichnete Produkte.
+
+ ****************************************
+
+
+           Sie haben Fragen?
+    Antworten gibt es unter rewe.de
