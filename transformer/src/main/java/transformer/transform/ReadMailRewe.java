@@ -35,6 +35,11 @@ public class ReadMailRewe implements ReadMail {
             	count++;
             	continue;
             }
+            if (splited[count].contains("---------"))
+            {
+                count++;
+                continue;
+            }
            // summe = summe.substring(summe.indexOf("AC ") + 3);
      
             if (count >= splited.length) return content;
@@ -83,7 +88,7 @@ public class ReadMailRewe implements ReadMail {
             }*/
             
             //System.out.println("Summe =" + summe);
-            content=content +summe+" { \n";
+            content=content +summe+" {\n";
             System.out.println("Summe =" + summe);
             se.setSum(summe);
             count++;
