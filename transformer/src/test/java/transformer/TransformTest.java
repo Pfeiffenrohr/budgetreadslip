@@ -103,19 +103,18 @@ public class TransformTest {
     }
     
 
-    
+
     @Test
-    public void PeerBerryTest() throws Exception {
-        
-        System.out.println("Start PeerBerry");
+    public void PeerBerryTest1() throws Exception {
+
+        System.out.println("Start PeerBerryTest1");
         //Transform transform = new Transform();
-        
-        String data = readFile("src/test/resources/PeerBerryMail.txt");
+        String data = readFile("src/test/resources/PeerberryMail3.txt");
         String result = new  ReadMailPeerBerry().parseMail(data);
-      // String hhh = transform.parseFileTwino(data);
-        
-     //  System.out.println(">"+result+"<");
-       assertEquals("0.12 {",result.trim());  
+        // String hhh = transform.parseFileTwino(data);
+
+        //  System.out.println(">"+result+"<");
+        assertEquals("0.10 {",result.trim());
     }
     
     @Test
@@ -185,6 +184,19 @@ public class TransformTest {
         assertEquals(resultfile,result.trim());
     }
     @Test
+    public void edekaNewTest5() throws Exception {
+
+        System.out.println("Start EdekaNew");
+        //Transform transform = new Transform();
+
+        String data = readFile("src/test/resources/EdekaNew5.txt");
+        String result = new ReadMailEdekaNew().parseMail(data);
+        // String hhh = transform.parseFileTwino(data);
+        String resultfile = readFile("src/test/resources/EdekaNew5Result.txt");
+        System.out.println(">"+result+"<");
+        assertEquals(resultfile,result.trim());
+    }
+    @Test
     public void edekaNewNetoTest() throws Exception {
         System.out.println("Start EdekaNewNetto");
         //Transform transform = new Transform();   
@@ -232,7 +244,6 @@ public class TransformTest {
         System.out.println(">"+result+"<");
         assertEquals(resultfile,result.trim());
     }
-
 
 }
 

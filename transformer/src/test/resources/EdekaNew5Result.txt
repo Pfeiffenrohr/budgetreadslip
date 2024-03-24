@@ -1,0 +1,18 @@
+Bio EHL Petersilie 1,79 {
+KlostSchGold0,5l 4,20 {
+Pfand 0,32 {
+MnNaturtr0,5l 4,60 {
+Pfand 0,60 {
+GG Creme Fraich 1,98 {
+GG Zwiebeln 1,99 {
+kg x0,108 3,99 {
+Minigurken 0,43 {
+HD Mango 1l 1,59 {
+Leergut Entlallg -1,14 {
+LEERGUT EINWEG ALLG -0,50 {
+Beleg Frischfleisch Geflgel 16,04 {
+Beleg Wurst Schinken 3,83 {
+EDK MinRispentom 6,98 {
+kg x0,090 3,99 {
+Minigurken 0,36 {
+Eisbergsalat 0,99 {
