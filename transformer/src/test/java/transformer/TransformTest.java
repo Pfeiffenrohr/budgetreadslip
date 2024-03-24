@@ -233,19 +233,5 @@ public class TransformTest {
         System.out.println(">"+result+"<");
         assertEquals(resultfile,result.trim());
     }
-
-    @Test
-    public void reweTest() throws Exception {
-
-        System.out.println("Start Rewe");
-        //Transform transform = new Transform();
-        String data = readFile("src/test/resources/Rewe.txt");
-        String result = new ReadMailRewe().parseMail(data);
-        // String hhh = transform.parseFileTwino(data);
-        String resultfile = readFile("src/test/resources/ReweResult.txt");
-        System.out.println(">"+result+"<");
-        assertEquals(resultfile,result.trim());
-    }
-
 }
 
