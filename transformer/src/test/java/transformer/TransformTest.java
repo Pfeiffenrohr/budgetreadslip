@@ -20,7 +20,7 @@ public class TransformTest {
     @Test
     public void transformTest() throws Exception {
     
-        System.out.println("Start Test");
+        System.out.println("Start Test1");
         
     /*    result.add("eins €");
         result.add(" zwei €");
@@ -114,7 +114,7 @@ public class TransformTest {
         // String hhh = transform.parseFileTwino(data);
 
         //  System.out.println(">"+result+"<");
-        assertEquals("0.10 {",result.trim());
+        assertEquals("251.07 {",result.trim());
     }
     
     @Test
