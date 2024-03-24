@@ -1,0 +1,76 @@
+REWE Stephan Nowak oHG
+           Am Schmidbach 3
+           86579 Waidhofen
+         UID Nr.: DE315749132
+                                   EUR
+MAKRELENFIL. PF.                 3,79 B
+PEPERONI-SALAMI                  2,29 B
+BROET. MEHRKORN                  0,45 B
+BREZN                            0,78 B
+             2 Stk x    0,39
+SALATSCHALE PUTE                 3,84 B
+VOLLMILCH JOGH.                  0,99 B
+DEV.DR.GARTENKR.                 0,59 B
+LAGERBIER HELL                   1,15 A
+PFAND 0,08 EUR                   0,08 A *
+ --------------------------------------
+ SUMME                   EUR     13,96
+ ======================================
+ Geg. Mastercard         EUR     13,96
+
+          * *  Kundenbeleg  * *
+Datum:                        31.01.2024
+Uhrzeit:                    15:39:00 Uhr
+Beleg-Nr.                           7782
+Trace-Nr.                         009470
+                Bezahlung
+               Contactless
+             DEBIT MASTERCARD
+Nr.                ############9839 0001
+VU-Nr.                        4556029450
+Terminal-ID                     56053319
+Pos-Info                       00 075 00
+AS-Zeit 31.01.                 15:39 Uhr
+        AS-Proc-Code = 00 075 00
+            Capt.-Ref.= 0000
+                APPROVED
+Betrag EUR                         13,96
+             Zahlung erfolgt
+
+ Steuer  %          Netto        Steuer        Brutto
+ A=  19,0%           1,03          0,20          1,23
+ B=   7,0%          11,90          0,83         12,73
+ Gesamtbetrag       12,93          1,03         13,96
+
+TSE-Signatur:        FnVY96WpYbejAcvxckYruOIsTrNu7r6NH
+                     d80LnneTREZtbAuhLrqNJK55Akhx61wIJ
+                     UP75V+636emRswIET2urv2I/J37yrBOTd
+                     9xmYsKSbUBI52q1oTPjAjt2WqvQnt
+        TSE-Signaturzähler:  255261
+        TSE-Transaktion:     119059
+    TSE-Start:           2024-01-31T15:39:15.000
+    TSE-Stop:            2024-01-31T15:39:15.000
+    Seriennnummer Kasse: REWE:74:56:3c:83:9b:7b:00
+  31.01.2024     15:39     Bon-Nr.:8173
+  Markt:5989     Kasse:3   Bed.:432103
+ ****************************************
+
+     Deine REWE PAYBACK Vorteile heute
+     PAYBACK Karten-Nr.: #########0633
+
+    Punkte vor dem Einkauf: 133 Punkte
+     Punktestand entspricht: 1,33 EUR
+
+  Mit diesem Einkauf gesammelt: 6 Punkte
+
+     Keine Rabatte oder Punkte auf mit *
+           gekennzeichnete Produkte.
+
+
+
+
+ ****************************************
+
+
+           Sie haben Fragen?
+    Antworten gibt es unter rewe.de
