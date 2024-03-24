@@ -20,7 +20,7 @@ public class TransformTest {
     @Test
     public void transformTest() throws Exception {
     
-        System.out.println("Start Test");
+        System.out.println("Start Test1");
         
     /*    result.add("eins €");
         result.add(" zwei €");
