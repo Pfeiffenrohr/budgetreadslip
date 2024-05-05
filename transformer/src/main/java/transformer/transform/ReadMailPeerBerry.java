@@ -24,7 +24,7 @@ public class ReadMailPeerBerry implements ReadMail {
             int count = 0;
             String summe = "";
             // Suche den Anfang
-            while ( count < splited.length && !splited[count].contains("Interest income")) {
+            while ( count < splited.length && !splited[count].contains("Profit")) {
                 count++;
                 continue;
             }
@@ -35,7 +35,7 @@ public class ReadMailPeerBerry implements ReadMail {
                 se.setName(name);
                 String tokens  [] = zeile.trim().split(" ");
 
-                summe = tokens [10];
+                summe = tokens [8];
                 System.out.println("Summe =" + summe);
                 content=content +summe+" { \n";
                 se.setSum(summe);

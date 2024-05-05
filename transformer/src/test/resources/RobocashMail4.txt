@@ -1,0 +1,1131 @@
+Return-Path: <bounce-md_31182026.66371892.v1-d59df8c403ee4eda8e883479138d2914@mandrillapp.com>
+X-Original-To: test@mailserver.loadbalancer1.de
+Delivered-To: richard@mailserver.loadbalancer1.de
+Received: from loadbalancer2 (localhost [127.0.0.1])
+	by loadbalancer1 (Postfix) with ESMTP id 3E0FAEA004F
+	for <test@mailserver.loadbalancer1.de>; Sun,  5 May 2024 07:30:05 +0200 (CEST)
+X-Envelope-From: <bounce-md_31182026.66371892.v1-d59df8c403ee4eda8e883479138d2914@mandrillapp.com>
+X-Envelope-To: <richard@richardlechner.de>
+X-Delivery-Time: 1714886804
+X-UID: 134861
+ARC-Seal: i=1; a=rsa-sha256; t=1714886804; cv=none;
+    d=strato.com; s=strato-dkim-0002;
+    b=HVy7ST6aX4L6Jzae0YPkug126eT9gydK2P4y/vb1WkW6pb0tj73NFTtX+vy81hgCav
+    TtknZoKDUqVn5qpUNOZPdxXRxpBQBMZi1+ufwpm8yh/7+OgQZEb6W7r7ChYOr3X//7JK
+    L19Bnou+EJn8L1VUA35LkdQOJPYxB0hXG8B70urafHg8ifjThZ1Nz2raq/LkaKOSD+pa
+    yy01D0EHpLKAYrvPW5tBtc+pit/yu06JzkHeYwnRO2FdOqiSZtDz6JwxAxtHzNU82PtF
+    zurPI/+Dh1oqUvJ3gtQIUwsgclI7I1rL79GdJ1IrhTpj3raCVz3Bka4BXtob5H0IEucI
+    yyWw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1714886804;
+    s=strato-dkim-0002; d=strato.com;
+    h=Date:Message-Id:To:List-Unsubscribe-Post:List-Unsubscribe:Subject:
+    From:Cc:Date:From:Subject:Sender;
+    bh=jFvs3hmp1zcuem6K++3TeuNUQ0FC+VnMoFUXexjQnVQ=;
+    b=J4HKqW4ErVnF1MHULsN56AFN7IqSkQuSy0O3VENVJwlZliJxXHQ5w038BvVQpD8PUP
+    TF3j76L5nyM0DM/sgA7FB2lefn/hpQJ2cfKveb94Vx0DUWBiL/X8XnfmMAf1nLDTo9zT
+    6Pez58g36fwb0nVNmpdy3hra1GCCEtyfaZk93cfQJZFpP/lGd3RqxMWMUB4ohnzZ3AcF
+    y+KLvU9KV9PdBW7ZY6T7E6RddpvqkPjUpUqie84bPxcwTRs+vb7J9hZy7Cq0aFocXS0c
+    JeUlwYL2bSvSRMxadxAbwbv4feZtkvq8ve9Vn92A4DgrkhdFk3PCkltZ1Cf8Szl3QkQZ
+    ycYA==
+ARC-Authentication-Results: i=1; strato.com;
+    dmarc=pass (p=NONE sp=NONE) header.from="robo.cash";
+    arc=none smtp.remote-ip=198.2.136.21;
+    dkim=pass header.d="robo.cash" header.s="mandrill" header.a="rsa-sha256" header.i="support@robo.cash";
+    dkim=pass header.d="mandrillapp.com" header.s="mte1" header.a="rsa-sha256";
+    dkim-adsp=pass;
+    spf=pass smtp.mailfrom="bounce-md_31182026.66371892.v1-d59df8c403ee4eda8e883479138d2914@mandrillapp.com"
+Authentication-Results: strato.com;
+    dmarc=pass (p=NONE sp=NONE) header.from="robo.cash";
+    arc=none smtp.remote-ip=198.2.136.21;
+    dkim=pass header.d="robo.cash" header.s="mandrill" header.a="rsa-sha256" header.i="support@robo.cash";
+    dkim=pass header.d="mandrillapp.com" header.s="mte1" header.a="rsa-sha256";
+    dkim-adsp=pass;
+    spf=pass smtp.mailfrom="bounce-md_31182026.66371892.v1-d59df8c403ee4eda8e883479138d2914@mandrillapp.com"
+X-RZG-Expurgate: clean/normal
+X-RZG-Expurgate-ID: 149500::1714886804-A81993E3-251E758E/0/0
+X-RZG-CLASS-ID: mi00
+Received-SPF: pass
+    (strato.com: domain mandrillapp.com designates 198.2.136.21 as permitted sender)
+    mechanism=ip4;
+    client-ip=198.2.136.21;
+    helo="mail136-21.atl41.mandrillapp.com";
+    envelope-from="bounce-md_31182026.66371892.v1-d59df8c403ee4eda8e883479138d2914@mandrillapp.com";
+    receiver=smtpin.rzone.de;
+    identity=mailfrom;
+Received: from imap.strato.de [2a01:238:20a:202:54f0::1103]
+	by loadbalancer2 with IMAP (fetchmail-6.4.2)
+	for <test@mailserver.loadbalancer1.de> (single-drop); Sun, 05 May 2024 07:30:05 +0200 (CEST)
+Received: from mail136-21.atl41.mandrillapp.com ([198.2.136.21])
+    by smtpin.rzone.de (RZmta 50.5.0 OK)
+    with ESMTPS id e716a40455QhOGe
+    (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
+    (Client did not present a certificate)
+    for <richard@richardlechner.de>;
+    Sun, 5 May 2024 07:26:43 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
+	s=mte1; t=1714886802; x=1715147302;
+	bh=jFvs3hmp1zcuem6K++3TeuNUQ0FC+VnMoFUXexjQnVQ=;
+	h=From:Subject:List-Unsubscribe:List-Unsubscribe-Post:To:
+	 Feedback-ID:Message-Id:Date:MIME-Version:Content-Type:CC:Date:
+	 Subject:From;
+	b=XXdCRCICrt+PqH9uZqkslzYJTRxrAe7H7WtRlttMAX/pUJA5s+hti7w5N2b8mWrXA
+	 S5d8MIrAAZqSFL25Pvm7x5VokvQFNd9dGJ3SjmDMxIUuD+IKpEX5AQS+JRAnkUxouA
+	 1KLQgbi9CQuuP2yeYf/ykbSBJP8EfY6jba5/bFtj5DGtGmnJJHZxsA46KHIAUqG7uB
+	 je842QXC0X97xamHZAsf4ipq7US0trEANqhNOeB0vUgkTfvWKpBSd0R531LAJbTqAt
+	 jAR8WAoXPYdPJ0Uf+bQESirMFEwkFiROrWvNyHam/R1q5k+qXm+DlH68ktnINluph4
+	 bWApW+wGmqHUg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=robo.cash;
+	s=mandrill; t=1714886802; x=1715147302; i=support@robo.cash;
+	bh=jFvs3hmp1zcuem6K++3TeuNUQ0FC+VnMoFUXexjQnVQ=;
+	h=From:Subject:List-Unsubscribe:List-Unsubscribe-Post:To:
+	 Feedback-ID:Message-Id:Date:MIME-Version:Content-Type:CC:Date:
+	 Subject:From;
+	b=gZsAdLXwl396pvhQ6QJZ6wW99lxRcZLPc9J3aRdq+ljGYk0SqljPE2yaTSQXYaOdx
+	 ZVPnD4bDnBFDp4Vtx2JN/dPeIzv80jTFfoWQtURnGAMoefDD8vQ+6hdC/P7EamAsvA
+	 oNfBkhRlcDJtFMp02Q2D7DCfdjTKNOgY57BA3ohk=
+Received: from pmta11.mandrill.prod.atl01.rsglab.com (localhost [127.0.0.1])
+	by mail136-21.atl41.mandrillapp.com (Mailchimp) with ESMTP id 4VXChL4N82zDZp
+	for <richard@richardlechner.de>; Sun,  5 May 2024 05:26:42 +0000 (GMT)
+From: Robocash <support@robo.cash>
+Subject: =?utf-8?Q?Daily=20account=20statement=202024-05-04?=
+Received: from [35.195.167.166] by mandrillapp.com id d59df8c403ee4eda8e883479138d2914; Sun, 05 May 2024 05:26:42 +0000
+List-Unsubscribe: <https://cdn.eu1.exponea.com/robo-cash/unsub/CgxjmUrpVZNIogh-w2QSIIwpNMKHh2kni0w6dorxq68X2nLaO-g1HSXQad6UbA_a._cP8l89ipgg0WQ>,<mailto:unsubscribe@cdn.eu1.exponea.com?subject=robo-cash/unsub/CgxjmUrpVZNIogh-w2QSIIwpNMKHh2kni0w6dorxq68X2nLaO-g1HSXQad6UbA_a._cP8l89ipgg0WQ>
+List-Unsubscribe-Post: List-Unsubscribe=One-Click
+To: richard@richardlechner.de
+X-Native-Encoded: 1
+X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D31182026.d59df8c403ee4eda8e883479138d2914?=
+X-Mandrill-User: md_31182026
+Feedback-ID: 31182026:31182026.20240505:md
+Message-Id: <31182026.20240505052642.663718927a1733.78704393@mail136-21.atl41.mandrillapp.com>
+Date: Sun, 05 May 2024 05:26:42 +0000
+MIME-Version: 1.0
+Content-Type: multipart/alternative; boundary="_av-iwKBj9_r5LOYZRwUEsAraA"
+
+--_av-iwKBj9_r5LOYZRwUEsAraA
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+
+SIGN IN [https://cdn.eu1.exponea.com/robo-cash/e/.eJwTUujRNDnU3p6p3u1jVdb1c=
+fV68VtFt6xfmMqqXsi8NyWH_5aUUEZJSUGxlb5-UX5Svl5yYnGGvuFu7RaVY703Ha14uZhKi4XY=
+UysK8vNSE624gdxcIdbU3MTMHCtpICdZSNQFyK7ULUotyC8q0U1OzC1IzEzPi0rS10_KT6nUT8k=
+s0y9JTMpJ1S8p0i9JgbCjDWORuUA2WCQFWWW0USymRii7uCAxTz8xycjYzNw80cg0OSktKdnM0N=
+yopig1PbO4JLUoNcXKxMDc1KzGxNDEJNnMzNzS0NDI0MTYKIsneUZCnI33XIXGNkMDAOb5YpY.G=
+htX08YdjtFZEA/click]
+
+*Hello, Richard!*
+
+This is your daily report on the Robocash account.
+
+*Summary statement on 2024-05-04*
+
+*Opening account value*
+
+*3636.82 =E2=82=AC*
+
+**Added funds**
+
+0.00 =E2=82=AC
+
+Withdrawn funds
+
+0.00 =E2=82=AC
+
+Purchased loans
+
+0.00 =E2=82=AC
+
+Returned loans
+
+0.00 =E2=82=AC
+
+Earned interest
+
+1.23 =E2=82=AC
+
+*Closing account value*
+
+*3638.06 =E2=82=AC*
+
+**Uninvested funds on portfolio balance**
+
+3.08 =E2=82=AC
+
+Uninvested funds on investor=E2=80=99s balance
+
+0.00 =E2=82=AC
+
+***TOTAL FUNDS***
+
+*3639.90 =E2=82=AC*
+
+Go to my account [https://cdn.eu1.exponea.com/robo-cash/e/.eJwTUujRNDnU3p6p=
+3u1jVdb1cfV68VtFt6xfmMqqXsi8NyWH_5aUUEZJSUGxlb5-UX5Svl5yYnGGvuFu7RaVY703Ha1=
+4uZhKi4XYUysK8vNSE624gdxcIdbU3MTMHCtpICdZSNQFyK7ULUotyC8q0U1OzC1IzEzPiwrX10=
+_KT6nUT8ks0y9JTMpJ1S8p0i9JgbCjjWKRuUB2tKFxLCofhQtiFxck5uknJhkZm5mbJxqZJielJ=
+SWbGZob1RSlpmcWl6QWpaZYmRiYm5rVmBiamCSbmZlbGhoaGZoYG2XxJM9IiLPxnqvQ2GZoAAB4=
+bF5r.f2taPeyK0JRV2Q/click]
+
+**You can always check the status of your investments and portfolio details=
+ in your account.
+
+**
+
+*Best regards,*
+
+*Robo.cash Team*
+
+*CONTACT US*
+
+Robocash d.o.o
+Petra=C4=8Diceva 4, Zagreb, Croatia, 10110
+support@robo.cash
+
+[https://cdn.eu1.exponea.com/robo-cash/e/.eJwTUujRNDnU3p6p3u1jVdb1cfV68VtFt=
+6xfmMqqXsi8NyWH_5aUZkZJSUGxlb5-eXm5XlpicmpSfn62XnJ-rn5RflJ-cmJxhl5mXllqcYm-=
+4W7tFpVjvTcdrXi5mEqLhdhTKwry81ITrbiB3Fwh1tTcxMwcK2kgJ1lI1AXIrtQtSi3ILyrRTU7=
+MLUjMTM-LStbXT8pPqdRPySzTL0lMyknVLynSL0mBsKONY5G5QHa0YSxC1gifLEQKJJKYZGRsZm=
+6eaGSanJSWlGxmaG5UU5SanllcklqUmmJlYmBualZjYmhikmxmZm5paGhkaGJslMWTPCMhzsZ7r=
+kJjm6EBAOw6a6M.mINdBlcAV-CG_w/click] [https://cdn.eu1.exponea.com/robo-cash=
+/e/.eJwTUujRNDnU3p6p3u1jVdb1cfV68VtFt6xfmMqqXsi8NyWH_5aUTEZJSUGxlb5-iV5uqn5=
+RflJ-cmJxRnxqaVF-Qarhbu0WlWO9Nx2teLmYSouF2FMrCvLzUhOtuIHcXCHW1NzEzBwraSAnWU=
+jUBciu1C1KLcgvKtFNTswtSMxMz4tK1tdPyk-p1E_JLNMvSUzKSdUvKdIvSYGwo41jkblAdrRhL=
+ELWCJ8sRAqkJjHJyNjM3DzRyDQ5KS0p2czQ3KimKDU9s7gktSg1xcrEwNzUrMbE0MQk2czM3NLQ=
+0MjQxNgoiyd5RkKcjfdchcY2QwMAAwhmyg._7LWO0Y0Ql_mdw/click] [https://cdn.eu1.e=
+xponea.com/robo-cash/e/.eJwTUujRNDnU3p6p3u1jVdb1cfV68VtFt6xfmMqqXsi8NyWH_5a=
+UbkZJSUGxlb5-eXm5XmV-aUlpUqpecn6uvkNQflJ-cmJxRnxmXllqcUlual6JvuFu7RaVY703Ha=
+14uZhKi4XYUysK8vNSE624gdxcIdbU3MTMHCtpICdZSNQFyK7ULUotyC8q0U1OzC1IzEzPi0rW1=
+0_KT6nUT8ks0y9JTMpJ1S8p0i9JgbCjjWORuUB2tGEsQtYInyxECmRCYpKRsZm5eaKRaXJSWlKy=
+maG5UU1RanpmcUlqUWqKlYmBualZjYmhiUmymZm5paGhkaGJsVEWT_KMhDgb77kKjW2GBgAlYG2=
+B.9J47OmYbByOkmA/click] [https://cdn.eu1.exponea.com/robo-cash/e/.eJwTUujRN=
+DnU3p6p3u1jVdb1cfV68VtFt6xfmMqqXsi8NyWH_5aUUkZJSUGxlb5-eXm5Xk5mXnZqSmaeXnJ-=
+rn5RflK-XnJicYbhbu0WlWO9Nx2teLmYSouF2FMrCvLzUhOtuIHcXCHW1NzEzBwraSAnWUjUBci=
+u1C1KLcgvKtFNTswtSMxMz4tK1tdPyk-p1E_JLNMvSUzKSdUvKdIvSYGwo41jkblAdrRhLELWCJ=
+8sRCraJFY_McnI2MzcPNHINDkpLSnZzNDcqKYoNT2zuCS1KDXFysTA3NSsxsTQxCTZzMzc0tDQy=
+NDE2CiLJ3lGQpyN91yFxjZDAwCcSmjr.NukQ9RGQ6B5VuQ/click] [https://cdn.eu1.expo=
+nea.com/robo-cash/e/.eJwTUujRNDnU3p6p3u1jVdb1cfV68VtFt6xfmMqqXsi8NyWH_5aUbE=
+ZJSUGxlb5-SXlmSUlqkV5yfq5-UH5SfnJicYah4W7tFpVjvTcdrXi5mEqLhdhTKwry81ITrbiB3=
+Fwh1tTcxMwcK2kgJ1lI1AXIrtQtSi3ILyrRTU7MLUjMTM-LStbXT8pPqdRPySzTL0lMyknVLynS=
+L0mBsKONY5G5QHa0YSxC1gifLEQq2jRWPzHJyNjM3DzRyDQ5KS0p2czQ3KimKDU9sxjon9QUKxM=
+Dc1OzGhNDE5NkMzNzS0NDI0MTY6MsnuQZCXE23nMVGtsMDQBN8Gb8.bvcZfiCibPIhwQ/click]=
+
+
+Ask a question [mailto:support@robo.cash]
+
+=C2=A9 2024 "Robocash". All rights reserved.
+
+Robocash d.o.o (=E2=80=9CRobocash=E2=80=9D) is a company registered in the =
+Republic of Croatia under registration No. 081224371, with legal address at=
+ Petra=C4=8Diceva 4, Zagreb, Croatia, 10110.
+Robocash is not regulated under any financial services license. When you in=
+vest on Robocash, you buy claim rights for loan receivables and investments=
+ in loan receivables are subject to risks. We advise diversifying investmen=
+ts and carefully evaluating the risks.
+You have received this email because you have signed up for ROBOCASH [https=
+://cdn.eu1.exponea.com/robo-cash/e/.eJwTUujRNDnU3p6p3u1jVdb1cfV68VtFt6xfmMq=
+qXsi8NyWH_5aUUEZJSUGxlb5-UX5Svl5yYnGGvuFu7RaVY703Ha14uZhKi4XYUysK8vNSE624gd=
+xcIdbU3MTMHCtpICdZSNQFyK7ULUotyC8q0U1OzC1IzEzPiwrT10_KT6nUT8ks0y9JTMpJ1S8p0=
+i9JgbCjjWORuUA2WCQFUyWUXQCST4w2jE0yMjYzN080Mk1OSktKNjM0N6opSk3PLC5JLUpNsTIx=
+MDc1qzExNDFJNjMztzQ0NDI0MTbK4kmekRBn4z1XobHN0AAAEYFd4w.hTmu0xcClE4mtw/click=
+]. If you would like to unsubscribe or manage your subscription preferences=
+, please click here [https://cdn.eu1.exponea.com/robo-cash/e/.eJwTUujRNDnU3=
+p6p3u1jVdb1cfV68VtFt6xfmMqqXsi8NyWH_5aUYkZJSUGxlb5-UX5Svl5yYnGGfnJiUmZeaol-=
+QVF-WmZOquFu7RaVY703Ha14uZhKi4XYUysK8vNSE624gdxcIdbU3MTMHCtpICdZSNQFyK7ULUo=
+tyC8q0U1OzC1IzEzPiwrT10_KT6nUT8ks0y9JTMpJ1S8p0i9JgbCjjWORuUA2WCQFUyWUXQCST4=
+w2ik0yMjYzN080Mk1OSktKNjM0N6opSk3PLC5JLUpNsTIxMDc1qzExNDFJNjMztzQ0NDI0MTbK4=
+kmekRBn4z1XobHN0AAAvoVj6Q.ESSqMTlNgKSKTQ/click].
+
+--_av-iwKBj9_r5LOYZRwUEsAraA
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.=
+w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html dir=3D"ltr" xmlns=3D"http://www.w3.org/1999/xhtml" xmlns:o=3D"urn:sch=
+emas-microsoft-com:office:office" lang=3D"en"><head><meta charset=3D"UTF-8"=
+><meta content=3D"width=3Ddevice-width, initial-scale=3D1" name=3D"viewport=
+"><meta name=3D"x-apple-disable-message-reformatting"><meta http-equiv=3D"X=
+-UA-Compatible" content=3D"IE=3Dedge"><meta content=3D"telephone=3Dno" name=
+=3D"format-detection"><title>Daily account statement 2024-05-04</title><!--=
+[if (mso 16)]>
+    <style type=3D"text/css">
+    a {text-decoration: none;}
+    </style>
+    <![endif]--><!--[if gte mso 9]><style>sup { font-size: 100% !important;=
+ }</style><![endif]--><!--[if gte mso 9]>
+<xml>
+    <o:OfficeDocumentSettings>
+    <o:AllowPNG></o:AllowPNG>
+    <o:PixelsPerInch>96</o:PixelsPerInch>
+    </o:OfficeDocumentSettings>
+</xml>
+<![endif]--><style type=3D"text/css">
+#outlook a {
+=09padding:0;
+}
+.es-button {
+=09mso-style-priority:100!important;
+=09text-decoration:none!important;
+}
+a[x-apple-data-detectors] {
+=09color:inherit!important;
+=09text-decoration:none!important;
+=09font-size:inherit!important;
+=09font-family:inherit!important;
+=09font-weight:inherit!important;
+=09line-height:inherit!important;
+}
+.es-desk-hidden {
+=09display:none;
+=09float:left;
+=09overflow:hidden;
+=09width:0;
+=09max-height:0;
+=09line-height:0;
+=09mso-hide:all;
+}
+@media only screen and (max-width:600px) {p, ul li, ol li, a { line-height:=
+150%!important } h1, h2, h3, h1 a, h2 a, h3 a { line-height:120%!important =
+} h1 { font-size:30px!important; text-align:left } h2 { font-size:24px!impo=
+rtant; text-align:left } h3 { font-size:20px!important; text-align:left } .=
+es-header-body h1 a, .es-content-body h1 a, .es-footer-body h1 a { font-siz=
+e:30px!important; text-align:left } .es-header-body h2 a, .es-content-body =
+h2 a, .es-footer-body h2 a { font-size:24px!important; text-align:left } .e=
+s-header-body h3 a, .es-content-body h3 a, .es-footer-body h3 a { font-size=
+:20px!important; text-align:left } .es-menu td a { font-size:14px!important=
+ } .es-header-body p, .es-header-body ul li, .es-header-body ol li, .es-hea=
+der-body a { font-size:14px!important } .es-content-body p, .es-content-bod=
+y ul li, .es-content-body ol li, .es-content-body a { font-size:14px!import=
+ant } .es-footer-body p, .es-footer-body ul li, .es-footer-body ol li, .es-=
+footer-body a { font-size:10px!important } .es-infoblock p, .es-infoblock u=
+l li, .es-infoblock ol li, .es-infoblock a { font-size:12px!important } *[c=
+lass=3D"gmail-fix"] { display:none!important } .es-m-txt-c, .es-m-txt-c h1,=
+ .es-m-txt-c h2, .es-m-txt-c h3 { text-align:center!important } .es-m-txt-r=
+, .es-m-txt-r h1, .es-m-txt-r h2, .es-m-txt-r h3 { text-align:right!importa=
+nt } .es-m-txt-l, .es-m-txt-l h1, .es-m-txt-l h2, .es-m-txt-l h3 { text-ali=
+gn:left!important } .es-m-txt-r img, .es-m-txt-c img, .es-m-txt-l img { dis=
+play:inline!important } .es-button-border { display:inline-block!important =
+} a.es-button, button.es-button { font-size:12px!important; display:inline-=
+block!important } .es-adaptive table, .es-left, .es-right { width:100%!impo=
+rtant } .es-content table, .es-header table, .es-footer table, .es-content,=
+ .es-footer, .es-header { width:100%!important; max-width:600px!important }=
+ .es-adapt-td { display:block!important; width:100%!important } .adapt-img =
+{ width:100%!important; height:auto!important } .es-m-p0 { padding:0px!impo=
+rtant } .es-m-p0r { padding-right:0px!important } .es-m-p0l { padding-left:=
+0px!important } .es-m-p0t { padding-top:0px!important } .es-m-p0b { padding=
+-bottom:0!important } .es-m-p20b { padding-bottom:20px!important } .es-mobi=
+le-hidden, .es-hidden { display:none!important } tr.es-desk-hidden, td.es-d=
+esk-hidden, table.es-desk-hidden { width:auto!important; overflow:visible!i=
+mportant; float:none!important; max-height:inherit!important; line-height:i=
+nherit!important } tr.es-desk-hidden { display:table-row!important } table.=
+es-desk-hidden { display:table!important } td.es-desk-menu-hidden { display=
+:table-cell!important } .es-menu td { width:1%!important } table.es-table-n=
+ot-adapt, .esd-block-html table { width:auto!important } table.es-social { =
+display:inline-block!important } table.es-social td { display:inline-block!=
+important } .es-desk-hidden { display:table-row!important; width:auto!impor=
+tant; overflow:visible!important; max-height:inherit!important } .h-auto { =
+height:auto!important } }
+@media screen and (max-width:384px) {.mail-message-content { width:414px!im=
+portant } }
+</style></head><body style=3D"width:100%;font-family:arial, 'helvetica neue=
+', helvetica, sans-serif;-webkit-text-size-adjust:100%;-ms-text-size-adjust=
+:100%;padding:0;Margin:0"><img width=3D"1" height=3D"1" alt=3D"" src=3D"htt=
+ps://cdn.eu1.exponea.com/robo-cash/e/CgxjmUrpVZNIogh-w2QSIIwpNMKHh2kni0w6do=
+rxq68X2nLaO-g1HSXQad6UbA_aMbsrhCTGjdlBagxjmGBePEudIIGGMTA.A5QprmzoufLKKw/op=
+en">
+  <div dir=3D"ltr" class=3D"es-wrapper-color" lang=3D"en" style=3D"backgrou=
+nd-color:#F6F6F6"><!--[if gte mso 9]>
+=09=09=09<v:background xmlns:v=3D"urn:schemas-microsoft-com:vml" fill=3D"t"=
+>
+=09=09=09=09<v:fill type=3D"tile" color=3D"#f6f6f6"></v:fill>
+=09=09=09</v:background>
+=09=09<![endif]-->
+   <table class=3D"es-wrapper" width=3D"100%" cellspacing=3D"0" cellpadding=
+=3D"0" role=3D"none" style=3D"mso-table-lspace:0pt;mso-table-rspace:0pt;bor=
+der-collapse:collapse;border-spacing:0px;padding:0;Margin:0;width:100%;heig=
+ht:100%;background-repeat:repeat;background-position:center top;background-=
+color:#F6F6F6"><tr><td valign=3D"top" style=3D"padding:0;Margin:0">
+       <table cellpadding=3D"0" cellspacing=3D"0" class=3D"es-header" align=
+=3D"center" role=3D"none" style=3D"mso-table-lspace:0pt;mso-table-rspace:0p=
+t;border-collapse:collapse;border-spacing:0px;table-layout:fixed !important=
+;width:100%;background-color:transparent;background-repeat:repeat;backgroun=
+d-position:center top"><tr><td align=3D"center" style=3D"padding:0;Margin:0=
+">
+           <table class=3D"es-header-body" cellspacing=3D"0" cellpadding=3D=
+"0" align=3D"center" style=3D"mso-table-lspace:0pt;mso-table-rspace:0pt;bor=
+der-collapse:collapse;border-spacing:0px;background-color:#ffffff;width:600=
+px" bgcolor=3D"#ffffff" role=3D"none"><tr><td class=3D"esdev-adapt-off" ali=
+gn=3D"left" style=3D"padding:0;Margin:0;padding-left:10px;padding-right:15p=
+x;padding-top:25px">
+               <table cellpadding=3D"0" cellspacing=3D"0" class=3D"esdev-ms=
+o-table" role=3D"none" style=3D"mso-table-lspace:0pt;mso-table-rspace:0pt;b=
+order-collapse:collapse;border-spacing:0px;width:575px"><tr><td class=3D"es=
+dev-mso-td" valign=3D"top" style=3D"padding:0;Margin:0">
+                   <table cellpadding=3D"0" cellspacing=3D"0" class=3D"es-l=
+eft" align=3D"left" role=3D"none" style=3D"mso-table-lspace:0pt;mso-table-r=
+space:0pt;border-collapse:collapse;border-spacing:0px;float:left"><tr><td a=
+lign=3D"left" style=3D"padding:0;Margin:0;width:178px">
+                       <table cellpadding=3D"0" cellspacing=3D"0" width=3D"=
+100%" role=3D"presentation" style=3D"mso-table-lspace:0pt;mso-table-rspace:=
+0pt;border-collapse:collapse;border-spacing:0px"><tr><td align=3D"left" sty=
+le=3D"padding:0;Margin:0;padding-top:5px;padding-left:10px;font-size:0px"><=
+img src=3D"https://ylrexd.stripocdn.email/content/guids/CABINET_678abea0e5b=
+153113383f0c0c9bab64bc587a4bb4a3f1b96d9b087d863b7db15/images/74361608093316=
+982_uzg.png" alt style=3D"display:block;border:0;outline:none;text-decorati=
+on:none;-ms-interpolation-mode:bicubic" width=3D"143" height=3D"26"></td>
+                         </tr></table></td>
+                     </tr></table></td>
+                  <td class=3D"esdev-mso-td" valign=3D"top" style=3D"paddin=
+g:0;Margin:0">
+                   <table cellpadding=3D"0" cellspacing=3D"0" class=3D"es-r=
+ight" align=3D"right" role=3D"none" style=3D"mso-table-lspace:0pt;mso-table=
+-rspace:0pt;border-collapse:collapse;border-spacing:0px;float:right"><tr><t=
+d align=3D"left" style=3D"padding:0;Margin:0;width:387px">
+                       <table cellpadding=3D"0" cellspacing=3D"0" width=3D"=
+100%" role=3D"presentation" style=3D"mso-table-lspace:0pt;mso-table-rspace:=
+0pt;border-collapse:collapse;border-spacing:0px"><tr><td align=3D"right" st=
+yle=3D"padding:0;Margin:0"><!--[if mso]><a href=3D"https://cdn.eu1.exponea.=
+com/robo-cash/e/EiCMKTTCh4dpJ4tMOnaK8auvF9py2jvoNR0l0GnelGwP2hoSaHR0cHM6Ly9=
+yb2JvLmNhc2gvMbsrhCTGjdlBOg0KAnVzEgdleHBvbmVhOgsKAnVtEgVlbWFpbDobCgJ1YxIVRG=
+FpbHktcmVwb3J0LWNhbXBhaWduYjIzNjc3YTI1Y2JmYmM2MTcyfHJlZ2lzdGVyZWQ6NDA3NTZ8N=
+DE0NGM2Njc5MTEyMTQzMmoMY5hgXjxLnSCBhjEw.ciud7MpYMXOlwg/click" target=3D"_bl=
+ank" hidden>
+=09<v:roundrect xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:w=3D"urn:sc=
+hemas-microsoft-com:office:word" esdevVmlButton href=3D"https://cdn.eu1.exp=
+onea.com/robo-cash/e/EiCMKTTCh4dpJ4tMOnaK8auvF9py2jvoNR0l0GnelGwP2hoSaHR0cH=
+M6Ly9yb2JvLmNhc2gvMbsrhCTGjdlBOg0KAnVzEgdleHBvbmVhOgsKAnVtEgVlbWFpbDobCgJ1Y=
+xIVRGFpbHktcmVwb3J0LWNhbXBhaWduYjIzNjc3YTI1Y2JmYmM2MTcyfHJlZ2lzdGVyZWQ6NDA3=
+NTZ8NDE0NGM2Njc5MTEyMTQzMmoMY5hgXjxLnSCBhjEw.ciud7MpYMXOlwg/click"
+                style=3D"height:24px; v-text-anchor:middle; width:127px" ar=
+csize=3D"21%" strokecolor=3D"#029570" strokeweight=3D"7px" fillcolor=3D"#02=
+9570">
+=09=09<w:anchorlock></w:anchorlock>
+=09=09<center style=3D'color:#ffffff; font-family:arial, "helvetica neue", =
+helvetica, sans-serif; font-size:8px; font-weight:400; line-height:8px;  ms=
+o-text-raise:1px'>SIGN IN</center>
+=09</v:roundrect></a>
+<![endif]--><!--[if !mso]><!-- --><span class=3D"msohide es-button-border" =
+style=3D"border-style:solid;border-color:#029570;background:#029570;border-=
+width:7px;display:inline-block;border-radius:5px;width:auto;mso-hide:all"><=
+a href=3D"https://cdn.eu1.exponea.com/robo-cash/e/.eJwTUujRNDnU3p6p3u1jVdb1=
+cfV68VtFt6xfmMqqXsi8NyWH_5aUUEZJSUGxlb5-UX5Svl5yYnGGvuFu7RaVY703Ha14uZhKi4X=
+YUysK8vNSE624gdxcIdbU3MTMHCtpICdZSNQFyK7ULUotyC8q0U1OzC1IzEzPi0rS10_KT6nUT8=
+ks0y9JTMpJ1S8p0i9JgbCjDWORuUA2WCQFWWW0USymRii7uCAxTz8xycjYzNw80cg0OSktKdnM0=
+Nyopig1PbO4JLUoNcXKxMDc1KzGxNDEJNnMzNzS0NDI0MTYKIsneUZCnI33XIXGNkMDAOb5YpY.=
+GhtX08YdjtFZEA/click" class=3D"es-button" target=3D"_blank" style=3D"mso-st=
+yle-priority:100 !important;text-decoration:none;-webkit-text-size-adjust:n=
+one;-ms-text-size-adjust:none;mso-line-height-rule:exactly;color:#FFFFFF;fo=
+nt-size:12px;display:inline-block;background:#029570;border-radius:5px;font=
+-family:arial, 'helvetica neue', helvetica, sans-serif;font-weight:normal;f=
+ont-style:normal;line-height:14px;width:auto;text-align:center;padding:0px =
+25px;mso-padding-alt:0;mso-border-alt:10px solid #029570">SIGN IN</a></span=
+><!--<![endif]--></td>
+                         </tr></table></td>
+                     </tr></table></td>
+                 </tr></table></td>
+             </tr><tr><td align=3D"left" style=3D"padding:0;Margin:0">
+               <table cellspacing=3D"0" cellpadding=3D"0" width=3D"100%" ro=
+le=3D"none" style=3D"mso-table-lspace:0pt;mso-table-rspace:0pt;border-colla=
+pse:collapse;border-spacing:0px"><tr><td valign=3D"top" align=3D"center" st=
+yle=3D"padding:0;Margin:0;width:600px">
+                   <table cellspacing=3D"0" cellpadding=3D"0" width=3D"100%=
+" role=3D"presentation" style=3D"mso-table-lspace:0pt;mso-table-rspace:0pt;=
+border-collapse:collapse;border-spacing:0px"><tr><td align=3D"center" style=
+=3D"Margin:0;padding-left:15px;padding-right:15px;padding-top:20px;padding-=
+bottom:20px;font-size:0px">
+                       <table border=3D"0" width=3D"100%" height=3D"100%" c=
+ellpadding=3D"0" cellspacing=3D"0" role=3D"presentation" style=3D"mso-table=
+-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0p=
+x"><tr><td style=3D"padding:0;Margin:0;border-bottom:1px solid #cccccc;back=
+ground:unset;height:1px;width:100%;margin:0px"></td>
+                         </tr></table></td>
+                     </tr></table></td>
+                 </tr></table></td>
+             </tr></table></td>
+         </tr></table><table class=3D"es-content" cellspacing=3D"0" cellpad=
+ding=3D"0" align=3D"center" role=3D"none" style=3D"mso-table-lspace:0pt;mso=
+-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;table-layout:=
+fixed !important;width:100%"><tr><td align=3D"center" style=3D"padding:0;Ma=
+rgin:0">
+           <table class=3D"es-content-body" cellspacing=3D"0" cellpadding=
+=3D"0" bgcolor=3D"#ffffff" align=3D"center" role=3D"none" style=3D"mso-tabl=
+e-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0=
+px;background-color:#FFFFFF;width:600px"><tr><td align=3D"left" style=3D"pa=
+dding:0;Margin:0;padding-left:20px;padding-right:20px">
+               <table cellpadding=3D"0" cellspacing=3D"0" width=3D"100%" ro=
+le=3D"none" style=3D"mso-table-lspace:0pt;mso-table-rspace:0pt;border-colla=
+pse:collapse;border-spacing:0px"><tr><td align=3D"center" valign=3D"top" st=
+yle=3D"padding:0;Margin:0;width:560px">
+                   <table cellpadding=3D"0" cellspacing=3D"0" width=3D"100%=
+" role=3D"presentation" style=3D"mso-table-lspace:0pt;mso-table-rspace:0pt;=
+border-collapse:collapse;border-spacing:0px"><tr><td align=3D"left" style=
+=3D"padding:0;Margin:0"><p style=3D"Margin:0;-webkit-text-size-adjust:none;=
+-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, '=
+helvetica neue', helvetica, sans-serif;line-height:33px;color:#333333;font-=
+size:22px"><strong>Hello,&#160;Richard!</strong></p></td>
+                     </tr></table></td>
+                 </tr></table></td>
+             </tr><tr><td align=3D"left" style=3D"padding:0;Margin:0;paddin=
+g-top:20px;padding-left:20px;padding-right:20px">
+               <table cellpadding=3D"0" cellspacing=3D"0" width=3D"100%" ro=
+le=3D"none" style=3D"mso-table-lspace:0pt;mso-table-rspace:0pt;border-colla=
+pse:collapse;border-spacing:0px"><tr><td align=3D"center" valign=3D"top" st=
+yle=3D"padding:0;Margin:0;width:560px">
+                   <table cellpadding=3D"0" cellspacing=3D"0" width=3D"100%=
+" role=3D"presentation" style=3D"mso-table-lspace:0pt;mso-table-rspace:0pt;=
+border-collapse:collapse;border-spacing:0px"><tr><td align=3D"left" style=
+=3D"padding:0;Margin:0"><p style=3D"Margin:0;-webkit-text-size-adjust:none;=
+-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, '=
+helvetica neue', helvetica, sans-serif;line-height:21px;color:#333333;font-=
+size:14px">This is your daily report on the Robocash account.</p><p style=
+=3D"Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-li=
+ne-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans=
+-serif;line-height:21px;color:#333333;font-size:14px"><br></p><p style=3D"M=
+argin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-he=
+ight-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-seri=
+f;line-height:21px;color:#333333;font-size:14px"><strong>Summary statement =
+on&#160;2024-05-04</strong></p></td>
+                     </tr></table></td>
+                 </tr></table></td>
+             </tr><tr><td class=3D"esdev-adapt-off" align=3D"left" style=3D=
+"padding:0;Margin:0;padding-top:20px;padding-left:20px;padding-right:20px">
+               <table cellpadding=3D"0" cellspacing=3D"0" class=3D"esdev-ms=
+o-table" role=3D"none" style=3D"mso-table-lspace:0pt;mso-table-rspace:0pt;b=
+order-collapse:collapse;border-spacing:0px;width:560px"><tr><td class=3D"es=
+dev-mso-td" valign=3D"top" style=3D"padding:0;Margin:0">
+                   <table cellpadding=3D"0" cellspacing=3D"0" class=3D"es-l=
+eft" align=3D"left" role=3D"none" style=3D"mso-table-lspace:0pt;mso-table-r=
+space:0pt;border-collapse:collapse;border-spacing:0px;float:left"><tr><td a=
+lign=3D"left" style=3D"padding:0;Margin:0;width:278px">
+                       <table cellpadding=3D"0" cellspacing=3D"0" width=3D"=
+100%" role=3D"presentation" style=3D"mso-table-lspace:0pt;mso-table-rspace:=
+0pt;border-collapse:collapse;border-spacing:0px"><tr><td align=3D"left" sty=
+le=3D"padding:0;Margin:0"><p style=3D"Margin:0;-webkit-text-size-adjust:non=
+e;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial,=
+ 'helvetica neue', helvetica, sans-serif;line-height:21px;color:#029570;fon=
+t-size:14px"><strong>Opening account value</strong></p></td>
+                         </tr></table></td>
+                     </tr></table></td>
+                  <td class=3D"esdev-mso-td" valign=3D"top" style=3D"paddin=
+g:0;Margin:0">
+                   <table cellpadding=3D"0" cellspacing=3D"0" class=3D"es-r=
+ight" align=3D"right" role=3D"none" style=3D"mso-table-lspace:0pt;mso-table=
+-rspace:0pt;border-collapse:collapse;border-spacing:0px;float:right"><tr><t=
+d align=3D"left" style=3D"padding:0;Margin:0;width:282px">
+                       <table cellpadding=3D"0" cellspacing=3D"0" width=3D"=
+100%" role=3D"presentation" style=3D"mso-table-lspace:0pt;mso-table-rspace:=
+0pt;border-collapse:collapse;border-spacing:0px"><tr><td align=3D"right" st=
+yle=3D"padding:0;Margin:0"><p style=3D"Margin:0;-webkit-text-size-adjust:no=
+ne;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial=
+, 'helvetica neue', helvetica, sans-serif;line-height:21px;color:#029570;fo=
+nt-size:14px"><strong>3636.82&#160;&#8364;</strong></p></td>
+                         </tr></table></td>
+                     </tr></table></td>
+                 </tr></table></td>
+             </tr><tr><td class=3D"esdev-adapt-off" align=3D"left" bgcolor=
+=3D"#F5F7F9" style=3D"padding:0;Margin:0;padding-top:20px;padding-left:20px=
+;padding-right:20px;background-color:#f5f7f9">
+               <table cellpadding=3D"0" cellspacing=3D"0" class=3D"esdev-ms=
+o-table" role=3D"none" style=3D"mso-table-lspace:0pt;mso-table-rspace:0pt;b=
+order-collapse:collapse;border-spacing:0px;width:560px"><tr><td class=3D"es=
+dev-mso-td" valign=3D"top" style=3D"padding:0;Margin:0">
+                   <table cellpadding=3D"0" cellspacing=3D"0" class=3D"es-l=
+eft" align=3D"left" role=3D"none" style=3D"mso-table-lspace:0pt;mso-table-r=
+space:0pt;border-collapse:collapse;border-spacing:0px;float:left"><tr><td a=
+lign=3D"left" style=3D"padding:0;Margin:0;width:278px">
+                       <table cellpadding=3D"0" cellspacing=3D"0" width=3D"=
+100%" role=3D"presentation" style=3D"mso-table-lspace:0pt;mso-table-rspace:=
+0pt;border-collapse:collapse;border-spacing:0px"><tr><td align=3D"left" sty=
+le=3D"padding:0;Margin:0"><p style=3D"Margin:0;-webkit-text-size-adjust:non=
+e;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial,=
+ 'helvetica neue', helvetica, sans-serif;line-height:21px;color:#333333;fon=
+t-size:14px"><strong></strong>Added funds<strong></strong></p></td>
+                         </tr></table></td>
+                     </tr></table></td>
+                  <td class=3D"esdev-mso-td" valign=3D"top" style=3D"paddin=
+g:0;Margin:0">
+                   <table cellpadding=3D"0" cellspacing=3D"0" class=3D"es-r=
+ight" align=3D"right" role=3D"none" style=3D"mso-table-lspace:0pt;mso-table=
+-rspace:0pt;border-collapse:collapse;border-spacing:0px;float:right"><tr><t=
+d align=3D"left" style=3D"padding:0;Margin:0;width:282px">
+                       <table cellpadding=3D"0" cellspacing=3D"0" width=3D"=
+100%" role=3D"presentation" style=3D"mso-table-lspace:0pt;mso-table-rspace:=
+0pt;border-collapse:collapse;border-spacing:0px"><tr><td align=3D"right" st=
+yle=3D"padding:0;Margin:0"><p style=3D"Margin:0;-webkit-text-size-adjust:no=
+ne;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial=
+, 'helvetica neue', helvetica, sans-serif;line-height:21px;color:#333333;fo=
+nt-size:14px">0.00 &#8364;</p></td>
+                         </tr></table></td>
+                     </tr></table></td>
+                 </tr></table></td>
+             </tr><tr><td class=3D"esdev-adapt-off" align=3D"left" style=3D=
+"padding:0;Margin:0;padding-top:20px;padding-left:20px;padding-right:20px">
+               <table cellpadding=3D"0" cellspacing=3D"0" class=3D"esdev-ms=
+o-table" role=3D"none" style=3D"mso-table-lspace:0pt;mso-table-rspace:0pt;b=
+order-collapse:collapse;border-spacing:0px;width:560px"><tr><td class=3D"es=
+dev-mso-td" valign=3D"top" style=3D"padding:0;Margin:0">
+                   <table cellpadding=3D"0" cellspacing=3D"0" class=3D"es-l=
+eft" align=3D"left" role=3D"none" style=3D"mso-table-lspace:0pt;mso-table-r=
+space:0pt;border-collapse:collapse;border-spacing:0px;float:left"><tr><td a=
+lign=3D"left" style=3D"padding:0;Margin:0;width:278px">
+                       <table cellpadding=3D"0" cellspacing=3D"0" width=3D"=
+100%" role=3D"presentation" style=3D"mso-table-lspace:0pt;mso-table-rspace:=
+0pt;border-collapse:collapse;border-spacing:0px"><tr><td align=3D"left" sty=
+le=3D"padding:0;Margin:0"><p style=3D"Margin:0;-webkit-text-size-adjust:non=
+e;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial,=
+ 'helvetica neue', helvetica, sans-serif;line-height:21px;color:#333333;fon=
+t-size:14px">Withdrawn funds</p></td>
+                         </tr></table></td>
+                     </tr></table></td>
+                  <td class=3D"esdev-mso-td" valign=3D"top" style=3D"paddin=
+g:0;Margin:0">
+                   <table cellpadding=3D"0" cellspacing=3D"0" class=3D"es-r=
+ight" align=3D"right" role=3D"none" style=3D"mso-table-lspace:0pt;mso-table=
+-rspace:0pt;border-collapse:collapse;border-spacing:0px;float:right"><tr><t=
+d align=3D"left" style=3D"padding:0;Margin:0;width:282px">
+                       <table cellpadding=3D"0" cellspacing=3D"0" width=3D"=
+100%" role=3D"presentation" style=3D"mso-table-lspace:0pt;mso-table-rspace:=
+0pt;border-collapse:collapse;border-spacing:0px"><tr><td align=3D"right" st=
+yle=3D"padding:0;Margin:0"><p style=3D"Margin:0;-webkit-text-size-adjust:no=
+ne;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial=
+, 'helvetica neue', helvetica, sans-serif;line-height:21px;color:#333333;fo=
+nt-size:14px">0.00 &#8364;</p></td>
+                         </tr></table></td>
+                     </tr></table></td>
+                 </tr></table></td>
+             </tr><tr><td class=3D"esdev-adapt-off" align=3D"left" bgcolor=
+=3D"#F5F7F9" style=3D"padding:0;Margin:0;padding-top:20px;padding-left:20px=
+;padding-right:20px;background-color:#f5f7f9">
+               <table cellpadding=3D"0" cellspacing=3D"0" class=3D"esdev-ms=
+o-table" role=3D"none" style=3D"mso-table-lspace:0pt;mso-table-rspace:0pt;b=
+order-collapse:collapse;border-spacing:0px;width:560px"><tr><td class=3D"es=
+dev-mso-td" valign=3D"top" style=3D"padding:0;Margin:0">
+                   <table cellpadding=3D"0" cellspacing=3D"0" class=3D"es-l=
+eft" align=3D"left" role=3D"none" style=3D"mso-table-lspace:0pt;mso-table-r=
+space:0pt;border-collapse:collapse;border-spacing:0px;float:left"><tr><td a=
+lign=3D"left" style=3D"padding:0;Margin:0;width:278px">
+                       <table cellpadding=3D"0" cellspacing=3D"0" width=3D"=
+100%" role=3D"presentation" style=3D"mso-table-lspace:0pt;mso-table-rspace:=
+0pt;border-collapse:collapse;border-spacing:0px"><tr><td align=3D"left" sty=
+le=3D"padding:0;Margin:0"><p style=3D"Margin:0;-webkit-text-size-adjust:non=
+e;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial,=
+ 'helvetica neue', helvetica, sans-serif;line-height:21px;color:#333333;fon=
+t-size:14px">Purchased loans</p></td>
+                         </tr></table></td>
+                     </tr></table></td>
+                  <td class=3D"esdev-mso-td" valign=3D"top" style=3D"paddin=
+g:0;Margin:0">
+                   <table cellpadding=3D"0" cellspacing=3D"0" class=3D"es-r=
+ight" align=3D"right" role=3D"none" style=3D"mso-table-lspace:0pt;mso-table=
+-rspace:0pt;border-collapse:collapse;border-spacing:0px;float:right"><tr><t=
+d align=3D"left" style=3D"padding:0;Margin:0;width:282px">
+                       <table cellpadding=3D"0" cellspacing=3D"0" width=3D"=
+100%" role=3D"presentation" style=3D"mso-table-lspace:0pt;mso-table-rspace:=
+0pt;border-collapse:collapse;border-spacing:0px"><tr><td align=3D"right" st=
+yle=3D"padding:0;Margin:0"><p style=3D"Margin:0;-webkit-text-size-adjust:no=
+ne;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial=
+, 'helvetica neue', helvetica, sans-serif;line-height:21px;color:#333333;fo=
+nt-size:14px">0.00 &#8364;</p></td>
+                         </tr></table></td>
+                     </tr></table></td>
+                 </tr></table></td>
+             </tr><tr><td class=3D"esdev-adapt-off" align=3D"left" style=3D=
+"padding:0;Margin:0;padding-top:20px;padding-left:20px;padding-right:20px">
+               <table cellpadding=3D"0" cellspacing=3D"0" class=3D"esdev-ms=
+o-table" role=3D"none" style=3D"mso-table-lspace:0pt;mso-table-rspace:0pt;b=
+order-collapse:collapse;border-spacing:0px;width:560px"><tr><td class=3D"es=
+dev-mso-td" valign=3D"top" style=3D"padding:0;Margin:0">
+                   <table cellpadding=3D"0" cellspacing=3D"0" class=3D"es-l=
+eft" align=3D"left" role=3D"none" style=3D"mso-table-lspace:0pt;mso-table-r=
+space:0pt;border-collapse:collapse;border-spacing:0px;float:left"><tr><td a=
+lign=3D"left" style=3D"padding:0;Margin:0;width:278px">
+                       <table cellpadding=3D"0" cellspacing=3D"0" width=3D"=
+100%" role=3D"presentation" style=3D"mso-table-lspace:0pt;mso-table-rspace:=
+0pt;border-collapse:collapse;border-spacing:0px"><tr><td align=3D"left" sty=
+le=3D"padding:0;Margin:0"><p style=3D"Margin:0;-webkit-text-size-adjust:non=
+e;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial,=
+ 'helvetica neue', helvetica, sans-serif;line-height:21px;color:#333333;fon=
+t-size:14px">Returned loans</p></td>
+                         </tr></table></td>
+                     </tr></table></td>
+                  <td class=3D"esdev-mso-td" valign=3D"top" style=3D"paddin=
+g:0;Margin:0">
+                   <table cellpadding=3D"0" cellspacing=3D"0" class=3D"es-r=
+ight" align=3D"right" role=3D"none" style=3D"mso-table-lspace:0pt;mso-table=
+-rspace:0pt;border-collapse:collapse;border-spacing:0px;float:right"><tr><t=
+d align=3D"left" style=3D"padding:0;Margin:0;width:282px">
+                       <table cellpadding=3D"0" cellspacing=3D"0" width=3D"=
+100%" role=3D"presentation" style=3D"mso-table-lspace:0pt;mso-table-rspace:=
+0pt;border-collapse:collapse;border-spacing:0px"><tr><td align=3D"right" st=
+yle=3D"padding:0;Margin:0"><p style=3D"Margin:0;-webkit-text-size-adjust:no=
+ne;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial=
+, 'helvetica neue', helvetica, sans-serif;line-height:21px;color:#333333;fo=
+nt-size:14px">0.00 &#8364;</p></td>
+                         </tr></table></td>
+                     </tr></table></td>
+                 </tr></table></td>
+             </tr><tr><td class=3D"esdev-adapt-off" align=3D"left" bgcolor=
+=3D"#F5F7F9" style=3D"padding:0;Margin:0;padding-top:20px;padding-left:20px=
+;padding-right:20px;background-color:#f5f7f9">
+               <table cellpadding=3D"0" cellspacing=3D"0" class=3D"esdev-ms=
+o-table" role=3D"none" style=3D"mso-table-lspace:0pt;mso-table-rspace:0pt;b=
+order-collapse:collapse;border-spacing:0px;width:560px"><tr><td class=3D"es=
+dev-mso-td" valign=3D"top" style=3D"padding:0;Margin:0">
+                   <table cellpadding=3D"0" cellspacing=3D"0" class=3D"es-l=
+eft" align=3D"left" role=3D"none" style=3D"mso-table-lspace:0pt;mso-table-r=
+space:0pt;border-collapse:collapse;border-spacing:0px;float:left"><tr><td a=
+lign=3D"left" style=3D"padding:0;Margin:0;width:278px">
+                       <table cellpadding=3D"0" cellspacing=3D"0" width=3D"=
+100%" role=3D"presentation" style=3D"mso-table-lspace:0pt;mso-table-rspace:=
+0pt;border-collapse:collapse;border-spacing:0px"><tr><td align=3D"left" sty=
+le=3D"padding:0;Margin:0"><p style=3D"Margin:0;-webkit-text-size-adjust:non=
+e;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial,=
+ 'helvetica neue', helvetica, sans-serif;line-height:21px;color:#333333;fon=
+t-size:14px">Earned interest</p></td>
+                         </tr></table></td>
+                     </tr></table></td>
+                  <td class=3D"esdev-mso-td" valign=3D"top" style=3D"paddin=
+g:0;Margin:0">
+                   <table cellpadding=3D"0" cellspacing=3D"0" class=3D"es-r=
+ight" align=3D"right" role=3D"none" style=3D"mso-table-lspace:0pt;mso-table=
+-rspace:0pt;border-collapse:collapse;border-spacing:0px;float:right"><tr><t=
+d align=3D"left" style=3D"padding:0;Margin:0;width:282px">
+                       <table cellpadding=3D"0" cellspacing=3D"0" width=3D"=
+100%" role=3D"presentation" style=3D"mso-table-lspace:0pt;mso-table-rspace:=
+0pt;border-collapse:collapse;border-spacing:0px"><tr><td align=3D"right" st=
+yle=3D"padding:0;Margin:0"><p style=3D"Margin:0;-webkit-text-size-adjust:no=
+ne;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial=
+, 'helvetica neue', helvetica, sans-serif;line-height:21px;color:#333333;fo=
+nt-size:14px">1.23 &#8364;</p></td>
+                         </tr></table></td>
+                     </tr></table></td>
+                 </tr></table></td>
+             </tr><tr><td class=3D"esdev-adapt-off" align=3D"left" style=3D=
+"padding:0;Margin:0;padding-top:20px;padding-left:20px;padding-right:20px">
+               <table cellpadding=3D"0" cellspacing=3D"0" class=3D"esdev-ms=
+o-table" role=3D"none" style=3D"mso-table-lspace:0pt;mso-table-rspace:0pt;b=
+order-collapse:collapse;border-spacing:0px;width:560px"><tr><td class=3D"es=
+dev-mso-td" valign=3D"top" style=3D"padding:0;Margin:0">
+                   <table cellpadding=3D"0" cellspacing=3D"0" class=3D"es-l=
+eft" align=3D"left" role=3D"none" style=3D"mso-table-lspace:0pt;mso-table-r=
+space:0pt;border-collapse:collapse;border-spacing:0px;float:left"><tr><td a=
+lign=3D"left" style=3D"padding:0;Margin:0;width:278px">
+                       <table cellpadding=3D"0" cellspacing=3D"0" width=3D"=
+100%" role=3D"presentation" style=3D"mso-table-lspace:0pt;mso-table-rspace:=
+0pt;border-collapse:collapse;border-spacing:0px"><tr><td align=3D"left" sty=
+le=3D"padding:0;Margin:0"><p style=3D"Margin:0;-webkit-text-size-adjust:non=
+e;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial,=
+ 'helvetica neue', helvetica, sans-serif;line-height:21px;color:#029570;fon=
+t-size:14px"><strong>Closing account value</strong></p></td>
+                         </tr></table></td>
+                     </tr></table></td>
+                  <td class=3D"esdev-mso-td" valign=3D"top" style=3D"paddin=
+g:0;Margin:0">
+                   <table cellpadding=3D"0" cellspacing=3D"0" class=3D"es-r=
+ight" align=3D"right" role=3D"none" style=3D"mso-table-lspace:0pt;mso-table=
+-rspace:0pt;border-collapse:collapse;border-spacing:0px;float:right"><tr><t=
+d align=3D"left" style=3D"padding:0;Margin:0;width:282px">
+                       <table cellpadding=3D"0" cellspacing=3D"0" width=3D"=
+100%" role=3D"presentation" style=3D"mso-table-lspace:0pt;mso-table-rspace:=
+0pt;border-collapse:collapse;border-spacing:0px"><tr><td align=3D"right" st=
+yle=3D"padding:0;Margin:0"><p style=3D"Margin:0;-webkit-text-size-adjust:no=
+ne;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial=
+, 'helvetica neue', helvetica, sans-serif;line-height:21px;color:#029570;fo=
+nt-size:14px"><strong>3638.06 &#8364;</strong></p></td>
+                         </tr></table></td>
+                     </tr></table></td>
+                 </tr></table></td>
+             </tr><tr><td class=3D"esdev-adapt-off" align=3D"left" bgcolor=
+=3D"#F5F7F9" style=3D"padding:0;Margin:0;padding-top:20px;padding-left:20px=
+;padding-right:20px;background-color:#f5f7f9">
+               <table cellpadding=3D"0" cellspacing=3D"0" class=3D"esdev-ms=
+o-table" role=3D"none" style=3D"mso-table-lspace:0pt;mso-table-rspace:0pt;b=
+order-collapse:collapse;border-spacing:0px;width:560px"><tr><td class=3D"es=
+dev-mso-td" valign=3D"top" style=3D"padding:0;Margin:0">
+                   <table cellpadding=3D"0" cellspacing=3D"0" class=3D"es-l=
+eft" align=3D"left" role=3D"none" style=3D"mso-table-lspace:0pt;mso-table-r=
+space:0pt;border-collapse:collapse;border-spacing:0px;float:left"><tr><td a=
+lign=3D"left" style=3D"padding:0;Margin:0;width:278px">
+                       <table cellpadding=3D"0" cellspacing=3D"0" width=3D"=
+100%" role=3D"presentation" style=3D"mso-table-lspace:0pt;mso-table-rspace:=
+0pt;border-collapse:collapse;border-spacing:0px"><tr><td align=3D"left" sty=
+le=3D"padding:0;Margin:0"><p style=3D"Margin:0;-webkit-text-size-adjust:non=
+e;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial,=
+ 'helvetica neue', helvetica, sans-serif;line-height:21px;color:#333333;fon=
+t-size:14px"><strong></strong>Uninvested funds on portfolio balance<strong>=
+</strong></p></td>
+                         </tr></table></td>
+                     </tr></table></td>
+                  <td class=3D"esdev-mso-td" valign=3D"top" style=3D"paddin=
+g:0;Margin:0">
+                   <table cellpadding=3D"0" cellspacing=3D"0" class=3D"es-r=
+ight" align=3D"right" role=3D"none" style=3D"mso-table-lspace:0pt;mso-table=
+-rspace:0pt;border-collapse:collapse;border-spacing:0px;float:right"><tr><t=
+d align=3D"left" style=3D"padding:0;Margin:0;width:282px">
+                       <table cellpadding=3D"0" cellspacing=3D"0" width=3D"=
+100%" role=3D"presentation" style=3D"mso-table-lspace:0pt;mso-table-rspace:=
+0pt;border-collapse:collapse;border-spacing:0px"><tr><td align=3D"right" st=
+yle=3D"padding:0;Margin:0"><p style=3D"Margin:0;-webkit-text-size-adjust:no=
+ne;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial=
+, 'helvetica neue', helvetica, sans-serif;line-height:21px;color:#333333;fo=
+nt-size:14px">3.08 &#8364;</p></td>
+                         </tr></table></td>
+                     </tr></table></td>
+                 </tr></table></td>
+             </tr><tr><td class=3D"esdev-adapt-off" align=3D"left" style=3D=
+"padding:0;Margin:0;padding-top:20px;padding-left:20px;padding-right:20px">
+               <table cellpadding=3D"0" cellspacing=3D"0" class=3D"esdev-ms=
+o-table" role=3D"none" style=3D"mso-table-lspace:0pt;mso-table-rspace:0pt;b=
+order-collapse:collapse;border-spacing:0px;width:560px"><tr><td class=3D"es=
+dev-mso-td" valign=3D"top" style=3D"padding:0;Margin:0">
+                   <table cellpadding=3D"0" cellspacing=3D"0" class=3D"es-l=
+eft" align=3D"left" role=3D"none" style=3D"mso-table-lspace:0pt;mso-table-r=
+space:0pt;border-collapse:collapse;border-spacing:0px;float:left"><tr><td a=
+lign=3D"left" style=3D"padding:0;Margin:0;width:278px">
+                       <table cellpadding=3D"0" cellspacing=3D"0" width=3D"=
+100%" role=3D"presentation" style=3D"mso-table-lspace:0pt;mso-table-rspace:=
+0pt;border-collapse:collapse;border-spacing:0px"><tr><td align=3D"left" sty=
+le=3D"padding:0;Margin:0"><p style=3D"Margin:0;-webkit-text-size-adjust:non=
+e;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial,=
+ 'helvetica neue', helvetica, sans-serif;line-height:21px;color:#333333;fon=
+t-size:14px">Uninvested funds on investor&#8217;s balance</p></td>
+                         </tr></table></td>
+                     </tr></table></td>
+                  <td class=3D"esdev-mso-td" valign=3D"top" style=3D"paddin=
+g:0;Margin:0">
+                   <table cellpadding=3D"0" cellspacing=3D"0" class=3D"es-r=
+ight" align=3D"right" role=3D"none" style=3D"mso-table-lspace:0pt;mso-table=
+-rspace:0pt;border-collapse:collapse;border-spacing:0px;float:right"><tr><t=
+d align=3D"left" style=3D"padding:0;Margin:0;width:282px">
+                       <table cellpadding=3D"0" cellspacing=3D"0" width=3D"=
+100%" role=3D"presentation" style=3D"mso-table-lspace:0pt;mso-table-rspace:=
+0pt;border-collapse:collapse;border-spacing:0px"><tr><td align=3D"right" st=
+yle=3D"padding:0;Margin:0"><p style=3D"Margin:0;-webkit-text-size-adjust:no=
+ne;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial=
+, 'helvetica neue', helvetica, sans-serif;line-height:21px;color:#333333;fo=
+nt-size:14px">0.00 &#8364;</p></td>
+                         </tr></table></td>
+                     </tr></table></td>
+                 </tr></table></td>
+             </tr><tr><td class=3D"esdev-adapt-off" align=3D"left" bgcolor=
+=3D"#F5F7F9" style=3D"padding:0;Margin:0;padding-top:20px;padding-left:20px=
+;padding-right:20px;background-color:#f5f7f9">
+               <table cellpadding=3D"0" cellspacing=3D"0" class=3D"esdev-ms=
+o-table" role=3D"none" style=3D"mso-table-lspace:0pt;mso-table-rspace:0pt;b=
+order-collapse:collapse;border-spacing:0px;width:560px"><tr><td class=3D"es=
+dev-mso-td" valign=3D"top" style=3D"padding:0;Margin:0">
+                   <table cellpadding=3D"0" cellspacing=3D"0" class=3D"es-l=
+eft" align=3D"left" role=3D"none" style=3D"mso-table-lspace:0pt;mso-table-r=
+space:0pt;border-collapse:collapse;border-spacing:0px;float:left"><tr><td a=
+lign=3D"left" style=3D"padding:0;Margin:0;width:278px">
+                       <table cellpadding=3D"0" cellspacing=3D"0" width=3D"=
+100%" role=3D"presentation" style=3D"mso-table-lspace:0pt;mso-table-rspace:=
+0pt;border-collapse:collapse;border-spacing:0px"><tr><td align=3D"left" sty=
+le=3D"padding:0;Margin:0"><p style=3D"Margin:0;-webkit-text-size-adjust:non=
+e;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial,=
+ 'helvetica neue', helvetica, sans-serif;line-height:21px;color:#333333;fon=
+t-size:14px"><strong><strong></strong>TOTAL FUNDS<strong></strong></strong>=
+</p></td>
+                         </tr></table></td>
+                     </tr></table></td>
+                  <td class=3D"esdev-mso-td" valign=3D"top" style=3D"paddin=
+g:0;Margin:0">
+                   <table cellpadding=3D"0" cellspacing=3D"0" class=3D"es-r=
+ight" align=3D"right" role=3D"none" style=3D"mso-table-lspace:0pt;mso-table=
+-rspace:0pt;border-collapse:collapse;border-spacing:0px;float:right"><tr><t=
+d align=3D"left" style=3D"padding:0;Margin:0;width:282px">
+                       <table cellpadding=3D"0" cellspacing=3D"0" width=3D"=
+100%" role=3D"presentation" style=3D"mso-table-lspace:0pt;mso-table-rspace:=
+0pt;border-collapse:collapse;border-spacing:0px"><tr><td align=3D"right" st=
+yle=3D"padding:0;Margin:0"><p style=3D"Margin:0;-webkit-text-size-adjust:no=
+ne;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial=
+, 'helvetica neue', helvetica, sans-serif;line-height:21px;color:#333333;fo=
+nt-size:14px"><strong>3639.90 &#8364;</strong></p></td>
+                         </tr></table></td>
+                     </tr></table></td>
+                 </tr></table></td>
+             </tr><tr><td align=3D"left" style=3D"padding:0;Margin:0;paddin=
+g-top:20px;padding-left:20px;padding-right:20px">
+               <table cellpadding=3D"0" cellspacing=3D"0" width=3D"100%" ro=
+le=3D"none" style=3D"mso-table-lspace:0pt;mso-table-rspace:0pt;border-colla=
+pse:collapse;border-spacing:0px"><tr><td align=3D"left" style=3D"padding:0;=
+Margin:0;width:560px">
+                   <table cellpadding=3D"0" cellspacing=3D"0" width=3D"100%=
+" role=3D"presentation" style=3D"mso-table-lspace:0pt;mso-table-rspace:0pt;=
+border-collapse:collapse;border-spacing:0px"><tr><td align=3D"center" style=
+=3D"padding:20px;Margin:0"><!--[if mso]><a href=3D"https://cdn.eu1.exponea.=
+com/robo-cash/e/EiCMKTTCh4dpJ4tMOnaK8auvF9py2jvoNR0l0GnelGwP2hoSaHR0cHM6Ly9=
+yb2JvLmNhc2gvMbsrhCTGjdlBOg0KAnVzEgdleHBvbmVhOgsKAnVtEgVlbWFpbDobCgJ1YxIVRG=
+FpbHktcmVwb3J0LWNhbXBhaWduYjIzNjc3YTI1Y2JmYmM2MTcyfHJlZ2lzdGVyZWQ6NDA3NTZ8N=
+DE0NGM2Njc5MTEyMTQzMmoMY5hgXjxLnSCBhjEw.ciud7MpYMXOlwg/click" target=3D"_bl=
+ank" hidden>
+=09<v:roundrect xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:w=3D"urn:sc=
+hemas-microsoft-com:office:word" esdevVmlButton href=3D"https://cdn.eu1.exp=
+onea.com/robo-cash/e/EiCMKTTCh4dpJ4tMOnaK8auvF9py2jvoNR0l0GnelGwP2hoSaHR0cH=
+M6Ly9yb2JvLmNhc2gvMbsrhCTGjdlBOg0KAnVzEgdleHBvbmVhOgsKAnVtEgVlbWFpbDobCgJ1Y=
+xIVRGFpbHktcmVwb3J0LWNhbXBhaWduYjIzNjc3YTI1Y2JmYmM2MTcyfHJlZ2lzdGVyZWQ6NDA3=
+NTZ8NDE0NGM2Njc5MTEyMTQzMmoMY5hgXjxLnSCBhjEw.ciud7MpYMXOlwg/click"
+                style=3D"height:24px; v-text-anchor:middle; width:224px" ar=
+csize=3D"21%" strokecolor=3D"#029570" strokeweight=3D"7px" fillcolor=3D"#02=
+9570">
+=09=09<w:anchorlock></w:anchorlock>
+=09=09<center style=3D'color:#ffffff; font-family:arial, "helvetica neue", =
+helvetica, sans-serif; font-size:8px; font-weight:400; line-height:8px;  ms=
+o-text-raise:1px'>Go to my account</center>
+=09</v:roundrect></a>
+<![endif]--><!--[if !mso]><!-- --><span class=3D"msohide es-button-border" =
+style=3D"border-style:solid;border-color:#029570;background:#029570;border-=
+width:7px;display:inline-block;border-radius:5px;width:auto;mso-hide:all"><=
+a href=3D"https://cdn.eu1.exponea.com/robo-cash/e/.eJwTUujRNDnU3p6p3u1jVdb1=
+cfV68VtFt6xfmMqqXsi8NyWH_5aUUEZJSUGxlb5-UX5Svl5yYnGGvuFu7RaVY703Ha14uZhKi4X=
+YUysK8vNSE624gdxcIdbU3MTMHCtpICdZSNQFyK7ULUotyC8q0U1OzC1IzEzPiwrX10_KT6nUT8=
+ks0y9JTMpJ1S8p0i9JgbCjjWKRuUB2tKFxLCofhQtiFxck5uknJhkZm5mbJxqZJielJSWbGZob1=
+RSlpmcWl6QWpaZYmRiYm5rVmBiamCSbmZlbGhoaGZoYG2XxJM9IiLPxnqvQ2GZoAAB4bF5r.f2t=
+aPeyK0JRV2Q/click" class=3D"es-button" target=3D"_blank" style=3D"mso-style=
+-priority:100 !important;text-decoration:none;-webkit-text-size-adjust:none=
+;-ms-text-size-adjust:none;mso-line-height-rule:exactly;color:#FFFFFF;font-=
+size:18px;display:inline-block;background:#029570;border-radius:5px;font-fa=
+mily:arial, 'helvetica neue', helvetica, sans-serif;font-weight:normal;font=
+-style:normal;line-height:22px;width:auto;text-align:center;padding:0px 25p=
+x;mso-padding-alt:0;mso-border-alt:10px solid #029570">Go to my account</a>=
+</span><!--<![endif]--></td>
+                     </tr></table></td>
+                 </tr><tr><td align=3D"center" valign=3D"top" style=3D"padd=
+ing:0;Margin:0;width:560px">
+                   <table cellpadding=3D"0" cellspacing=3D"0" width=3D"100%=
+" role=3D"presentation" style=3D"mso-table-lspace:0pt;mso-table-rspace:0pt;=
+border-collapse:collapse;border-spacing:0px"><tr><td align=3D"left" style=
+=3D"padding:0;Margin:0"><p style=3D"Margin:0;-webkit-text-size-adjust:none;=
+-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, '=
+helvetica neue', helvetica, sans-serif;line-height:21px;color:#333333;font-=
+size:14px"><strong></strong>You can always check the status of your investm=
+ents and portfolio details in your account.<br></p><p style=3D"Margin:0;-we=
+bkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:e=
+xactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-heig=
+ht:21px;color:#333333;font-size:14px"><strong></strong><br></p><p style=3D"=
+Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-h=
+eight-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-ser=
+if;line-height:21px;color:#333333;font-size:14px"><strong>Best regards,</st=
+rong></p><p style=3D"Margin:0;-webkit-text-size-adjust:none;-ms-text-size-a=
+djust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue'=
+, helvetica, sans-serif;line-height:21px;color:#333333;font-size:14px"><str=
+ong>Robo.cash Team</strong></p><p style=3D"Margin:0;-webkit-text-size-adjus=
+t:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:a=
+rial, 'helvetica neue', helvetica, sans-serif;line-height:21px;color:#33333=
+3;font-size:14px"><br></p></td>
+                     </tr></table></td>
+                 </tr></table></td>
+             </tr></table></td>
+         </tr></table><table class=3D"es-footer" cellspacing=3D"0" cellpadd=
+ing=3D"0" align=3D"center" role=3D"none" style=3D"mso-table-lspace:0pt;mso-=
+table-rspace:0pt;border-collapse:collapse;border-spacing:0px;table-layout:f=
+ixed !important;width:100%;background-color:transparent;background-repeat:r=
+epeat;background-position:center top"><tr><td align=3D"center" style=3D"pad=
+ding:0;Margin:0">
+           <table class=3D"es-footer-body" cellspacing=3D"0" cellpadding=3D=
+"0" bgcolor=3D"#ffffff" align=3D"center" role=3D"none" style=3D"mso-table-l=
+space:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;=
+background-color:#FFFFFF;width:600px"><tr><td align=3D"left" bgcolor=3D"#02=
+9570" style=3D"padding:0;Margin:0;padding-top:20px;padding-left:20px;paddin=
+g-right:20px;background-color:#029570"><!--[if mso]><table style=3D"width:5=
+60px" cellpadding=3D"0" cellspacing=3D"0"><tr><td style=3D"width:270px" val=
+ign=3D"top"><![endif]-->
+               <table cellpadding=3D"0" cellspacing=3D"0" class=3D"es-left"=
+ align=3D"left" role=3D"none" style=3D"mso-table-lspace:0pt;mso-table-rspac=
+e:0pt;border-collapse:collapse;border-spacing:0px;float:left"><tr><td align=
+=3D"left" style=3D"padding:0;Margin:0;width:270px">
+                   <table cellpadding=3D"0" cellspacing=3D"0" width=3D"100%=
+" role=3D"presentation" style=3D"mso-table-lspace:0pt;mso-table-rspace:0pt;=
+border-collapse:collapse;border-spacing:0px"><tr><td align=3D"left" style=
+=3D"padding:0;Margin:0"><p style=3D"Margin:0;-webkit-text-size-adjust:none;=
+-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, '=
+helvetica neue', helvetica, sans-serif;line-height:18px;color:#ffffff;font-=
+size:12px"><strong>CONTACT US</strong></p><p style=3D"Margin:0;-webkit-text=
+-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;fo=
+nt-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:15px;c=
+olor:#ffffff;font-size:10px">Robocash d.o.o<br>Petra&#269;iceva 4, Zagreb, =
+Croatia, 10110<br>support@robo.cash</p></td>
+                     </tr></table></td>
+                 </tr></table><!--[if mso]></td><td style=3D"width:20px"></=
+td><td style=3D"width:270px" valign=3D"top"><![endif]--><table cellpadding=
+=3D"0" cellspacing=3D"0" class=3D"es-right" align=3D"right" role=3D"none" s=
+tyle=3D"mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;=
+border-spacing:0px;float:right"><tr><td align=3D"left" style=3D"padding:0;M=
+argin:0;width:270px">
+                   <table cellpadding=3D"0" cellspacing=3D"0" width=3D"100%=
+" role=3D"presentation" style=3D"mso-table-lspace:0pt;mso-table-rspace:0pt;=
+border-collapse:collapse;border-spacing:0px"><tr><td align=3D"center" class=
+=3D"es-m-txt-l" style=3D"padding:0;Margin:0;padding-top:5px;font-size:0">
+                       <table cellpadding=3D"0" cellspacing=3D"0" class=3D"=
+es-table-not-adapt es-social" dir=3D"ltr" role=3D"presentation" style=3D"ms=
+o-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spa=
+cing:0px"><tr><td align=3D"center" valign=3D"top" style=3D"padding:0;Margin=
+:0;padding-right:10px"><a target=3D"_blank" href=3D"https://cdn.eu1.exponea=
+.com/robo-cash/e/.eJwTUujRNDnU3p6p3u1jVdb1cfV68VtFt6xfmMqqXsi8NyWH_5aUZkZJS=
+UGxlb5-eXm5XlpicmpSfn62XnJ-rn5RflJ-cmJxhl5mXllqcYm-4W7tFpVjvTcdrXi5mEqLhdhT=
+Kwry81ITrbiB3Fwh1tTcxMwcK2kgJ1lI1AXIrtQtSi3ILyrRTU7MLUjMTM-LStbXT8pPqdRPySz=
+TL0lMyknVLynSL0mBsKONY5G5QHa0YSxC1gifLEQKJJKYZGRsZm6eaGSanJSWlGxmaG5UU5Sanl=
+lcklqUmmJlYmBualZjYmhikmxmZm5paGhkaGJslMWTPCMhzsZ7rkJjm6EBAOw6a6M.mINdBlcAV=
+-CG_w/click" style=3D"-webkit-text-size-adjust:none;-ms-text-size-adjust:no=
+ne;mso-line-height-rule:exactly;text-decoration:underline;color:#2CB543;fon=
+t-size:14px"><img src=3D"https://ylrexd.stripocdn.email/content/guids/CABIN=
+ET_b62a50b56db1f33edf63f9508d260aa20f20f5e4614dcfae86d81d2d6c872d28/images/=
+shape_2.png" alt=3D"Fb" title=3D"Facebook" width=3D"23" height=3D"24" style=
+=3D"display:block;border:0;outline:none;text-decoration:none;-ms-interpolat=
+ion-mode:bicubic"></a></td>
+                          <td align=3D"center" valign=3D"top" style=3D"padd=
+ing:0;Margin:0;padding-right:10px"><a target=3D"_blank" href=3D"https://cdn=
+.eu1.exponea.com/robo-cash/e/.eJwTUujRNDnU3p6p3u1jVdb1cfV68VtFt6xfmMqqXsi8N=
+yWH_5aUTEZJSUGxlb5-iV5uqn5RflJ-cmJxRnxqaVF-Qarhbu0WlWO9Nx2teLmYSouF2FMrCvLz=
+UhOtuIHcXCHW1NzEzBwraSAnWUjUBciu1C1KLcgvKtFNTswtSMxMz4tK1tdPyk-p1E_JLNMvSUz=
+KSdUvKdIvSYGwo41jkblAdrRhLELWCJ8sRAqkJjHJyNjM3DzRyDQ5KS0p2czQ3KimKDU9s7gktS=
+g1xcrEwNzUrMbE0MQk2czM3NLQ0MjQxNgoiyd5RkKcjfdchcY2QwMAAwhmyg._7LWO0Y0Ql_mdw=
+/click" style=3D"-webkit-text-size-adjust:none;-ms-text-size-adjust:none;ms=
+o-line-height-rule:exactly;text-decoration:underline;color:#2CB543;font-siz=
+e:14px"><img src=3D"https://ylrexd.stripocdn.email/content/guids/CABINET_b6=
+2a50b56db1f33edf63f9508d260aa20f20f5e4614dcfae86d81d2d6c872d28/images/socia=
+l_button.png" alt=3D"Ig" title=3D"Instagram" width=3D"23" height=3D"24" sty=
+le=3D"display:block;border:0;outline:none;text-decoration:none;-ms-interpol=
+ation-mode:bicubic"></a></td>
+                          <td align=3D"center" valign=3D"top" style=3D"padd=
+ing:0;Margin:0;padding-right:10px"><a target=3D"_blank" href=3D"https://cdn=
+.eu1.exponea.com/robo-cash/e/.eJwTUujRNDnU3p6p3u1jVdb1cfV68VtFt6xfmMqqXsi8N=
+yWH_5aUbkZJSUGxlb5-eXm5XmV-aUlpUqpecn6uvkNQflJ-cmJxRnxmXllqcUlual6JvuFu7RaV=
+Y703Ha14uZhKi4XYUysK8vNSE624gdxcIdbU3MTMHCtpICdZSNQFyK7ULUotyC8q0U1OzC1IzEz=
+Pi0rW10_KT6nUT8ks0y9JTMpJ1S8p0i9JgbCjjWORuUB2tGEsQtYInyxECmRCYpKRsZm5eaKRaX=
+JSWlKymaG5UU1RanpmcUlqUWqKlYmBualZjYmhiUmymZm5paGhkaGJsVEWT_KMhDgb77kKjW2GB=
+gAlYG2B.9J47OmYbByOkmA/click" style=3D"-webkit-text-size-adjust:none;-ms-te=
+xt-size-adjust:none;mso-line-height-rule:exactly;text-decoration:underline;=
+color:#2CB543;font-size:14px"><img src=3D"https://ylrexd.stripocdn.email/co=
+ntent/guids/CABINET_b62a50b56db1f33edf63f9508d260aa20f20f5e4614dcfae86d81d2=
+d6c872d28/images/shape_1_Msj.png" alt=3D"Yt" title=3D"YouTube" width=3D"23"=
+ height=3D"24" style=3D"display:block;border:0;outline:none;text-decoration=
+:none;-ms-interpolation-mode:bicubic"></a></td>
+                          <td align=3D"center" valign=3D"top" style=3D"padd=
+ing:0;Margin:0;padding-right:10px"><a target=3D"_blank" href=3D"https://cdn=
+.eu1.exponea.com/robo-cash/e/.eJwTUujRNDnU3p6p3u1jVdb1cfV68VtFt6xfmMqqXsi8N=
+yWH_5aUUkZJSUGxlb5-eXm5Xk5mXnZqSmaeXnJ-rn5RflK-XnJicYbhbu0WlWO9Nx2teLmYSouF=
+2FMrCvLzUhOtuIHcXCHW1NzEzBwraSAnWUjUBciu1C1KLcgvKtFNTswtSMxMz4tK1tdPyk-p1E_=
+JLNMvSUzKSdUvKdIvSYGwo41jkblAdrRhLELWCJ8sRCraJFY_McnI2MzcPNHINDkpLSnZzNDcqK=
+YoNT2zuCS1KDXFysTA3NSsxsTQxCTZzMzc0tDQyNDE2CiLJ3lGQpyN91yFxjZDAwCcSmjr.NukQ=
+9RGQ6B5VuQ/click" style=3D"-webkit-text-size-adjust:none;-ms-text-size-adju=
+st:none;mso-line-height-rule:exactly;text-decoration:underline;color:#2CB54=
+3;font-size:14px"><img src=3D"https://ylrexd.stripocdn.email/content/guids/=
+CABINET_b62a50b56db1f33edf63f9508d260aa20f20f5e4614dcfae86d81d2d6c872d28/im=
+ages/shape.png" alt=3D"In" title=3D"LinkedIn" width=3D"23" height=3D"24" st=
+yle=3D"display:block;border:0;outline:none;text-decoration:none;-ms-interpo=
+lation-mode:bicubic"></a></td>
+                          <td align=3D"center" valign=3D"top" style=3D"padd=
+ing:0;Margin:0"><a target=3D"_blank" href=3D"https://cdn.eu1.exponea.com/ro=
+bo-cash/e/.eJwTUujRNDnU3p6p3u1jVdb1cfV68VtFt6xfmMqqXsi8NyWH_5aUbEZJSUGxlb5-=
+SXlmSUlqkV5yfq5-UH5SfnJicYah4W7tFpVjvTcdrXi5mEqLhdhTKwry81ITrbiB3Fwh1tTcxMw=
+cK2kgJ1lI1AXIrtQtSi3ILyrRTU7MLUjMTM-LStbXT8pPqdRPySzTL0lMyknVLynSL0mBsKONY5=
+G5QHa0YSxC1gifLEQq2jRWPzHJyNjM3DzRyDQ5KS0p2czQ3KimKDU9sxjon9QUKxMDc1OzGhNDE=
+5NkMzNzS0NDI0MTY6MsnuQZCXE23nMVGtsMDQBN8Gb8.bvcZfiCibPIhwQ/click" style=3D"=
+-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rul=
+e:exactly;text-decoration:underline;color:#2CB543;font-size:14px"><img src=
+=3D"https://ylrexd.stripocdn.email/content/guids/CABINET_b62a50b56db1f33edf=
+63f9508d260aa20f20f5e4614dcfae86d81d2d6c872d28/images/twitterlogobutton_1.p=
+ng" alt=3D"X" title=3D"X" width=3D"23" height=3D"24" style=3D"display:block=
+;border:0;outline:none;text-decoration:none;-ms-interpolation-mode:bicubic"=
+></a></td>
+                         </tr></table></td>
+                     </tr><tr><td align=3D"center" class=3D"es-m-txt-l" sty=
+le=3D"padding:0;Margin:0;padding-top:10px"><!--[if mso]><a href=3D"mailto:s=
+upport@robo.cash" target=3D"_blank" hidden>
+=09<v:roundrect xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:w=3D"urn:sc=
+hemas-microsoft-com:office:word" esdevVmlButton href=3D"mailto:support@robo=
+.cash"
+                style=3D"height:36px; v-text-anchor:middle; width:152px" ar=
+csize=3D"14%" strokecolor=3D"#ffffff" strokeweight=3D"1px" fillcolor=3D"#02=
+9570">
+=09=09<w:anchorlock></w:anchorlock>
+=09=09<center style=3D'color:#ffffff; font-family:arial, "helvetica neue", =
+helvetica, sans-serif; font-size:12px; font-weight:400; line-height:12px;  =
+mso-text-raise:1px'>Ask a question</center>
+=09</v:roundrect></a>
+<![endif]--><!--[if !mso]><!-- --><span class=3D"msohide es-button-border" =
+style=3D"border-style:solid;border-color:#ffffff;background:#029570;border-=
+width:1px;display:inline-block;border-radius:5px;width:auto;mso-hide:all"><=
+a href=3D"mailto:support@robo.cash" class=3D"es-button" target=3D"_blank" s=
+tyle=3D"mso-style-priority:100 !important;text-decoration:none;-webkit-text=
+-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;co=
+lor:#FFFFFF;font-size:14px;display:inline-block;background:#029570;border-r=
+adius:5px;font-family:arial, 'helvetica neue', helvetica, sans-serif;font-w=
+eight:normal;font-style:normal;line-height:17px;width:auto;text-align:cente=
+r;padding:10px 20px 10px 20px;mso-padding-alt:0;mso-border-alt:10px solid #=
+029570">Ask a question</a></span><!--<![endif]--></td>
+                     </tr></table></td>
+                 </tr></table><!--[if mso]></td></tr></table><![endif]--></=
+td>
+             </tr><tr><td align=3D"left" bgcolor=3D"#029570" style=3D"paddi=
+ng:0;Margin:0;padding-left:20px;padding-right:20px;background-color:#029570=
+">
+               <table cellpadding=3D"0" cellspacing=3D"0" width=3D"100%" ro=
+le=3D"none" style=3D"mso-table-lspace:0pt;mso-table-rspace:0pt;border-colla=
+pse:collapse;border-spacing:0px"><tr><td align=3D"center" valign=3D"top" st=
+yle=3D"padding:0;Margin:0;width:560px">
+                   <table cellpadding=3D"0" cellspacing=3D"0" width=3D"100%=
+" role=3D"presentation" style=3D"mso-table-lspace:0pt;mso-table-rspace:0pt;=
+border-collapse:collapse;border-spacing:0px"><tr><td align=3D"center" style=
+=3D"padding:0;Margin:0;padding-top:20px;padding-bottom:20px;font-size:0">
+                       <table border=3D"0" width=3D"100%" height=3D"100%" c=
+ellpadding=3D"0" cellspacing=3D"0" role=3D"presentation" style=3D"mso-table=
+-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0p=
+x"><tr><td style=3D"padding:0;Margin:0;border-bottom:1px solid #cccccc;back=
+ground:unset;height:1px;width:100%;margin:0px"></td>
+                         </tr></table></td>
+                     </tr></table></td>
+                 </tr></table></td>
+             </tr><tr><td align=3D"left" bgcolor=3D"#029570" style=3D"paddi=
+ng:0;Margin:0;padding-left:20px;padding-right:20px;background-color:#029570=
+">
+               <table cellpadding=3D"0" cellspacing=3D"0" width=3D"100%" ro=
+le=3D"none" style=3D"mso-table-lspace:0pt;mso-table-rspace:0pt;border-colla=
+pse:collapse;border-spacing:0px"><tr><td align=3D"center" valign=3D"top" st=
+yle=3D"padding:0;Margin:0;width:560px">
+                   <table cellpadding=3D"0" cellspacing=3D"0" width=3D"100%=
+" role=3D"presentation" style=3D"mso-table-lspace:0pt;mso-table-rspace:0pt;=
+border-collapse:collapse;border-spacing:0px"><tr><td align=3D"left" style=
+=3D"padding:0;Margin:0;padding-bottom:20px"><p style=3D"Margin:0;-webkit-te=
+xt-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;=
+font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:15px=
+;color:#ffffff;font-size:10px">&#169; 2024 "Robocash". All rights reserved.=
+</p><p style=3D"Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust=
+:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', hel=
+vetica, sans-serif;line-height:15px;color:#ffffff;font-size:10px"><br></p><=
+p style=3D"Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none=
+;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetic=
+a, sans-serif;line-height:15px;color:#ffffff;font-size:10px">Robocash d.o.o=
+ (&#8220;Robocash&#8221;) is a company registered in the Republic of Croati=
+a under registration No. 081224371, with legal address at Petra&#269;iceva =
+4, Zagreb, Croatia, 10110.<br><br>Robocash is not regulated under any finan=
+cial services license. When you invest on Robocash, you buy claim rights fo=
+r loan receivables and investments in loan receivables are subject to risks=
+. We advise diversifying investments and carefully evaluating the risks.<br=
+><br>You have received this email because you have signed up for <a target=
+=3D"_blank" style=3D"-webkit-text-size-adjust:none;-ms-text-size-adjust:non=
+e;mso-line-height-rule:exactly;text-decoration:underline;color:#ffffff;font=
+-size:10px" href=3D"https://cdn.eu1.exponea.com/robo-cash/e/.eJwTUujRNDnU3p=
+6p3u1jVdb1cfV68VtFt6xfmMqqXsi8NyWH_5aUUEZJSUGxlb5-UX5Svl5yYnGGvuFu7RaVY703H=
+a14uZhKi4XYUysK8vNSE624gdxcIdbU3MTMHCtpICdZSNQFyK7ULUotyC8q0U1OzC1IzEzPiwrT=
+10_KT6nUT8ks0y9JTMpJ1S8p0i9JgbCjjWORuUA2WCQFUyWUXQCST4w2jE0yMjYzN080Mk1OSkt=
+KNjM0N6opSk3PLC5JLUpNsTIxMDc1qzExNDFJNjMztzQ0NDI0MTbK4kmekRBn4z1XobHN0AAAEY=
+Fd4w.hTmu0xcClE4mtw/click">ROBOCASH</a>. If you would like to unsubscribe o=
+r manage your subscription preferences, please click <a target=3D"_blank" s=
+tyle=3D"-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-he=
+ight-rule:exactly;text-decoration:underline;color:#ffffff;font-size:10px" h=
+ref=3D"https://cdn.eu1.exponea.com/robo-cash/e/.eJwTUujRNDnU3p6p3u1jVdb1cfV=
+68VtFt6xfmMqqXsi8NyWH_5aUYkZJSUGxlb5-UX5Svl5yYnGGfnJiUmZeaol-QVF-WmZOquFu7R=
+aVY703Ha14uZhKi4XYUysK8vNSE624gdxcIdbU3MTMHCtpICdZSNQFyK7ULUotyC8q0U1OzC1Iz=
+EzPiwrT10_KT6nUT8ks0y9JTMpJ1S8p0i9JgbCjjWORuUA2WCQFUyWUXQCST4w2ik0yMjYzN080=
+Mk1OSktKNjM0N6opSk3PLC5JLUpNsTIxMDc1qzExNDFJNjMztzQ0NDI0MTbK4kmekRBn4z1XobH=
+N0AAAvoVj6Q.ESSqMTlNgKSKTQ/click">here</a>.</p></td>
+                     </tr></table></td>
+                 </tr></table></td>
+             </tr></table></td>
+         </tr></table></td>
+     </tr></table></div>
+ </body></html>
+
+--_av-iwKBj9_r5LOYZRwUEsAraA--
+

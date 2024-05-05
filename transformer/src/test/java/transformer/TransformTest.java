@@ -20,7 +20,7 @@ public class TransformTest {
     @Test
     public void transformTest() throws Exception {
     
-        System.out.println("Start Test");
+        System.out.println("Start Test1");
         
     /*    result.add("eins €");
         result.add(" zwei €");
@@ -101,6 +101,19 @@ public class TransformTest {
      //  System.out.println(">"+result+"<");
        assertEquals("2865.09 {",result.trim());
     }
+    @Test
+    public void RobocashTest4() throws Exception {
+
+        System.out.println("Start Robocash");
+        //Transform transform = new Transform();
+
+        String data = readFile("src/test/resources/RobocashMail4.txt");
+        String result = new  ReadMailRobocash().parseMail(data);
+        // String hhh = transform.parseFileTwino(data);
+
+        //  System.out.println(">"+result+"<");
+        assertEquals("3639.90 {",result.trim());
+    }
     
 
 
@@ -114,7 +127,7 @@ public class TransformTest {
         // String hhh = transform.parseFileTwino(data);
 
         //  System.out.println(">"+result+"<");
-        assertEquals("0.10 {",result.trim());
+        assertEquals("251.07 {",result.trim());
     }
     
     @Test
