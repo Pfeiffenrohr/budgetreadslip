@@ -20,8 +20,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
@@ -44,8 +43,8 @@ public class FondsServiceTest {
         Mockito.when(restTemplate.getForObject(anyString(),any())).thenReturn("100.0");
 
        Mockito.when(restTemplate.postForEntity(anyString(),any(),any())).thenReturn(new ResponseEntity("", HttpStatus.OK));
-//        Mockito.when(budget.getInternalKontoname(anyString(),anyString(),anyString())).thenReturn("realkontoname");
-
+      // Mockito.when(budget.getInternalKontoname(anyString(),anyString(),anyString())).thenReturn("realkontoname");
+        Mockito.when(budget.getInternalKontoname(anyString(),isNull(),isNull())).thenReturn("realkontoname");
         FondsService fondsService = new  FondsService(restTemplate,budget);
         Transaction trans = fondsService.parseFonds(list);
         assertEquals(Optional.ofNullable(trans.getWert()),Optional.ofNullable(100.0));
