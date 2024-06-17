@@ -20,7 +20,7 @@ public class ReadMailWuensche implements ReadMail {
         System.out.println("File has " + splited.length + " lines");
         int count = 0;
         // Suche den Anfang
-        while ( count < splited.length && !splited[count].contains("Wuensche_Hohenwart")) {
+        while ( count < splited.length && !splited[count].contains("Wuensche Hohenwart")) {
             count++;
             continue;
         }
@@ -32,7 +32,7 @@ public class ReadMailWuensche implements ReadMail {
 
         count++;
             summe = splited[count];
-            summe = summe.substring(summe.indexOf("_")+1);
+            summe = summe.substring(summe.indexOf("ber")+4);
                 summe = summe.substring(0, summe.indexOf("=C2=A0"));
             summe = summe.replace("=2C",".");
             //System.out.println("Summe =" + summe);

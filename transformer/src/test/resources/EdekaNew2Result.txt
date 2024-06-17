@@ -1,0 +1,11 @@
+BO-Mohnbroetchen 15T 0,38 {
+BO-Sesambroetchen 15T 0,38 {
+KlScheyerGoldMW1x0, 5LFL 1,60 {
+Pfand 0,16 {
+PaulSpeziZeroMW1x0,5LFL 1,40 {
+Pfand 0,16 {
+GruenlaenSHB sortab 120 2,49 {
+Pote Gulaschsuppe 400m1 1,69 {
+GL FK-Roellchen sort100 1,49 {
+MinipflRispento300g VK 2,49 {
+SB HM Paprikasal 200gQ5 1,79 {

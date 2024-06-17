@@ -3,7 +3,7 @@ package transformer.transform;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ReadMailEdekaNew implements ReadMail{
+public class ReadMailKaufland implements ReadMail{
     
 private List <SlipEntry> list ;
     
@@ -21,34 +21,31 @@ private List <SlipEntry> list ;
         String splited[] = txt.trim().split("\n");
         System.out.println("File has " + splited.length + " lines");
         int count = 0;
-        //Ãœberspringe die Zeilen, bis zum Anfang
-        while (!splited[count].startsWith("EUR")) {
+        //Überspringe die Zeilen, bis zum Anfang
+        while (!splited[count].startsWith("Preis")) {
             count++;
         }
         count++;
-        while (!splited[count].startsWith("---") && !splited[count].startsWith("SUMME") ) {
+        while (!splited[count].startsWith("---") && !splited[count].startsWith("Gesamt") ) {
             String line = splited[count];
             //Tokenize the line
-            if (line.startsWith("G&G So")) {
-                System.out.println("ddd");
-            }
             line=line.replace("*"," ");
-            line=line.replace("/"," ");
             line=line.replace("PREPACK","");
             line=line.replace("BED","");
-            line = eliminateSonderzeichen(line);
-
+            line=line.replace("/"," ");
+            line=line.replace("ä","ae");
+            line=line.replace("ü","ue");
+            line=line.replace("ö","oe");
             if (hasPattern(line)) {
                 count++;
                 continue;
             }
-            line = optimizeLine(line);
             line= line.replaceAll("\\s+", " ");
             String tokens[] = line.trim().split(" ");
 
             SlipEntry se = new SlipEntry();
             String name = "";
-            //Ãœberspringe alle falschen Zeilen
+            //Überspringe alle falschen Zeilen
             if ( tokens[0].startsWith("/kg") || tokens[0].startsWith("EURkg") || tokens[0].startsWith("SUMME") || tokens[0].startsWith("2x"))
             {
                 count++;
@@ -56,7 +53,7 @@ private List <SlipEntry> list ;
             }
             name=tokens[0];
             for (int j = 1; j < tokens.length; j++) {
-                if (!isNumber(tokens[j]) ||  (j < tokens.length-2) ) {
+                if (!isNumber(tokens[j]) ||  (j < tokens.length-1) ) {
                         name = name + " " + tokens[j];
                 } else {
                     System.out.println("Name: " + name);
@@ -79,7 +76,7 @@ private List <SlipEntry> list ;
     }
 
     /**
-     * PrÃ¼ft, ob es sich bei dem String um eine Zahl handelt
+     * Prüft, ob es sich bei dem String um eine Zahl handelt
      */
 
 
@@ -103,39 +100,5 @@ private List <SlipEntry> list ;
             return true;
         }
         return false;
-    }
-    private String optimizeLine(String line) {
-        for (int i = 0; i < line.length(); i++) {
-            Character ch = line.charAt(i);
-            if (isRealLetterAndNotx(ch)) {
-                return line.substring(i);
-            }
-        }
-        return line;
-    }
-    private static boolean isRealLetterAndNotx(char c) {
-       if (c=='x' ) {return false; }
-        return (c >= 'a' && c <= 'z') ||
-                (c >= 'A' && c <= 'Z');
-    }
-
-    private String eliminateSonderzeichen (String line ) {
-        String result = "";
-        for (int i = 0; i < line.length(); i++) {
-            Character ch = line.charAt(i);
-            if (isLetterOrDigit(ch)) {
-               result = result+ch;
-            }
-
-        }
-        return result;
-    }
-    private static boolean isLetterOrDigit(char c) {
-       if ( c==' ') {return true;}
-        if ( c=='-') {return true;}
-        if ( c==',') {return true;}
-        return (c >= 'a' && c <= 'z') ||
-                (c >= 'A' && c <= 'Z') ||
-                (c >= '0' && c <= '9');
     }
 }
