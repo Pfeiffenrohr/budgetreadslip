@@ -1,7 +1,6 @@
 package de.lechner.readslip.parser;
 
 import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -9,23 +8,19 @@ import java.util.Date;
 import java.util.List;
 import java.util.regex.Pattern;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.web.util.UriBuilder;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import de.lechner.readslip.bon.Bon;
 import de.lechner.readslip.bon.SlipEntry;
 import de.lechner.readslip.bon.SlipEntryList;
-import de.lechner.readslip.infrastructure.Infrastructure;
+import de.lechner.readslip.message.Budget;
 
 
 @Service
@@ -35,12 +30,14 @@ public class ParseSlip {
 	private String host;
 	@Value("${budgetserver.port}")
 	private String port;
+	@Autowired
+	Budget budget;
 	
 
 	public void analyse(String text,String company) {
 	
 		List <String >splited  = scanner (text);
-		List list =parser(splited);
+		List<SlipEntry> list =parser(splited);
 		ausgabe(list);
 		//getVategorieByName("Käse");
 		checkBon(list,company);	
@@ -127,49 +124,49 @@ public class ParseSlip {
 	private void checkBon( List  <SlipEntry> list,String company ) {
 		RestTemplate restTemplate = new RestTemplate();
 		Bon bon = new Bon();
-		for (int i = 0; i < list.size(); i++) {
+		for (SlipEntry slipEntry : list) {
 			bon.setId(0);
 			bon.setCompany(company);
 			//Falls im Name ein Rabatt vorkommt, setze den Namen auf Rabatt
-			if (list.get(i).getName().contains("Coupon"))
-			{
-				list.get(i).setName("Rabatt");
+			if (slipEntry.getName().contains("Coupon")) {
+				slipEntry.setName("Rabatt");
 			}
-			bon.setRawname(list.get(i).getName());
+			bon.setRawname(slipEntry.getName());
 			bon.setInternalname("unknown");
-			bon.setRawnameMutant(list.get(i).getName());
-			String ppp=list.get(i).getName();
-			String ggg=  URLEncoder.encode(ppp);
-			
+			bon.setRawnameMutant(slipEntry.getName());
+			String ppp = slipEntry.getName();
+			String ggg = URLEncoder.encode(ppp);
+
 			UriComponents uriComponents = UriComponentsBuilder.newInstance()
-				      .scheme("http").host(host).port(port).path("/bon_by_rawname/"+ggg).build();
-			
-			String bonByRenameurl=uriComponents.toUriString().replace("+", "%20");
+					.scheme("http").host(host).port(port).path("/bon_by_rawname/" + ggg).build();
+
+			String bonByRenameurl = uriComponents.toUriString().replace("+", "%20");
 			System.out.println(bonByRenameurl);
-       
+
 			ResponseEntity<Bon> response = restTemplate.getForEntity(bonByRenameurl, Bon.class);
 			//ResponseEntity<Bon> response = restTemplate.getForEntity("http://localhost:8092/bon_by_rawname/Leerd", Bon.class);
-				  
-			
+
+
 			if (response.hasBody()) {
 				bon = response.getBody();
+				assert bon != null;
 				System.out.println(bon.getInternalname());
 
 				if (bon.getInternalname().equals("unknown")) {
-					insertTransaction(list.get(i), "unknown",false,company);// unknown
+					insertTransaction(slipEntry, "unknown", false, company);// unknown
 				} else {
-					insertTransaction(list.get(i), bon.getInternalname(),true,company); // full
+					insertTransaction(slipEntry, bon.getInternalname(), true, company); // full
 				}
 
 			} else {
 				//String bonUrl = "http://localhost:8092/bon";
-				 uriComponents = UriComponentsBuilder.newInstance()
-					      .scheme("http").host(host).port(port).path("/bon").build();
-				 String bonUrl=uriComponents.toUriString();
+				uriComponents = UriComponentsBuilder.newInstance()
+						.scheme("http").host(host).port(port).path("/bon").build();
+				String bonUrl = uriComponents.toUriString();
 				System.out.println("Bon not found!! ");
-				System.out.println("Insert Bon "+bon.getRawnameMutant());
+				System.out.println("Insert Bon " + bon.getRawnameMutant());
 				restTemplate.postForEntity(bonUrl, bon, Bon.class);
-				insertTransaction(list.get(i), "unknown",false,company); // unknown
+				insertTransaction(slipEntry, "unknown", false, company); // unknown
 			}
 		}
 	}
@@ -205,7 +202,7 @@ public class ParseSlip {
 		}
 		else
 		{
-			trans.setKategorie(new Integer (Infrastructure.getKategorieByName(name,host,port)));
+			trans.setKategorie(new Integer (budget.getKategorieByName(name,host,port)));
 		}
 		System.out.println("Insert Transaction! " + trans.getDatum());
 		restTemplate.postForEntity(uri,trans, Transaction.class);
