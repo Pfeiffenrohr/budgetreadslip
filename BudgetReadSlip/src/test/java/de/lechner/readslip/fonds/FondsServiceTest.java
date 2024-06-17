@@ -31,8 +31,9 @@ public class FondsServiceTest {
 
     @Mock
     private Budget budget;
+
     @Test
-    void depotTest()  {
+    void depotTest() {
         SlipEntry slipEntry = new SlipEntry();
         slipEntry.setName("somename");
         slipEntry.setSum("200");
@@ -40,13 +41,12 @@ public class FondsServiceTest {
         list.add(slipEntry);
         SlipEntryList slipEntryList = new SlipEntryList();
         slipEntryList.setList(list);
-        Mockito.when(restTemplate.getForObject(anyString(),any())).thenReturn("100.0");
-
-       Mockito.when(restTemplate.postForEntity(anyString(),any(),any())).thenReturn(new ResponseEntity("", HttpStatus.OK));
-      // Mockito.when(budget.getInternalKontoname(anyString(),anyString(),anyString())).thenReturn("realkontoname");
-        Mockito.when(budget.getInternalKontoname(anyString(),isNull(),isNull())).thenReturn("realkontoname");
-        FondsService fondsService = new  FondsService(restTemplate,budget);
+        Mockito.when(restTemplate.getForObject(anyString(), any())).thenReturn("100.0");
+        Mockito.when(restTemplate.postForEntity(anyString(), any(), any())).thenReturn(new ResponseEntity("", HttpStatus.OK));
+        // Mockito.when(budget.getInternalKontoname(anyString(),anyString(),anyString())).thenReturn("realkontoname");
+        Mockito.when(budget.getInternalKontoname(anyString(), isNull(), isNull())).thenReturn("realkontoname");
+        FondsService fondsService = new FondsService(restTemplate, budget);
         Transaction trans = fondsService.parseFonds(list);
-        assertEquals(Optional.ofNullable(trans.getWert()),Optional.ofNullable(100.0));
+        assertEquals(Optional.ofNullable(trans.getWert()), Optional.ofNullable(100.0));
     }
 }

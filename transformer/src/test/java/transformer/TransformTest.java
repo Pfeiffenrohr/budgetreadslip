@@ -156,6 +156,18 @@ public class TransformTest {
         System.out.println(">"+result+"<");
         assertEquals(resultfile,result.trim());
     }
+    @Test
+    public void depotBankTest() throws Exception {
+        System.out.println("Start depotBank");
+        //Transform transform = new Transform();
+       // String data = readFile("src/test/resources/Depotbank.csv");
+        String data = readFile("src/test/resources/Depotbank.txt");
+        String result = new ReadDepotBank().parseMail(data);
+        // String hhh = transform.parseFileTwino(data);
+        String resultfile = readFile("src/test/resources/DepotbankResult.txt");
+        System.out.println(">"+result+"<");
+        assertEquals(resultfile,result.trim());
+    }
      public void edekaNewTest1() throws Exception {
 
         System.out.println("Start EdekaNew");
