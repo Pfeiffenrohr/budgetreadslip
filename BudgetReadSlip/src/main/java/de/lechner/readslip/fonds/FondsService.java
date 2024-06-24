@@ -5,6 +5,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import de.lechner.readslip.bon.BonController;
 import de.lechner.readslip.message.NextCloudCall;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,12 +34,7 @@ public class FondsService {
     @Autowired
     Budget budget;
 
-    private static final Logger LOG = LoggerFactory.getLogger(FondsService.class);
-
-    public FondsService(RestTemplate restTemplate, Budget budget) {
-        this.restTemplate = restTemplate;
-        this.budget = budget;
-    }
+   private static final Logger LOG = LoggerFactory.getLogger(FondsService.class);
 
     public void analyseRest(SlipEntryList listSE, String company) {
         List<SlipEntry> list = listSE.getList();

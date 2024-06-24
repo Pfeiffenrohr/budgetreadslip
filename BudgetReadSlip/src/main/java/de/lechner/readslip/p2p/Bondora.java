@@ -29,9 +29,12 @@ public class Bondora {
     
    
     public void callBondora() {
+        //TODO Muss gefixed werden, wenn Bondora wieder funktinoiert
+        return;
+        /*
         Calendar cal = Calendar.getInstance();
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        
+
         System.out.println("Call Bondora " + formatter.format(cal.getTime()));
         RestTemplate restTemplate = new RestTemplate();
         String host = "api.bondora.com";
@@ -43,7 +46,6 @@ public class Bondora {
         UriComponents uriComponents = UriComponentsBuilder.newInstance().scheme("https").host(host)
                 .path(path).build();
         String url = uriComponents.toUriString();
-        // System.out.println("Uri from Bpondora: "+url);
          HttpEntity<String> entity = new HttpEntity<String>(headers);
          HttpEntity<String> response = restTemplate.exchange(url, HttpMethod.GET, entity, String.class);
          
@@ -62,33 +64,7 @@ public class Bondora {
          list.add(se);
          
          p2pService.parseP2P(list, "Bondora");
-         
-         /*   HttpEntity<BondoraEntity> response = restTemplate.exchange(url, HttpMethod.GET, entity, BondoraEntity.class);
-         
-     
-         
-         BondoraEntity bondora =response.getBody();
-         if (response.hasBody())
-         {
-             System.out.println("Has Body");
-         }
-         if (bondora.getSuccess())
-         {
-             System.out.println("success");
-         }
-         System.out.println(bondora.getErrors());
-         */    
-       //  List <GoGrowAccounts> list = new ArrayList<GoGrowAccounts>();
-       //  list = bondora.getPayload().getGoGrowAccounts();
-         
-       //  System.out.println("Result from Bondora: "+ list.get(0).getNetProfit());
-         
-        //ResponseEntity<Transaction[]> response = restTemplate.getForEntity(uriString, Transaction[].class);
-        // ResponseEntity<Bon> response =
-        // restTemplate.getForEntity("http://localhost:8092/bon_by_rawname/Leerd",
-        // Bon.class);
-
-        
+        */
     }
 
 }
