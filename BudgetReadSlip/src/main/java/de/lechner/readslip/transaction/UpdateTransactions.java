@@ -1,10 +1,10 @@
 package de.lechner.readslip.transaction;
 
 import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -17,7 +17,7 @@ import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import de.lechner.readslip.bon.Bon;
-import de.lechner.readslip.infrastructure.Infrastructure;
+import de.lechner.readslip.message.Budget;
 import de.lechner.readslip.parser.Transaction;
 
 @Service
@@ -26,6 +26,9 @@ public class UpdateTransactions {
 	private String host;
 	@Value("${budgetserver.port}")
 	private String port;
+
+	@Autowired
+	Budget budget;
 
 	public void update() {
 
@@ -81,7 +84,7 @@ public class UpdateTransactions {
 				if (!bon.getInternalname().equals("unknown")) {
 					// Update nun die Transaktion
 					trans.setName(bon.getInternalname());
-					trans.setKategorie(new Integer(Infrastructure.getKategorieByName(bon.getInternalname(),host,port)));
+					trans.setKategorie(new Integer(budget.getKategorieByName(bon.getInternalname(),host,port)));
 					//String id = trans.getId().toString();
 					UriComponents uri = UriComponentsBuilder.newInstance().scheme("http").host(host).port(port)
 							.path("/transaction").build();

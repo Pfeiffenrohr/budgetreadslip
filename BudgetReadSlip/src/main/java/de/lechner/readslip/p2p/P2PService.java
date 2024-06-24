@@ -5,6 +5,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -13,7 +14,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import de.lechner.readslip.bon.SlipEntry;
 import de.lechner.readslip.bon.SlipEntryList;
-import de.lechner.readslip.infrastructure.Infrastructure;
+import de.lechner.readslip.message.Budget;
 import de.lechner.readslip.parser.Transaction;
 
 @Service
@@ -23,6 +24,8 @@ public class P2PService {
     private String host;
     @Value("${budgetserver.port}")
     private String port;
+    @Autowired
+    Budget budget;
     
     public void analyseRest(SlipEntryList listSE,String company) {
         List <SlipEntry>  list = listSE.getList();
@@ -51,7 +54,7 @@ public class P2PService {
                .queryParam("startdate", "2011-01-01")
                .queryParam("enddate", enddate)
                .queryParam("categorie", 42)
-               .queryParam("konto", Infrastructure.getKontoByName(company,host,port))
+               .queryParam("konto", budget.getKontoByName(company,host,port))
                .build();
        //Für Robocach holen wir den Gesamtbestand des Kontos, nicht den Ertrag
        if (company.equals("Robocash") || company.equals("Twino"))
@@ -60,7 +63,7 @@ public class P2PService {
                    .scheme("http").host(host).port(port).path("/transaction_get_sum")
                    .queryParam("startdate", "2011-01-01")
                    .queryParam("enddate", enddate)
-                   .queryParam("konto", Infrastructure.getKontoByName(company,host,port))
+                   .queryParam("konto", budget.getKontoByName(company,host,port))
                    .build();
        }
                 
@@ -120,7 +123,7 @@ public class P2PService {
        trans.setBeschreibung("");
        trans.setCycle(0);
        
-       trans.setKonto_id(Infrastructure.getKontoByName(company,host,port));
+       trans.setKonto_id(budget.getKontoByName(company,host,port));
        trans.setKor_id(0);
        trans.setPartner(company);
        trans.setPlaned("N");

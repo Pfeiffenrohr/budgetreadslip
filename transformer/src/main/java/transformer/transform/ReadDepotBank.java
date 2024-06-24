@@ -26,10 +26,12 @@ public class ReadDepotBank implements ReadMail {
             {
                 String colums [] = splited[i].split(";");
                 SlipEntry se = new SlipEntry();
-                String name = colums[0].replace("&", "u").replace("É","");
+                String name = colums[0].replaceAll("[^a-zA-Z0-9 -]", " ");
+                content = content + name + " ";
                 se.setName(name);
                 String [] sum= colums[12].split(" ");
-                summe= sum[0].replace(".", "").replace(",", "."); 
+                summe= sum[0].replace(".", "").replace(",", ".");
+                content = content + summe + " {\n";
                 se.setSum(summe);
                 list.add(se);
             }

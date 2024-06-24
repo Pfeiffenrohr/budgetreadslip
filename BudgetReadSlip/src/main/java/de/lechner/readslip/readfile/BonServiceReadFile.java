@@ -22,7 +22,7 @@ import de.lechner.readslip.transaction.UpdateTransactions;
 public class BonServiceReadFile {
 	
 	 @Value("${budget.inputdir}")
-	 String inputdir;
+	 String inputdir="";
 	 @Value("${budget.filename}") 
 	 String companies [];
 	/*@Autowired
@@ -33,8 +33,12 @@ public class BonServiceReadFile {
 	
 	@Autowired
 	private UpdateTransactions updateTrans;
-		
-	public void handleSlipFile()
+
+    public BonServiceReadFile() {
+        this.inputdir = inputdir;
+    }
+
+    public void handleSlipFile()
 	{	
 		for (int i = 0; i < companies.length; i++) {			
 			String txt = readSlip(companies[i] + ".txt");

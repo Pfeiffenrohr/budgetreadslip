@@ -48,10 +48,11 @@ public class Bondora {
          HttpEntity<String> response = restTemplate.exchange(url, HttpMethod.GET, entity, String.class);
          
          
-         String amount = response.getBody();        
+         String amount = response.getBody();
+        System.out.println("Gesamtreponse>"+amount+"<");
          amount= amount.substring(amount.indexOf("NetProfit") +11);       
          amount = amount.substring(0, amount.indexOf(","));
-        // System.out.println("response >" + amount );
+         System.out.println("responseBondora >" + amount );
          
          SlipEntry se = new SlipEntry();
          se.setName("Gesamtertrag");

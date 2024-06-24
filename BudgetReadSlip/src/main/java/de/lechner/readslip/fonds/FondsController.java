@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import de.lechner.readslip.bon.SlipEntryList;
 import de.lechner.readslip.readfile.BonServiceReadFile;
+import org.springframework.web.client.RestTemplate;
 
 @RestController
 public class FondsController {
