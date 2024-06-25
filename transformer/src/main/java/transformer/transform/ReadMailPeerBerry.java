@@ -35,7 +35,7 @@ public class ReadMailPeerBerry implements ReadMail {
                 se.setName(name);
                 String tokens  [] = zeile.trim().split(" ");
 
-                summe = tokens [1];
+                summe = tokens [8];
                 System.out.println("Summe =" + summe);
                 content=content +summe+" { \n";
                 se.setSum(summe);
