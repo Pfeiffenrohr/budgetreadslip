@@ -1,96 +1,105 @@
-Return-Path: <bounce-md_31137988.6131ff45.v1-6e43d2bf4ed04937847a52bf16e2eaae@mandrillapp.com>
+Return-Path: <bounce-md_31137988.667a53c3.v1-44cf77e81c524f8d90280f62a4fd19bc@mandrillapp.com>
 X-Original-To: test@mailserver.loadbalancer1.de
 Delivered-To: richard@mailserver.loadbalancer1.de
 Received: from loadbalancer2 (localhost [127.0.0.1])
-	by loadbalancer1 (Postfix) with ESMTP id AE7F5EA0063
-	for <test@mailserver.loadbalancer1.de>; Fri,  3 Sep 2021 13:00:02 +0200 (CEST)
-X-Envelope-From: <bounce-md_31137988.6131ff45.v1-6e43d2bf4ed04937847a52bf16e2eaae@mandrillapp.com>
+	by loadbalancer1 (Postfix) with ESMTP id 2E1A7EA004F
+	for <test@mailserver.loadbalancer1.de>; Tue, 25 Jun 2024 07:25:03 +0200 (CEST)
+X-Envelope-From: <bounce-md_31137988.667a53c3.v1-44cf77e81c524f8d90280f62a4fd19bc@mandrillapp.com>
 X-Envelope-To: <richard@richardlechner.de>
-X-Delivery-Time: 1630666567
-X-UID: 107751
-ARC-Seal: i=1; a=rsa-sha256; t=1630666567; cv=none;
+X-Delivery-Time: 1719292869
+X-UID: 136138
+ARC-Seal: i=1; a=rsa-sha256; t=1719292869; cv=none;
     d=strato.com; s=strato-dkim-0002;
-    b=h5d2RZMEcFJT3jLpvOfgY/HOXT8RRCf6AAuwOHUCt7DubZ1WZiqb2KwFXFcz5JNSLs
-    wwRraqxar44RRaQntvf1ESLPTxjZa0cYnT6wjWbc7Snmd7mC45IDkZ1YKR5jcoBHguKz
-    Fy7x6IcGfIcJveFkR+7quxLdjfahxq4LIm44U7bsvOvi/3rgC4Y8EUQpJJy+yZpsL8Ea
-    4IK83c0wtdixj4mVmq6uq5HI9LjV6hZAJeqyyp+Fmht5TZIIO4iEG83Kn3YGqatA6iAJ
-    EEupTXMxT9rsYAdTDxUXYrYKXdmkDGXNejJ0AZZrigd5RRXWuaCJknr0gTSJhUye2Mvj
-    Yjww==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1630666567;
+    b=JVO1PVnF/jmFpNSfrsdbdx5jivUWhSy2eNSm1xsa+AV1N51UgS8lD47Kvf9nNfSDTm
+    ZFrzRwZsxMEz4M5D+4DU3IelkH6rwIkXNF42fG/Zq2Tjyfa0ZzUMY4fDgn98cDdrOVOn
+    476YMKLVt0YyJbWYyjoUzNV6JANX1K3U95BupdDm0832bsGg/LpPY/r2wLBXVjVj6rde
+    HeJnt3zUqJKRviZY02jpw5V4Y1XD+U+lhM5UbOnsPuC5tDR60vbHXw3sxaVTLfk/m+gN
+    BPQ0dZnhPtTh+axy++wJX2/yQPJpjMP1FTFetTqD66Ucj10Vj2yVs4OqpJl1KPttvQCm
+    z0SQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1719292869;
     s=strato-dkim-0002; d=strato.com;
     h=Date:Message-Id:To:Subject:From:Cc:Date:From:Subject:Sender;
-    bh=G53pp/V+S4OrexcvluH+XM99BdZJIjNFdIqoihB5DRQ=;
-    b=Iygb1w6NQYHYl4JCIoQv4DypW4TH2C8UeGMOJ+p5D11NgyefQ8JWDw2GyStmTcOvjR
-    UymI+8L21y7Ud4sd1vPQUquQFtkM9jVrBfDUbcFBa/EdVyKqT5v5z0sZ82utNxnQWGYy
-    MYPj4WGzK1wR7fOtA1hgKaSmVZRsD8J/hbuIo9hZFecEv+NlY5aFA46Eb3u8rDRVhZeK
-    1Ol8aJPbm1FIHXIkfyn9lQWoYxXoEKBfX5LyxavQKh+ETStBc9MuZzpsRuUQ4vcKk47r
-    PnJGF7OrUW0q0aL+vMb9LZDJ5G+UbhLR2UKHFBKpX5C0Zzx25++IcQJYlyOTMe9nLjtj
-    lbqg==
+    bh=KLhDaK7f5p8uUwkcfqZHUuh9vmNgzoZyx209qyKrUKo=;
+    b=gDHwKSWAYcXamQJvaMP6Cm1tJEiK8Z8t2LS4KEztWIi0UAWkHzNwiAvPBR6oZVIZvY
+    SXoub+6AYwhaFkyFXCCcVbGdtxsO1bhkaNfEqkxOOMBHxAv6UTVpxg/q+FzwTuutqAg6
+    1Bi5U4yQzW6570j5+dziwsE2kP0Cwk3uajHp84pElPlLUIL2eH69D3QZLf7lit/gF9kD
+    znChpw8LR99ALRW0njRb7KCoN0qagce9STCKFMAAQYKfo7ixC083K+1Cnc3OnUqz4No4
+    hSzwIUF8tlyB7R1uEA2NMNBD5+p53zGIg/kxdYXq1j7EbIErfEkmxcGCW8aqDu6caHyf
+    zUfw==
 ARC-Authentication-Results: i=1; strato.com;
-    dmarc=permerror header.from="peerberry.com";
-    dkim=pass header.d="peerberry.com" header.s="mandrill" header.a="rsa-sha256" header.i="info@peerberry.com";
-    dkim=pass header.d="mandrillapp.com" header.s="mandrill" header.a="rsa-sha256" header.i="@mandrillapp.com";
+    dmarc=pass (p=NONE sp=NONE) header.from="peerberry.com";
+    arc=none smtp.remote-ip=198.2.133.47;
+    dkim=pass header.d="peerberry.com" header.s="mte1" header.a="rsa-sha256" header.i="info@peerberry.com";
+    dkim=pass header.d="mandrillapp.com" header.s="mte1" header.a="rsa-sha256";
     dkim-adsp=pass;
-    spf=pass smtp.mailfrom="bounce-md_31137988.6131ff45.v1-6e43d2bf4ed04937847a52bf16e2eaae@mandrillapp.com"
+    spf=pass smtp.mailfrom="bounce-md_31137988.667a53c3.v1-44cf77e81c524f8d90280f62a4fd19bc@mandrillapp.com"
 Authentication-Results: strato.com;
-    dmarc=permerror header.from="peerberry.com";
-    dkim=pass header.d="peerberry.com" header.s="mandrill" header.a="rsa-sha256" header.i="info@peerberry.com";
-    dkim=pass header.d="mandrillapp.com" header.s="mandrill" header.a="rsa-sha256" header.i="@mandrillapp.com";
+    dmarc=pass (p=NONE sp=NONE) header.from="peerberry.com";
+    arc=none smtp.remote-ip=198.2.133.47;
+    dkim=pass header.d="peerberry.com" header.s="mte1" header.a="rsa-sha256" header.i="info@peerberry.com";
+    dkim=pass header.d="mandrillapp.com" header.s="mte1" header.a="rsa-sha256";
     dkim-adsp=pass;
-    spf=pass smtp.mailfrom="bounce-md_31137988.6131ff45.v1-6e43d2bf4ed04937847a52bf16e2eaae@mandrillapp.com"
+    spf=pass smtp.mailfrom="bounce-md_31137988.667a53c3.v1-44cf77e81c524f8d90280f62a4fd19bc@mandrillapp.com"
 X-RZG-Expurgate: clean/normal
-X-RZG-Expurgate-ID: 149500::1630666567-0000070F-726E1A25/9/45007
+X-RZG-Expurgate-ID: 149500::1719292869-001DC2DB-4EDA908A/0/0
 X-RZG-CLASS-ID: mi00
 Received-SPF: pass
-    (strato.com: domain mandrillapp.com designates 198.2.137.3 as permitted sender)
+    (strato.com: domain mandrillapp.com designates 198.2.133.47 as permitted sender)
     mechanism=ip4;
-    client-ip=198.2.137.3;
-    helo="mail137-3.atl71.mandrillapp.com";
-    envelope-from="bounce-md_31137988.6131ff45.v1-6e43d2bf4ed04937847a52bf16e2eaae@mandrillapp.com";
-    rceiver=smtpin.rzone.de;
+    client-ip=198.2.133.47;
+    helo="maillist.peerberry.com";
+    envelope-from="bounce-md_31137988.667a53c3.v1-44cf77e81c524f8d90280f62a4fd19bc@mandrillapp.com";
+    receiver=smtpin.rzone.de;
     identity=mailfrom;
-Received: from imap.strato.de [81.169.145.103]
+Received: from imap.strato.de [2a01:238:20a:202:54f0::1103]
 	by loadbalancer2 with IMAP (fetchmail-6.4.2)
-	for <test@mailserver.loadbalancer1.de> (single-drop); Fri, 03 Sep 2021 13:00:02 +0200 (CEST)
-Received: from mail137-3.atl71.mandrillapp.com ([198.2.137.3])
-    by smtpin.rzone.de (RZmta 47.33.0 OK)
-    with ESMTPS id Z089dax83Au6Pvh
-    (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (curve X9_62_prime256v1 with 256 ECDH bits, eq. 3072 bits RSA))
+	for <test@mailserver.loadbalancer1.de> (single-drop); Tue, 25 Jun 2024 07:25:03 +0200 (CEST)
+Received: from maillist.peerberry.com ([198.2.133.47])
+    by smtpin.rzone.de (RZmta 50.5.0 OK)
+    with ESMTPS id I03fe605P5L9QsX
+    (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
     (Client did not present a certificate)
     for <richard@richardlechner.de>;
-    Fri, 3 Sep 2021 12:56:06 +0200 (CEST)
+    Tue, 25 Jun 2024 07:21:09 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
+	s=mte1; t=1719292867; x=1719553367;
+	bh=KLhDaK7f5p8uUwkcfqZHUuh9vmNgzoZyx209qyKrUKo=;
+	h=From:Subject:To:Feedback-ID:Message-Id:Date:MIME-Version:
+	 Content-Type:CC:Date:Subject:From;
+	b=sveQvukn1hRevDKI7AGVs5e9d7WQHGbbAjT6HhCT4tsmxe71jZ4AGq/AJVkhxz59K
+	 iuQfN9wwgXrhUvSQlWPl3VfJJRHWZXzAEFvb8Qm6QO7VTor8IOBmXC6mOppVkkqb3k
+	 hRNcs8uE4Sx9cQjvuze2n/iTxMTvZ4iByGPnUZIld3cQvsZqyb9zIi1w51PrOspyWT
+	 NyH4BMUIhrefEJRaP/uKxSt7jfdCmQbQogBiPypLiRw2aSZ6lhV22Cql6vIV836uE2
+	 JnNfj3fdIJ3+BQZSVmRYEZ1bzj2nt1ArR2xY6Fsg6ExLNk5X1xoVP+Ir7AcKZFM3+m
+	 CWfGGfo75T+Vg==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=peerberry.com;
-	s=mandrill; t=1630666565; i=info@peerberry.com;
-	bh=G53pp/V+S4OrexcvluH+XM99BdZJIjNFdIqoihB5DRQ=;
-	h=From:Subject:To:Message-Id:Date:MIME-Version:Content-Type;
-	b=eipAATu3dqyURXPwbOQz4VW95Pt+Bu0sOg2YUXK3Bhq0nwLv1SbIGAxiHSrAruive
-	 C+rzo+B+8U3MbD/g5dXmvltRb40hv2pzW2I6j+863J5DWnIprRJB2e5zjhzvY9DlSZ
-	 W5K1AnckA2ZomURngVbfaz7XvgmfU4h2xSoaregE=
-Received: from pmta07.mandrill.prod.atl01.rsglab.com (localhost [127.0.0.1])
-	by mail137-3.atl71.mandrillapp.com (Mailchimp) with ESMTP id 4H1F8P3rLgzBsTv07
-	for <richard@richardlechner.de>; Fri,  3 Sep 2021 10:56:05 +0000 (GMT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com; 
- i=@mandrillapp.com; q=dns/txt; s=mandrill; t=1630666565; h=From : 
- Subject : To : Message-Id : Date : MIME-Version : Content-Type : From : 
- Subject : Date : X-Mandrill-User : List-Unsubscribe; 
- bh=G53pp/V+S4OrexcvluH+XM99BdZJIjNFdIqoihB5DRQ=; 
- b=LD1yawoBuEFSFDeRk//kFFZUuvb2NpljqoiDXCS24yFtQjRxldmJ+VfHF3kD3BbGvugL5/
- F5L09ceqUH8B2esppZH9Mr1XOqWxUpY1pBY8QeyDDr5AB47vZCYGhFtrwkVnZYyhvaSixEcn
- prayDpx6pDs/prNs2YI/fqxg+pgik=
+	s=mte1; t=1719292867; x=1719553367; i=info@peerberry.com;
+	bh=KLhDaK7f5p8uUwkcfqZHUuh9vmNgzoZyx209qyKrUKo=;
+	h=From:Subject:To:Feedback-ID:Message-Id:Date:MIME-Version:
+	 Content-Type:CC:Date:Subject:From;
+	b=wlHecCwqhEi6OHYh0Vx8z1+DiYnjJB4QLepI0k6/1hat8Q2+FrRhIIjpxFWXoBt8C
+	 xql8YFCs4vTvKopAA3DsHCEYfLn7KigUDFkINMMMyGvLaUMX7xwBaVKNjgszfr4Zqi
+	 F+D1NGZSpc1kUd5dPQ+QYE6bhEn/iauH9FUTL/J7etlw8DWNsdOyyHKRH5qUCawUnv
+	 c2z4Iygj0TJfxZNtvNkIMsXfP//Tq1u4wHmtPFwHahBKWnB6yJWHM90PrcabIszcaH
+	 0HbKFEkUM9eAbbOcz0tmhbH7ilZ+ol+quJ/0xW4IY/sCY7JEaNnLWcqrNAGC903DaZ
+	 MxLeVV+YdIHEw==
+Received: from pmta13.mandrill.prod.atl01.rsglab.com (localhost [127.0.0.1])
+	by maillist.peerberry.com (Mailchimp) with ESMTP id 4W7Y8M3vLzzPm0PcR
+	for <richard@richardlechner.de>; Tue, 25 Jun 2024 05:21:07 +0000 (GMT)
 From: Peerberry <info@peerberry.com>
-Subject: Account summary overview
-Received: from [3.120.247.60] by mandrillapp.com id 6e43d2bf4ed04937847a52bf16e2eaae; Fri, 03 Sep 2021 10:56:05 +0000
+Subject: =?utf-8?Q?Account=20summary=20overview?=
+Received: from [34.141.32.77] by mandrillapp.com id 44cf77e81c524f8d90280f62a4fd19bc; Tue, 25 Jun 2024 05:21:07 +0000
 To: Richard Lechner <richard@richardlechner.de>
-X-Report-Abuse: Please forward a copy of this message, including all headers, to abuse@mandrill.com
-X-Report-Abuse: You can also report abuse here: http://mandrillapp.com/contact/abuse?id=31137988.6e43d2bf4ed04937847a52bf16e2eaae
+X-Native-Encoded: 1
+X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D31137988.44cf77e81c524f8d90280f62a4fd19bc?=
 X-Mandrill-User: md_31137988
-Feedback-ID: 31137988:31137988.20210903:md
-Message-Id: <31137988.20210903105605.6131ff4566a600.45632282@mail137-3.atl71.mandrillapp.com>
-Date: Fri, 03 Sep 2021 10:56:05 +0000
+Feedback-ID: 31137988:31137988.20240625:md
+Message-Id: <31137988.20240625052107.667a53c3662ee1.16950529@maillist.peerberry.com>
+Date: Tue, 25 Jun 2024 05:21:07 +0000
 MIME-Version: 1.0
-Content-Type: multipart/alternative; boundary="_av-O0NxZTBDZD7Kg0X_LF64Rg"
+Content-Type: multipart/alternative; boundary="_av-3kazPa4V5EaplnHn79XEIg"
 
---_av-O0NxZTBDZD7Kg0X_LF64Rg
+--_av-3kazPa4V5EaplnHn79XEIg
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
@@ -98,80 +107,76 @@ Content-Transfer-Encoding: quoted-printable
 Dear
 Richard, =3D=3D
 
-                  *This is a summary of your PeerBerry account. More
-detailed information you will find in your profile Overview.*              
-      *Opening balance on* 2021-09-02 =E2=82=AC0.12   *Interest income* =E2=
-=82=AC 0.00 
- *Principal repayment* =E2=82=AC 0.00   *Investment* =E2=82=AC 0.00   *Depo=
-sit* =E2=82=AC
-0.00   *Withdrawals* =E2=82=AC 0.00   *Closing balance on *2021-09-02 =E2=
-=82=AC 0.12   
-                 =3D=3D Portfolio =3D=3D
+                  It is a summary of your PeerBerry account. Please log in
+to your account for more detailed information.                     *Balance
+on* 2024-06-24  =E2=82=AC 222.61   *Interest income* =E2=82=AC 3.29   *Prin=
+cipal
+repayment* =E2=82=AC 0.00   *Investment* =E2=82=AC -23.57   *Deposit* =E2=
+=82=AC 0.00
+*Withdrawals* =E2=82=AC 0.00   *Balance on *2024-06-24 =E2=82=AC 202.33    =
 
- Portfolio updated at 2021-09-03
+                   *Portfolio*
+      Portfolio updated on  2024-06-25   Invested funds: =E2=82=AC 5299.37 =
 
- Invested funds: 200
+Available balance: =E2=82=AC 222.61   Profit: =E2=82=AC 345.98             =
 
- Profit: 0.12
-
-                 Go to profile overview
-<https://mandrillapp.com/track/click/31137988/peerberry.com?p=3DeyJzIjoiYmt=
-uVXB1Vlo5TlJRd0NQMEQ2MU5rdDVmanRVIiwidiI6MSwicCI6IntcInVcIjozMTEzNzk4OCxcIn=
+Go to profile overview
+<https://mandrillapp.com/track/click/31137988/peerberry.com?p=3DeyJzIjoiZnl=
+vUHF0SF9vcVZDZnE4U0dHM3VWMW5KT1MwIiwidiI6MSwicCI6IntcInVcIjozMTEzNzk4OCxcIn=
 ZcIjoxLFwidXJsXCI6XCJodHRwczpcXFwvXFxcL3BlZXJiZXJyeS5jb21cXFwvP3V0bV9zb3VyY=
-2U9ZW1haWwmYW1wO3V0bV9tZWRpdW09bm90aWZ5JmFtcDt1dG1fY2FtcGFpZ249YWNjb3VudC1z=
-dW1tYXJ5XCIsXCJpZFwiOlwiNmU0M2QyYmY0ZWQwNDkzNzg0N2E1MmJmMTZlMmVhYWVcIixcInV=
-ybF9pZHNcIjpbXCJkYjgxYTMwMjYxN2U3YTUzY2U3ZjZjMWYxNDYzMjBhZDY1NTc0ZDYxXCJdfS=
-J9>
-                               You can change the frequency of receiving
-your PeerBerry account summary in your Investor Profile.                   
-             *Available amount for investment*: 486868.85
- *Available loans for investment: *4856                 View
-<https://mandrillapp.com/track/click/31137988/peerberry.com?p=3DeyJzIjoicTh=
-SY2FXc19LaUw5VUtLT3RGNW8xUW5VWldRIiwidiI6MSwicCI6IntcInVcIjozMTEzNzk4OCxcIn=
-ZcIjoxLFwidXJsXCI6XCJodHRwczpcXFwvXFxcL3BlZXJiZXJyeS5jb21cXFwvXCIsXCJpZFwiO=
-lwiNmU0M2QyYmY0ZWQwNDkzNzg0N2E1MmJmMTZlMmVhYWVcIixcInVybF9pZHNcIjpbXCJkYjgx=
-YTMwMjYxN2U3YTUzY2U3ZjZjMWYxNDYzMjBhZDY1NTc0ZDYxXCJdfSJ9> <https://mandrill=
-app.com/track/click/31137988/www.facebook.com?p=3DeyJzIjoic3RJdUljQ1pBRDBxe=
-lI5UFRYQmNOQTUwNjNJIiwidiI6MSwicCI6IntcInVcIjozMTEzNzk4OCxcInZcIjoxLFwidXJs=
-XCI6XCJodHRwczpcXFwvXFxcL3d3dy5mYWNlYm9vay5jb21cXFwvcGVlcmJlcnJ5XFxcL1wiLFw=
-iaWRcIjpcIjZlNDNkMmJmNGVkMDQ5Mzc4NDdhNTJiZjE2ZTJlYWFlXCIsXCJ1cmxfaWRzXCI6W1=
-wiODBjYTk2OTc0OWY0OTNjZTY5NmM5MDMxOWE2ZjczNTdkNjg2ZjZiNFwiXX0ifQ>
-<https://mandrillapp.com/track/click/31137988/twitter.com?p=3DeyJzIjoiN2pne=
-TF1ei1qTXdic1FLUnloVlVDUUNueUN3IiwidiI6MSwicCI6IntcInVcIjozMTEzNzk4OCxcInZc=
+2U9ZW1haWwmdXRtX21lZGl1bT1ub3RpZnkmdXRtX2NhbXBhaWduPWFjY291bnQtc3VtbWFyeVwi=
+LFwiaWRcIjpcIjQ0Y2Y3N2U4MWM1MjRmOGQ5MDI4MGY2MmE0ZmQxOWJjXCIsXCJ1cmxfaWRzXCI=
+6W1wiZGI4MWEzMDI2MTdlN2E1M2NlN2Y2YzFmMTQ2MzIwYWQ2NTU3NGQ2MVwiXX0ifQ>
+                You can change the frequency of receiving the account
+summary in your PeerBerry account.                 View
+<https://mandrillapp.com/track/click/31137988/peerberry.com?p=3DeyJzIjoiTjB=
+hbGw1dG5SU0NaRHBjYWxYX292SG9QS0hvIiwidiI6MSwicCI6IntcInVcIjozMTEzNzk4OCxcIn=
+ZcIjoxLFwidXJsXCI6XCJodHRwczpcXFwvXFxcL3BlZXJiZXJyeS5jb21cXFwvZW5cXFwvY2xpZ=
+W50XFxcL1wiLFwiaWRcIjpcIjQ0Y2Y3N2U4MWM1MjRmOGQ5MDI4MGY2MmE0ZmQxOWJjXCIsXCJ1=
+cmxfaWRzXCI6W1wiNWY1MGVhM2FiYzg4ZmY3YWQ0ZmU3M2VhOGM0MjA0ZTU4ZWI2ZDk5NVwiXX0=
+ifQ> <https://mandrillapp.com/track/click/31137988/www.facebook.com?p=3DeyJ=
+zIjoic2JHTU03WXdkS2NOMmRBdkp3SENwVVJpT1JzIiwidiI6MSwicCI6IntcInVcIjozMTEzNz=
+k4OCxcInZcIjoxLFwidXJsXCI6XCJodHRwczpcXFwvXFxcL3d3dy5mYWNlYm9vay5jb21cXFwvc=
+GVlcmJlcnJ5XFxcL1wiLFwiaWRcIjpcIjQ0Y2Y3N2U4MWM1MjRmOGQ5MDI4MGY2MmE0ZmQxOWJj=
+XCIsXCJ1cmxfaWRzXCI6W1wiODBjYTk2OTc0OWY0OTNjZTY5NmM5MDMxOWE2ZjczNTdkNjg2ZjZ=
+iNFwiXX0ifQ>
+<https://mandrillapp.com/track/click/31137988/twitter.com?p=3DeyJzIjoiNkxIa=
+y1YQTR3MmJ5TzJaV0t0alFMZERYNU00IiwidiI6MSwicCI6IntcInVcIjozMTEzNzk4OCxcInZc=
 IjoxLFwidXJsXCI6XCJodHRwczpcXFwvXFxcL3R3aXR0ZXIuY29tXFxcL1BlZXJCZXJyeVwiLFw=
-iaWRcIjpcIjZlNDNkMmJmNGVkMDQ5Mzc4NDdhNTJiZjE2ZTJlYWFlXCIsXCJ1cmxfaWRzXCI6W1=
+iaWRcIjpcIjQ0Y2Y3N2U4MWM1MjRmOGQ5MDI4MGY2MmE0ZmQxOWJjXCIsXCJ1cmxfaWRzXCI6W1=
 wiZjQ2MTUyODdiNzE1MDYxNjMyODkxNTQwZDllNWRlMDVjYjllNTdlNVwiXX0ifQ>
 <https://mandrillapp.com/track/click/31137988/www.linkedin.com?p=3DeyJzIjoi=
-aEJYek0tOWpHRkFWb0JnNEdCR2dHWnRiU0tJIiwidiI6MSwicCI6IntcInVcIjozMTEzNzk4OCx=
+c2x5VE9CTVNJemZaZWhLcllzWnFjT1QxODBFIiwidiI6MSwicCI6IntcInVcIjozMTEzNzk4OCx=
 cInZcIjoxLFwidXJsXCI6XCJodHRwczpcXFwvXFxcL3d3dy5saW5rZWRpbi5jb21cXFwvY29tcG=
-FueVxcXC9wZWVyYmVycnlcXFwvXCIsXCJpZFwiOlwiNmU0M2QyYmY0ZWQwNDkzNzg0N2E1MmJmM=
-TZlMmVhYWVcIixcInVybF9pZHNcIjpbXCIzZTc5MDk2YWVlZjAyYTkxODZlY2E4ZmJiYzMzNWJj=
+FueVxcXC9wZWVyYmVycnlcXFwvXCIsXCJpZFwiOlwiNDRjZjc3ZTgxYzUyNGY4ZDkwMjgwZjYyY=
+TRmZDE5YmNcIixcInVybF9pZHNcIjpbXCIzZTc5MDk2YWVlZjAyYTkxODZlY2E4ZmJiYzMzNWJj=
 MzZjYmVmMmEyXCJdfSJ9>
-<https://mandrillapp.com/track/click/31137988/www.youtube.com?p=3DeyJzIjoiZ=
-nhiazQyc2NhTjRCM0RjbHBUS3l4djBvTWs4IiwidiI6MSwicCI6IntcInVcIjozMTEzNzk4OCxc=
-InZcIjoxLFwidXJsXCI6XCJodHRwczpcXFwvXFxcL3d3dy55b3V0dWJlLmNvbVxcXC9jaGFubmV=
-sXFxcL1VDaURRdEpsb2FpakdhZUE0VllzMXNEUVwiLFwiaWRcIjpcIjZlNDNkMmJmNGVkMDQ5Mz=
-c4NDdhNTJiZjE2ZTJlYWFlXCIsXCJ1cmxfaWRzXCI6W1wiOTg4OTk2YjAyNjg2ZGRiYTM3YWYyZ=
-jQ0NzI0ZmExYjY1ZTMwYTM3NlwiXX0ifQ>                 
-                        If you need any help or have suggestions how we
-could improve our services please
- contact us by email: info@peerberry.com
- 
- *Our mailing address is:*
- PeerBerry
- Udens Street 12 =E2=80=93 118, Riga, LV-1007, Latvia
- 
- You have received this email because you have signed up to PeerBerry. 
- If you find this information not relevant for you, unsubscribe us in your
-profile, please go to
- personal settings <https://mandrillapp.com/track/click/31137988/peerberry.=
-com?p=3DeyJzIjoiMk1IU082U1BtQUw4c1RUMlk5TWRSMElLRWI0IiwidiI6MSwicCI6IntcInV=
-cIjozMTEzNzk4OCxcInZcIjoxLFwidXJsXCI6XCJodHRwczpcXFwvXFxcL3BlZXJiZXJyeS5jb2=
-1cXFwvZW5cXFwvc2V0dGluZ3NcIixcImlkXCI6XCI2ZTQzZDJiZjRlZDA0OTM3ODQ3YTUyYmYxN=
-mUyZWFhZVwiLFwidXJsX2lkc1wiOltcImM4OWY3NDJmNmEyYWRlY2NmZTc2NTBkODc2OTI2NGRj=
-NTc2ZjhkYjlcIl19In0>.
+*Contact us*:*
 
---_av-O0NxZTBDZD7Kg0X_LF64Rg
+ Peerberry d.o.o. Kareviu str. 11B, Vilnius, Lithuania, LT-09109
+
+ info@peerberry.com
+
+ +370 61 355 529
+
+ https://mandrillapp.com/track/click/31137988/peerberry.com?p=3DeyJzIjoiQlV=
+UQWstTlJFejlZYi1KV0NSSHB4LWhxZjBNIiwidiI6MSwicCI6IntcInVcIjozMTEzNzk4OCxcIn=
+ZcIjoxLFwidXJsXCI6XCJodHRwczpcXFwvXFxcL3BlZXJiZXJyeS5jb21cXFwvXCIsXCJpZFwiO=
+lwiNDRjZjc3ZTgxYzUyNGY4ZDkwMjgwZjYyYTRmZDE5YmNcIixcInVybF9pZHNcIjpbXCJkYjgx=
+YTMwMjYxN2U3YTUzY2U3ZjZjMWYxNDYzMjBhZDY1NTc0ZDYxXCJdfSJ9
+
+
+ You have received this email because you have signed up to PeerBerry.
+ If you find this information irrrelevant, please go to settings in your
+PeerBerry account to unsubscribe <https://mandrillapp.com/track/click/31137=
+988/peerberry.com?p=3DeyJzIjoiUG1rdmhkUm5hd3RhdHZuN0M3a2Y1aUJ0NzdNIiwidiI6M=
+SwicCI6IntcInVcIjozMTEzNzk4OCxcInZcIjoxLFwidXJsXCI6XCJodHRwczpcXFwvXFxcL3Bl=
+ZXJiZXJyeS5jb21cXFwvZW5cXFwvc2V0dGluZ3NcIixcImlkXCI6XCI0NGNmNzdlODFjNTI0Zjh=
+kOTAyODBmNjJhNGZkMTliY1wiLFwidXJsX2lkc1wiOltcImM4OWY3NDJmNmEyYWRlY2NmZTc2NT=
+BkODc2OTI2NGRjNTc2ZjhkYjlcIl19In0>.
+Please note that investments are related to risks.
+
+--_av-3kazPa4V5EaplnHn79XEIg
 Content-Type: text/html; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
@@ -193,7 +198,7 @@ ft-com:vml" xmlns:o=3D"urn:schemas-microsoft-com:office:office">
         <meta name=3D"viewport" content=3D"width=3Ddevice-width, initial-sc=
 ale=3D1">
         <title>*|SUBJECT|*</title>
-        
+
     <style type=3D"text/css">
 =09=09p{
 =09=09=09margin:10px 0;
@@ -261,6 +266,12 @@ ale=3D1">
 =09=09=09font-family:inherit !important;
 =09=09=09font-weight:inherit !important;
 =09=09=09line-height:inherit !important;
+=09=09}
+=09=09table[align=3Dleft]{
+=09=09=09float:left;
+=09=09}
+=09=09table[align=3Dright]{
+=09=09=09float:right;
 =09=09}
 =09=09.templateContainer{
 =09=09=09max-width:600px !important;
@@ -729,8 +740,43 @@ pt;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;max-width:600px =
 derContainer" style=3D"mso-line-height-rule:exactly;-ms-text-size-adjust:10=
 0%;-webkit-text-size-adjust:100%;background-color:transparent;background-im=
 age:none;background-repeat:no-repeat;background-position:center;background-=
-size:cover;border-top:0;border-bottom:0;padding-top:0;padding-bottom:0;"></=
-td>
+size:cover;border-top:0;border-bottom:0;padding-top:0;padding-bottom:0;"><t=
+able border=3D"0" cellpadding=3D"0" cellspacing=3D"0" width=3D"100%" class=
+=3D"mcnImageBlock" style=3D"min-width:100%;border-collapse:collapse;mso-tab=
+le-lspace:0pt;mso-table-rspace:0pt;-ms-text-size-adjust:100%;-webkit-text-s=
+ize-adjust:100%;">
+    <tbody class=3D"mcnImageBlockOuter">
+            <tr>
+                <td valign=3D"top" style=3D"padding:9px;mso-line-height-rul=
+e:exactly;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;" class=
+=3D"mcnImageBlockInner">
+                    <table align=3D"left" width=3D"100%" border=3D"0" cellp=
+adding=3D"0" cellspacing=3D"0" class=3D"mcnImageContentContainer" style=3D"=
+min-width:100%;border-collapse:collapse;mso-table-lspace:0pt;mso-table-rspa=
+ce:0pt;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;float:left;"=
+>
+                        <tbody><tr>
+                            <td class=3D"mcnImageContent" valign=3D"top" st=
+yle=3D"padding-right:9px;padding-left:9px;padding-top:0;padding-bottom:0;te=
+xt-align:center;mso-line-height-rule:exactly;-ms-text-size-adjust:100%;-web=
+kit-text-size-adjust:100%;">
+
+
+                                        <img align=3D"center" alt=3D"" src=
+=3D"https://mcusercontent.com/bfd3c15ad5c652f91f0b64646/images/1d7953a6-0d6=
+7-0b4a-502a-3630ac11d3b1.png" width=3D"564" style=3D"max-width:1024px;paddi=
+ng-bottom:0;display:inline !important;vertical-align:bottom;border:0;height=
+:auto;outline:none;text-decoration:none;-ms-interpolation-mode:bicubic;" cl=
+ass=3D"mcnImage">
+
+
+                            </td>
+                        </tr>
+                    </tbody></table>
+                </td>
+            </tr>
+    </tbody>
+</table></td>
                                         </tr>
                                     </table>
                                     <!--[if (gte mso 9)|(IE)]>
@@ -766,43 +812,9 @@ yContainer" style=3D"mso-line-height-rule:exactly;-ms-text-size-adjust:100%=
 e:none;background-repeat:no-repeat;background-position:center;background-si=
 ze:cover;border-top:0;border-bottom:0;padding-top:0;padding-bottom:0;"><tab=
 le border=3D"0" cellpadding=3D"0" cellspacing=3D"0" width=3D"100%" class=3D=
-"mcnImageBlock" style=3D"min-width:100%;border-collapse:collapse;mso-table-=
-lspace:0pt;mso-table-rspace:0pt;-ms-text-size-adjust:100%;-webkit-text-size=
--adjust:100%;">
-    <tbody class=3D"mcnImageBlockOuter">
-            <tr>
-                <td valign=3D"top" style=3D"padding:9px;mso-line-height-rul=
-e:exactly;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;" class=
-=3D"mcnImageBlockInner">
-                    <table align=3D"left" width=3D"100%" border=3D"0" cellp=
-adding=3D"0" cellspacing=3D"0" class=3D"mcnImageContentContainer" style=3D"=
-min-width:100%;border-collapse:collapse;mso-table-lspace:0pt;mso-table-rspa=
-ce:0pt;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;">
-                        <tbody><tr>
-                            <td class=3D"mcnImageContent" valign=3D"top" st=
-yle=3D"padding-right:9px;padding-left:9px;padding-top:0;padding-bottom:0;te=
-xt-align:center;mso-line-height-rule:exactly;-ms-text-size-adjust:100%;-web=
-kit-text-size-adjust:100%;">
-                                
-                                    
-                                        <img align=3D"center" alt=3D"" src=
-=3D"https://mcusercontent.com/bfd3c15ad5c652f91f0b64646/images/97e7fbd4-3c2=
-0-48ab-a59e-ba7888cf2390.png" width=3D"564" style=3D"max-width:1400px;paddi=
-ng-bottom:0;display:inline !important;vertical-align:bottom;border:0;height=
-:auto;outline:none;text-decoration:none;-ms-interpolation-mode:bicubic;" cl=
-ass=3D"mcnImage">
-                                    
-                                
-                            </td>
-                        </tr>
-                    </tbody></table>
-                </td>
-            </tr>
-    </tbody>
-</table><table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" width=3D"10=
-0%" class=3D"mcnTextBlock" style=3D"min-width:100%;border-collapse:collapse=
-;mso-table-lspace:0pt;mso-table-rspace:0pt;-ms-text-size-adjust:100%;-webki=
-t-text-size-adjust:100%;">
+"mcnTextBlock" style=3D"min-width:100%;border-collapse:collapse;mso-table-l=
+space:0pt;mso-table-rspace:0pt;-ms-text-size-adjust:100%;-webkit-text-size-=
+adjust:100%;">
     <tbody class=3D"mcnTextBlockOuter">
         <tr>
             <td valign=3D"top" class=3D"mcnTextBlockInner" style=3D"padding=
@@ -813,26 +825,27 @@ t-size-adjust:100%;">
 g=3D"0" width=3D"100%" style=3D"width:100%;">
 =09=09=09=09<tr>
 =09=09=09=09<![endif]-->
-=09=09=09    
+=09=09=09
 =09=09=09=09<!--[if mso]>
 =09=09=09=09<td valign=3D"top" width=3D"600" style=3D"width:600px;">
 =09=09=09=09<![endif]-->
                 <table align=3D"left" border=3D"0" cellpadding=3D"0" cellsp=
 acing=3D"0" style=3D"max-width:100%;min-width:100%;border-collapse:collapse=
 ;mso-table-lspace:0pt;mso-table-rspace:0pt;-ms-text-size-adjust:100%;-webki=
-t-text-size-adjust:100%;" width=3D"100%" class=3D"mcnTextContentContainer">
+t-text-size-adjust:100%;float:left;" width=3D"100%" class=3D"mcnTextContent=
+Container">
                     <tbody><tr>
-                        
+
                         <td valign=3D"top" class=3D"mcnTextContent" style=
 =3D"padding-top:0;padding-right:18px;padding-bottom:9px;padding-left:18px;m=
 so-line-height-rule:exactly;-ms-text-size-adjust:100%;-webkit-text-size-adj=
 ust:100%;word-break:break-word;color:#757575;font-family:Helvetica;font-siz=
 e:16px;line-height:150%;text-align:left;">
-                        
+
                             <h2 class=3D"mc-toc-title" style=3D"text-align:=
 left;display:block;margin:0;padding:0;color:#222222;font-family:Helvetica;f=
 ont-size:34px;font-style:normal;font-weight:bold;line-height:150%;letter-sp=
-acing:normal;"><span style=3D"font-size:18px">Dear Richard,</span></h2>
+acing:normal;"><span style=3D"font-size:16px">Dear Richard,</span></h2>
 
                         </td>
                     </tr>
@@ -840,7 +853,7 @@ acing:normal;"><span style=3D"font-size:18px">Dear Richard,</span></h2>
 =09=09=09=09<!--[if mso]>
 =09=09=09=09</td>
 =09=09=09=09<![endif]-->
-                
+
 =09=09=09=09<!--[if mso]>
 =09=09=09=09</tr>
 =09=09=09=09</table>
@@ -862,33 +875,33 @@ t-size-adjust:100%;">
 g=3D"0" width=3D"100%" style=3D"width:100%;">
 =09=09=09=09<tr>
 =09=09=09=09<![endif]-->
-=09=09=09    
+=09=09=09
 =09=09=09=09<!--[if mso]>
 =09=09=09=09<td valign=3D"top" width=3D"600" style=3D"width:600px;">
 =09=09=09=09<![endif]-->
                 <table align=3D"left" border=3D"0" cellpadding=3D"0" cellsp=
 acing=3D"0" style=3D"max-width:100%;min-width:100%;border-collapse:collapse=
 ;mso-table-lspace:0pt;mso-table-rspace:0pt;-ms-text-size-adjust:100%;-webki=
-t-text-size-adjust:100%;" width=3D"100%" class=3D"mcnTextContentContainer">
+t-text-size-adjust:100%;float:left;" width=3D"100%" class=3D"mcnTextContent=
+Container">
                     <tbody><tr>
-                        
+
                         <td valign=3D"top" class=3D"mcnTextContent" style=
 =3D"padding-top:0;padding-right:18px;padding-bottom:9px;padding-left:18px;m=
 so-line-height-rule:exactly;-ms-text-size-adjust:100%;-webkit-text-size-adj=
 ust:100%;word-break:break-word;color:#757575;font-family:Helvetica;font-siz=
 e:16px;line-height:150%;text-align:left;">
-                        
-                            <span style=3D"font-size:20px"><strong><span st=
-yle=3D"color:#000000">This is a summary of your PeerBerry account. More det=
-ailed information you will find in your profile Overview.</span></strong></=
-span>
+
+                            <span style=3D"font-size:16px"><span style=3D"c=
+olor:#000000">It is a summary of your PeerBerry account. Please log in to y=
+our account for more detailed information.</span></span>
                         </td>
                     </tr>
                 </tbody></table>
 =09=09=09=09<!--[if mso]>
 =09=09=09=09</td>
 =09=09=09=09<![endif]-->
-                
+
 =09=09=09=09<!--[if mso]>
 =09=09=09=09</tr>
 =09=09=09=09</table>
@@ -910,80 +923,81 @@ t-size-adjust:100%;">
 g=3D"0" width=3D"100%" style=3D"width:100%;">
 =09=09=09=09<tr>
 =09=09=09=09<![endif]-->
-=09=09=09    
+=09=09=09
 =09=09=09=09<!--[if mso]>
 =09=09=09=09<td valign=3D"top" width=3D"600" style=3D"width:600px;">
 =09=09=09=09<![endif]-->
                 <table align=3D"left" border=3D"0" cellpadding=3D"0" cellsp=
 acing=3D"0" style=3D"max-width:100%;min-width:100%;border-collapse:collapse=
 ;mso-table-lspace:0pt;mso-table-rspace:0pt;-ms-text-size-adjust:100%;-webki=
-t-text-size-adjust:100%;" width=3D"100%" class=3D"mcnTextContentContainer">
+t-text-size-adjust:100%;float:left;" width=3D"100%" class=3D"mcnTextContent=
+Container">
                     <tbody><tr>
-                        
+
                         <td valign=3D"top" class=3D"mcnTextContent" style=
 =3D"padding:0px 18px 9px;color:#000000;mso-line-height-rule:exactly;-ms-tex=
 t-size-adjust:100%;-webkit-text-size-adjust:100%;word-break:break-word;font=
 -family:Helvetica;font-size:16px;line-height:150%;text-align:left;">
-                        
+
                             <table class=3D"mc-table" style=3D"border-colla=
 pse:collapse;mso-table-lspace:0pt;mso-table-rspace:0pt;-ms-text-size-adjust=
 :100%;-webkit-text-size-adjust:100%;">
 =09<tbody>
 =09=09<tr class=3D"odd">
 =09=09=09<td style=3D"mso-line-height-rule:exactly;-ms-text-size-adjust:100=
-%;-webkit-text-size-adjust:100%;"><span style=3D"font-size:18px"><strong>Op=
-ening balance on</strong> 2021-09-02</span></td>
+%;-webkit-text-size-adjust:100%;"><span style=3D"font-size:16px"><strong>Ba=
+lance on</strong> 2024-06-24&nbsp;</span></td>
 =09=09=09<td style=3D"mso-line-height-rule:exactly;-ms-text-size-adjust:100=
-%;-webkit-text-size-adjust:100%;"><span style=3D"font-size:18px">=E2=82=AC0=
-.12</span></td>
+%;-webkit-text-size-adjust:100%;"><span style=3D"font-size:16px">=E2=82=AC =
+222.61</span></td>
 =09=09</tr>
 =09=09<tr>
 =09=09=09<td style=3D"mso-line-height-rule:exactly;-ms-text-size-adjust:100=
-%;-webkit-text-size-adjust:100%;"><span style=3D"font-size:18px"><strong>In=
+%;-webkit-text-size-adjust:100%;"><span style=3D"font-size:16px"><strong>In=
 terest income</strong></span></td>
 =09=09=09<td style=3D"mso-line-height-rule:exactly;-ms-text-size-adjust:100=
-%;-webkit-text-size-adjust:100%;"><span style=3D"font-size:18px">=E2=82=AC&=
-nbsp;0.00</span></td>
+%;-webkit-text-size-adjust:100%;"><span style=3D"font-size:16px">=E2=82=AC&=
+nbsp;3.29</span></td>
 =09=09</tr>
 =09=09<tr class=3D"odd">
 =09=09=09<td style=3D"mso-line-height-rule:exactly;-ms-text-size-adjust:100=
-%;-webkit-text-size-adjust:100%;"><span style=3D"font-size:18px"><strong>Pr=
+%;-webkit-text-size-adjust:100%;"><span style=3D"font-size:16px"><strong>Pr=
 incipal repayment</strong></span></td>
 =09=09=09<td style=3D"mso-line-height-rule:exactly;-ms-text-size-adjust:100=
-%;-webkit-text-size-adjust:100%;"><span style=3D"font-size:18px">=E2=82=AC&=
+%;-webkit-text-size-adjust:100%;"><span style=3D"font-size:16px">=E2=82=AC&=
 nbsp;0.00</span></td>
 =09=09</tr>
 =09=09<tr>
 =09=09=09<td style=3D"mso-line-height-rule:exactly;-ms-text-size-adjust:100=
-%;-webkit-text-size-adjust:100%;"><span style=3D"font-size:18px"><strong>In=
+%;-webkit-text-size-adjust:100%;"><span style=3D"font-size:16px"><strong>In=
 vestment</strong></span></td>
 =09=09=09<td style=3D"mso-line-height-rule:exactly;-ms-text-size-adjust:100=
-%;-webkit-text-size-adjust:100%;"><span style=3D"font-size:18px">=E2=82=AC&=
-nbsp;0.00</span></td>
+%;-webkit-text-size-adjust:100%;"><span style=3D"font-size:16px">=E2=82=AC&=
+nbsp;-23.57</span></td>
 =09=09</tr>
 =09=09<tr class=3D"odd">
 =09=09=09<td style=3D"mso-line-height-rule:exactly;-ms-text-size-adjust:100=
-%;-webkit-text-size-adjust:100%;"><span style=3D"font-size:18px"><strong>De=
+%;-webkit-text-size-adjust:100%;"><span style=3D"font-size:16px"><strong>De=
 posit</strong></span></td>
 =09=09=09<td style=3D"mso-line-height-rule:exactly;-ms-text-size-adjust:100=
-%;-webkit-text-size-adjust:100%;"><span style=3D"font-size:18px">=E2=82=AC&=
+%;-webkit-text-size-adjust:100%;"><span style=3D"font-size:16px">=E2=82=AC&=
 nbsp;0.00</span></td>
 =09=09</tr>
 =09=09<tr>
 =09=09=09<td style=3D"mso-line-height-rule:exactly;-ms-text-size-adjust:100=
-%;-webkit-text-size-adjust:100%;"><span style=3D"font-size:18px"><strong>Wi=
+%;-webkit-text-size-adjust:100%;"><span style=3D"font-size:16px"><strong>Wi=
 thdrawals</strong></span></td>
 =09=09=09<td style=3D"mso-line-height-rule:exactly;-ms-text-size-adjust:100=
-%;-webkit-text-size-adjust:100%;"><span style=3D"font-size:18px">=E2=82=AC&=
+%;-webkit-text-size-adjust:100%;"><span style=3D"font-size:16px">=E2=82=AC&=
 nbsp;0.00</span></td>
 =09=09</tr>
 =09=09<tr>
 =09=09=09<td style=3D"mso-line-height-rule:exactly;-ms-text-size-adjust:100=
-%;-webkit-text-size-adjust:100%;"><span style=3D"font-size:18px"><strong>Cl=
-osing balance on </strong>2021-09-02</span></td>
+%;-webkit-text-size-adjust:100%;"><span style=3D"font-size:16px"><strong>Ba=
+lance on </strong>2024-06-24</span></td>
 =09=09=09<td style=3D"mso-line-height-rule:exactly;-ms-text-size-adjust:100=
-%;-webkit-text-size-adjust:100%;"><span style=3D"font-size:18px">=E2=82=AC&=
-nbsp;0.12</span></td>
+%;-webkit-text-size-adjust:100%;"><span style=3D"font-size:16px">=E2=82=AC&=
+nbsp;202.33</span></td>
 =09=09</tr>
 =09</tbody>
 </table>
@@ -994,11 +1008,42 @@ nbsp;0.12</span></td>
 =09=09=09=09<!--[if mso]>
 =09=09=09=09</td>
 =09=09=09=09<![endif]-->
-                
+
 =09=09=09=09<!--[if mso]>
 =09=09=09=09</tr>
 =09=09=09=09</table>
 =09=09=09=09<![endif]-->
+            </td>
+        </tr>
+    </tbody>
+</table><table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" width=3D"10=
+0%" class=3D"mcnDividerBlock" style=3D"min-width:100%;border-collapse:colla=
+pse;mso-table-lspace:0pt;mso-table-rspace:0pt;-ms-text-size-adjust:100%;-we=
+bkit-text-size-adjust:100%;table-layout:fixed ;">
+    <tbody class=3D"mcnDividerBlockOuter">
+        <tr>
+            <td class=3D"mcnDividerBlockInner" style=3D"min-width:100%;padd=
+ing:18px;mso-line-height-rule:exactly;-ms-text-size-adjust:100%;-webkit-tex=
+t-size-adjust:100%;">
+                <table class=3D"mcnDividerContent" border=3D"0" cellpadding=
+=3D"0" cellspacing=3D"0" width=3D"100%" style=3D"min-width:100%;border-top:=
+2px solid #EAEAEA;border-collapse:collapse;mso-table-lspace:0pt;mso-table-r=
+space:0pt;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;">
+                    <tbody><tr>
+                        <td style=3D"mso-line-height-rule:exactly;-ms-text-=
+size-adjust:100%;-webkit-text-size-adjust:100%;">
+                            <span></span>
+                        </td>
+                    </tr>
+                </tbody></table>
+<!--
+                <td class=3D"mcnDividerBlockInner" style=3D"padding: 18px;"=
+>
+                <hr class=3D"mcnDividerContent" style=3D"border-bottom-colo=
+r:none; border-left-color:none; border-right-color:none; border-bottom-widt=
+h:0; border-left-width:0; border-right-width:0; margin-top:0; margin-right:=
+0; margin-bottom:0; margin-left:0;" />
+-->
             </td>
         </tr>
     </tbody>
@@ -1016,44 +1061,69 @@ t-size-adjust:100%;">
 g=3D"0" width=3D"100%" style=3D"width:100%;">
 =09=09=09=09<tr>
 =09=09=09=09<![endif]-->
-=09=09=09    
+=09=09=09
 =09=09=09=09<!--[if mso]>
 =09=09=09=09<td valign=3D"top" width=3D"600" style=3D"width:600px;">
 =09=09=09=09<![endif]-->
                 <table align=3D"left" border=3D"0" cellpadding=3D"0" cellsp=
 acing=3D"0" style=3D"max-width:100%;min-width:100%;border-collapse:collapse=
 ;mso-table-lspace:0pt;mso-table-rspace:0pt;-ms-text-size-adjust:100%;-webki=
-t-text-size-adjust:100%;" width=3D"100%" class=3D"mcnTextContentContainer">
+t-text-size-adjust:100%;float:left;" width=3D"100%" class=3D"mcnTextContent=
+Container">
                     <tbody><tr>
-                        
+
                         <td valign=3D"top" class=3D"mcnTextContent" style=
-=3D"padding-top:0;padding-right:18px;padding-bottom:9px;padding-left:18px;m=
-so-line-height-rule:exactly;-ms-text-size-adjust:100%;-webkit-text-size-adj=
-ust:100%;word-break:break-word;color:#757575;font-family:Helvetica;font-siz=
-e:16px;line-height:150%;text-align:left;">
-                        
-                            <h2 style=3D"display:block;margin:0;padding:0;c=
-olor:#222222;font-family:Helvetica;font-size:34px;font-style:normal;font-we=
-ight:bold;line-height:150%;letter-spacing:normal;text-align:left;"><span st=
-yle=3D"color:#000000"><span style=3D"font-size:18px">Portfolio</span></span=
-></h2>
+=3D"padding:0px 18px 9px;color:#222222;font-size:18px;line-height:125%;mso-=
+line-height-rule:exactly;-ms-text-size-adjust:100%;-webkit-text-size-adjust=
+:100%;word-break:break-word;font-family:Helvetica;text-align:left;">
 
-<p style=3D"margin:10px 0;padding:0;mso-line-height-rule:exactly;-ms-text-s=
-ize-adjust:100%;-webkit-text-size-adjust:100%;color:#757575;font-family:Hel=
-vetica;font-size:16px;line-height:150%;text-align:left;"><span style=3D"col=
-or:#000000"><span style=3D"font-size:18px">Portfolio updated at 2021-09-03<=
-/span></span></p>
-
-<p style=3D"margin:10px 0;padding:0;mso-line-height-rule:exactly;-ms-text-s=
-ize-adjust:100%;-webkit-text-size-adjust:100%;color:#757575;font-family:Hel=
-vetica;font-size:16px;line-height:150%;text-align:left;"><span style=3D"col=
-or:#000000"><span style=3D"font-size:18px">Invested funds: 200</span></span=
-></p>
-
-<p style=3D"margin:10px 0;padding:0;mso-line-height-rule:exactly;-ms-text-s=
-ize-adjust:100%;-webkit-text-size-adjust:100%;color:#757575;font-family:Hel=
-vetica;font-size:16px;line-height:150%;text-align:left;"><span style=3D"col=
-or:#000000"><span style=3D"font-size:18px">Profit: 0.12</span></span></p>
+                            <span style=3D"font-size:16px"><strong>Portfoli=
+o</strong></span><br>
+&nbsp;
+<table class=3D"mc-table" style=3D"border-collapse:collapse;mso-table-lspac=
+e:0pt;mso-table-rspace:0pt;-ms-text-size-adjust:100%;-webkit-text-size-adju=
+st:100%;">
+=09<tbody>
+=09=09<tr class=3D"odd">
+=09=09=09<td style=3D"mso-line-height-rule:exactly;-ms-text-size-adjust:100=
+%;-webkit-text-size-adjust:100%;"><span style=3D"font-size:16px">Portfolio =
+updated on&nbsp;</span></td>
+=09=09=09<td style=3D"mso-line-height-rule:exactly;-ms-text-size-adjust:100=
+%;-webkit-text-size-adjust:100%;"><span style=3D"font-size:16px">2024-06-25=
+</span></td>
+=09=09</tr>
+=09=09<tr>
+=09=09=09<td style=3D"mso-line-height-rule:exactly;-ms-text-size-adjust:100=
+%;-webkit-text-size-adjust:100%;"><span style=3D"font-size:16px">Invested f=
+unds:</span></td>
+=09=09=09<td style=3D"mso-line-height-rule:exactly;-ms-text-size-adjust:100=
+%;-webkit-text-size-adjust:100%;"><span style=3D"font-size:16px">=E2=82=AC&=
+nbsp;5299.37</span></td>
+=09=09</tr>
+=09=09<tr class=3D"odd">
+=09=09=09<td style=3D"mso-line-height-rule:exactly;-ms-text-size-adjust:100=
+%;-webkit-text-size-adjust:100%;"><span style=3D"font-size:16px">Available =
+balance:</span></td>
+=09=09=09<td style=3D"mso-line-height-rule:exactly;-ms-text-size-adjust:100=
+%;-webkit-text-size-adjust:100%;"><span style=3D"font-size:16px">=E2=82=AC&=
+nbsp;222.61</span></td>
+=09=09</tr>
+=09=09<tr>
+=09=09=09<td style=3D"mso-line-height-rule:exactly;-ms-text-size-adjust:100=
+%;-webkit-text-size-adjust:100%;"><span style=3D"font-size:16px">Profit:</s=
+pan></td>
+=09=09=09<td style=3D"mso-line-height-rule:exactly;-ms-text-size-adjust:100=
+%;-webkit-text-size-adjust:100%;"><span style=3D"font-size:16px">=E2=82=AC&=
+nbsp;345.98</span></td>
+=09=09</tr>
+=09=09<tr class=3D"odd">
+=09=09=09<td style=3D"mso-line-height-rule:exactly;-ms-text-size-adjust:100=
+%;-webkit-text-size-adjust:100%;">&nbsp;</td>
+=09=09=09<td style=3D"mso-line-height-rule:exactly;-ms-text-size-adjust:100=
+%;-webkit-text-size-adjust:100%;">&nbsp;</td>
+=09=09</tr>
+=09</tbody>
+</table>
 
                         </td>
                     </tr>
@@ -1061,7 +1131,7 @@ or:#000000"><span style=3D"font-size:18px">Profit: 0.12</span></span></p>
 =09=09=09=09<!--[if mso]>
 =09=09=09=09</td>
 =09=09=09=09<![endif]-->
-                
+
 =09=09=09=09<!--[if mso]>
 =09=09=09=09</tr>
 =09=09=09=09</table>
@@ -1086,16 +1156,16 @@ le-rspace:0pt;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;">
                     <tbody>
                         <tr>
                             <td align=3D"center" valign=3D"middle" class=3D=
-"mcnButtonContent" style=3D"font-family:Arial;font-size:16px;padding:18px;m=
+"mcnButtonContent" style=3D"font-family:Arial;font-size:16px;padding:14px;m=
 so-line-height-rule:exactly;-ms-text-size-adjust:100%;-webkit-text-size-adj=
 ust:100%;">
                                 <a class=3D"mcnButton " title=3D"Go to prof=
 ile overview" href=3D"https://mandrillapp.com/track/click/31137988/peerberr=
-y.com?p=3DeyJzIjoiUE55WmJFa0JSdlFlLTJocFpZRnlCNVN0ZEhrIiwidiI6MSwicCI6IntcI=
+y.com?p=3DeyJzIjoiZnlvUHF0SF9vcVZDZnE4U0dHM3VWMW5KT1MwIiwidiI6MSwicCI6IntcI=
 nVcIjozMTEzNzk4OCxcInZcIjoxLFwidXJsXCI6XCJodHRwczpcXFwvXFxcL3BlZXJiZXJyeS5j=
 b21cXFwvP3V0bV9zb3VyY2U9ZW1haWwmdXRtX21lZGl1bT1ub3RpZnkmdXRtX2NhbXBhaWduPWF=
-jY291bnQtc3VtbWFyeVwiLFwiaWRcIjpcIjZlNDNkMmJmNGVkMDQ5Mzc4NDdhNTJiZjE2ZTJlYW=
-FlXCIsXCJ1cmxfaWRzXCI6W1wiZGI4MWEzMDI2MTdlN2E1M2NlN2Y2YzFmMTQ2MzIwYWQ2NTU3N=
+jY291bnQtc3VtbWFyeVwiLFwiaWRcIjpcIjQ0Y2Y3N2U4MWM1MjRmOGQ5MDI4MGY2MmE0ZmQxOW=
+JjXCIsXCJ1cmxfaWRzXCI6W1wiZGI4MWEzMDI2MTdlN2E1M2NlN2Y2YzFmMTQ2MzIwYWQ2NTU3N=
 GQ2MVwiXX0ifQ" target=3D"_blank" style=3D"font-weight:bold;letter-spacing:n=
 ormal;line-height:100%;text-align:center;text-decoration:none;color:#FFFFFF=
 ;mso-line-height-rule:exactly;-ms-text-size-adjust:100%;-webkit-text-size-a=
@@ -1108,37 +1178,6 @@ djust:100%;display:block;">Go to profile overview</a>
         </tr>
     </tbody>
 </table><table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" width=3D"10=
-0%" class=3D"mcnDividerBlock" style=3D"min-width:100%;border-collapse:colla=
-pse;mso-table-lspace:0pt;mso-table-rspace:0pt;-ms-text-size-adjust:100%;-we=
-bkit-text-size-adjust:100%;table-layout:fixed ;">
-    <tbody class=3D"mcnDividerBlockOuter">
-        <tr>
-            <td class=3D"mcnDividerBlockInner" style=3D"min-width:100%;padd=
-ing:18px;mso-line-height-rule:exactly;-ms-text-size-adjust:100%;-webkit-tex=
-t-size-adjust:100%;">
-                <table class=3D"mcnDividerContent" border=3D"0" cellpadding=
-=3D"0" cellspacing=3D"0" width=3D"100%" style=3D"min-width:100%;border-top:=
-2px solid #EAEAEA;border-collapse:collapse;mso-table-lspace:0pt;mso-table-r=
-space:0pt;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;">
-                    <tbody><tr>
-                        <td style=3D"mso-line-height-rule:exactly;-ms-text-=
-size-adjust:100%;-webkit-text-size-adjust:100%;">
-                            <span></span>
-                        </td>
-                    </tr>
-                </tbody></table>
-<!--            
-                <td class=3D"mcnDividerBlockInner" style=3D"padding: 18px;"=
->
-                <hr class=3D"mcnDividerContent" style=3D"border-bottom-colo=
-r:none; border-left-color:none; border-right-color:none; border-bottom-widt=
-h:0; border-left-width:0; border-right-width:0; margin-top:0; margin-right:=
-0; margin-bottom:0; margin-left:0;" />
--->
-            </td>
-        </tr>
-    </tbody>
-</table><table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" width=3D"10=
 0%" class=3D"mcnTextBlock" style=3D"min-width:100%;border-collapse:collapse=
 ;mso-table-lspace:0pt;mso-table-rspace:0pt;-ms-text-size-adjust:100%;-webki=
 t-text-size-adjust:100%;">
@@ -1152,110 +1191,33 @@ t-size-adjust:100%;">
 g=3D"0" width=3D"100%" style=3D"width:100%;">
 =09=09=09=09<tr>
 =09=09=09=09<![endif]-->
-=09=09=09    
+=09=09=09
 =09=09=09=09<!--[if mso]>
 =09=09=09=09<td valign=3D"top" width=3D"600" style=3D"width:600px;">
 =09=09=09=09<![endif]-->
                 <table align=3D"left" border=3D"0" cellpadding=3D"0" cellsp=
 acing=3D"0" style=3D"max-width:100%;min-width:100%;border-collapse:collapse=
 ;mso-table-lspace:0pt;mso-table-rspace:0pt;-ms-text-size-adjust:100%;-webki=
-t-text-size-adjust:100%;" width=3D"100%" class=3D"mcnTextContentContainer">
+t-text-size-adjust:100%;float:left;" width=3D"100%" class=3D"mcnTextContent=
+Container">
                     <tbody><tr>
-                        
+
                         <td valign=3D"top" class=3D"mcnTextContent" style=
 =3D"padding-top:0;padding-right:18px;padding-bottom:9px;padding-left:18px;m=
 so-line-height-rule:exactly;-ms-text-size-adjust:100%;-webkit-text-size-adj=
 ust:100%;word-break:break-word;color:#757575;font-family:Helvetica;font-siz=
 e:16px;line-height:150%;text-align:left;">
-                        
+
                             <span style=3D"color:#000000">You can change th=
-e frequency of receiving your&nbsp;PeerBerry&nbsp;account summary in your I=
-nvestor Profile.</span>
+e frequency of receiving the account summary in your PeerBerry account.</sp=
+an>
                         </td>
                     </tr>
                 </tbody></table>
 =09=09=09=09<!--[if mso]>
 =09=09=09=09</td>
 =09=09=09=09<![endif]-->
-                
-=09=09=09=09<!--[if mso]>
-=09=09=09=09</tr>
-=09=09=09=09</table>
-=09=09=09=09<![endif]-->
-            </td>
-        </tr>
-    </tbody>
-</table><table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" width=3D"10=
-0%" class=3D"mcnDividerBlock" style=3D"min-width:100%;border-collapse:colla=
-pse;mso-table-lspace:0pt;mso-table-rspace:0pt;-ms-text-size-adjust:100%;-we=
-bkit-text-size-adjust:100%;table-layout:fixed ;">
-    <tbody class=3D"mcnDividerBlockOuter">
-        <tr>
-            <td class=3D"mcnDividerBlockInner" style=3D"min-width:100%;padd=
-ing:18px;mso-line-height-rule:exactly;-ms-text-size-adjust:100%;-webkit-tex=
-t-size-adjust:100%;">
-                <table class=3D"mcnDividerContent" border=3D"0" cellpadding=
-=3D"0" cellspacing=3D"0" width=3D"100%" style=3D"min-width:100%;border-top:=
-2px solid #EAEAEA;border-collapse:collapse;mso-table-lspace:0pt;mso-table-r=
-space:0pt;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;">
-                    <tbody><tr>
-                        <td style=3D"mso-line-height-rule:exactly;-ms-text-=
-size-adjust:100%;-webkit-text-size-adjust:100%;">
-                            <span></span>
-                        </td>
-                    </tr>
-                </tbody></table>
-<!--            
-                <td class=3D"mcnDividerBlockInner" style=3D"padding: 18px;"=
->
-                <hr class=3D"mcnDividerContent" style=3D"border-bottom-colo=
-r:none; border-left-color:none; border-right-color:none; border-bottom-widt=
-h:0; border-left-width:0; border-right-width:0; margin-top:0; margin-right:=
-0; margin-bottom:0; margin-left:0;" />
--->
-            </td>
-        </tr>
-    </tbody>
-</table><table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" width=3D"10=
-0%" class=3D"mcnTextBlock" style=3D"min-width:100%;border-collapse:collapse=
-;mso-table-lspace:0pt;mso-table-rspace:0pt;-ms-text-size-adjust:100%;-webki=
-t-text-size-adjust:100%;">
-    <tbody class=3D"mcnTextBlockOuter">
-        <tr>
-            <td valign=3D"top" class=3D"mcnTextBlockInner" style=3D"padding=
--top:9px;mso-line-height-rule:exactly;-ms-text-size-adjust:100%;-webkit-tex=
-t-size-adjust:100%;">
-              =09<!--[if mso]>
-=09=09=09=09<table align=3D"left" border=3D"0" cellspacing=3D"0" cellpaddin=
-g=3D"0" width=3D"100%" style=3D"width:100%;">
-=09=09=09=09<tr>
-=09=09=09=09<![endif]-->
-=09=09=09    
-=09=09=09=09<!--[if mso]>
-=09=09=09=09<td valign=3D"top" width=3D"600" style=3D"width:600px;">
-=09=09=09=09<![endif]-->
-                <table align=3D"left" border=3D"0" cellpadding=3D"0" cellsp=
-acing=3D"0" style=3D"max-width:100%;min-width:100%;border-collapse:collapse=
-;mso-table-lspace:0pt;mso-table-rspace:0pt;-ms-text-size-adjust:100%;-webki=
-t-text-size-adjust:100%;" width=3D"100%" class=3D"mcnTextContentContainer">
-                    <tbody><tr>
-                        
-                        <td valign=3D"top" class=3D"mcnTextContent" style=
-=3D"padding-top:0;padding-right:18px;padding-bottom:9px;padding-left:18px;m=
-so-line-height-rule:exactly;-ms-text-size-adjust:100%;-webkit-text-size-adj=
-ust:100%;word-break:break-word;color:#757575;font-family:Helvetica;font-siz=
-e:16px;line-height:150%;text-align:left;">
-                        
-                            <span style=3D"color:#000000"><strong>Available=
- amount for investment</strong>:&nbsp;486868.85<br>
-<strong>Available loans for investment:&nbsp;</strong>4856</span>
-                        </td>
-                    </tr>
-                </tbody></table>
-=09=09=09=09<!--[if mso]>
-=09=09=09=09</td>
-=09=09=09=09<![endif]-->
-                
+
 =09=09=09=09<!--[if mso]>
 =09=09=09=09</tr>
 =09=09=09=09</table>
@@ -1280,59 +1242,25 @@ le-rspace:0pt;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;">
                     <tbody>
                         <tr>
                             <td align=3D"center" valign=3D"middle" class=3D=
-"mcnButtonContent" style=3D"font-family:Arial;font-size:16px;padding:18px;m=
+"mcnButtonContent" style=3D"font-family:Arial;font-size:16px;padding:14px;m=
 so-line-height-rule:exactly;-ms-text-size-adjust:100%;-webkit-text-size-adj=
 ust:100%;">
                                 <a class=3D"mcnButton " title=3D"View" href=
 =3D"https://mandrillapp.com/track/click/31137988/peerberry.com?p=3DeyJzIjoi=
-cThSY2FXc19LaUw5VUtLT3RGNW8xUW5VWldRIiwidiI6MSwicCI6IntcInVcIjozMTEzNzk4OCx=
-cInZcIjoxLFwidXJsXCI6XCJodHRwczpcXFwvXFxcL3BlZXJiZXJyeS5jb21cXFwvXCIsXCJpZF=
-wiOlwiNmU0M2QyYmY0ZWQwNDkzNzg0N2E1MmJmMTZlMmVhYWVcIixcInVybF9pZHNcIjpbXCJkY=
-jgxYTMwMjYxN2U3YTUzY2U3ZjZjMWYxNDYzMjBhZDY1NTc0ZDYxXCJdfSJ9" target=3D"_bla=
-nk" style=3D"font-weight:bold;letter-spacing:normal;line-height:100%;text-a=
-lign:center;text-decoration:none;color:#FFFFFF;mso-line-height-rule:exactly=
-;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;display:block;">Vi=
-ew</a>
+TjBhbGw1dG5SU0NaRHBjYWxYX292SG9QS0hvIiwidiI6MSwicCI6IntcInVcIjozMTEzNzk4OCx=
+cInZcIjoxLFwidXJsXCI6XCJodHRwczpcXFwvXFxcL3BlZXJiZXJyeS5jb21cXFwvZW5cXFwvY2=
+xpZW50XFxcL1wiLFwiaWRcIjpcIjQ0Y2Y3N2U4MWM1MjRmOGQ5MDI4MGY2MmE0ZmQxOWJjXCIsX=
+CJ1cmxfaWRzXCI6W1wiNWY1MGVhM2FiYzg4ZmY3YWQ0ZmU3M2VhOGM0MjA0ZTU4ZWI2ZDk5NVwi=
+XX0ifQ" target=3D"_blank" style=3D"font-weight:bold;letter-spacing:0px;line=
+-height:100%;text-align:center;text-decoration:none;color:#FFFFFF;mso-line-=
+height-rule:exactly;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%=
+;display:block;">View</a>
                             </td>
                         </tr>
                     </tbody>
                 </table>
             </td>
         </tr>
-    </tbody>
-</table><table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" width=3D"10=
-0%" class=3D"mcnImageBlock" style=3D"min-width:100%;border-collapse:collaps=
-e;mso-table-lspace:0pt;mso-table-rspace:0pt;-ms-text-size-adjust:100%;-webk=
-it-text-size-adjust:100%;">
-    <tbody class=3D"mcnImageBlockOuter">
-            <tr>
-                <td valign=3D"top" style=3D"padding:9px;mso-line-height-rul=
-e:exactly;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;" class=
-=3D"mcnImageBlockInner">
-                    <table align=3D"left" width=3D"100%" border=3D"0" cellp=
-adding=3D"0" cellspacing=3D"0" class=3D"mcnImageContentContainer" style=3D"=
-min-width:100%;border-collapse:collapse;mso-table-lspace:0pt;mso-table-rspa=
-ce:0pt;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;">
-                        <tbody><tr>
-                            <td class=3D"mcnImageContent" valign=3D"top" st=
-yle=3D"padding-right:9px;padding-left:9px;padding-top:0;padding-bottom:0;te=
-xt-align:center;mso-line-height-rule:exactly;-ms-text-size-adjust:100%;-web=
-kit-text-size-adjust:100%;">
-                                
-                                    
-                                        <img align=3D"center" alt=3D"" src=
-=3D"https://mcusercontent.com/bfd3c15ad5c652f91f0b64646/images/93fa05c9-718=
-9-4a0d-af98-320571ea0b57.png" width=3D"564" style=3D"max-width:1081px;paddi=
-ng-bottom:0;display:inline !important;vertical-align:bottom;border:0;height=
-:auto;outline:none;text-decoration:none;-ms-interpolation-mode:bicubic;" cl=
-ass=3D"mcnImage">
-                                    
-                                
-                            </td>
-                        </tr>
-                    </tbody></table>
-                </td>
-            </tr>
     </tbody>
 </table></td>
                                         </tr>
@@ -1407,159 +1335,124 @@ e-adjust:100%;">
 llspacing=3D"0" cellpadding=3D"0">
                                     <tr>
                                     <![endif]-->
-                                    
+
                                         <!--[if mso]>
                                         <td align=3D"center" valign=3D"top"=
 >
                                         <![endif]-->
-                                        
+
                                             <table align=3D"left" border=3D=
 "0" cellpadding=3D"0" cellspacing=3D"0" class=3D"mcnFollowStacked" style=3D=
 "display:inline;border-collapse:collapse;mso-table-lspace:0pt;mso-table-rsp=
-ace:0pt;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;">
-                                                 
+ace:0pt;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;float:left;=
+">
+
                                                 <tbody><tr>
                                                     <td align=3D"center" va=
 lign=3D"top" class=3D"mcnFollowIconContent" style=3D"padding-right:10px;pad=
 ding-bottom:9px;mso-line-height-rule:exactly;-ms-text-size-adjust:100%;-web=
 kit-text-size-adjust:100%;">
                                                         <a href=3D"https://=
-mandrillapp.com/track/click/31137988/www.facebook.com?p=3DeyJzIjoic3RJdUljQ=
-1pBRDBxelI5UFRYQmNOQTUwNjNJIiwidiI6MSwicCI6IntcInVcIjozMTEzNzk4OCxcInZcIjox=
+mandrillapp.com/track/click/31137988/www.facebook.com?p=3DeyJzIjoic2JHTU03W=
+XdkS2NOMmRBdkp3SENwVVJpT1JzIiwidiI6MSwicCI6IntcInVcIjozMTEzNzk4OCxcInZcIjox=
 LFwidXJsXCI6XCJodHRwczpcXFwvXFxcL3d3dy5mYWNlYm9vay5jb21cXFwvcGVlcmJlcnJ5XFx=
-cL1wiLFwiaWRcIjpcIjZlNDNkMmJmNGVkMDQ5Mzc4NDdhNTJiZjE2ZTJlYWFlXCIsXCJ1cmxfaW=
+cL1wiLFwiaWRcIjpcIjQ0Y2Y3N2U4MWM1MjRmOGQ5MDI4MGY2MmE0ZmQxOWJjXCIsXCJ1cmxfaW=
 RzXCI6W1wiODBjYTk2OTc0OWY0OTNjZTY5NmM5MDMxOWE2ZjczNTdkNjg2ZjZiNFwiXX0ifQ" t=
 arget=3D"_blank" style=3D"mso-line-height-rule:exactly;-ms-text-size-adjust=
 :100%;-webkit-text-size-adjust:100%;"><img src=3D"https://cdn-images.mailch=
-imp.com/icons/social-block-v2/outline-color-facebook-96.png" alt=3D"Faceboo=
-k" class=3D"mcnFollowBlockIcon" width=3D"48" style=3D"width:48px;max-width:=
-48px;display:block;border:0;height:auto;outline:none;text-decoration:none;-=
-ms-interpolation-mode:bicubic;"></a>
+imp.com/icons/social-block-v2/outline-gray-facebook-96.png" alt=3D"Facebook=
+" class=3D"mcnFollowBlockIcon" width=3D"48" style=3D"width:48px;max-width:4=
+8px;display:block;border:0;height:auto;outline:none;text-decoration:none;-m=
+s-interpolation-mode:bicubic;"></a>
                                                     </td>
                                                 </tr>
-                                                
-                                                
+
+
                                             </tbody></table>
-                                        
-                                        
+
+
                                         <!--[if mso]>
                                         </td>
                                         <![endif]-->
-                                    
+
                                         <!--[if mso]>
                                         <td align=3D"center" valign=3D"top"=
 >
                                         <![endif]-->
-                                        
+
                                             <table align=3D"left" border=3D=
 "0" cellpadding=3D"0" cellspacing=3D"0" class=3D"mcnFollowStacked" style=3D=
 "display:inline;border-collapse:collapse;mso-table-lspace:0pt;mso-table-rsp=
-ace:0pt;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;">
-                                                 
+ace:0pt;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;float:left;=
+">
+
                                                 <tbody><tr>
                                                     <td align=3D"center" va=
 lign=3D"top" class=3D"mcnFollowIconContent" style=3D"padding-right:10px;pad=
 ding-bottom:9px;mso-line-height-rule:exactly;-ms-text-size-adjust:100%;-web=
 kit-text-size-adjust:100%;">
                                                         <a href=3D"https://=
-mandrillapp.com/track/click/31137988/twitter.com?p=3DeyJzIjoiN2pneTF1ei1qTX=
-dic1FLUnloVlVDUUNueUN3IiwidiI6MSwicCI6IntcInVcIjozMTEzNzk4OCxcInZcIjoxLFwid=
+mandrillapp.com/track/click/31137988/twitter.com?p=3DeyJzIjoiNkxIay1YQTR3Mm=
+J5TzJaV0t0alFMZERYNU00IiwidiI6MSwicCI6IntcInVcIjozMTEzNzk4OCxcInZcIjoxLFwid=
 XJsXCI6XCJodHRwczpcXFwvXFxcL3R3aXR0ZXIuY29tXFxcL1BlZXJCZXJyeVwiLFwiaWRcIjpc=
-IjZlNDNkMmJmNGVkMDQ5Mzc4NDdhNTJiZjE2ZTJlYWFlXCIsXCJ1cmxfaWRzXCI6W1wiZjQ2MTU=
+IjQ0Y2Y3N2U4MWM1MjRmOGQ5MDI4MGY2MmE0ZmQxOWJjXCIsXCJ1cmxfaWRzXCI6W1wiZjQ2MTU=
 yODdiNzE1MDYxNjMyODkxNTQwZDllNWRlMDVjYjllNTdlNVwiXX0ifQ" target=3D"_blank" =
 style=3D"mso-line-height-rule:exactly;-ms-text-size-adjust:100%;-webkit-tex=
 t-size-adjust:100%;"><img src=3D"https://cdn-images.mailchimp.com/icons/soc=
-ial-block-v2/outline-color-twitter-96.png" alt=3D"Twitter" class=3D"mcnFoll=
-owBlockIcon" width=3D"48" style=3D"width:48px;max-width:48px;display:block;=
-border:0;height:auto;outline:none;text-decoration:none;-ms-interpolation-mo=
-de:bicubic;"></a>
+ial-block-v2/outline-gray-twitter-96.png" alt=3D"Twitter" class=3D"mcnFollo=
+wBlockIcon" width=3D"48" style=3D"width:48px;max-width:48px;display:block;b=
+order:0;height:auto;outline:none;text-decoration:none;-ms-interpolation-mod=
+e:bicubic;"></a>
                                                     </td>
                                                 </tr>
-                                                
-                                                
+
+
                                             </tbody></table>
-                                        
-                                        
+
+
                                         <!--[if mso]>
                                         </td>
                                         <![endif]-->
-                                    
+
                                         <!--[if mso]>
                                         <td align=3D"center" valign=3D"top"=
 >
                                         <![endif]-->
-                                        
+
                                             <table align=3D"left" border=3D=
 "0" cellpadding=3D"0" cellspacing=3D"0" class=3D"mcnFollowStacked" style=3D=
 "display:inline;border-collapse:collapse;mso-table-lspace:0pt;mso-table-rsp=
-ace:0pt;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;">
-                                                 
-                                                <tbody><tr>
-                                                    <td align=3D"center" va=
-lign=3D"top" class=3D"mcnFollowIconContent" style=3D"padding-right:10px;pad=
-ding-bottom:9px;mso-line-height-rule:exactly;-ms-text-size-adjust:100%;-web=
-kit-text-size-adjust:100%;">
-                                                        <a href=3D"https://=
-mandrillapp.com/track/click/31137988/www.linkedin.com?p=3DeyJzIjoiaEJYek0tO=
-WpHRkFWb0JnNEdCR2dHWnRiU0tJIiwidiI6MSwicCI6IntcInVcIjozMTEzNzk4OCxcInZcIjox=
-LFwidXJsXCI6XCJodHRwczpcXFwvXFxcL3d3dy5saW5rZWRpbi5jb21cXFwvY29tcGFueVxcXC9=
-wZWVyYmVycnlcXFwvXCIsXCJpZFwiOlwiNmU0M2QyYmY0ZWQwNDkzNzg0N2E1MmJmMTZlMmVhYW=
-VcIixcInVybF9pZHNcIjpbXCIzZTc5MDk2YWVlZjAyYTkxODZlY2E4ZmJiYzMzNWJjMzZjYmVmM=
-mEyXCJdfSJ9" target=3D"_blank" style=3D"mso-line-height-rule:exactly;-ms-te=
-xt-size-adjust:100%;-webkit-text-size-adjust:100%;"><img src=3D"https://cdn=
--images.mailchimp.com/icons/social-block-v2/outline-color-linkedin-96.png" =
-alt=3D"LinkedIn" class=3D"mcnFollowBlockIcon" width=3D"48" style=3D"width:4=
-8px;max-width:48px;display:block;border:0;height:auto;outline:none;text-dec=
-oration:none;-ms-interpolation-mode:bicubic;"></a>
-                                                    </td>
-                                                </tr>
-                                                
-                                                
-                                            </tbody></table>
-                                        
-                                        
-                                        <!--[if mso]>
-                                        </td>
-                                        <![endif]-->
-                                    
-                                        <!--[if mso]>
-                                        <td align=3D"center" valign=3D"top"=
->
-                                        <![endif]-->
-                                        
-                                            <table align=3D"left" border=3D=
-"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"mcnFollowStacked" style=3D=
-"display:inline;border-collapse:collapse;mso-table-lspace:0pt;mso-table-rsp=
-ace:0pt;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;">
-                                                 
+ace:0pt;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;float:left;=
+">
+
                                                 <tbody><tr>
                                                     <td align=3D"center" va=
 lign=3D"top" class=3D"mcnFollowIconContent" style=3D"padding-right:0;paddin=
 g-bottom:9px;mso-line-height-rule:exactly;-ms-text-size-adjust:100%;-webkit=
 -text-size-adjust:100%;">
                                                         <a href=3D"https://=
-mandrillapp.com/track/click/31137988/www.youtube.com?p=3DeyJzIjoiZnhiazQyc2=
-NhTjRCM0RjbHBUS3l4djBvTWs4IiwidiI6MSwicCI6IntcInVcIjozMTEzNzk4OCxcInZcIjoxL=
-FwidXJsXCI6XCJodHRwczpcXFwvXFxcL3d3dy55b3V0dWJlLmNvbVxcXC9jaGFubmVsXFxcL1VD=
-aURRdEpsb2FpakdhZUE0VllzMXNEUVwiLFwiaWRcIjpcIjZlNDNkMmJmNGVkMDQ5Mzc4NDdhNTJ=
-iZjE2ZTJlYWFlXCIsXCJ1cmxfaWRzXCI6W1wiOTg4OTk2YjAyNjg2ZGRiYTM3YWYyZjQ0NzI0Zm=
-ExYjY1ZTMwYTM3NlwiXX0ifQ" target=3D"_blank" style=3D"mso-line-height-rule:e=
-xactly;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;"><img src=
-=3D"https://cdn-images.mailchimp.com/icons/social-block-v2/outline-color-yo=
-utube-96.png" alt=3D"YouTube" class=3D"mcnFollowBlockIcon" width=3D"48" sty=
-le=3D"width:48px;max-width:48px;display:block;border:0;height:auto;outline:=
-none;text-decoration:none;-ms-interpolation-mode:bicubic;"></a>
+mandrillapp.com/track/click/31137988/www.linkedin.com?p=3DeyJzIjoic2x5VE9CT=
+VNJemZaZWhLcllzWnFjT1QxODBFIiwidiI6MSwicCI6IntcInVcIjozMTEzNzk4OCxcInZcIjox=
+LFwidXJsXCI6XCJodHRwczpcXFwvXFxcL3d3dy5saW5rZWRpbi5jb21cXFwvY29tcGFueVxcXC9=
+wZWVyYmVycnlcXFwvXCIsXCJpZFwiOlwiNDRjZjc3ZTgxYzUyNGY4ZDkwMjgwZjYyYTRmZDE5Ym=
+NcIixcInVybF9pZHNcIjpbXCIzZTc5MDk2YWVlZjAyYTkxODZlY2E4ZmJiYzMzNWJjMzZjYmVmM=
+mEyXCJdfSJ9" target=3D"_blank" style=3D"mso-line-height-rule:exactly;-ms-te=
+xt-size-adjust:100%;-webkit-text-size-adjust:100%;"><img src=3D"https://cdn=
+-images.mailchimp.com/icons/social-block-v2/outline-gray-linkedin-96.png" a=
+lt=3D"LinkedIn" class=3D"mcnFollowBlockIcon" width=3D"48" style=3D"width:48=
+px;max-width:48px;display:block;border:0;height:auto;outline:none;text-deco=
+ration:none;-ms-interpolation-mode:bicubic;"></a>
                                                     </td>
                                                 </tr>
-                                                
-                                                
+
+
                                             </tbody></table>
-                                        
-                                        
+
+
                                         <!--[if mso]>
                                         </td>
                                         <![endif]-->
-                                    
+
                                     <!--[if mso]>
                                     </tr>
                                     </table>
@@ -1578,37 +1471,6 @@ none;text-decoration:none;-ms-interpolation-mode:bicubic;"></a>
         </tr>
     </tbody>
 </table><table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" width=3D"10=
-0%" class=3D"mcnDividerBlock" style=3D"min-width:100%;border-collapse:colla=
-pse;mso-table-lspace:0pt;mso-table-rspace:0pt;-ms-text-size-adjust:100%;-we=
-bkit-text-size-adjust:100%;table-layout:fixed ;">
-    <tbody class=3D"mcnDividerBlockOuter">
-        <tr>
-            <td class=3D"mcnDividerBlockInner" style=3D"min-width:100%;padd=
-ing:18px;mso-line-height-rule:exactly;-ms-text-size-adjust:100%;-webkit-tex=
-t-size-adjust:100%;">
-                <table class=3D"mcnDividerContent" border=3D"0" cellpadding=
-=3D"0" cellspacing=3D"0" width=3D"100%" style=3D"min-width:100%;border-top:=
-2px solid #505050;border-collapse:collapse;mso-table-lspace:0pt;mso-table-r=
-space:0pt;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;">
-                    <tbody><tr>
-                        <td style=3D"mso-line-height-rule:exactly;-ms-text-=
-size-adjust:100%;-webkit-text-size-adjust:100%;">
-                            <span></span>
-                        </td>
-                    </tr>
-                </tbody></table>
-<!--            
-                <td class=3D"mcnDividerBlockInner" style=3D"padding: 18px;"=
->
-                <hr class=3D"mcnDividerContent" style=3D"border-bottom-colo=
-r:none; border-left-color:none; border-right-color:none; border-bottom-widt=
-h:0; border-left-width:0; border-right-width:0; margin-top:0; margin-right:=
-0; margin-bottom:0; margin-left:0;" />
--->
-            </td>
-        </tr>
-    </tbody>
-</table><table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" width=3D"10=
 0%" class=3D"mcnTextBlock" style=3D"min-width:100%;border-collapse:collapse=
 ;mso-table-lspace:0pt;mso-table-rspace:0pt;-ms-text-size-adjust:100%;-webki=
 t-text-size-adjust:100%;">
@@ -1622,49 +1484,72 @@ t-size-adjust:100%;">
 g=3D"0" width=3D"100%" style=3D"width:100%;">
 =09=09=09=09<tr>
 =09=09=09=09<![endif]-->
-=09=09=09    
+=09=09=09
 =09=09=09=09<!--[if mso]>
 =09=09=09=09<td valign=3D"top" width=3D"600" style=3D"width:600px;">
 =09=09=09=09<![endif]-->
                 <table align=3D"left" border=3D"0" cellpadding=3D"0" cellsp=
 acing=3D"0" style=3D"max-width:100%;min-width:100%;border-collapse:collapse=
 ;mso-table-lspace:0pt;mso-table-rspace:0pt;-ms-text-size-adjust:100%;-webki=
-t-text-size-adjust:100%;" width=3D"100%" class=3D"mcnTextContentContainer">
+t-text-size-adjust:100%;float:left;" width=3D"100%" class=3D"mcnTextContent=
+Container">
                     <tbody><tr>
-                        
+
                         <td valign=3D"top" class=3D"mcnTextContent" style=
 =3D"padding-top:0;padding-right:18px;padding-bottom:9px;padding-left:18px;m=
 so-line-height-rule:exactly;-ms-text-size-adjust:100%;-webkit-text-size-adj=
 ust:100%;word-break:break-word;color:#FFFFFF;font-family:Helvetica;font-siz=
 e:12px;line-height:150%;text-align:center;">
-                        
-                            If you need any help or have suggestions how we=
- could improve our services&nbsp;please<br>
-contact us by email: info@peerberry.com<br>
-<br>
-<strong>Our mailing address is:</strong><br>
-PeerBerry<br>
-Udens Street 12 =E2=80=93 118, Riga, LV-1007, Latvia<br>
+
+                            <p style=3D"margin:10px 0;padding:0;mso-line-he=
+ight-rule:exactly;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;c=
+olor:#FFFFFF;font-family:Helvetica;font-size:12px;line-height:150%;text-ali=
+gn:center;"><strong>Contact us</strong><strong>:</strong></p>
+
+<p style=3D"margin:10px 0;padding:0;mso-line-height-rule:exactly;-ms-text-s=
+ize-adjust:100%;-webkit-text-size-adjust:100%;color:#FFFFFF;font-family:Hel=
+vetica;font-size:12px;line-height:150%;text-align:center;">Peerberry d.o.o.=
+ Kareviu str. 11B, Vilnius, Lithuania, LT-09109</p>
+
+<p style=3D"margin:10px 0;padding:0;mso-line-height-rule:exactly;-ms-text-s=
+ize-adjust:100%;-webkit-text-size-adjust:100%;color:#FFFFFF;font-family:Hel=
+vetica;font-size:12px;line-height:150%;text-align:center;">info@peerberry.c=
+om</p>
+
+<p style=3D"margin:10px 0;padding:0;mso-line-height-rule:exactly;-ms-text-s=
+ize-adjust:100%;-webkit-text-size-adjust:100%;color:#FFFFFF;font-family:Hel=
+vetica;font-size:12px;line-height:150%;text-align:center;">+370 61 355 529<=
+/p>
+
+<p style=3D"margin:10px 0;padding:0;mso-line-height-rule:exactly;-ms-text-s=
+ize-adjust:100%;-webkit-text-size-adjust:100%;color:#FFFFFF;font-family:Hel=
+vetica;font-size:12px;line-height:150%;text-align:center;">https://peerberr=
+y.com/</p>
 <br>
 You have received this email because you have signed up to PeerBerry.&nbsp;=
 <br>
-If you find this information not relevant for you, unsubscribe us in your p=
-rofile, please go to<br>
-<a href=3D"https://mandrillapp.com/track/click/31137988/peerberry.com?p=3De=
-yJzIjoiMk1IU082U1BtQUw4c1RUMlk5TWRSMElLRWI0IiwidiI6MSwicCI6IntcInVcIjozMTEz=
-Nzk4OCxcInZcIjoxLFwidXJsXCI6XCJodHRwczpcXFwvXFxcL3BlZXJiZXJyeS5jb21cXFwvZW5=
-cXFwvc2V0dGluZ3NcIixcImlkXCI6XCI2ZTQzZDJiZjRlZDA0OTM3ODQ3YTUyYmYxNmUyZWFhZV=
-wiLFwidXJsX2lkc1wiOltcImM4OWY3NDJmNmEyYWRlY2NmZTc2NTBkODc2OTI2NGRjNTc2ZjhkY=
-jlcIl19In0" style=3D"mso-line-height-rule:exactly;-ms-text-size-adjust:100%=
-;-webkit-text-size-adjust:100%;color:#FFFFFF;font-weight:normal;text-decora=
-tion:underline;">personal settings</a>.
+If you find this information irrrelevant, please go to settings in your Pee=
+rBerry account to&nbsp;<a href=3D"https://mandrillapp.com/track/click/31137=
+988/peerberry.com?p=3DeyJzIjoiUG1rdmhkUm5hd3RhdHZuN0M3a2Y1aUJ0NzdNIiwidiI6M=
+SwicCI6IntcInVcIjozMTEzNzk4OCxcInZcIjoxLFwidXJsXCI6XCJodHRwczpcXFwvXFxcL3Bl=
+ZXJiZXJyeS5jb21cXFwvZW5cXFwvc2V0dGluZ3NcIixcImlkXCI6XCI0NGNmNzdlODFjNTI0Zjh=
+kOTAyODBmNjJhNGZkMTliY1wiLFwidXJsX2lkc1wiOltcImM4OWY3NDJmNmEyYWRlY2NmZTc2NT=
+BkODc2OTI2NGRjNTc2ZjhkYjlcIl19In0" style=3D"mso-line-height-rule:exactly;-m=
+s-text-size-adjust:100%;-webkit-text-size-adjust:100%;color:#FFFFFF;font-we=
+ight:normal;text-decoration:underline;">unsubscribe</a>.
+
+<p style=3D"margin:10px 0;padding:0;mso-line-height-rule:exactly;-ms-text-s=
+ize-adjust:100%;-webkit-text-size-adjust:100%;color:#FFFFFF;font-family:Hel=
+vetica;font-size:12px;line-height:150%;text-align:center;">Please note that=
+ investments are related to risks.</p>
+
                         </td>
                     </tr>
                 </tbody></table>
 =09=09=09=09<!--[if mso]>
 =09=09=09=09</td>
 =09=09=09=09<![endif]-->
-                
+
 =09=09=09=09<!--[if mso]>
 =09=09=09=09</tr>
 =09=09=09=09</table>
@@ -1688,9 +1573,9 @@ tion:underline;">personal settings</a>.
                 </tr>
             </table>
         </center>
-    <img src=3D"https://mandrillapp.com/track/open.php?u=3D31137988&id=3D6e=
-43d2bf4ed04937847a52bf16e2eaae" height=3D"1" width=3D"1"></body>
+    <img src=3D"https://mandrillapp.com/track/open.php?u=3D31137988&id=3D44=
+cf77e81c524f8d90280f62a4fd19bc" height=3D"1" width=3D"1" alt=3D""></body>
 </html>
 
---_av-O0NxZTBDZD7Kg0X_LF64Rg--
+--_av-3kazPa4V5EaplnHn79XEIg--
 
