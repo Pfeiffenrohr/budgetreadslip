@@ -42,13 +42,13 @@ public class FondsService {
         parseFonds(list);
     }
 
-    public Transaction parseFonds(List<SlipEntry> list) {
+    public void parseFonds(List<SlipEntry> list) {
         Double diff = 0.0;
         //Vorerst haben wir nur Gesamtertrag. Daher ist die Liste evtl überflüssig
         //Aber vielleicht bekommen wir in Zukunft ja mehr
         if (list.size() < 1) {
             //Liste ist leer. kein richtiger Wert bekommen
-            return null;
+            return ;
         }
         for (int i = 0; i < list.size(); i++) {
             String aktDepotSumme = list.get(i).getSum();
@@ -61,7 +61,7 @@ public class FondsService {
             LOG.info("Kontname = " + realKontoName);
             if (realKontoName.equals("-1")) {
                 LOG.error("!! " + realKontoName + "Not found ");
-                new NextCloudCall().sendMessageToTalk("@richard BudgetReadSlip Error: " + realKontoName + " not found");
+                new NextCloudCall().sendMessageToTalk("@richard BudgetReadSlip Error: " + depotkonto + " not found");
                 continue;
             }
             UriComponents uriComponents = UriComponentsBuilder.newInstance()
@@ -76,7 +76,7 @@ public class FondsService {
             //System.out.println(uri);
             String result = restTemplate.getForObject(uri, String.class);
             if (result == null || result.equals("")) {
-                System.out.println("No result found. Set result to 0");
+                LOG.error("No result found. Set result to 0");
                 result = "0.0";
             }
             LOG.info("Found " + result + " amount now");
@@ -90,10 +90,9 @@ public class FondsService {
             // Ansonsten gibt es "unschöne Effeckte, wenn das Geld schon gebucht ist, aber noch nicht angekommen ist.
 
             if (diff > 0.001 || diff < -0.001) {
-                return insertTransaction(diff, realKontoName);
+                 insertTransaction(diff, realKontoName);
             }
         }
-        return null;
     }
 
     private Transaction insertTransaction(Double wert, String realKontoName) {

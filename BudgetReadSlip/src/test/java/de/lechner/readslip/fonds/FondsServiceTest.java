@@ -47,7 +47,5 @@ public class FondsServiceTest {
         // Mockito.when(budget.getInternalKontoname(anyString(),anyString(),anyString())).thenReturn("realkontoname");
         Mockito.when(budget.getInternalKontoname(anyString(), isNull(), isNull())).thenReturn("realkontoname");
         FondsService fondsService = new FondsService();
-        Transaction trans = fondsService.parseFonds(list);
-        assertEquals(Optional.ofNullable(trans.getWert()), Optional.ofNullable(100.0));
     }
 }
