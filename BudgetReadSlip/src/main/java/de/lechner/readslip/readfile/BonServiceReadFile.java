@@ -6,13 +6,11 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
-import java.util.List;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-
-import de.lechner.readslip.bon.SlipEntry;
 import de.lechner.readslip.bon.SlipEntryList;
 import de.lechner.readslip.parser.ParseSlip;
 import de.lechner.readslip.transaction.UpdateTransactions;
@@ -23,8 +21,8 @@ public class BonServiceReadFile {
 	
 	 @Value("${budget.inputdir}")
 	 String inputdir="";
-	 @Value("${budget.filename}") 
-	 String companies [];
+	 @Value("${budget.filename}")
+     String[] companies;
 	/*@Autowired
 	private BonRepository slipRepository;*/
 	
@@ -34,20 +32,19 @@ public class BonServiceReadFile {
 	@Autowired
 	private UpdateTransactions updateTrans;
 
+    private static final Logger LOG = LoggerFactory.getLogger(BonServiceReadFile.class);
     public BonServiceReadFile() {
-        this.inputdir = inputdir;
     }
 
     public void handleSlipFile()
-	{	
-		for (int i = 0; i < companies.length; i++) {			
-			String txt = readSlip(companies[i] + ".txt");
-			if (txt.equals("File not found")) {
-				//System.out.println("File not found! "+ companies[i]);
-				continue;
-			} 
-			parseslip.analyse(txt, companies[i]);
-		}
+	{
+        for (String company : companies) {
+            String txt = readSlip(company + ".txt");
+            if (txt.equals("File not found")) {
+                continue;
+            }
+            parseslip.analyse(txt, company);
+        }
 	}
 	
 	public void handleSlipRest(SlipEntryList list, String company)
@@ -65,7 +62,7 @@ public class BonServiceReadFile {
 	private String readSlip(String filename) {
 		 
 		String datName = inputdir+filename;
-		String txt ="";
+		StringBuilder txt = new StringBuilder();
 
         File file = new File(datName);
         if (! file.exists()) {
@@ -73,21 +70,19 @@ public class BonServiceReadFile {
         }
 
         if (!file.canRead() || !file.isFile()) {
-        	System.err.println("Can not read Inputfile!");
+        	LOG.error("Can not read Inputfile!");
         
            return "";
 	}
             BufferedReader in = null;
         try {
             in = new BufferedReader(new FileReader(datName));
-            String zeile = null;
+            String zeile;
             while ((zeile = in.readLine()) != null) {
-               // System.out.println("Gelesene Zeile: " + zeile);
-                txt=txt+"\n"+zeile;
+                txt.append("\n").append(zeile);
             }
-            System.out.println(txt);
             
-            return txt;
+            return txt.toString();
         } catch (IOException e) {
             e.printStackTrace();
             return "";
@@ -100,16 +95,18 @@ public class BonServiceReadFile {
                     //
                     File theDir = new File(inputdir+filename+"Files");
                     if (!theDir.exists()){
-                        theDir.mkdirs();
+                        if (!theDir.mkdirs()) {
+                            LOG.error("Can not create directory");
+                        }
                     }
-                    // System.out.println("Move fiel to "+inputdir+filename+"Files/"+ file.getName()+"-"+sdf.format(timestamp));
                     if(file.renameTo(new File(inputdir+filename+"Files/"+ file.getName()+"-"+sdf.format(timestamp)))){
                   //  if (file.renameTo(new File("T:\\\\tmp\\oldNettoFiles\\gemoved.txt"))) {
-                        System.out.println("File is moved successful!");
+                        LOG.info("File is moved successful!");
                        }else{
-                        System.err.println("File is failed to move!");
+                        LOG.error("File is failed to move!");
                        }
                 } catch (IOException e) {
+                    LOG.error("Exception "+e);
                 }
         }
 	}

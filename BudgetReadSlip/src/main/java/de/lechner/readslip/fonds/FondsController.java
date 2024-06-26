@@ -9,8 +9,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import de.lechner.readslip.bon.SlipEntryList;
-import de.lechner.readslip.readfile.BonServiceReadFile;
-import org.springframework.web.client.RestTemplate;
 
 @RestController
 public class FondsController {
@@ -25,8 +23,6 @@ public class FondsController {
 
      @RequestMapping(method=RequestMethod.POST, value="/fonds")
           public String addTransaction(@RequestBody  SlipEntryList  se , @RequestHeader("company") String company) {
-                // transactionservice.addTransaction(transaction);
-           System.out.println("accept "+ company);
            rs.analyseRest(se, company); 
            return "accept";
     }     

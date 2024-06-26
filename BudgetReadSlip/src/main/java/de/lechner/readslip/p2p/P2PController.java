@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import de.lechner.readslip.bon.SlipEntryList;
-import de.lechner.readslip.readfile.BonServiceReadFile;
 
 @RestController
 public class P2PController {
@@ -25,7 +24,6 @@ public class P2PController {
      @RequestMapping(method=RequestMethod.POST, value="/p2p")
           public String addTransaction(@RequestBody  SlipEntryList  se , @RequestHeader("company") String company) {
                 // transactionservice.addTransaction(transaction);
-           System.out.println("accept "+ company);
            rs.analyseRest(se, company); 
            return "accept";
     }     

@@ -4,7 +4,8 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -26,7 +27,8 @@ public class P2PService {
     private String port;
     @Autowired
     Budget budget;
-    
+
+    private static final Logger LOG = LoggerFactory.getLogger(P2PService.class);
     public void analyseRest(SlipEntryList listSE,String company) {
         List <SlipEntry>  list = listSE.getList();
         
@@ -68,17 +70,16 @@ public class P2PService {
        }
                 
        String uri=uriComponents.toUriString();
-       //System.out.println(uri);    
        RestTemplate restTemplate = new RestTemplate();
        String result = restTemplate.getForObject(uri, String.class);
        if (result==null ||result.equals(""))
        {
-          System.out.println("No result found. Set result to 0");
+          LOG.warn("No result found. Set result to 0");
           result="0.0";
        }
-       System.out.println("Found " +  result +" amount now"); 
+       LOG.info("Found " +  result +" amount now");
        
-       double diff=0.0;
+       double diff;
        //Extrawurst für viainvest
        if ( company.equals("ViaInvest")||company.equals("Income")||company.equals("Swaper"))
        {
@@ -89,13 +90,13 @@ public class P2PService {
        {
     	   diff = new Double (ertrag) - new Double (result);
        }
-       System.out.println("Found to insert " + diff);
+       LOG.info("Found to insert " + diff);
        //Falls der Betrag größer 49€ oder kleiner -49 € ist, dann wird er vorerst nicht eingetragen
        // Ansonsten gibt es "unschöne Effeckte, wenn das Geld schon gebucht ist, aber noch nicht angekommen ist. 
        if (diff > 49.0 || diff < -49 )
        {
-           System.out.println("!!!Amount is " + diff);
-           System.out.println("!!!This is to big. Therefore it will be not inserted");
+           LOG.warn("!!!Amount is " + diff);
+           LOG.warn("!!!This is to big. Therefore it will be not inserted");
            return;
        }
        
@@ -130,7 +131,7 @@ public class P2PService {
        trans.setDatum(new SimpleDateFormat("yyyy-MM-dd").format(date));
        trans.setWert(wert);
        trans.setKategorie(42);
-       System.out.println("Insert Transaction! " + trans.getDatum());
+       LOG.info("Insert Transaction! " + trans.getDatum());
        restTemplate.postForEntity(uri,trans, Transaction.class);
        
        
