@@ -19,14 +19,9 @@ import java.nio.charset.Charset;
 
 
 public class NextCloudCall {
-    @Autowired
-    private RestTemplate restTemplate;
-    @Value("${budgetserver.host}")
-    private String host;
-    @Value("${budgetserver.port}")
-    private String port;
     private static final Logger LOG = LoggerFactory.getLogger(NextCloudCall.class);
     public void sendMessageToTalk(String msg) {
+        RestTemplate restTemplate = new RestTemplate();
         LOG.info("Start sendmessage to talk");
         String plainCreds = "richard:Thierham123";
         byte[] encodedAuth = Base64.encodeBase64(
