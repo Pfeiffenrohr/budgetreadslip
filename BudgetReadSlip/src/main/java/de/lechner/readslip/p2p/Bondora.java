@@ -29,9 +29,6 @@ public class Bondora {
     
    
     public void callBondora() {
-        //TODO Muss gefixed werden, wenn Bondora wieder funktinoiert
-        return;
-        /*
         Calendar cal = Calendar.getInstance();
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
@@ -64,7 +61,7 @@ public class Bondora {
          list.add(se);
          
          p2pService.parseP2P(list, "Bondora");
-        */
+
     }
 
 }
