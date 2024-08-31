@@ -1,22 +1,22 @@
-KLCKA TrFutter 249 {
-Kaiserbroetchen 038 {
-Laugenbrezel 839 {
-KLC Geh Tom 425 869 {
-Pfanner Guave 199 {
-Zott Schlemmerjog 889 {
-Zott Sannejoghurt 889 {
-KLCMllbeutel 38L 155 {
-Bananen 059 {
-Unser Mildes 188 {
-KLCEmmentaler 259 {
-KLC Kidneybohnen 158 {
-Krustenpraten 1206 {
-Leergut Getraenke -251 {
-Leergut Mopro -825 {
-Cocktailtomaten 149 {
-KPaprika-Salami 179 {
-BondGoldmJErnte 229 {
-FranzWeissbAFG 189 {
-Pfandartikel 008 {
-FranzKristallklar 189 {
-Pfandartikel 008 {
+KLCKA TrFutter 2,49 {
+Kaiserbroetchen 0,38 {
+Laugenbrezel 8,39 {
+KLC Geh Tom 425 8,69 {
+Pfanner Guave 1,99 {
+Zott Schlemmerjog 8,89 {
+Zott Sannejoghurt 8,89 {
+KLCMllbeutel 38L 1,55 {
+Bananen 0,59 {
+Unser Mildes 1,88 {
+KLCEmmentaler 2,59 {
+KLC Kidneybohnen 1,58 {
+Krustenpraten 12,06 {
+Leergut Getraenke -2,51 {
+Leergut Mopro -8,25 {
+Cocktailtomaten 1,49 {
+KPaprika-Salami 1,79 {
+BondGoldmJErnte 2,29 {
+FranzWeissbAFG 1,89 {
+Pfandartikel 0,08 {
+FranzKristallklar 1,89 {
+Pfandartikel 0,08 {

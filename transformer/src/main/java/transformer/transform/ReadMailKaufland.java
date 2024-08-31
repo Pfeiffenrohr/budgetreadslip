@@ -36,7 +36,6 @@ private List <SlipEntry> list ;
             line=line.replace("�","ae");
             line=line.replace("�","ue");
             line=line.replace("�","oe");
-            line=line.replace(",",".");
             line = eliminateSonderzeichen(line);
             if (hasPattern(line)) {
                 count++;
