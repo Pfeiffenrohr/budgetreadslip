@@ -1,0 +1,22 @@
+KLCKA TrFutter 249 {
+Kaiserbroetchen 038 {
+Laugenbrezel 839 {
+KLC Geh Tom 425 869 {
+Pfanner Guave 199 {
+Zott Schlemmerjog 889 {
+Zott Sannejoghurt 889 {
+KLCMllbeutel 38L 155 {
+Bananen 059 {
+Unser Mildes 188 {
+KLCEmmentaler 259 {
+KLC Kidneybohnen 158 {
+Krustenpraten 1206 {
+Leergut Getraenke -251 {
+Leergut Mopro -825 {
+Cocktailtomaten 149 {
+KPaprika-Salami 179 {
+BondGoldmJErnte 229 {
+FranzWeissbAFG 189 {
+Pfandartikel 008 {
+FranzKristallklar 189 {
+Pfandartikel 008 {

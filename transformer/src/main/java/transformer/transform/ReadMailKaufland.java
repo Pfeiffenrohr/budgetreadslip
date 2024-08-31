@@ -21,7 +21,7 @@ private List <SlipEntry> list ;
         String splited[] = txt.trim().split("\n");
         System.out.println("File has " + splited.length + " lines");
         int count = 0;
-        //Überspringe die Zeilen, bis zum Anfang
+        //ï¿½berspringe die Zeilen, bis zum Anfang
         while (!splited[count].startsWith("Preis")) {
             count++;
         }
@@ -33,9 +33,11 @@ private List <SlipEntry> list ;
             line=line.replace("PREPACK","");
             line=line.replace("BED","");
             line=line.replace("/"," ");
-            line=line.replace("ä","ae");
-            line=line.replace("ü","ue");
-            line=line.replace("ö","oe");
+            line=line.replace("ï¿½","ae");
+            line=line.replace("ï¿½","ue");
+            line=line.replace("ï¿½","oe");
+            line=line.replace(",",".");
+            line = eliminateSonderzeichen(line);
             if (hasPattern(line)) {
                 count++;
                 continue;
@@ -45,7 +47,7 @@ private List <SlipEntry> list ;
 
             SlipEntry se = new SlipEntry();
             String name = "";
-            //Überspringe alle falschen Zeilen
+            //ï¿½berspringe alle falschen Zeilen
             if ( tokens[0].startsWith("/kg") || tokens[0].startsWith("EURkg") || tokens[0].startsWith("SUMME") || tokens[0].startsWith("2x"))
             {
                 count++;
@@ -53,7 +55,7 @@ private List <SlipEntry> list ;
             }
             name=tokens[0];
             for (int j = 1; j < tokens.length; j++) {
-                if (!isNumber(tokens[j]) ||  (j < tokens.length-1) ) {
+                if (!isNumber(tokens[j]) ||  (j < tokens.length-2) ) {
                         name = name + " " + tokens[j];
                 } else {
                     System.out.println("Name: " + name);
@@ -76,7 +78,7 @@ private List <SlipEntry> list ;
     }
 
     /**
-     * Prüft, ob es sich bei dem String um eine Zahl handelt
+     * Prï¿½ft, ob es sich bei dem String um eine Zahl handelt
      */
 
 
@@ -100,5 +102,24 @@ private List <SlipEntry> list ;
             return true;
         }
         return false;
+    }
+    private String eliminateSonderzeichen (String line ) {
+        String result = "";
+        for (int i = 0; i < line.length(); i++) {
+            Character ch = line.charAt(i);
+            if (isLetterOrDigit(ch)) {
+                result = result+ch;
+            }
+
+        }
+        return result;
+    }
+    private static boolean isLetterOrDigit(char c) {
+        if ( c==' ') {return true;}
+        if ( c=='-') {return true;}
+        if ( c==',') {return true;}
+        return (c >= 'a' && c <= 'z') ||
+                (c >= 'A' && c <= 'Z') ||
+                (c >= '0' && c <= '9');
     }
 }
