@@ -26,7 +26,7 @@ private List <SlipEntry> list ;
             count++;
         }
         count++;
-        while (!splited[count].startsWith("---") && !splited[count].startsWith("Gesamt") ) {
+        while (!splited[count].startsWith("---") && !splited[count].startsWith("Gesamt")&& !splited[count].startsWith("Summe") ) {
             String line = splited[count];
             //Tokenize the line
             line=line.replace("*"," ");
