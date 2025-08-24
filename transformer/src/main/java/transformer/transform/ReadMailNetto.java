@@ -16,7 +16,7 @@ public class ReadMailNetto implements ReadMail {
     public String parseMail(String txt) {
         list = new ArrayList<SlipEntry>();
         String content=""; 
-        String splited [] = txt.trim().split("<td");
+        String splited [] = txt.trim().split("\n");
         System.out.println("File has " + splited.length + " lines");
         int count = 0;
         // Suche den Anfang
@@ -32,17 +32,7 @@ public class ReadMailNetto implements ReadMail {
             SlipEntry se = new SlipEntry();
             System.out.println("In while 1 "+count);
             
-            System.out.println(splited[count]);
-            while (! splited[count].contains("Verdana,Geneva"))   {
-              
-               
-                count++;
-                if (splited[count].contains("Summe")) 
-                {
-                    return content;
-                }
-                continue;
-            }
+
             
             System.out.println(splited[count]);
             String name = splited[count];

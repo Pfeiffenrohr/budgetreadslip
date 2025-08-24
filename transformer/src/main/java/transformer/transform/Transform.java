@@ -25,7 +25,7 @@ public class Transform {
     private static List list = new ArrayList<SlipEntry>();
 
     public static void main(String[] args) {
-        String url = args[3];
+        String url = "http://"+args[3];
         Transform tr = new Transform();
         String txt=tr.readFile(args[0]);
         String content;
@@ -168,7 +168,11 @@ public class Transform {
             request.addHeader("company", company);
             request.setEntity(params);
             HttpResponse response = httpClient.execute(request);
-        } catch (Exception ex) {
+            System.out.println("Response: "+response);
+        } catch (Exception e
+
+        ) {
+            System.err.println(e);
         } finally {
             // @Deprecated httpClient.getConnectionManager().shutdown(); 
         }

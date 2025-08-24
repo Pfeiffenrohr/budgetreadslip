@@ -34,8 +34,12 @@ public class ReadConsorsBank implements ReadMail {
                 }
                 SlipEntry se = new SlipEntry();
                 String name = colums[0].replace("&", "u");
+                if (name.equals("Name"))
+                {
+                    continue;
+                }
                 se.setName(name);
-                String [] sum= colums[13].split(" ");
+                String [] sum= colums[12].split(" ");
                 summe= sum[0].replace(".", "").replace(",", ".");
                 //summe= sum[0];
                 se.setSum(summe);
