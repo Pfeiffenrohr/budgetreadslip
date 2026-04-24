@@ -49,5 +49,5 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             cd /home/richard/docker/CbudgetNew
-            docker-compose pull cbudgetreadslip
-            docker compose up -d cbudgetreadslip
+            docker-compose pull budgetreadslip
+            docker compose up -d budgetreadslip
